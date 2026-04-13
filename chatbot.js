@@ -135,7 +135,7 @@
 
     /* ─ 헤더 ─ */
     .cb-header {
-      background: var(--cb-navy); padding: 20px 32px;
+      background: var(--cb-navy); padding: 22px 36px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .cb-header-left { display: flex; align-items: center; gap: 14px; }
@@ -147,7 +147,7 @@
     .cb-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
 
     /* ─ 본문 ─ */
-    .cb-body { flex: 1; overflow-y: auto; padding: 32px 32px; background: var(--cb-bg); }
+    .cb-body { flex: 1; overflow-y: auto; padding: 36px 36px; background: var(--cb-bg); }
     .cb-body::-webkit-scrollbar { width: 5px; }
     .cb-body::-webkit-scrollbar-track { background: transparent; }
     .cb-body::-webkit-scrollbar-thumb { background: #D0D5DD; border-radius: 4px; }
@@ -184,7 +184,7 @@
     .cb-msg-content a:hover { text-decoration: underline; }
 
     /* ─ 퀵 버튼 ─ */
-    .cb-quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; padding-left: 46px; }
+    .cb-quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; padding-left: 48px; }
     .cb-quick-btn {
       padding: 10px 18px; border-radius: 24px; font-size: 13.5px; font-weight: 600;
       border: 1px solid var(--cb-border); background: #fff; color: var(--cb-navy);
@@ -195,7 +195,7 @@
 
     /* ─ 입력 ─ */
     .cb-input-wrap {
-      padding: 18px 24px; border-top: 1px solid var(--cb-border);
+      padding: 20px 32px; border-top: 1px solid var(--cb-border);
       display: flex; gap: 10px; background: #fff;
     }
     .cb-input {
