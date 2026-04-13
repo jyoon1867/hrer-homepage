@@ -135,7 +135,7 @@
 
     /* ─ 헤더 ─ */
     .cb-header {
-      background: var(--cb-navy); padding: 20px 28px;
+      background: var(--cb-navy); padding: 20px 32px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .cb-header-left { display: flex; align-items: center; gap: 14px; }
@@ -147,7 +147,7 @@
     .cb-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
 
     /* ─ 본문 ─ */
-    .cb-body { flex: 1; overflow-y: auto; padding: 32px 28px; background: var(--cb-bg); }
+    .cb-body { flex: 1; overflow-y: auto; padding: 32px 32px; background: var(--cb-bg); }
     .cb-body::-webkit-scrollbar { width: 5px; }
     .cb-body::-webkit-scrollbar-track { background: transparent; }
     .cb-body::-webkit-scrollbar-thumb { background: #D0D5DD; border-radius: 4px; }
@@ -165,7 +165,7 @@
     }
 
     .cb-msg-content {
-      max-width: 78%; padding: 18px 22px; border-radius: 16px;
+      max-width: 78%; padding: 20px 26px; border-radius: 16px;
       font-size: 14.5px; line-height: 2; letter-spacing: 0.1px; word-spacing: 0.5px;
     }
     .cb-bot .cb-msg-content {
