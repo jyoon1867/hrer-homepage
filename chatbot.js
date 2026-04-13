@@ -120,7 +120,7 @@
 
     .cb-window {
       position: fixed; bottom: 92px; right: 24px; z-index: 9999;
-      width: 380px; max-height: 560px; border-radius: 16px;
+      width: 400px; max-height: 680px; border-radius: 16px;
       background: #fff; border: 1px solid var(--cb-border);
       box-shadow: 0 12px 48px rgba(15,39,68,0.15);
       display: none; flex-direction: column; overflow: hidden;
@@ -140,16 +140,16 @@
     .cb-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 24px; cursor: pointer; padding: 0 4px; line-height: 1; }
     .cb-close:hover { color: #fff; }
 
-    .cb-body { flex: 1; overflow-y: auto; padding: 20px 16px; min-height: 320px; max-height: 400px; background: var(--cb-bg); }
+    .cb-body { flex: 1; overflow-y: auto; padding: 24px 20px; min-height: 420px; max-height: 520px; background: var(--cb-bg); }
     .cb-body::-webkit-scrollbar { width: 4px; }
     .cb-body::-webkit-scrollbar-thumb { background: var(--cb-border); border-radius: 4px; }
 
-    .cb-msg { margin-bottom: 12px; display: flex; }
+    .cb-msg { margin-bottom: 16px; display: flex; }
     .cb-msg.cb-bot { justify-content: flex-start; }
     .cb-msg.cb-user { justify-content: flex-end; }
     .cb-msg-content {
-      max-width: 85%; padding: 12px 16px; border-radius: 12px;
-      font-size: 14px; line-height: 1.7; letter-spacing: -0.2px;
+      max-width: 85%; padding: 14px 18px; border-radius: 12px;
+      font-size: 14.5px; line-height: 1.85; letter-spacing: -0.1px;
     }
     .cb-bot .cb-msg-content { background: #fff; color: var(--cb-navy); border: 1px solid var(--cb-border); border-bottom-left-radius: 4px; }
     .cb-user .cb-msg-content { background: var(--cb-navy); color: #fff; border-bottom-right-radius: 4px; }
@@ -157,7 +157,7 @@
     .cb-msg-content a { color: var(--cb-mint); font-weight: 600; text-decoration: none; }
     .cb-msg-content a:hover { text-decoration: underline; }
 
-    .cb-quick { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .cb-quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
     .cb-quick-btn {
       padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
       border: 1px solid var(--cb-border); background: #fff; color: var(--cb-navy);
@@ -193,7 +193,7 @@
     @media (max-width: 480px) {
       .cb-window { right: 0; bottom: 0; width: 100%; max-height: 100vh; border-radius: 0; }
       .cb-bubble { bottom: 16px; right: 16px; }
-      .cb-body { max-height: calc(100vh - 130px); }
+      .cb-body { max-height: calc(100vh - 140px); min-height: auto; }
     }
   `;
   document.head.appendChild(style);
