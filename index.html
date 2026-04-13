@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HRer — 소규모 사업장을 위한 인사·노무 서비스</title>
+  <meta name="description" content="이메일 한 통으로 노무 자문, 인사평가, 사건조사, 부당해고까지. 계약서 없이, 건별 결제로.">
+  <meta property="og:title" content="HRer — 소규모 사업장을 위한 인사·노무 서비스">
+  <meta property="og:description" content="이메일 한 통으로 노무 자문, 인사평가, 사건조사, 부당해고까지.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0F2744;
+      --navy2: #1A3A5C;
+      --mint: #00B893;
+      --mint-light: #E6F7F3;
+      --white: #FFFFFF;
+      --bg: #F7F9FC;
+      --bg2: #EEF2F7;
+      --text: #0F2744;
+      --gray: #5A6A80;
+      --gray2: #8A9AB0;
+      --border: #E2E8F0;
+      --font: 'Noto Sans KR', -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    * { font-family: 'Noto Sans KR', -apple-system, sans-serif !important; }
+    body {
+      font-family: 'Noto Sans KR', -apple-system, sans-serif !important;
+      color: var(--text); background: var(--white); overflow-x: hidden;
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--navy) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+      background: transparent !important;
+    }
+
+    .logo {
+      font-size: 24px; font-weight: 900;
+      letter-spacing: -0.5px; text-decoration: none; background: transparent !important;
+      line-height: 1;
+    }
+    .logo .hr { color: var(--mint) !important; }
+    .logo .er { color: var(--white) !important; }
+
+    .nav-links { display: flex; gap: 36px; align-items: center; background: transparent !important; }
+    .nav-links a {
+      font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.6) !important;
+      text-decoration: none; transition: color 0.2s; letter-spacing: -0.2px; background: transparent !important;
+    }
+    .nav-links a:hover { color: var(--white) !important; }
+    .nav-cta {
+      background: var(--mint) !important; color: var(--navy) !important;
+      padding: 10px 22px; border-radius: 8px;
+      font-weight: 700 !important; font-size: 14px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: #00a07e !important; color: var(--navy) !important; }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      width: 32px; height: 32px; position: relative; z-index: 101;
+    }
+    .mobile-menu-btn span {
+      display: block; width: 22px; height: 2px; background: var(--white);
+      margin: 5px auto; transition: all 0.3s;
+    }
+    .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+    .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .mobile-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15,39,68,0.95); z-index: 99;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-overlay.active { display: flex; }
+    .mobile-overlay a {
+      font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.8) !important;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .mobile-overlay a:hover { color: var(--white) !important; }
+    .mobile-overlay .nav-cta {
+      background: var(--mint) !important; color: var(--navy) !important;
+      padding: 14px 36px; border-radius: 8px; font-size: 18px !important;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 160px 40px 120px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-content { max-width: 780px; margin: 0 auto; text-align: center; }
+    .hero-badge {
+      display: inline-block; padding: 10px 24px; border-radius: 4px;
+      background: var(--bg2); color: var(--gray); font-size: 24px; font-weight: 600;
+      letter-spacing: -0.2px; margin-bottom: 32px;
+    }
+    .hero-desc {
+      font-size: 50px !important; line-height: 1.2; color: var(--navy) !important;
+      margin: 0 auto 24px; max-width: 900px; letter-spacing: -1.5px;
+      font-weight: 900 !important;
+    }
+    .hero h1 {
+      font-size: 22px !important; font-weight: 600; line-height: 1.6; letter-spacing: -0.3px;
+      color: var(--gray) !important; margin-bottom: 48px;
+    }
+    .hero h1 em { font-style: normal; color: var(--mint) !important; background: transparent !important; }
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: 0;
+      justify-content: center; margin-bottom: 48px;
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      max-width: 860px; margin-left: auto; margin-right: auto;
+    }
+    .hero-chip {
+      padding: 28px 32px; background: var(--white);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      flex: 1; min-width: 160px;
+      transition: background 0.2s;
+    }
+    .hero-chip:last-child { border-right: none; }
+    .hero-chip:hover { background: var(--bg); }
+    .hero-chip-sub {
+      font-size: 18px; font-weight: 500; color: var(--gray2);
+      letter-spacing: -0.2px;
+    }
+    .hero-chip-main {
+      font-size: 31px; font-weight: 900; color: var(--navy); letter-spacing: -0.5px;
+      text-align: center;
+    }
+    .hero-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--navy); color: var(--white); padding: 16px 36px;
+      border-radius: 8px; font-size: 16px; font-weight: 600;
+      text-decoration: none; transition: background 0.2s; border: none;
+      cursor: pointer; letter-spacing: -0.3px; display: inline-block;
+    }
+    .btn-primary:hover { background: var(--navy2); }
+    .btn-secondary {
+      background: var(--white); color: var(--navy); padding: 16px 36px;
+      border-radius: 8px; font-size: 16px; font-weight: 600;
+      text-decoration: none; border: 1.5px solid var(--border);
+      transition: border-color 0.2s; letter-spacing: -0.3px; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--navy); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 120px 40px; }
+    .section-inner { max-width: 1120px; margin: 0 auto; }
+    .section-label {
+      font-size: 24px; font-weight: 700; color: var(--mint);
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 48px; font-weight: 900; line-height: 1.15; letter-spacing: -2px;
+      color: var(--navy); margin-bottom: 20px;
+    }
+    .section-desc {
+      font-size: 22px; line-height: 1.75; color: var(--gray);
+      max-width: 560px; letter-spacing: -0.3px; font-weight: 500;
+    }
+
+    /* ─── EMPATHY ─── */
+    .empathy { background: var(--bg); }
+    .empathy-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 56px; max-width: 660px; }
+    .empathy-card {
+      padding: 22px 28px; border-radius: 8px; background: var(--white);
+      font-size: 17px !important; line-height: 1.7; color: var(--gray); letter-spacing: -0.3px;
+      border: 1px solid var(--border);
+      opacity: 0; transform: translateY(12px);
+    }
+    .empathy-card.animate {
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .empathy-card:nth-child(1) { animation-delay: 0.1s; }
+    .empathy-card:nth-child(2) { animation-delay: 0.2s; }
+    .empathy-card:nth-child(3) { animation-delay: 0.3s; }
+    .empathy-card:nth-child(4) { animation-delay: 0.4s; }
+    .empathy-card.highlight {
+      animation-delay: 0.5s; border-color: var(--mint);
+      background: var(--mint-light); color: var(--navy); font-weight: 600;
+    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .empathy-transition {
+      margin-top: 40px; padding: 40px 48px; border-radius: 8px;
+      background: var(--navy) !important; color: var(--white) !important;
+      font-size: 29px !important; line-height: 1.5; letter-spacing: -0.5px;
+    }
+    .empathy-transition strong { color: var(--mint) !important; background: transparent !important; }
+
+    /* ─── PROCESS ─── */
+    .keyword { color: var(--mint) !important; font-weight: 900; background: transparent !important; }
+    .process { background: var(--white); }
+    .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px; }
+    .step {
+      background: #D8E4F0; border-radius: 12px; padding: 40px 32px;
+      border: 1px solid #B8CCE0; position: relative; transition: border-color 0.2s;
+    }
+    .step:hover { border-color: var(--navy); }
+    .step-num {
+      font-size: 14px; font-weight: 700; color: var(--mint); letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .step h3 { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.5px; }
+    .step p { font-size: 17px; line-height: 1.7; color: #3A4A5C; letter-spacing: -0.2px; }
+
+    /* ─── SERVICES ─── */
+    .services { background: var(--bg); }
+    .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 60px; }
+    .service-card {
+      border-radius: 12px; padding: 36px; background: var(--white);
+      border: 1px solid var(--border); transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { border-color: var(--navy); box-shadow: 0 4px 20px rgba(15,39,68,0.06); }
+    .service-cat {
+      font-size: 12px; font-weight: 700; color: var(--mint);
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .service-card h3 { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.5px; }
+    .service-card p { font-size: 16px; line-height: 1.7; color: var(--gray); margin-bottom: 20px; letter-spacing: -0.2px; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .service-tag {
+      padding: 5px 12px; border-radius: 4px; font-size: 13px; font-weight: 500;
+      background: var(--bg); color: var(--gray); border: 1px solid var(--border);
+    }
+    .service-link {
+      font-size: 14px; font-weight: 600; color: var(--navy);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .service-link:hover { color: var(--mint); }
+
+    /* ─── EXPERT ─── */
+    .expert { background: var(--white); }
+    .expert-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; align-items: start; }
+    .expert-profile {
+      background: var(--bg); border-radius: 12px; padding: 40px;
+      border: 1px solid var(--border);
+    }
+    .expert-name { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 4px; letter-spacing: -0.5px; }
+    .expert-title { font-size: 15px; color: var(--gray); margin-bottom: 24px; }
+    .expert-bio { font-size: 16px; line-height: 1.75; color: var(--gray); margin-bottom: 28px; letter-spacing: -0.2px; }
+    .expert-tags-label { font-size: 12px; font-weight: 700; color: var(--navy); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+    .expert-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .expert-tag {
+      padding: 6px 14px; border-radius: 4px; font-size: 13px; font-weight: 500;
+    }
+    .expert-tag.navy { background: var(--navy); color: var(--white); }
+    .expert-tag.outline { background: var(--white); color: var(--navy); border: 1px solid var(--border); }
+    .expert-right { display: flex; flex-direction: column; gap: 16px; }
+    .stat-card {
+      background: var(--bg); border-radius: 12px; padding: 32px;
+      border: 1px solid var(--border);
+    }
+    .stat-num { font-size: 44px; font-weight: 900; color: var(--navy) !important; letter-spacing: -1px; }
+    .stat-num span { color: var(--navy) !important; }
+    .stat-label { font-size: 15px; color: var(--gray); margin-top: 6px; letter-spacing: -0.2px; }
+
+    /* ─── TRUST ─── */
+    .trust { background: var(--navy) !important; }
+    .trust .section-label { color: var(--mint) !important; }
+    .trust .section-title { color: var(--white) !important; background: transparent !important; }
+    .trust-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 60px; }
+    .trust-feature {
+      padding: 36px 32px; border-radius: 12px;
+      background: rgba(255,255,255,0.07) !important; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .trust-feature-num {
+      font-size: 12px; font-weight: 700; color: var(--mint) !important;
+      letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; background: transparent !important;
+    }
+    .trust-feature h3 { font-size: 20px; font-weight: 700; color: var(--white) !important; margin-bottom: 12px; letter-spacing: -0.3px; background: transparent !important; }
+    .trust-feature p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.65) !important; letter-spacing: -0.2px; background: transparent !important; }
+
+    /* ─── NUDGE ─── */
+    .nudge { background: var(--bg); text-align: center; }
+    .nudge-checks {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px;
+      margin: 48px auto; max-width: 700px;
+    }
+    .nudge-check { display: flex; align-items: center; gap: 10px; font-size: 16px; color: var(--gray); letter-spacing: -0.2px; }
+    .nudge-check .check {
+      width: 24px; height: 24px; border-radius: 4px; background: var(--mint);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 13px; font-weight: 700; flex-shrink: 0;
+    }
+    .nudge-quote {
+      font-size: 26px; line-height: 1.75; color: var(--navy);
+      max-width: 600px; margin: 0 auto 48px; letter-spacing: -0.5px;
+      font-weight: 700;
+    }
+
+    /* ─── FAQ ─── */
+    .faq { background: var(--white); }
+    .faq-list { max-width: 720px; margin: 60px auto 0; }
+    .faq-item {
+      border-radius: 8px; margin-bottom: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .faq-q {
+      padding: 22px 28px; font-size: 17px; font-weight: 600; color: var(--navy);
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      letter-spacing: -0.3px; background: var(--white);
+    }
+    .faq-q::after { content: '+'; font-size: 22px; color: var(--mint); font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-q::after { transform: rotate(45deg); }
+    .faq-a { padding: 0 28px; max-height: 0; overflow: hidden; transition: all 0.3s ease; background: var(--bg); }
+    .faq-item.open .faq-a { padding: 20px 28px 24px; max-height: 300px; }
+    .faq-a p { font-size: 16px; line-height: 1.75; color: var(--gray); letter-spacing: -0.2px; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy) !important; padding: 56px 40px; }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: start;
+      flex-wrap: wrap; gap: 32px; background: transparent !important;
+    }
+    .footer-logo { font-size: 20px; font-weight: 800; color: var(--white) !important; margin-bottom: 10px; letter-spacing: -0.3px; background: transparent !important; }
+    .footer-logo .hr { color: var(--mint) !important; }
+    .footer-logo .er { color: var(--white) !important; }
+    .footer-info { font-size: 13px; color: rgba(255,255,255,0.4) !important; line-height: 1.75; background: transparent !important; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; background: transparent !important; }
+    .footer-links a { color: rgba(255,255,255,0.45) !important; text-decoration: none; font-size: 14px; transition: color 0.2s; background: transparent !important; }
+    .footer-links a:hover { color: var(--white) !important; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-desc { font-size: 36px !important; }
+      .hero h1 { font-size: 18px !important; }
+      .hero-badge { font-size: 18px; }
+      .section-title { font-size: 34px; }
+      .process-steps { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
+      .expert-content { grid-template-columns: 1fr; }
+      .trust-features { grid-template-columns: 1fr; }
+      .empathy-transition { font-size: 22px !important; padding: 32px; }
+      .nudge .section-title { font-size: 38px !important; }
+      .nudge-quote { font-size: 22px; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 80px 24px; }
+      .hero { padding: 120px 24px 80px; }
+      .hero-desc { font-size: 30px !important; letter-spacing: -1px; }
+      .hero h1 { font-size: 16px !important; }
+      .hero-badge { font-size: 16px; padding: 8px 16px; }
+      .hero-chips { flex-direction: column; }
+      .hero-chip { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-chip:last-child { border-bottom: none; }
+      .section-title { font-size: 28px; }
+      .nav-inner { padding: 0 24px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .empathy-transition { font-size: 20px !important; padding: 28px 24px; }
+      .nudge .section-title { font-size: 30px !important; }
+      .nudge-quote { font-size: 20px; }
+      .stat-num { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <span class="hr">HR</span><span class="er">er</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">노무자문</a>
+      <a href="#services">인사평가</a>
+      <a href="#services">사건조사</a>
+      <a href="#services">부당해고</a>
+      <a href="#faq">FAQ</a>
+      <a href="mailto:contact@hrer.kr" class="nav-cta">자문 의뢰하기</a>
+    </div>
+    <button class="mobile-menu-btn" onclick="toggleMobile()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileMenu">
+  <a href="#services" onclick="closeMobile()">노무자문</a>
+  <a href="#services" onclick="closeMobile()">인사평가</a>
+  <a href="#services" onclick="closeMobile()">사건조사</a>
+  <a href="#services" onclick="closeMobile()">부당해고</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a href="mailto:contact@hrer.kr" class="nav-cta" onclick="closeMobile()">자문 의뢰하기</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="keyword">소규모 사업장</span>을 위한 인사·노무 서비스</div>
+    <div class="hero-desc">
+      계약서도, 미팅도, 전화도<br>
+      <span class="keyword">번거로운 절차 없이</span><br>
+      이메일 한 통으로 해결
+    </div>
+    <h1><em>노무 자문</em>부터 <em>사건</em>, <em>인사평가·보상 설계</em>까지</h1>
+    <div class="hero-chips">
+      <div class="hero-chip">
+        <div class="hero-chip-sub">건별 결제</div>
+        <div class="hero-chip-main">노무 자문</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-sub">소규모 사업장도</div>
+        <div class="hero-chip-main">인사평가</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-sub">합리적 비용</div>
+        <div class="hero-chip-main">사건조사</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-sub">필요한 단계만</div>
+        <div class="hero-chip-main">부당해고</div>
+      </div>
+    </div>
+    <div class="hero-buttons">
+      <a href="mailto:contact@hrer.kr" class="btn-primary">자문 의뢰하기</a>
+      <a href="#services" class="btn-secondary">서비스 둘러보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- EMPATHY -->
+<section class="empathy">
+  <div class="section-inner">
+    <div class="section-label">Pain Point</div>
+    <h2 class="section-title"><span class="keyword">인사·노무</span>, 이렇게 <span class="keyword">번거로우</span>셨죠?</h2>
+    <div class="empathy-cards" id="empathyCards">
+      <div class="empathy-card"><span class="keyword">노무사 자문</span> 받으려면 미팅 잡고, 견적 받고, 결재 올리고, 계약서 쓰고.</div>
+      <div class="empathy-card"><span class="keyword">인사평가</span> 도입하고 싶은데, 컨설팅 맡기자니 수천만원이고, 혼자 하자니 막막하고.</div>
+      <div class="empathy-card"><span class="keyword">직장 내 괴롭힘</span> 신고가 들어왔는데, 조사를 어떻게 해야 할지 모르겠고.</div>
+      <div class="empathy-card"><span class="keyword">부당해고</span> 구제신청이 들어왔는데, 변호사는 비싸고, 서면은 못 쓰겠고.</div>
+      <div class="empathy-card highlight">사실 이 모든 걸 <span class="keyword">한곳에서</span>, <span class="keyword">부담 없이</span>, <span class="keyword">필요한 만큼만</span> 의뢰할 수 있으면 되는 건데,<br><span class="keyword">그런 서비스가 없었을 뿐</span>.</div>
+    </div>
+    <div class="empathy-transition">
+      HRer는 그래서 만들었습니다.<br>
+      <strong>노무 자문, 인사평가, 사건 조사, 규정 정비까지.<br>이메일 한 통으로 시작하고, 필요한 만큼만 의뢰하세요.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title"><span class="keyword">미팅</span>도, <span class="keyword">전화</span>도, <span class="keyword">계약서</span>도 필요 없습니다.</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">Step 01</div>
+        <h3>이메일로 질문</h3>
+        <p>궁금한 내용을 편하게 보내주세요. 형식 상관없이 자유롭게, AI에게 묻듯이.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 02</div>
+        <h3>간편 결제</h3>
+        <p>계약서 없이, 건별 간편결제로 완료. 결재 올리느라 에너지 쓸 필요 없습니다.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Step 03</div>
+        <h3>서면으로 답변</h3>
+        <p>판례·행정해석·법령을 검토한 근거 있는 답변. 영업일 기준 24시간 이내.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="section-label">Services</div>
+    <h2 class="section-title"><span class="keyword">인사</span>와 <span class="keyword">노무</span>, <span class="keyword">한곳</span>에서.<br><span class="keyword">이메일</span> 중심, <span class="keyword">합리적 비용</span>으로 운영됩니다.</h2>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="service-cat">Labor Law</div>
+        <h3>노무 자문</h3>
+        <p>이메일로 질문하면, 판례·행정해석 근거와 함께 서면 답변을 드립니다.<br>건별 결제.</p>
+        <div class="service-tags">
+          <span class="service-tag">근로계약</span>
+          <span class="service-tag">퇴직금</span>
+          <span class="service-tag">연차</span>
+          <span class="service-tag">임금</span>
+          <span class="service-tag">해고절차</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-cat">HR Design</div>
+        <h3>인사평가 설계·분석</h3>
+        <p>10인 사업장도 과학적 인사평가를 할 수 있습니다.<br>BOS 기반 평가 설계, 통계 분석까지.</p>
+        <div class="service-tags">
+          <span class="service-tag">MBO + 역량평가</span>
+          <span class="service-tag">BOS 방식</span>
+          <span class="service-tag">7점 척도</span>
+          <span class="service-tag">벤치마크</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-cat">Labor Commission</div>
+        <h3>부당해고·노동위원회 사건</h3>
+        <p>초기 상담부터 서면 작성, 심문회의 참석까지.<br>단계별로 필요한 만큼만 의뢰하세요.</p>
+        <div class="service-tags">
+          <span class="service-tag">부당해고</span>
+          <span class="service-tag">부당징계</span>
+          <span class="service-tag">부당노동행위</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-cat">Investigation</div>
+        <h3>직장 내 사건 조사</h3>
+        <p>비대면 조사 원칙으로 효율적이게, 조사보고서는 빈틈없이.<br>항목별 투명한 비용.</p>
+        <div class="service-tags">
+          <span class="service-tag">직장 내 괴롭힘</span>
+          <span class="service-tag">직장 내 성희롱</span>
+          <span class="service-tag">징계 사실관계 조사</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-cat">Compliance</div>
+        <h3>규정 정비</h3>
+        <p>취업규칙을 현행 법령에 맞게 정비합니다.<br>신구대조표·개정안·의견청취서 포함.</p>
+        <div class="service-tags">
+          <span class="service-tag">취업규칙</span>
+          <span class="service-tag">괴롭힘예방지침</span>
+          <span class="service-tag">성희롱예방지침</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+      <div class="service-card">
+        <div class="service-cat">Compensation</div>
+        <h3>보상 설계·저성과자 관리</h3>
+        <p>평가 결과를 임금인상·성과급에 연계하고,<br>저성과자는 PIP으로 객관적으로 관리합니다.</p>
+        <div class="service-tags">
+          <span class="service-tag">임금인상률</span>
+          <span class="service-tag">성과급 배분</span>
+          <span class="service-tag">PIP 설계</span>
+        </div>
+        <a href="mailto:contact@hrer.kr" class="service-link">자세히 보기 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERT -->
+<section class="expert" id="expert">
+  <div class="section-inner">
+    <div class="section-label">Expert</div>
+    <h2 class="section-title"><span class="keyword">15년 이상</span> 경력의 <span class="keyword">인사·노무</span> 전문가가<br><span class="keyword">직접</span> 답변합니다.</h2>
+    <div class="expert-content">
+      <div class="expert-profile">
+        <div class="expert-name">HRer 전문가</div>
+        <div class="expert-title">공인노무사 · 인사평가 전문가</div>
+        <div class="expert-bio">노동법, 경영학, 심리학을 아우르는 전문 배경과 15년 이상의 실무 경험을 결합하여, 인사와 노무를 원스톱으로 해결합니다.</div>
+        <div class="expert-tags-label">전문 배경</div>
+        <div class="expert-tags">
+          <span class="expert-tag navy">노동법</span>
+          <span class="expert-tag navy">경영학</span>
+          <span class="expert-tag navy">심리학</span>
+        </div>
+        <div class="expert-tags-label">노무</div>
+        <div class="expert-tags">
+          <span class="expert-tag outline">부당해고·부당징계</span>
+          <span class="expert-tag outline">직장 내 괴롭힘 조사</span>
+          <span class="expert-tag outline">취업규칙·사내규정</span>
+          <span class="expert-tag outline">임금체계</span>
+          <span class="expert-tag outline">노동위원회 사건 대리</span>
+        </div>
+        <div class="expert-tags-label">인사</div>
+        <div class="expert-tags">
+          <span class="expert-tag outline">인사평가·역량평가</span>
+          <span class="expert-tag outline">보상 설계</span>
+          <span class="expert-tag outline">저성과자 관리</span>
+        </div>
+      </div>
+      <div class="expert-right">
+        <div class="stat-card">
+          <div class="stat-num">15년 이상</div>
+          <div class="stat-label">인사·노무 실무 경력</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1,000건 이상</div>
+          <div class="stat-label">자문·사건 처리 경험</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">24<span>시간</span></div>
+          <div class="stat-label">영업일 기준 서면 답변</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="section-inner">
+    <div class="section-label">Quality</div>
+    <h2 class="section-title">편하다고 대충이 아닙니다.</h2>
+    <div class="trust-features">
+      <div class="trust-feature">
+        <div class="trust-feature-num">01</div>
+        <h3>판례·행정해석 근거</h3>
+        <p>모든 답변에 관련 판례, 행정해석, 법령 조문을 명시합니다. 근거를 확인할 수 있는 답변.</p>
+      </div>
+      <div class="trust-feature">
+        <div class="trust-feature-num">02</div>
+        <h3>기록이 남는 서면 자문</h3>
+        <p>전화 자문은 기억에 의존하지만, HRer의 답변은 문서로 남습니다. 언제든 다시 확인하세요.</p>
+      </div>
+      <div class="trust-feature">
+        <div class="trust-feature-num">03</div>
+        <h3>영업일 기준 24시간 이내 답변</h3>
+        <p>빠르지만 꼼꼼하게. 판례와 행정해석을 직접 검토한 근거 있는 서면 답변을 드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUDGE -->
+<section class="nudge">
+  <div class="section-inner">
+    <div class="section-label">Why Not?</div>
+    <h2 class="section-title" style="font-weight:900; font-size:56px; letter-spacing:-2px;">안 써볼 이유가 없습니다.</h2>
+    <div class="nudge-checks">
+      <div class="nudge-check"><div class="check">✓</div>이메일 한 통이면 끝</div>
+      <div class="nudge-check"><div class="check">✓</div>계약서 필요 없음</div>
+      <div class="nudge-check"><div class="check">✓</div>결재 올릴 필요 없음</div>
+      <div class="nudge-check"><div class="check">✓</div>월정액 부담 없음</div>
+      <div class="nudge-check"><div class="check">✓</div>전화 안 해도 됨</div>
+      <div class="nudge-check"><div class="check">✓</div>미팅 안 잡아도 됨</div>
+      <div class="nudge-check"><div class="check">✓</div>판례·행정해석까지 꼼꼼하게</div>
+      <div class="nudge-check"><div class="check">✓</div>영업일 기준 24시간 이내 답변</div>
+    </div>
+    <p class="nudge-quote">"처음이라 망설여지신다면, 한 건만 시도해보세요.<br>그게 HRer를 알게 되는 가장 빠른 방법입니다."</p>
+    <a href="mailto:contact@hrer.kr" class="btn-primary">첫 자문 의뢰하기</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="section-inner">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title" style="text-align:center;">자주 묻는 질문</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">전화 상담은 안 되나요?</div>
+        <div class="faq-a"><p>모든 자문은 서면으로만 진행합니다. 답변이 기록으로 남아 나중에 다시 확인하실 수 있고, 법적 근거로도 활용 가능합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">급한 건은 어떻게 하나요?</div>
+        <div class="faq-a"><p>영업일 기준 24시간 이내 답변드립니다. 긴급 건은 별도 협의 가능합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">한 번만 이용해도 되나요?</div>
+        <div class="faq-a"><p>네, 건별 이용이 기본입니다. 계약이나 약정 없이, 필요할 때마다 이용하세요.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">답변은 어느 수준으로 제공되나요?</div>
+        <div class="faq-a"><p>모든 답변에 판례·행정해석·법령 근거를 명시합니다. 구두 자문보다 정확하고, 기록이 남아 언제든 재확인 가능합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">어떤 분야를 자문받을 수 있나요?</div>
+        <div class="faq-a"><p>근로계약, 퇴직금, 연차, 임금, 해고, 징계, 직장 내 괴롭힘, 취업규칙 등 인사노무 전반에 대해 자문 가능합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">인사평가 서비스는 어떤 회사에 적합한가요?</div>
+        <div class="faq-a"><p>10~30인 규모의 사업장에 최적화되어 있습니다. 평가 제도를 처음 도입하거나, 기존 평가의 공정성에 문제를 느끼는 기업에 적합합니다.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo"><span class="hr">HR</span><span class="er">er</span></div>
+      <div class="footer-info">
+        contact@hrer.kr<br>
+        사업자등록번호 393-11-01611
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  function toggleMobile() {
+    document.querySelector('.mobile-menu-btn').classList.toggle('active');
+    document.getElementById('mobileMenu').classList.toggle('active');
+    document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('active') ? 'hidden' : '';
+  }
+  function closeMobile() {
+    document.querySelector('.mobile-menu-btn').classList.remove('active');
+    document.getElementById('mobileMenu').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Scroll animation for empathy cards
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.empathy-card').forEach(function(card) {
+          card.classList.add('animate');
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(document.getElementById('empathyCards'));
+</script>
+
+</body>
+</html>
