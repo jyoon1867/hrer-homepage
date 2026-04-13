@@ -87,7 +87,8 @@
       </div>
       <div class="cb-body" id="cbBody">
         <div class="cb-msg cb-bot">
-          <div class="cb-msg-content">안녕하세요! HRer입니다.<br>궁금한 점을 물어보시거나, 아래 버튼을 눌러보세요.</div>
+          <div class="cb-avatar">HR</div>
+          <div class="cb-msg-content">안녕하세요! HRer입니다.<br><br>궁금한 점을 물어보시거나,<br>아래 버튼을 눌러보세요.</div>
         </div>
         <div class="cb-quick" id="cbQuick"></div>
       </div>
@@ -104,97 +105,126 @@
   // ─── CSS 삽입 ───
   const style = document.createElement('style');
   style.textContent = `
-    #hrer-chatbot { --cb-mint: #00B893; --cb-navy: #0F2744; --cb-bg: #F7F9FC; --cb-border: #E2E8F0; --cb-gray: #5A6A80; --cb-gray2: #8A9AB0; }
+    #hrer-chatbot { --cb-mint: #00B893; --cb-navy: #0F2744; --cb-bg: #F4F6F8; --cb-border: #E2E8F0; --cb-gray: #5A6A80; --cb-gray2: #8A9AB0; }
     #hrer-chatbot * { font-family: 'Noto Sans KR', -apple-system, sans-serif !important; box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ─ 버블 ─ */
     .cb-bubble {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      width: 56px; height: 56px; border-radius: 50%;
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      width: 60px; height: 60px; border-radius: 50%;
       background: var(--cb-mint); border: none; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,184,147,0.35);
+      box-shadow: 0 4px 24px rgba(0,184,147,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .cb-bubble:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,184,147,0.45); }
+    .cb-bubble:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(0,184,147,0.45); }
     .cb-bubble.hidden { display: none; }
 
+    /* ─ 창 ─ */
     .cb-window {
-      position: fixed; bottom: 92px; right: 24px; z-index: 9999;
-      width: 420px; height: 75vh; max-height: 780px; min-height: 500px;
-      border-radius: 16px;
+      position: fixed; bottom: 100px; right: 28px; z-index: 9999;
+      width: 420px; height: 75vh; max-height: 780px; min-height: 520px;
+      border-radius: 20px;
       background: #fff; border: 1px solid var(--cb-border);
-      box-shadow: 0 12px 48px rgba(15,39,68,0.15);
+      box-shadow: 0 16px 56px rgba(15,39,68,0.18);
       display: none; flex-direction: column; overflow: hidden;
       resize: vertical;
     }
-    .cb-window.open { display: flex; animation: cbSlideUp 0.25s ease; }
-    @keyframes cbSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .cb-window.open { display: flex; animation: cbSlideUp 0.3s ease; }
+    @keyframes cbSlideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* ─ 헤더 ─ */
     .cb-header {
-      background: var(--cb-navy); padding: 18px 24px;
+      background: var(--cb-navy); padding: 20px 28px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .cb-header-left { display: flex; align-items: center; gap: 12px; }
-    .cb-logo { font-size: 20px; font-weight: 900; }
+    .cb-header-left { display: flex; align-items: center; gap: 14px; }
+    .cb-logo { font-size: 22px; font-weight: 900; }
     .cb-hr { color: var(--cb-mint); }
     .cb-er { color: #fff; }
-    .cb-status { font-size: 13px; color: rgba(255,255,255,0.6); }
-    .cb-close { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 24px; cursor: pointer; padding: 0 4px; line-height: 1; }
-    .cb-close:hover { color: #fff; }
+    .cb-status { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: -0.2px; }
+    .cb-close { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 26px; cursor: pointer; padding: 4px 6px; line-height: 1; border-radius: 6px; transition: all 0.15s; }
+    .cb-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
 
-    .cb-body { flex: 1; overflow-y: auto; padding: 28px 24px; background: var(--cb-bg); }
-    .cb-body::-webkit-scrollbar { width: 4px; }
-    .cb-body::-webkit-scrollbar-thumb { background: var(--cb-border); border-radius: 4px; }
+    /* ─ 본문 ─ */
+    .cb-body { flex: 1; overflow-y: auto; padding: 32px 28px; background: var(--cb-bg); }
+    .cb-body::-webkit-scrollbar { width: 5px; }
+    .cb-body::-webkit-scrollbar-track { background: transparent; }
+    .cb-body::-webkit-scrollbar-thumb { background: #D0D5DD; border-radius: 4px; }
 
-    .cb-msg { margin-bottom: 20px; display: flex; }
+    /* ─ 메시지 ─ */
+    .cb-msg { margin-bottom: 24px; display: flex; gap: 10px; align-items: flex-start; }
     .cb-msg.cb-bot { justify-content: flex-start; }
     .cb-msg.cb-user { justify-content: flex-end; }
-    .cb-msg-content {
-      max-width: 82%; padding: 16px 20px; border-radius: 14px;
-      font-size: 14.5px; line-height: 1.9; letter-spacing: 0px; word-spacing: 1px;
+
+    .cb-avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: var(--cb-mint); color: #fff;
+      font-size: 11px; font-weight: 900; letter-spacing: -0.5px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .cb-bot .cb-msg-content { background: #fff; color: var(--cb-navy); border: 1px solid var(--cb-border); border-bottom-left-radius: 4px; }
-    .cb-user .cb-msg-content { background: var(--cb-navy); color: #fff; border-bottom-right-radius: 4px; }
+
+    .cb-msg-content {
+      max-width: 78%; padding: 18px 22px; border-radius: 16px;
+      font-size: 14.5px; line-height: 2; letter-spacing: 0.1px; word-spacing: 0.5px;
+    }
+    .cb-bot .cb-msg-content {
+      background: #fff; color: var(--cb-navy);
+      border: 1px solid #E8ECF0;
+      border-top-left-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .cb-user .cb-msg-content {
+      background: var(--cb-navy); color: #fff;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
 
     .cb-msg-content a { color: var(--cb-mint); font-weight: 600; text-decoration: none; }
     .cb-msg-content a:hover { text-decoration: underline; }
 
-    .cb-quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    /* ─ 퀵 버튼 ─ */
+    .cb-quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; padding-left: 46px; }
     .cb-quick-btn {
-      padding: 9px 16px; border-radius: 20px; font-size: 13.5px; font-weight: 600;
+      padding: 10px 18px; border-radius: 24px; font-size: 13.5px; font-weight: 600;
       border: 1px solid var(--cb-border); background: #fff; color: var(--cb-navy);
       cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
     .cb-quick-btn:hover { border-color: var(--cb-mint); color: var(--cb-mint); background: #E6F7F3; }
 
+    /* ─ 입력 ─ */
     .cb-input-wrap {
-      padding: 16px 20px; border-top: 1px solid var(--cb-border);
+      padding: 18px 24px; border-top: 1px solid var(--cb-border);
       display: flex; gap: 10px; background: #fff;
     }
     .cb-input {
-      flex: 1; padding: 12px 16px; border: 1.5px solid var(--cb-border);
-      border-radius: 8px; font-size: 14.5px; outline: none; color: var(--cb-navy);
-      transition: border-color 0.15s;
+      flex: 1; padding: 13px 18px; border: 1.5px solid var(--cb-border);
+      border-radius: 12px; font-size: 14.5px; outline: none; color: var(--cb-navy);
+      background: var(--cb-bg); transition: all 0.15s;
     }
-    .cb-input:focus { border-color: var(--cb-mint); }
+    .cb-input:focus { border-color: var(--cb-mint); background: #fff; box-shadow: 0 0 0 3px rgba(0,184,147,0.08); }
     .cb-input::placeholder { color: var(--cb-gray2); }
     .cb-send {
-      width: 44px; height: 44px; border-radius: 8px; border: none;
+      width: 46px; height: 46px; border-radius: 12px; border: none;
       background: var(--cb-mint); color: #fff; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s;
+      transition: background 0.15s; flex-shrink: 0;
     }
     .cb-send:hover { background: #00a07e; }
 
-    .cb-typing { display: flex; gap: 4px; padding: 12px 16px; }
-    .cb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cb-gray2); animation: cbDot 1.2s infinite; }
+    /* ─ 타이핑 ─ */
+    .cb-typing { display: flex; gap: 5px; padding: 4px 0; }
+    .cb-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cb-gray2); animation: cbDot 1.2s infinite; }
     .cb-dot:nth-child(2) { animation-delay: 0.2s; }
     .cb-dot:nth-child(3) { animation-delay: 0.4s; }
     @keyframes cbDot { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
 
     @media (max-width: 480px) {
       .cb-window { right: 0; bottom: 0; width: 100%; height: 100vh; max-height: 100vh; min-height: 100vh; border-radius: 0; resize: none; }
-      .cb-bubble { bottom: 16px; right: 16px; }
+      .cb-bubble { bottom: 20px; right: 20px; }
+      .cb-body { padding: 24px 20px; }
+      .cb-quick { padding-left: 0; }
     }
   `;
   document.head.appendChild(style);
@@ -251,8 +281,8 @@
   function addMsg(text, role) {
     const div = document.createElement('div');
     div.className = 'cb-msg cb-' + role;
-    div.innerHTML = '<div class="cb-msg-content">' + text + '</div>';
-    // 퀵 버튼 앞에 삽입
+    const avatar = role === 'bot' ? '<div class="cb-avatar">HR</div>' : '';
+    div.innerHTML = avatar + '<div class="cb-msg-content">' + text + '</div>';
     body.insertBefore(div, quickWrap);
     body.scrollTop = body.scrollHeight;
   }
@@ -261,7 +291,7 @@
     const div = document.createElement('div');
     div.className = 'cb-msg cb-bot';
     div.id = 'cbTyping';
-    div.innerHTML = '<div class="cb-msg-content"><div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div></div>';
+    div.innerHTML = '<div class="cb-avatar">HR</div><div class="cb-msg-content"><div class="cb-typing"><div class="cb-dot"></div><div class="cb-dot"></div><div class="cb-dot"></div></div></div>';
     body.insertBefore(div, quickWrap);
     body.scrollTop = body.scrollHeight;
   }
