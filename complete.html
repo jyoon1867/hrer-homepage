@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결제 완료 — HRer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { font-family: 'Noto Sans KR', -apple-system, sans-serif !important; box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0F2744; --mint: #00B893; --mint-light: #E6F7F3;
+    --white: #FFFFFF; --bg: #F7F9FC; --text: #0F2744;
+    --gray: #5A6A80; --gray2: #8A9AB0; --border: #E2E8F0; --red: #DC2626;
+  }
+  body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 80px 24px; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 560px; margin: 0 auto; text-align: center; }
+  .logo { font-size: 32px; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 48px; text-decoration: none; display: inline-block; }
+  .logo .hr { color: var(--mint); }
+  .logo .er { color: var(--navy); }
+
+  /* 성공 상태 */
+  .status-icon {
+    width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .status-icon.success { background: var(--mint-light); }
+  .status-icon.fail { background: #FEE2E2; }
+  .status-icon.loading { background: var(--bg); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+  h1 { font-size: 28px; font-weight: 900; color: var(--navy); margin-bottom: 12px; letter-spacing: -0.5px; }
+  .desc { font-size: 16px; color: var(--gray); line-height: 1.8; margin-bottom: 36px; }
+
+  .card { background: var(--white); border-radius: 12px; padding: 28px 32px; border: 1px solid var(--border); margin-bottom: 24px; text-align: left; }
+  .card-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .card-row:last-child { border-bottom: none; }
+  .card-label { font-size: 14px; color: var(--gray2); }
+  .card-value { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .card-value.price { font-size: 20px; font-weight: 900; color: var(--mint); }
+
+  .btn { display: inline-block; padding: 16px 36px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s; letter-spacing: -0.3px; }
+  .btn-primary { background: var(--navy); color: var(--white); }
+  .btn-primary:hover { background: #1A3A5C; }
+  .btn-secondary { background: var(--white); color: var(--navy); border: 1.5px solid var(--border); margin-left: 8px; }
+  .btn-secondary:hover { border-color: var(--navy); }
+  .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .note { font-size: 14px; color: var(--gray2); margin-top: 24px; line-height: 1.7; }
+
+  #loadingState, #successState, #failState { display: none; }
+
+  @media (max-width: 480px) {
+    body { padding: 60px 16px; }
+    .card { padding: 20px; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="/" class="logo"><span class="hr">HR</span><span class="er">er</span></a>
+
+  <!-- 로딩 -->
+  <div id="loadingState">
+    <div class="status-icon loading">⏳</div>
+    <h1>결제 확인 중...</h1>
+    <p class="desc">잠시만 기다려 주세요.</p>
+  </div>
+
+  <!-- 성공 -->
+  <div id="successState">
+    <div class="status-icon success">✓</div>
+    <h1>자문 의뢰가 접수되었습니다</h1>
+    <p class="desc">영업일 기준 24시간 이내에<br>입력하신 이메일로 서면 답변을 보내드리겠습니다.</p>
+    <div class="card">
+      <div class="card-row">
+        <span class="card-label">주문번호</span>
+        <span class="card-value" id="resOrderId">-</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">서비스</span>
+        <span class="card-value" id="resService">-</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">결제금액</span>
+        <span class="card-value price" id="resPrice">-</span>
+      </div>
+      <div class="card-row">
+        <span class="card-label">답변 이메일</span>
+        <span class="card-value" id="resEmail">-</span>
+      </div>
+    </div>
+    <div class="btn-group">
+      <a href="/" class="btn btn-primary">홈으로</a>
+    </div>
+    <p class="note">접수 확인 메일이 발송되었습니다.<br>문의: contact@hrer.kr</p>
+  </div>
+
+  <!-- 실패 -->
+  <div id="failState">
+    <div class="status-icon fail">✕</div>
+    <h1>결제에 실패했습니다</h1>
+    <p class="desc" id="failMsg">다시 시도해 주세요.</p>
+    <div class="btn-group">
+      <a href="/order" class="btn btn-primary">다시 의뢰하기</a>
+      <a href="/" class="btn btn-secondary">홈으로</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(async function() {
+  const params = new URLSearchParams(location.search);
+  const paymentKey = params.get('paymentKey');
+  const orderId = params.get('orderId');
+  const amount = params.get('amount');
+
+  // 실패 리다이렉트
+  if (params.get('fail') === '1' || params.get('code')) {
+    document.getElementById('failState').style.display = 'block';
+    document.getElementById('failMsg').textContent = params.get('message') || '결제가 취소되었거나 오류가 발생했습니다.';
+    return;
+  }
+
+  if (!paymentKey || !orderId || !amount) {
+    document.getElementById('failState').style.display = 'block';
+    document.getElementById('failMsg').textContent = '잘못된 접근입니다.';
+    return;
+  }
+
+  // 로딩 표시
+  document.getElementById('loadingState').style.display = 'block';
+
+  // sessionStorage에서 주문 정보 복원
+  let orderInfo = {};
+  try {
+    orderInfo = JSON.parse(sessionStorage.getItem('hrer_order') || '{}');
+  } catch(e) {}
+
+  try {
+    const res = await fetch('/api/confirm-payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        paymentKey,
+        orderId,
+        amount,
+        name: orderInfo.name || '',
+        email: orderInfo.email || '',
+        company: orderInfo.company || '',
+        question: orderInfo.question || '',
+        service: orderInfo.service || '',
+      }),
+    });
+
+    const data = await res.json();
+    document.getElementById('loadingState').style.display = 'none';
+
+    if (data.success) {
+      document.getElementById('resOrderId').textContent = data.orderId;
+      document.getElementById('resService').textContent = data.orderName || orderInfo.service || '-';
+      document.getElementById('resPrice').textContent = Number(amount).toLocaleString('ko-KR') + '원';
+      document.getElementById('resEmail').textContent = orderInfo.email || '-';
+      document.getElementById('successState').style.display = 'block';
+      sessionStorage.removeItem('hrer_order');
+    } else {
+      document.getElementById('failMsg').textContent = data.error || '결제 승인에 실패했습니다.';
+      document.getElementById('failState').style.display = 'block';
+    }
+  } catch(err) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('failMsg').textContent = '서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+    document.getElementById('failState').style.display = 'block';
+  }
+})();
+</script>
+</body>
+</html>
