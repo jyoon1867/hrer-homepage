@@ -4,407 +4,381 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>노무자문 의뢰 — HRer</title>
-<meta name="description" content="이메일 하나로 시작, 영업일 기준 24시간 이내 서면 답변. HRer 노무자문 의뢰.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <style>
-  * { font-family: 'Noto Sans KR', -apple-system, sans-serif !important; box-sizing: border-box; margin: 0; padding: 0; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;--red:#E03131;
+  --card-radius:14px;
+}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#FAFAFA;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
+a{text-decoration:none;color:inherit}
+em{font-style:normal;color:var(--mint);font-weight:700}
 
-  :root {
-    --navy: #0F2744; --navy2: #1A3A5C; --mint: #00B893; --mint-light: #E6F7F3;
-    --white: #FFFFFF; --bg: #F7F9FC; --bg2: #EEF2F7; --text: #0F2744;
-    --gray: #5A6A80; --gray2: #8A9AB0; --border: #E2E8F0; --red: #DC2626; --green: #059669;
-  }
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
+.logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
+.nav-back{font-size:14px;color:var(--gray);font-weight:500;display:flex;align-items:center;gap:6px}
+.nav-back:hover{color:var(--dark)}
+.nav-back::before{content:'←'}
 
-  body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 60px 24px 100px; -webkit-font-smoothing: antialiased; }
-  .form-wrap { max-width: 680px; margin: 0 auto; }
+/* LAYOUT */
+.page-wrap{min-height:100vh;padding:88px 20px 80px}
+.form-container{max-width:720px;margin:0 auto}
 
-  .form-header { text-align: center; margin-bottom: 48px; }
+/* PAGE HEADER */
+.page-header{text-align:center;margin-bottom:48px}
+.page-badge{display:inline-block;padding:6px 18px;border-radius:100px;background:#F0FDF4;color:var(--mint);font-size:13px;font-weight:600;margin-bottom:16px;border:1px solid rgba(0,184,147,0.15)}
+.page-header h1{font-size:36px;font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:12px}
+.page-header p{font-size:17px;color:var(--gray);line-height:1.7}
 
-  .hrer-logo {
-    display: inline-flex; align-items: baseline;
-    font-size: 32px; font-weight: 900; letter-spacing: -1.5px;
-    margin-bottom: 24px; line-height: 1;
-  }
-  .hrer-logo .hr { color: var(--mint); }
-  .hrer-logo .er { color: var(--navy); }
+/* PLAN SELECTOR */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.plan-card{border:2px solid var(--border);border-radius:var(--card-radius);padding:22px 18px;cursor:pointer;transition:all 0.15s;background:var(--white);position:relative}
+.plan-card:hover{border-color:var(--mint)}
+.plan-card.selected{border-color:var(--mint);background:#F0FDF4}
+.plan-card input[type=radio]{display:none}
+.plan-name{font-size:16px;font-weight:800;margin-bottom:4px}
+.plan-price{font-size:22px;font-weight:900;color:var(--dark);margin-bottom:8px}
+.plan-price span{font-size:13px;font-weight:500;color:var(--gray)}
+.plan-desc{font-size:13px;color:var(--gray);line-height:1.6}
+.plan-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--mint);color:var(--white);margin-bottom:8px}
+.plan-check{position:absolute;top:14px;right:14px;width:20px;height:20px;border-radius:50%;border:2px solid var(--border);transition:all 0.15s;display:flex;align-items:center;justify-content:center}
+.plan-card.selected .plan-check{background:var(--mint);border-color:var(--mint)}
+.plan-card.selected .plan-check::after{content:'✓';font-size:10px;color:#fff;font-weight:700}
 
-  .hrer-nav {
-    display: flex; justify-content: center; gap: 6px;
-    flex-wrap: wrap; margin-bottom: 36px;
-  }
-  .hrer-nav a {
-    font-size: 13px; font-weight: 600; color: var(--gray);
-    text-decoration: none; padding: 5px 12px; border-radius: 20px;
-    border: 1px solid var(--border); background: var(--white);
-    transition: all .15s;
-  }
-  .hrer-nav a:hover { border-color: var(--mint); color: var(--mint); background: var(--mint-light); }
-  .hrer-nav a.active { border-color: var(--mint); color: var(--mint); background: var(--mint-light); }
+/* SECTION CARD */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:28px;margin-bottom:16px}
+.section-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.section-desc{font-size:12px;color:var(--gray2);margin-bottom:20px}
 
-  .form-header h1 { font-size: 36px; font-weight: 900; color: var(--navy); letter-spacing: -1px; margin-bottom: 14px; line-height: 1.2; }
-  .form-header p { font-size: 16px; color: var(--gray); line-height: 1.9; }
-  .form-header p .hl { font-weight: 700; color: var(--navy); }
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;font-weight:600;color:var(--dark)}
+.form-group .required{color:var(--mint);margin-left:2px}
+.form-group input,.form-group select,.form-group textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:15px;color:var(--dark);font-family:inherit;font-weight:500;
+  background:var(--white);transition:border-color 0.15s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--mint)}
+.form-group textarea{resize:vertical;min-height:120px;line-height:1.7}
+.form-full{grid-column:1/-1}
 
-  .card { background: var(--white); border-radius: 12px; padding: 36px 32px; margin-bottom: 16px; border: 1px solid var(--border); }
-  .step-label { font-size: 12px; font-weight: 700; color: var(--mint); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-  .step-title { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 24px; letter-spacing: -0.5px; }
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#FAFAFA}
+.upload-area:hover{border-color:var(--mint)}
+.upload-icon{font-size:32px;margin-bottom:10px}
+.upload-label{font-size:14px;color:var(--gray);margin-bottom:4px}
+.upload-format{font-size:12px;color:var(--gray2)}
+.upload-area input{display:none}
+.upload-filename{font-size:13px;color:var(--mint);font-weight:600;margin-top:8px}
 
-  .service-list { display: flex; flex-direction: column; gap: 10px; }
-  .service-item input[type="radio"] { display: none; }
-  .service-item label {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 20px; border: 1.5px solid var(--border); border-radius: 8px;
-    cursor: pointer; transition: border-color .15s, background .15s; gap: 12px;
-  }
-  .service-item label:hover { border-color: var(--mint); background: var(--mint-light); }
-  .service-item input:checked + label { border-color: var(--mint); background: var(--mint-light); box-shadow: 0 0 0 3px rgba(0,184,147,.1); }
-  .service-info { flex: 1; }
-  .service-name { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 3px; letter-spacing: -0.3px; }
-  .service-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
-  .service-desc strong { font-weight: 700; color: var(--navy); }
-  .service-price-wrap { text-align: right; white-space: nowrap; }
-  .service-price { font-size: 18px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; display: block; }
-  .service-vat { font-size: 11px; color: var(--gray2); margin-top: 2px; display: block; }
-  .service-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; position: relative; transition: all .15s; }
-  .service-item input:checked + label .service-check { border-color: var(--mint); background: var(--mint); }
-  .service-item input:checked + label .service-check::after { content: ''; position: absolute; top: 4px; left: 4px; width: 10px; height: 10px; border-radius: 50%; background: #fff; }
+/* PRICE SUMMARY */
+.price-summary{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:24px 28px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.price-summary-label{font-size:14px;color:rgba(255,255,255,0.6)}
+.price-summary-amount{font-size:32px;font-weight:900;color:var(--white)}
+.price-summary-amount span{font-size:15px;font-weight:500;color:rgba(255,255,255,0.6);margin-left:4px}
+.price-summary-plan{font-size:13px;color:var(--mint);margin-top:4px;font-weight:600}
 
-  .char-alert {
-    display: none; background: #FFF7ED; border: 1.5px solid #F59E0B;
-    border-radius: 8px; padding: 14px 18px; margin-top: 12px;
-  }
-  .char-alert p { font-size: 14px; color: #92400E; line-height: 1.7; }
-  .char-alert strong { font-weight: 700; }
-  .char-alert-btns { display: flex; gap: 8px; margin-top: 10px; }
-  .char-alert-btn {
-    flex: 1; padding: 10px; border-radius: 6px; font-size: 14px; font-weight: 700;
-    cursor: pointer; border: none; transition: all .15s;
-  }
-  .char-alert-btn.upgrade { background: var(--navy); color: var(--white); }
-  .char-alert-btn.upgrade:hover { background: var(--navy2); }
-  .char-alert-btn.keep { background: var(--bg2); color: var(--gray); }
-  .char-alert-btn.keep:hover { background: var(--border); }
+/* PAYMENT WIDGET */
+#payment-widget-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:0;margin-bottom:16px;overflow:hidden}
+#payment-widget{min-height:200px}
+#agreement-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:8px;margin-bottom:16px;overflow:hidden}
 
-  .info-box { background: var(--mint-light); border-left: 3px solid var(--mint); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-top: 20px; }
-  .info-box p { font-size: 15.6px; color: var(--navy); line-height: 1.8; }
-  .info-box p + p { margin-top: 4px; }
-  .refund-box { background: var(--bg2); border-radius: 8px; padding: 16px 20px; margin-top: 12px; }
-  .refund-box p { font-size: 13px; color: var(--gray); line-height: 1.75; }
-  .refund-box strong { color: var(--navy); font-weight: 700; }
+/* SUBMIT */
+.btn-submit{display:block;width:100%;padding:18px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;letter-spacing:-0.3px}
+.btn-submit:hover{opacity:0.88}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed}
+.submit-note{text-align:center;font-size:12px;color:var(--gray2);margin-top:10px;line-height:1.6}
 
-  .field { margin-bottom: 20px; }
-  .field:last-child { margin-bottom: 0; }
-  .field > label { display: block; font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.2px; }
-  .field label span.req { color: var(--mint); margin-left: 2px; }
-  .field label span.opt { font-weight: 400; color: var(--gray2); font-size: 13px; margin-left: 4px; }
-  input[type="text"], input[type="email"], textarea {
-    width: 100%; font-size: 15px !important; color: var(--text);
-    background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 8px; padding: 14px 16px; outline: none;
-    transition: border-color .15s, box-shadow .15s; resize: vertical;
-  }
-  input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
-    border-color: var(--mint); background: var(--white); box-shadow: 0 0 0 3px rgba(0,184,147,.1);
-  }
-  input::placeholder, textarea::placeholder { color: var(--gray2); }
-  textarea { min-height: 180px; line-height: 1.75; }
-  .char-counter { text-align: right; font-size: 13px; color: var(--gray2); margin-top: 6px; }
-  .char-counter.warn { color: var(--red); font-weight: 700; }
-  .char-counter.ok { color: var(--green); }
-  .error-msg { display: none; font-size: 13px; color: var(--red); margin-top: 6px; }
-  .has-error input, .has-error textarea { border-color: var(--red) !important; }
-  .has-error .error-msg { display: block; }
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:60px 20px}
+.success-icon{font-size:56px;margin-bottom:20px}
+.success-title{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.success-desc{font-size:16px;color:var(--gray);line-height:1.7;margin-bottom:32px}
+.btn-home{display:inline-block;background:var(--dark);color:var(--white);padding:12px 32px;border-radius:10px;font-weight:700;font-size:15px}
 
-  .agree-wrap { display: flex; align-items: flex-start; gap: 10px; }
-  .agree-wrap input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--mint); cursor: pointer; }
-  .agree-wrap label { font-size: 14px; color: var(--gray); cursor: pointer; line-height: 1.6; font-weight: 400 !important; }
-  .agree-wrap a { color: var(--mint); text-decoration: underline; }
+/* FOOTER */
+.footer{background:var(--white);color:var(--gray);padding:32px 0;border-top:1px solid var(--border);margin-top:40px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:18px;font-weight:900;color:var(--dark)}
 
-  .summary-card { background: var(--navy) !important; border-radius: 12px; padding: 28px 32px; margin-bottom: 16px; }
-  .summary-label { font-size: 12px; color: rgba(255,255,255,.5) !important; margin-bottom: 6px; letter-spacing: 1px; text-transform: uppercase; background: transparent !important; }
-  .summary-service { font-size: 20px; font-weight: 700; color: var(--white) !important; margin-bottom: 16px; letter-spacing: -0.3px; background: transparent !important; }
-  .summary-price-row { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,.12); padding-top: 16px; background: transparent !important; }
-  .summary-price-label { font-size: 14px; color: rgba(255,255,255,.6) !important; background: transparent !important; }
-  .summary-price-amount { font-size: 28px; font-weight: 900; color: var(--white) !important; letter-spacing: -1px; background: transparent !important; }
-  .vat-note { font-size: 12px; color: rgba(255,255,255,.4) !important; text-align: right; margin-top: 6px; background: transparent !important; }
-
-  .btn-pay {
-    width: 100%; padding: 18px; background: var(--mint); color: var(--navy);
-    font-size: 18px; font-weight: 700; border: none; border-radius: 8px;
-    cursor: pointer; transition: background .15s; letter-spacing: -0.3px;
-  }
-  .btn-pay:hover { background: #00a07e; }
-  .btn-pay:disabled { background: var(--border); color: var(--gray2); cursor: not-allowed; }
-  .pay-note { text-align: center; font-size: 14px; color: var(--gray2); margin-top: 16px; line-height: 1.7; }
-
-  @media (max-width: 480px) {
-    body { padding: 40px 16px 80px; }
-    .card { padding: 24px 20px; }
-    .form-header h1 { font-size: 28px; }
-    .hrer-logo { font-size: 26px; }
-    .hrer-nav a { font-size: 12px; padding: 4px 10px; }
-  }
+/* RESPONSIVE */
+@media(max-width:600px){
+  .plan-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:26px}
+  .nav-inner{padding:0 20px}
+  .section-card{padding:20px}
+  .price-summary{flex-direction:column;text-align:center;gap:4px}
+}
 </style>
 </head>
 <body>
-<div class="form-wrap">
 
-  <div class="form-header">
+<!-- NAV -->
+<nav class="nav">
+<div class="nav-inner">
+  <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
+  <a href="/" class="nav-back">홈으로 돌아가기</a>
+</div>
+</nav>
+
+<!-- SUCCESS SCREEN (hidden by default) -->
+<div id="success-screen" class="page-wrap" style="display:none">
+  <div class="form-container">
+    <div class="success-screen" style="display:block">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">의뢰가 접수되었습니다</h2>
+      <p class="success-desc">결제가 완료되었습니다.<br>입력하신 이메일로 접수 확인 메일을 발송해 드렸습니다.<br><em>영업일 기준 24시간 이내</em>에 자문 답변을 보내드립니다.</p>
+      <a href="/" class="btn-home">홈으로 돌아가기</a>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="page-wrap" id="main-form">
+<div class="form-container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-badge">노무자문 의뢰</div>
+    <h1>이메일 한 통으로<br><em>전문 노무 자문</em>을 받으세요</h1>
+    <p>판례·행정해석 근거 명시 · 영업일 24시간 이내 답변</p>
+  </div>
+
+  <!-- PLAN SELECTION -->
+  <div class="section-card">
+    <div class="section-title">서비스 단계 선택</div>
+    <div class="section-desc">질문의 성격과 필요한 답변 수준에 맞게 선택하세요.</div>
+    <div class="plan-grid">
+      <label class="plan-card" id="plan-simple" onclick="selectPlan('simple', 59000)">
+        <input type="radio" name="plan" value="simple">
+        <div class="plan-check"></div>
+        <div class="plan-name">간편 자문</div>
+        <div class="plan-price">59,000<span>원</span></div>
+        <div class="plan-desc">단순 법령 해석, 빠른 답변이 필요한 질문에 적합합니다.</div>
+      </label>
+      <label class="plan-card selected" id="plan-precise" onclick="selectPlan('precise', 99000)">
+        <input type="radio" name="plan" value="precise" checked>
+        <div class="plan-badge">추천</div>
+        <div class="plan-check"></div>
+        <div class="plan-name">정밀 자문</div>
+        <div class="plan-price">99,000<span>원</span></div>
+        <div class="plan-desc">쟁점 분석·판례·행정해석 교차 검토. 대부분의 자문에 적합합니다.</div>
+      </label>
+      <label class="plan-card" id="plan-written" onclick="selectPlan('written', 199000)">
+        <input type="radio" name="plan" value="written">
+        <div class="plan-check"></div>
+        <div class="plan-name">서면 자문</div>
+        <div class="plan-price">199,000<span>원</span></div>
+        <div class="plan-desc">노동청·노동위원회 제출 가능한 법적 의견서 수준의 서면 작성.</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- CONTACT INFO -->
+  <div class="section-card">
+    <div class="section-title">담당자 정보</div>
+    <div class="section-desc">답변을 받으실 정보를 입력해 주세요.</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>이름 <span class="required">*</span></label>
+        <input type="text" id="name" placeholder="홍길동" required>
+      </div>
+      <div class="form-group">
+        <label>이메일 <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="hr@company.com" required>
+      </div>
+      <div class="form-group">
+        <label>전화번호 <span class="required">*</span></label>
+        <input type="tel" id="phone" placeholder="010-0000-0000" required>
+      </div>
+      <div class="form-group">
+        <label>회사명 <span class="required">*</span></label>
+        <input type="text" id="company" placeholder="주식회사 ○○" required>
+      </div>
+      <div class="form-group">
+        <label>상시근로자 수</label>
+        <input type="number" id="employee_count" placeholder="30" min="1">
+      </div>
+      <div class="form-group">
+        <label>업종</label>
+        <select id="industry">
+          <option value="">선택 안 함</option>
+          <option>제조업</option>
+          <option>서비스업</option>
+          <option>IT/소프트웨어</option>
+          <option>유통/물류</option>
+          <option>건설업</option>
+          <option>의료/보건</option>
+          <option>교육</option>
+          <option>기타</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTION -->
+  <div class="section-card">
+    <div class="section-title">자문 내용</div>
+    <div class="section-desc">궁금하신 사항을 구체적으로 작성해 주실수록 정확한 답변을 드릴 수 있습니다.</div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label>질문 내용 <span class="required">*</span></label>
+        <textarea id="question" placeholder="예: 입사 후 6개월 된 직원이 퇴직 의사를 밝혔는데, 이 직원의 미사용 연차는 어떻게 정산해야 하나요? 입사일은 2025년 10월 1일이고, 퇴직 예정일은 2026년 4월 30일입니다." required></textarea>
+      </div>
+      <div class="form-group form-full">
+        <label>관련 자료 첨부 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(선택)</span></label>
+        <div class="upload-area" onclick="document.getElementById('attachment').click()">
+          <div class="upload-icon">📎</div>
+          <div class="upload-label">클릭하여 파일 첨부</div>
+          <div class="upload-format">근로계약서, 취업규칙, 내용증명 등 관련 자료 · PDF/DOCX/HWP/JPG</div>
+          <input type="file" id="attachment" accept=".pdf,.docx,.hwp,.doc,.jpg,.jpeg,.png" onchange="showFilename(this)">
+          <div class="upload-filename" id="attach-filename"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE SUMMARY -->
+  <div class="price-summary" id="price-summary">
     <div>
-      <a href="/" style="text-decoration:none;">
-        <div class="hrer-logo"><span class="hr">HR</span><span class="er">er</span></div>
-      </a>
+      <div class="price-summary-label">결제 금액</div>
+      <div class="price-summary-plan" id="summary-plan">정밀 자문</div>
     </div>
-
-    <nav class="hrer-nav">
-      <a href="/order" class="active">노무자문</a>
-      <a href="/hr-evaluation">인사평가</a>
-      <a href="/unfair-dismissal">부당해고</a>
-      <a href="/investigation">사건조사</a>
-      <a href="/compliance">규정정비</a>
-    </nav>
-
-    <h1>노무자문 의뢰</h1>
-    <p>
-      <span class="hl">이메일</span> 하나로 시작<br>
-      영업일 기준 <span class="hl">24시간 이내</span> 서면 답변
-    </p>
-  </div>
-
-  <div class="card">
-    <div class="step-label">STEP 01</div>
-    <div class="step-title">서비스를 선택하세요</div>
-    <div class="service-list">
-      <div class="service-item">
-        <input type="radio" name="service" id="svc-s" value="간편자문" data-price="143000" data-label="노무자문 — 간편자문" data-product-id="CONSULT-S">
-        <label for="svc-s">
-          <div class="service-check"></div>
-          <div class="service-info">
-            <div class="service-name">간편자문</div>
-            <div class="service-desc">비교적 간단한 질문 &rarr; 질문이 <strong>1,000자 미만</strong>인 경우</div>
-          </div>
-          <div class="service-price-wrap">
-            <span class="service-price">143,000원</span>
-            <span class="service-vat">VAT 10% 포함</span>
-          </div>
-        </label>
-      </div>
-      <div class="service-item">
-        <input type="radio" name="service" id="svc-m" value="심층자문" data-price="198000" data-label="노무자문 — 심층자문" data-product-id="CONSULT-M">
-        <label for="svc-m">
-          <div class="service-check"></div>
-          <div class="service-info">
-            <div class="service-name">심층자문</div>
-            <div class="service-desc">상세하고 복잡한 질문인 경우 &rarr; 질문이 <strong>1,000자 이상</strong>인 경우</div>
-          </div>
-          <div class="service-price-wrap">
-            <span class="service-price">198,000원</span>
-            <span class="service-vat">VAT 10% 포함</span>
-          </div>
-        </label>
-      </div>
-      <div class="service-item">
-        <input type="radio" name="service" id="svc-l" value="의견서" data-price="253000" data-label="노무자문 — 의견서" data-product-id="CONSULT-L">
-        <label for="svc-l">
-          <div class="service-check"></div>
-          <div class="service-info">
-            <div class="service-name">의견서</div>
-            <div class="service-desc">자문 내용을 HRer 공인노무사 의견서 양식으로 제공</div>
-          </div>
-          <div class="service-price-wrap">
-            <span class="service-price">253,000원</span>
-            <span class="service-vat">VAT 10% 포함</span>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <div id="serviceError" style="display:none; margin-top:8px; font-size:13px; color:var(--red);">서비스를 선택해 주세요.</div>
-
-    <div class="char-alert" id="charAlert">
-      <p><strong>질문이 1,000자를 넘었어요.</strong><br>
-      1,000자 이상 질문은 <strong>심층자문</strong>에 해당합니다. 서비스를 변경하시겠어요?</p>
-      <div class="char-alert-btns">
-        <button class="char-alert-btn upgrade" onclick="switchToDeep()">심층자문으로 변경 (198,000원)</button>
-        <button class="char-alert-btn keep" onclick="keepSimple()">간편자문 유지</button>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <p>· 추가질의 1회 무료, 2회차부터 22,000원</p>
-    </div>
-    <div class="refund-box">
-      <p><strong>환불 정책</strong><br>
-      결제 후 1시간 이내 전액 환불 가능<br>
-      결제 1시간 후 착수 시작, 착수 후 환불 불가</p>
+    <div style="text-align:right">
+      <div class="price-summary-amount" id="summary-price">99,000<span>원</span></div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="step-label">STEP 02</div>
-    <div class="step-title">질문 내용을 입력하세요</div>
-    <div class="field" id="questionField">
-      <label for="question">질문 내용 <span class="req">*</span></label>
-      <textarea id="question"
-        placeholder="회사 규모(상시 근로자 수), 근로자 유형(정규직/계약직/파견 등), 구체적인 상황을 포함해 주세요.&#10;&#10;예) 상시 근로자 25명인 제조업 사업장입니다. 수습 기간 3개월 중인 근로자를 해고하려 하는데..."
-        oninput="countChars()" maxlength="3000"></textarea>
-      <div class="char-counter" id="charCounter">0 / 1,000자</div>
-      <div class="error-msg">질문 내용을 입력해 주세요.</div>
-    </div>
-    <div class="field">
-      <label for="company">회사명 <span class="opt">(선택)</span></label>
-      <input type="text" id="company" placeholder="익명 처리됩니다. 미입력 가능">
-    </div>
+  <!-- PAYMENT WIDGET -->
+  <div id="payment-widget-wrap">
+    <div id="payment-widget"></div>
+  </div>
+  <div id="agreement-wrap">
+    <div id="agreement"></div>
   </div>
 
-  <div class="card">
-    <div class="step-label">STEP 03</div>
-    <div class="step-title">답변 받을 이메일을 입력하세요</div>
-    <div class="field" id="nameField">
-      <label for="name">이름 <span class="req">*</span></label>
-      <input type="text" id="name" placeholder="홍길동">
-      <div class="error-msg">이름을 입력해 주세요.</div>
-    </div>
-    <div class="field" id="emailField">
-      <label for="email">이메일 <span class="req">*</span></label>
-      <input type="email" id="email" placeholder="example@company.com">
-      <div class="error-msg">올바른 이메일 주소를 입력해 주세요.</div>
-    </div>
-    <div class="field">
-      <div class="agree-wrap">
-        <input type="checkbox" id="agreePrivacy">
-        <label for="agreePrivacy">
-          <a href="/privacy" target="_blank">개인정보처리방침</a>에 동의합니다.
-          결제 완료 후 입력하신 이메일로 답변을 발송합니다.
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <div class="summary-card" id="summaryCard">
-    <div class="summary-label">선택하신 서비스</div>
-    <div class="summary-service" id="summaryService">서비스를 선택해 주세요</div>
-    <div class="summary-price-row">
-      <div class="summary-price-label">결제 금액</div>
-      <div class="summary-price-amount" id="summaryPrice">—</div>
-    </div>
-    <div class="vat-note" id="vatNote"></div>
-  </div>
-
-  <button class="btn-pay" id="btnPay" onclick="handlePay()">결제하기</button>
-  <div class="pay-note">카드 · 계좌이체 · 토스페이 · 카카오페이 등 결제 가능<br>결제 후 contact@hrer.kr로 접수 확인 메일이 발송됩니다</div>
+  <!-- SUBMIT -->
+  <button class="btn-submit" id="btn-submit" onclick="requestPayment()">결제하고 의뢰하기</button>
+  <p class="submit-note">결제 완료 후 영업일 기준 24시간 이내에 이메일로 답변드립니다.<br>의뢰 내용은 암호화되어 전송됩니다.</p>
 
 </div>
-<script src="/chatbot.js?v=2"></script>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+  <div style="font-size:13px;color:var(--gray2)">contact@hrer.kr · © 2026 HRer. All rights reserved.</div>
+</div>
+</footer>
+
 <script>
-  const CLIENT_KEY = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq'; // ← 라이브키로 교체
-  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+// ─── 상태 ─────────────────────────────────────────────
+const PLANS = {
+  simple:  { label: '간편 자문', price: 59000 },
+  precise: { label: '정밀 자문', price: 99000 },
+  written: { label: '서면 자문', price: 199000 },
+};
+let currentPlan = 'precise';
+let paymentWidget = null;
 
-  let alertDismissed = false;
+// ─── Toss Payments 초기화 ─────────────────────────────
+const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
+const customerKey = 'HRer_' + Math.random().toString(36).slice(2, 10);
 
-  document.querySelectorAll('input[name="service"]').forEach(r => {
-    r.addEventListener('change', () => {
-      updateSummary();
-      if (r.value !== '간편자문') {
-        document.getElementById('charAlert').style.display = 'none';
-        alertDismissed = true;
-      }
+async function initPaymentWidget(price) {
+  paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
+  await paymentWidget.renderPaymentMethods('#payment-widget', { value: price }, { variantKey: 'DEFAULT' });
+  await paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
+}
+
+// URL 파라미터로 success/fail 처리
+(function checkRedirect() {
+  const params = new URLSearchParams(location.search);
+  if (params.get('paymentKey')) {
+    // 결제 성공 — success 화면 표시
+    document.getElementById('main-form').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    return;
+  }
+  if (params.get('code')) {
+    // 결제 실패
+    alert('결제가 취소되었습니다. 다시 시도해 주세요.\n' + (params.get('message') || ''));
+    history.replaceState({}, '', location.pathname);
+  }
+  // 위젯 초기화
+  initPaymentWidget(PLANS[currentPlan].price);
+})();
+
+// ─── 플랜 선택 ─────────────────────────────────────────
+function selectPlan(key, price) {
+  currentPlan = key;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('plan-' + key).classList.add('selected');
+  document.getElementById('summary-plan').textContent = PLANS[key].label;
+  document.getElementById('summary-price').innerHTML = price.toLocaleString() + '<span>원</span>';
+  if (paymentWidget) paymentWidget.updateAmount(price);
+}
+
+// ─── 파일명 표시 ───────────────────────────────────────
+function showFilename(input) {
+  const name = input.files[0]?.name || '';
+  document.getElementById('attach-filename').textContent = name ? '선택됨: ' + name : '';
+}
+
+// ─── 결제 요청 ─────────────────────────────────────────
+async function requestPayment() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const question = document.getElementById('question').value.trim();
+
+  if (!name || !email || !phone || !company || !question) {
+    alert('필수 항목을 모두 입력해 주세요.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('이메일 형식이 올바르지 않습니다.');
+    return;
+  }
+
+  const plan = PLANS[currentPlan];
+  const orderId = 'HRER-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = '결제창 열는 중...';
+
+  try {
+    await paymentWidget.requestPayment({
+      orderId: orderId,
+      orderName: 'HRer ' + plan.label,
+      customerName: name,
+      customerEmail: email,
+      customerMobilePhone: phone.replace(/-/g, ''),
+      successUrl: location.origin + location.pathname + '?paymentKey={PAYMENT_KEY}&orderId=' + orderId + '&amount=' + plan.price,
+      failUrl: location.origin + location.pathname + '?code=FAIL&message={MESSAGE}',
     });
-  });
-
-  function getSelectedService() { return document.querySelector('input[name="service"]:checked'); }
-
-  function updateSummary() {
-    const sel = getSelectedService(); if (!sel) return;
-    document.getElementById('summaryService').textContent = sel.dataset.label;
-    document.getElementById('summaryPrice').textContent = Number(sel.dataset.price).toLocaleString('ko-KR') + '원';
-    document.getElementById('vatNote').textContent = '※ VAT 10% 포함';
-  }
-
-  function countChars() {
-    const cnt = document.getElementById('question').value.length;
-    const el = document.getElementById('charCounter');
-    el.textContent = cnt.toLocaleString('ko-KR') + ' / 1,000자';
-
-    if (cnt > 1000) {
-      el.className = 'char-counter warn';
-      const sel = getSelectedService();
-      if (!alertDismissed && (!sel || sel.value === '간편자문')) {
-        document.getElementById('charAlert').style.display = 'block';
-      }
-    } else {
-      el.className = 'char-counter' + (cnt >= 800 ? ' ok' : '');
-      document.getElementById('charAlert').style.display = 'none';
-      alertDismissed = false;
+  } catch (e) {
+    if (e.code !== 'USER_CANCEL') {
+      alert('결제 중 오류가 발생했습니다: ' + (e.message || e.code));
     }
+    btn.disabled = false;
+    btn.textContent = '결제하고 의뢰하기';
   }
-
-  function switchToDeep() {
-    document.getElementById('svc-m').checked = true;
-    document.getElementById('svc-m').dispatchEvent(new Event('change'));
-    document.getElementById('charAlert').style.display = 'none';
-    alertDismissed = true;
-  }
-
-  function keepSimple() {
-    document.getElementById('charAlert').style.display = 'none';
-    alertDismissed = true;
-  }
-
-  function validate() {
-    let ok = true;
-    const svcErr = document.getElementById('serviceError');
-    if (!getSelectedService()) { svcErr.style.display = 'block'; ok = false; } else { svcErr.style.display = 'none'; }
-    const qField = document.getElementById('questionField');
-    if (!document.getElementById('question').value.trim()) { qField.classList.add('has-error'); ok = false; } else { qField.classList.remove('has-error'); }
-    const nField = document.getElementById('nameField');
-    if (!document.getElementById('name').value.trim()) { nField.classList.add('has-error'); ok = false; } else { nField.classList.remove('has-error'); }
-    const eField = document.getElementById('emailField');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())) { eField.classList.add('has-error'); ok = false; } else { eField.classList.remove('has-error'); }
-    if (!document.getElementById('agreePrivacy').checked) { alert('개인정보처리방침에 동의해 주세요.'); ok = false; }
-    return ok;
-  }
-
-  async function handlePay() {
-    if (!validate()) return;
-    const sel = getSelectedService();
-    const orderId = 'HRER-' + Date.now();
-    sessionStorage.setItem('hrer_order', JSON.stringify({
-      orderId,
-      name: document.getElementById('name').value.trim(),
-      email: document.getElementById('email').value.trim(),
-      company: document.getElementById('company').value.trim(),
-      question: document.getElementById('question').value.trim(),
-      service: sel.dataset.label,
-      price: sel.dataset.price,
-    }));
-    if (typeof TossPayments === 'undefined') {
-      alert('결제 모듈을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
-      return;
-    }
-    try {
-      await TossPayments(CLIENT_KEY).requestPayment('카드', {
-        amount: Number(sel.dataset.price),
-        orderId,
-        orderName: sel.dataset.label,
-        customerName: document.getElementById('name').value.trim(),
-        customerEmail: document.getElementById('email').value.trim(),
-        successUrl: window.location.origin + '/complete?orderId=' + orderId,
-        failUrl: window.location.origin + '/order?fail=1',
-      });
-    } catch(err) {
-      if (err.code !== 'USER_CANCEL') alert('결제 중 오류가 발생했습니다.\n' + err.message);
-    }
-  }
-
-  (function(){
-    const s = document.createElement('script');
-    s.src = 'https://js.tosspayments.com/v1';
-    document.head.appendChild(s);
-  })();
+}
 </script>
 </body>
 </html>

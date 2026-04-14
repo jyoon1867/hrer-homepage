@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>취업규칙 의뢰 — HRer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;
+  --card-radius:14px;
+}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#FAFAFA;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
+a{text-decoration:none;color:inherit}
+em{font-style:normal;color:var(--mint);font-weight:700}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
+.logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
+.nav-back{font-size:14px;color:var(--gray);font-weight:500}
+.nav-back::before{content:'← '}
+.nav-back:hover{color:var(--dark)}
+
+/* LAYOUT */
+.page-wrap{min-height:100vh;padding:88px 20px 80px}
+.form-container{max-width:720px;margin:0 auto}
+
+/* PAGE HEADER */
+.page-header{text-align:center;margin-bottom:40px}
+.page-badge{display:inline-block;padding:6px 18px;border-radius:100px;background:#F0FDF4;color:var(--mint);font-size:13px;font-weight:600;margin-bottom:16px;border:1px solid rgba(0,184,147,0.15)}
+.page-header h1{font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:12px}
+.page-header p{font-size:16px;color:var(--gray);line-height:1.7}
+
+/* TAB */
+.tab-wrap{display:flex;border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:28px;background:var(--white)}
+.tab-btn{flex:1;padding:14px;text-align:center;font-size:15px;font-weight:700;cursor:pointer;background:none;border:none;font-family:inherit;color:var(--gray);transition:all 0.15s}
+.tab-btn.active{background:var(--dark);color:var(--white)}
+.tab-btn:not(.active):hover{background:#FAFAFA;color:var(--dark)}
+
+/* SECTION CARD */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:28px;margin-bottom:14px}
+.section-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.section-desc{font-size:12px;color:var(--gray2);margin-bottom:20px}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;font-weight:600;color:var(--dark)}
+.required{color:var(--mint);margin-left:2px}
+.form-group input,.form-group select,.form-group textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:15px;color:var(--dark);font-family:inherit;font-weight:500;
+  background:var(--white);transition:border-color 0.15s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--mint)}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.7}
+.form-full{grid-column:1/-1}
+
+/* TOGGLE ROW */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid #F5F5F5}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info{flex:1}
+.toggle-title{font-size:14px;font-weight:600;color:var(--dark)}
+.toggle-sub{font-size:12px;color:var(--gray2);margin-top:2px}
+.toggle-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;background:#E3F9F3;color:var(--mint);margin-left:6px;vertical-align:middle}
+.switch{width:40px;height:22px;border-radius:11px;background:#E5E5E5;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;margin-left:16px}
+.switch.on{background:var(--mint)}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.switch.on::after{left:21px}
+
+/* PARAMS SUB-PANEL */
+.params{padding:12px 0 4px 0;display:none}
+.params.open{display:block}
+.params-hint{font-size:11px;color:var(--gray2);margin-bottom:10px;padding:8px 12px;background:#FAFAFA;border-radius:6px}
+.param-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.param-row label{font-size:12px;color:var(--gray);width:140px;flex-shrink:0}
+.param-row input,.param-row select{padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;width:80px;font-family:inherit}
+.param-row select{width:auto;min-width:160px}
+.param-row span{font-size:12px;color:var(--gray)}
+
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#FAFAFA}
+.upload-area:hover{border-color:var(--mint)}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-label{font-size:14px;color:var(--gray);margin-bottom:4px}
+.upload-format{font-size:12px;color:var(--gray2)}
+.upload-area input{display:none}
+.upload-filename{font-size:13px;color:var(--mint);font-weight:600;margin-top:8px}
+
+/* PRICE SUMMARY */
+.price-summary{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:22px 28px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.ps-label{font-size:13px;color:rgba(255,255,255,0.55)}
+.ps-plan{font-size:14px;color:var(--mint);font-weight:700;margin-top:2px}
+.ps-price{font-size:30px;font-weight:900}
+.ps-price span{font-size:14px;font-weight:500;color:rgba(255,255,255,0.55);margin-left:3px}
+
+/* SUBMIT */
+.btn-submit{display:block;width:100%;padding:18px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;letter-spacing:-0.3px}
+.btn-submit:hover{opacity:0.88}
+.submit-note{text-align:center;font-size:12px;color:var(--gray2);margin-top:10px;line-height:1.6}
+
+/* PANEL */
+.panel{display:none}.panel.active{display:block}
+
+/* SUCCESS */
+.success-screen{text-align:center;padding:60px 20px;display:none}
+.success-icon{font-size:52px;margin-bottom:20px}
+.success-title{font-size:26px;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.success-desc{font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:28px}
+.btn-home{display:inline-block;background:var(--dark);color:var(--white);padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px}
+
+/* FOOTER */
+.footer{background:var(--white);padding:28px 0;border-top:1px solid var(--border);margin-top:32px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-logo{font-size:18px;font-weight:900;color:var(--dark)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:26px}
+  .nav-inner{padding:0 20px}
+  .section-card{padding:20px}
+  .price-summary{flex-direction:column;text-align:center;gap:6px}
+  .param-row{flex-wrap:wrap}
+  .param-row label{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+<div class="nav-inner">
+  <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
+  <a href="/employment-rules" class="nav-back">취업규칙 서비스 소개</a>
+</div>
+</nav>
+
+<!-- SUCCESS -->
+<div id="success-screen" class="page-wrap" style="display:none">
+<div class="form-container">
+  <div class="success-screen" style="display:block">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">의뢰가 접수되었습니다</h2>
+    <p class="success-desc">입력하신 이메일로 접수 확인 메일을 발송해 드렸습니다.<br><em>신규 제정은 영업일 3일, 개정은 영업일 5일 이내</em>에 완성본을 보내드립니다.</p>
+    <a href="/" class="btn-home">홈으로 돌아가기</a>
+  </div>
+</div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="page-wrap" id="main-form">
+<div class="form-container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-badge">취업규칙 의뢰</div>
+    <h1>취업규칙,<br><em>10분 안에 의뢰</em>하세요</h1>
+    <p>신규 제정부터 법 개정 반영까지. 완성본을 이메일로 받으세요.</p>
+  </div>
+
+  <!-- TAB -->
+  <div class="tab-wrap">
+    <button class="tab-btn active" onclick="switchTab(0)">신규 제정</button>
+    <button class="tab-btn" onclick="switchTab(1)">기존 개정</button>
+  </div>
+
+  <!-- ==================== 탭 0: 신규 제정 ==================== -->
+  <div class="panel active" id="tab-0">
+
+  <div class="section-card">
+    <div class="section-title">담당자 정보</div>
+    <div class="form-grid">
+      <div class="form-group"><label>담당자 이름 <span class="required">*</span></label><input type="text" id="n_name" placeholder="홍길동"></div>
+      <div class="form-group"><label>이메일 <span class="required">*</span></label><input type="email" id="n_email" placeholder="hr@company.com"></div>
+      <div class="form-group"><label>전화번호 <span class="required">*</span></label><input type="tel" id="n_phone" placeholder="010-0000-0000"></div>
+      <div class="form-group"><label>회사명 <span class="required">*</span></label><input type="text" id="n_company" placeholder="주식회사 ○○"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">회사 기본정보</div>
+    <div class="form-grid">
+      <div class="form-group"><label>상시근로자 수 <span class="required">*</span></label><input type="number" id="n_count" value="30" min="1"></div>
+      <div class="form-group"><label>업종</label>
+        <select id="n_industry"><option>제조업</option><option>서비스업</option><option>IT/소프트웨어</option><option>유통/물류</option><option>건설업</option><option>기타</option></select>
+      </div>
+      <div class="form-group"><label>노조 유무</label>
+        <select id="n_union"><option value="false">없음</option><option value="true">있음</option></select>
+      </div>
+      <div class="form-group"><label>시행 희망일</label><input type="date" id="n_date" value="2026-06-01"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">근로조건</div>
+    <div class="section-desc">기본값이 설정되어 있습니다. 귀사 상황에 맞게 수정하세요.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>1일 소정근로시간</label>
+        <select id="n_hours"><option value="8">8시간</option><option value="7">7시간</option><option value="6">6시간</option></select>
+      </div>
+      <div class="form-group"><label>근로일</label>
+        <select id="n_days"><option value="5">주 5일</option><option value="6">주 6일</option></select>
+      </div>
+      <div class="form-group"><label>시업 시각</label><input type="time" id="n_start" value="09:00"></div>
+      <div class="form-group"><label>종업 시각</label><input type="time" id="n_end" value="18:00"></div>
+      <div class="form-group"><label>휴게시간</label>
+        <select id="n_break"><option>12:00~13:00</option><option>12:30~13:30</option></select>
+      </div>
+      <div class="form-group"><label>수습기간</label>
+        <select id="n_prob"><option value="3">3개월</option><option value="6">6개월</option><option value="0">없음</option></select>
+      </div>
+      <div class="form-group"><label>정년</label>
+        <select id="n_retire"><option value="60">만 60세</option><option value="65">만 65세</option></select>
+      </div>
+      <div class="form-group"><label>임금지급일</label>
+        <select id="n_payday"><option>매월 10일</option><option>매월 15일</option><option>매월 25일</option><option>매월 말일</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">선택 조항</div>
+    <div class="section-desc">필수 조항은 자동 포함됩니다. 추가 원하는 조항을 선택하세요.</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">경조휴가</div>
+        <div class="toggle-sub">결혼, 사망 등 경조사 유급휴가</div>
+      </div>
+      <div class="switch" id="sw-condolence" onclick="toggleSw(this)"></div>
+    </div>
+    <div class="params" id="params-condolence">
+      <div class="params-hint">표준안이 기본 설정되어 있습니다. 변경 가능하며, 미정이면 '나중에 결정'을 선택하세요.</div>
+      <div class="param-row">
+        <label>일수 결정 시점</label>
+        <select id="p_cond_timing" onchange="toggleCondolenceDetail(this.value)" style="width:auto;min-width:180px">
+          <option value="now">지금 결정</option>
+          <option value="later">나중에 결정 (초안 검토 시)</option>
+        </select>
+      </div>
+      <div id="condolence-detail">
+        <div class="param-row"><label>본인 결혼</label><input type="number" id="p_marriage" value="5"><span>일</span></div>
+        <div class="param-row"><label>자녀 결혼</label><input type="number" id="p_child_marriage" value="1"><span>일</span></div>
+        <div class="param-row"><label>배우자 사망</label><input type="number" id="p_death_sp" value="5"><span>일</span></div>
+        <div class="param-row"><label>본인·배우자 부모 사망</label><input type="number" id="p_death_par" value="5"><span>일</span></div>
+        <div class="param-row"><label>본인·배우자 조부모 사망</label><input type="number" id="p_death_gpar" value="3"><span>일</span></div>
+        <div class="param-row"><label>자녀·자녀배우자 사망</label><input type="number" id="p_death_child" value="3"><span>일</span></div>
+        <div class="param-row"><label>형제자매 사망</label><input type="number" id="p_death_sib" value="1"><span>일</span></div>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">병가</div>
+        <div class="toggle-sub">업무 외 질병·부상 시 휴가</div>
+      </div>
+      <div class="switch" id="sw-sick" onclick="toggleSw(this)"></div>
+    </div>
+    <div class="params" id="params-sick">
+      <div class="params-hint">표준안이 기본 설정되어 있습니다. 변경 가능하며, 미정이면 '나중에 결정'을 선택하세요.</div>
+      <div class="param-row">
+        <label>세부사항 결정 시점</label>
+        <select id="p_sick_timing" onchange="toggleSickDetail(this.value)" style="width:auto;min-width:180px">
+          <option value="now">지금 결정</option>
+          <option value="later">나중에 결정 (초안 검토 시)</option>
+        </select>
+      </div>
+      <div id="sick-detail">
+        <div class="param-row"><label>연간 병가일수</label><input type="number" id="p_sick_days" value="60"><span>일</span></div>
+        <div class="param-row"><label>유급 여부</label><select id="p_sick_paid"><option>무급</option><option>유급</option></select></div>
+        <div class="param-row"><label>진단서 제출 기준</label>
+          <select id="p_sick_doc"><option>3일 이상 시 제출</option><option>모든 병가 시 제출</option><option>7일 이상 시 제출</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">재량근로시간제 <span class="toggle-badge">권장</span></div>
+        <div class="toggle-sub">'실시할 수 있다' 근거 조항</div>
+      </div>
+      <div class="switch on" id="sw-flex" onclick="toggleSw(this)"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">회사 보호 조항 <span class="toggle-badge" style="font-size:11px">HRer 권장</span></div>
+    <div class="section-desc">노무사가 권장하는 조항입니다. 기본 포함되어 있습니다.</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">대기발령</div>
+        <div class="toggle-sub">인사·징계상 필요 시 대기발령 명령 근거</div>
+      </div>
+      <div class="switch on" id="sw-standby" onclick="toggleSw(this)"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">징계사유 포괄조항</div>
+        <div class="toggle-sub">'기타 이에 준하는 사유' 추가</div>
+      </div>
+      <div class="switch on" id="sw-disc-etc" onclick="toggleSw(this)"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">징계심의 간소화</div>
+        <div class="toggle-sub">소명 기회 + 서면 통보의 간결 구조</div>
+      </div>
+      <div class="switch on" id="sw-disc-simple" onclick="toggleSw(this)"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">퇴직 시 연차 정산</div>
+        <div class="toggle-sub">입사일 기준 산정, 미사용분 수당 지급</div>
+      </div>
+      <div class="switch on" id="sw-annual" onclick="toggleSw(this)"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">기타</div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label>특이사항 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(선택)</span></label>
+        <textarea id="n_note" placeholder="추가로 반영하고 싶은 사항이 있으면 자유롭게 기재해주세요."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-summary">
+    <div>
+      <div class="ps-label">결제 금액</div>
+      <div class="ps-plan">취업규칙 신규 제정</div>
+    </div>
+    <div style="text-align:right">
+      <div class="ps-price">490,000<span>원</span></div>
+    </div>
+  </div>
+  <button class="btn-submit" onclick="submitNew()">신규 제정 의뢰하기</button>
+  <p class="submit-note">영업일 기준 3일 이내 초안을 이메일로 보내드립니다.</p>
+
+  </div><!-- /tab-0 -->
+
+  <!-- ==================== 탭 1: 기존 개정 ==================== -->
+  <div class="panel" id="tab-1">
+
+  <div class="section-card">
+    <div class="section-title">담당자 정보</div>
+    <div class="form-grid">
+      <div class="form-group"><label>담당자 이름 <span class="required">*</span></label><input type="text" id="e_name" placeholder="홍길동"></div>
+      <div class="form-group"><label>이메일 <span class="required">*</span></label><input type="email" id="e_email" placeholder="hr@company.com"></div>
+      <div class="form-group"><label>전화번호 <span class="required">*</span></label><input type="tel" id="e_phone" placeholder="010-0000-0000"></div>
+      <div class="form-group"><label>회사명 <span class="required">*</span></label><input type="text" id="e_company" placeholder="주식회사 ○○"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">회사 정보</div>
+    <div class="form-grid">
+      <div class="form-group"><label>상시근로자 수</label><input type="number" id="e_count" value="30" min="1"></div>
+      <div class="form-group"><label>노조 유무</label>
+        <select id="e_union"><option value="false">없음</option><option value="true">있음</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">기존 취업규칙 업로드</div>
+    <div class="section-desc">현재 사용 중인 취업규칙 파일을 업로드해 주세요.</div>
+    <div class="upload-area" onclick="document.getElementById('e_file').click()">
+      <div class="upload-icon">📄</div>
+      <div class="upload-label">클릭하여 파일 선택</div>
+      <div class="upload-format">PDF, DOCX, HWP 지원</div>
+      <input type="file" id="e_file" accept=".pdf,.docx,.hwp,.doc" onchange="showFilename('e_file','e_filename')">
+      <div class="upload-filename" id="e_filename"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title">개정 요청사항</div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label>최근 법 개정 반영 여부</label>
+        <select id="e_law_status">
+          <option>잘 모르겠습니다</option>
+          <option>일부 반영됨</option>
+          <option>전혀 반영 안 됨</option>
+          <option>최근에 반영했지만 확인이 필요합니다</option>
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label>특별히 개정하고 싶은 부분 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(선택)</span></label>
+        <textarea id="e_note" placeholder="예: 육아휴직 관련 조항 업데이트, 직장 내 괴롭힘 조항 추가, 징계 절차 간소화 등"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="price-summary">
+    <div>
+      <div class="ps-label">결제 금액</div>
+      <div class="ps-plan">취업규칙 개정 + 신구대조표</div>
+    </div>
+    <div style="text-align:right">
+      <div class="ps-price">390,000<span>원</span></div>
+    </div>
+  </div>
+  <button class="btn-submit" onclick="submitEdit()">개정 의뢰하기</button>
+  <p class="submit-note">업로드하신 취업규칙을 분석 후 영업일 5일 이내 개정안과 신구대조표를 보내드립니다.</p>
+
+  </div><!-- /tab-1 -->
+
+</div><!-- /form-container -->
+</div><!-- /page-wrap -->
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+  <div style="font-size:13px;color:var(--gray2)">contact@hrer.kr · © 2026 HRer. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+// ─── 탭 전환 ──────────────────────────────────────────
+function switchTab(n) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === n));
+  document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === n));
+}
+
+// ─── 토글 스위치 ──────────────────────────────────────
+function toggleSw(el) {
+  el.classList.toggle('on');
+  const id = el.id.replace('sw-', '');
+  const params = document.getElementById('params-' + id);
+  if (params) params.classList.toggle('open', el.classList.contains('on'));
+}
+
+// ─── 경조휴가 세부 표시 ────────────────────────────────
+function toggleCondolenceDetail(v) {
+  document.getElementById('condolence-detail').style.display = v === 'now' ? 'block' : 'none';
+}
+function toggleSickDetail(v) {
+  document.getElementById('sick-detail').style.display = v === 'now' ? 'block' : 'none';
+}
+
+// ─── 파일명 표시 ─────────────────────────────────────
+function showFilename(inputId, displayId) {
+  const name = document.getElementById(inputId).files[0]?.name || '';
+  document.getElementById(displayId).textContent = name ? '선택됨: ' + name : '';
+}
+
+// ─── 신규 제정 제출 ───────────────────────────────────
+function submitNew() {
+  const name = document.getElementById('n_name').value.trim();
+  const email = document.getElementById('n_email').value.trim();
+  const phone = document.getElementById('n_phone').value.trim();
+  const company = document.getElementById('n_company').value.trim();
+  if (!name || !email || !phone || !company) { alert('필수 항목을 모두 입력해 주세요.'); return; }
+
+  const config = {
+    type: 'new',
+    contact: { name, email, phone },
+    company: {
+      name: company,
+      employee_count: parseInt(document.getElementById('n_count').value),
+      industry: document.getElementById('n_industry').value,
+      has_union: document.getElementById('n_union').value === 'true',
+      effective_date: document.getElementById('n_date').value,
+    },
+    working_conditions: {
+      daily_hours: parseInt(document.getElementById('n_hours').value),
+      weekly_days: parseInt(document.getElementById('n_days').value),
+      start_time: document.getElementById('n_start').value,
+      end_time: document.getElementById('n_end').value,
+      break_time: document.getElementById('n_break').value,
+      probation_months: parseInt(document.getElementById('n_prob').value),
+      retirement_age: parseInt(document.getElementById('n_retire').value),
+      pay_day: document.getElementById('n_payday').value,
+    },
+    optional_articles: {
+      condolence: document.getElementById('sw-condolence').classList.contains('on'),
+      sick_leave: document.getElementById('sw-sick').classList.contains('on'),
+      flex_work: document.getElementById('sw-flex').classList.contains('on'),
+    },
+    pro_company_articles: {
+      standby: document.getElementById('sw-standby').classList.contains('on'),
+      discipline_etc: document.getElementById('sw-disc-etc').classList.contains('on'),
+      discipline_simple: document.getElementById('sw-disc-simple').classList.contains('on'),
+      annual_settle: document.getElementById('sw-annual').classList.contains('on'),
+    },
+    params: {
+      condolence_timing: document.getElementById('p_cond_timing')?.value,
+      marriage_self: document.getElementById('p_marriage')?.value,
+      child_marriage: document.getElementById('p_child_marriage')?.value,
+      death_spouse: document.getElementById('p_death_sp')?.value,
+      death_parent: document.getElementById('p_death_par')?.value,
+      death_grandparent: document.getElementById('p_death_gpar')?.value,
+      death_child: document.getElementById('p_death_child')?.value,
+      death_sibling: document.getElementById('p_death_sib')?.value,
+      sick_timing: document.getElementById('p_sick_timing')?.value,
+      sick_days: document.getElementById('p_sick_days')?.value,
+      sick_paid: document.getElementById('p_sick_paid')?.value,
+      sick_doc: document.getElementById('p_sick_doc')?.value,
+    },
+    note: document.getElementById('n_note').value,
+    submitted_at: new Date().toISOString(),
+  };
+
+  downloadJSON(config, `order_${company.replace(/[^가-힣a-zA-Z0-9]/g,'_')}_신규.json`);
+  document.getElementById('main-form').style.display = 'none';
+  document.getElementById('success-screen').style.display = 'block';
+}
+
+// ─── 개정 제출 ────────────────────────────────────────
+function submitEdit() {
+  const name = document.getElementById('e_name').value.trim();
+  const email = document.getElementById('e_email').value.trim();
+  const phone = document.getElementById('e_phone').value.trim();
+  const company = document.getElementById('e_company').value.trim();
+  if (!name || !email || !phone || !company) { alert('필수 항목을 모두 입력해 주세요.'); return; }
+
+  const config = {
+    type: 'edit',
+    contact: { name, email, phone },
+    company: {
+      name: company,
+      employee_count: parseInt(document.getElementById('e_count').value),
+      has_union: document.getElementById('e_union').value === 'true',
+    },
+    existing_file: document.getElementById('e_file').files[0]?.name || '',
+    law_status: document.getElementById('e_law_status').value,
+    note: document.getElementById('e_note').value,
+    submitted_at: new Date().toISOString(),
+  };
+
+  downloadJSON(config, `order_${company.replace(/[^가-힣a-zA-Z0-9]/g,'_')}_개정.json`);
+  document.getElementById('main-form').style.display = 'none';
+  document.getElementById('success-screen').style.display = 'block';
+}
+
+// ─── JSON 다운로드 헬퍼 ──────────────────────────────
+function downloadJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+}
+</script>
+</body>
+</html>
