@@ -160,26 +160,26 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <div class="section-title">서비스 단계 선택</div>
     <div class="section-desc">질문의 성격과 필요한 답변 수준에 맞게 선택하세요.</div>
     <div class="plan-grid">
-      <label class="plan-card" id="plan-simple" onclick="selectPlan('simple', 59000)">
+      <label class="plan-card" id="plan-simple" onclick="selectPlan('simple', 143000)">
         <input type="radio" name="plan" value="simple">
         <div class="plan-check"></div>
         <div class="plan-name">간편 자문</div>
-        <div class="plan-price">59,000<span>원</span></div>
+        <div class="plan-price">143,000<span>원</span></div>
         <div class="plan-desc">단순 법령 해석, 빠른 답변이 필요한 질문에 적합합니다.</div>
       </label>
-      <label class="plan-card selected" id="plan-precise" onclick="selectPlan('precise', 99000)">
+      <label class="plan-card selected" id="plan-precise" onclick="selectPlan('precise', 198000)">
         <input type="radio" name="plan" value="precise" checked>
         <div class="plan-badge">추천</div>
         <div class="plan-check"></div>
-        <div class="plan-name">정밀 자문</div>
-        <div class="plan-price">99,000<span>원</span></div>
+        <div class="plan-name">심층 자문</div>
+        <div class="plan-price">198,000<span>원</span></div>
         <div class="plan-desc">쟁점 분석·판례·행정해석 교차 검토. 대부분의 자문에 적합합니다.</div>
       </label>
-      <label class="plan-card" id="plan-written" onclick="selectPlan('written', 199000)">
+      <label class="plan-card" id="plan-written" onclick="selectPlan('written', 253000)">
         <input type="radio" name="plan" value="written">
         <div class="plan-check"></div>
-        <div class="plan-name">서면 자문</div>
-        <div class="plan-price">199,000<span>원</span></div>
+        <div class="plan-name">의견서</div>
+        <div class="plan-price">253,000<span>원</span></div>
         <div class="plan-desc">노동청·노동위원회 제출 가능한 법적 의견서 수준의 서면 작성.</div>
       </label>
     </div>
@@ -253,10 +253,10 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <div class="price-summary" id="price-summary">
     <div>
       <div class="price-summary-label">결제 금액</div>
-      <div class="price-summary-plan" id="summary-plan">정밀 자문</div>
+      <div class="price-summary-plan" id="summary-plan">심층 자문</div>
     </div>
     <div style="text-align:right">
-      <div class="price-summary-amount" id="summary-price">99,000<span>원</span></div>
+      <div class="price-summary-amount" id="summary-price">198,000<span>원</span></div>
     </div>
   </div>
 
@@ -286,9 +286,9 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 <script>
 // ─── 상태 ─────────────────────────────────────────────
 const PLANS = {
-  simple:  { label: '간편 자문', price: 59000 },
-  precise: { label: '정밀 자문', price: 99000 },
-  written: { label: '서면 자문', price: 199000 },
+  simple:  { label: '간편 자문', price: 143000 },
+  precise: { label: '심층 자문', price: 198000 },
+  written: { label: '의견서', price: 253000 },
 };
 let currentPlan = 'precise';
 let paymentWidget = null;
