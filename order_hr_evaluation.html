@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>인사평가 의뢰 — HRer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;
+  --card-radius:14px;
+}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#FAFAFA;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
+a{text-decoration:none;color:inherit}
+em{font-style:normal;color:var(--mint);font-weight:700}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
+.logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
+.nav-back{font-size:14px;color:var(--gray);font-weight:500}
+.nav-back::before{content:'← '}
+.nav-back:hover{color:var(--dark)}
+
+/* LAYOUT */
+.page-wrap{min-height:100vh;padding:88px 20px 80px}
+.form-container{max-width:720px;margin:0 auto}
+
+/* PAGE HEADER */
+.page-header{text-align:center;margin-bottom:40px}
+.page-badge{display:inline-block;padding:6px 18px;border-radius:100px;background:#F0FDF4;color:var(--mint);font-size:13px;font-weight:600;margin-bottom:16px;border:1px solid rgba(0,184,147,0.15)}
+.page-header h1{font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:12px}
+.page-header p{font-size:16px;color:var(--gray);line-height:1.7}
+
+/* STEP INDICATOR */
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:36px}
+.step{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--gray2)}
+.step-num{width:26px;height:26px;border-radius:50%;background:#F0F0F0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gray2);flex-shrink:0}
+.step.active .step-num{background:var(--mint);color:#fff}
+.step.active{color:var(--dark)}
+.step-line{width:40px;height:1px;background:var(--border);margin:0 4px}
+
+/* SECTION CARD */
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:28px;margin-bottom:14px}
+.section-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.section-desc{font-size:12px;color:var(--gray2);margin-bottom:20px}
+
+/* INFO BOX */
+.info-box{background:#F0FDF4;border:1px solid rgba(0,184,147,0.2);border-radius:10px;padding:16px 18px;margin-bottom:20px}
+.info-box p{font-size:13px;color:var(--dark);line-height:1.7}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;font-weight:600;color:var(--dark)}
+.required{color:var(--mint);margin-left:2px}
+.form-group input,.form-group select,.form-group textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:15px;color:var(--dark);font-family:inherit;font-weight:500;
+  background:var(--white);transition:border-color 0.15s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--mint)}
+.form-group textarea{resize:vertical;min-height:90px;line-height:1.7}
+.form-full{grid-column:1/-1}
+
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#FAFAFA}
+.upload-area:hover,.upload-area.dragover{border-color:var(--mint);background:#F0FDF4}
+.upload-icon{font-size:32px;margin-bottom:10px}
+.upload-label{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.upload-sub{font-size:13px;color:var(--gray);margin-bottom:4px}
+.upload-format{font-size:12px;color:var(--gray2)}
+.upload-area input{display:none}
+.upload-filename{font-size:13px;color:var(--mint);font-weight:600;margin-top:10px}
+.upload-filename .icon{margin-right:4px}
+
+/* TEMPLATE DOWNLOAD */
+.template-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mint);font-weight:600;padding:8px 14px;border:1.5px solid rgba(0,184,147,0.3);border-radius:8px;transition:all 0.15s;background:#F0FDF4}
+.template-link:hover{background:#E0F9F3}
+
+/* TOGGLE ROW */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid #F5F5F5}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info{flex:1}
+.toggle-title{font-size:14px;font-weight:600;color:var(--dark)}
+.toggle-sub{font-size:12px;color:var(--gray2);margin-top:2px}
+.toggle-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;background:#FFF3CD;color:#B45309;margin-left:6px;vertical-align:middle}
+.switch{width:40px;height:22px;border-radius:11px;background:#E5E5E5;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;margin-left:16px}
+.switch.on{background:var(--mint)}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.15)}
+.switch.on::after{left:21px}
+
+/* OPTION SELECTOR */
+.option-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.option-card{border:2px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all 0.15s;background:var(--white)}
+.option-card:hover{border-color:var(--mint)}
+.option-card.selected{border-color:var(--mint);background:#F0FDF4}
+.option-card input[type=radio]{display:none}
+.option-title{font-size:14px;font-weight:700;margin-bottom:4px}
+.option-price{font-size:13px;color:var(--mint);font-weight:700;margin-bottom:6px}
+.option-desc{font-size:12px;color:var(--gray);line-height:1.6}
+
+/* PRICE SUMMARY */
+.price-summary{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:22px 28px;margin-bottom:14px}
+.ps-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ps-row:last-child{border-bottom:none;padding-top:14px;margin-top:4px}
+.ps-label{font-size:13px;color:rgba(255,255,255,0.55)}
+.ps-value{font-size:13px;color:rgba(255,255,255,0.8);font-weight:600}
+.ps-total-label{font-size:14px;font-weight:700;color:rgba(255,255,255,0.7)}
+.ps-total-price{font-size:28px;font-weight:900;color:var(--white)}
+.ps-total-price span{font-size:13px;font-weight:500;color:rgba(255,255,255,0.5);margin-left:3px}
+
+/* SUBMIT */
+.btn-submit{display:block;width:100%;padding:18px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;letter-spacing:-0.3px}
+.btn-submit:hover{opacity:0.88}
+.submit-note{text-align:center;font-size:12px;color:var(--gray2);margin-top:10px;line-height:1.6}
+
+/* SUCCESS */
+.success-screen{text-align:center;padding:60px 20px;display:none}
+.success-icon{font-size:52px;margin-bottom:20px}
+.success-title{font-size:26px;font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.success-desc{font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:28px}
+.btn-home{display:inline-block;background:var(--dark);color:var(--white);padding:12px 28px;border-radius:10px;font-weight:700;font-size:14px}
+
+/* FOOTER */
+.footer{background:var(--white);padding:28px 0;border-top:1px solid var(--border);margin-top:32px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-logo{font-size:18px;font-weight:900;color:var(--dark)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .option-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:26px}
+  .nav-inner{padding:0 20px}
+  .section-card{padding:20px}
+  .steps{gap:0;font-size:12px}
+  .step-line{width:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+<div class="nav-inner">
+  <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
+  <a href="/hr-evaluation" class="nav-back">인사평가 서비스 소개</a>
+</div>
+</nav>
+
+<!-- SUCCESS -->
+<div id="success-screen" class="page-wrap" style="display:none">
+<div class="form-container">
+  <div class="success-screen" style="display:block">
+    <div class="success-icon">✅</div>
+    <h2 class="success-title">의뢰가 접수되었습니다</h2>
+    <p class="success-desc">직원 명부를 검토한 후 <em>영업일 2일 이내</em>에 역량 세팅 리포트를 보내드립니다.<br>이후 고객 확인 → 평가 시행 → 결과 분석 순서로 진행됩니다.</p>
+    <a href="/" class="btn-home">홈으로 돌아가기</a>
+  </div>
+</div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="page-wrap" id="main-form">
+<div class="form-container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-badge">인사평가 의뢰</div>
+    <h1><em>공정하고 법적으로 방어 가능한</em><br>인사평가를 도입하세요</h1>
+    <p>NCS 직무표준 기반 · T점수 표준화 · 10~30인 사업장 최적화</p>
+  </div>
+
+  <!-- STEP INDICATOR -->
+  <div class="steps">
+    <div class="step active"><div class="step-num">1</div>신청폼 접수</div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">2</div>역량 세팅 확인</div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">3</div>평가 시행</div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-num">4</div>결과 발송</div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-card">
+    <div class="section-title">인사담당자 정보</div>
+    <div class="section-desc">평가 진행 및 결과 발송을 위한 연락처입니다.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>담당자 이름 <span class="required">*</span></label><input type="text" id="mgr_name" placeholder="홍길동"></div>
+      <div class="form-group"><label>이메일 <span class="required">*</span></label><input type="email" id="mgr_email" placeholder="hr@company.com"></div>
+      <div class="form-group"><label>전화번호 <span class="required">*</span></label><input type="tel" id="mgr_phone" placeholder="010-0000-0000"></div>
+      <div class="form-group"><label>회사명 <span class="required">*</span></label><input type="text" id="mgr_company" placeholder="주식회사 ○○"></div>
+    </div>
+  </div>
+
+  <!-- COMPANY INFO -->
+  <div class="section-card">
+    <div class="section-title">회사 기본정보</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>평가 대상 직원 수 <span class="required">*</span></label>
+        <input type="number" id="emp_count" placeholder="예: 20" min="3" onchange="calcPrice()">
+      </div>
+      <div class="form-group">
+        <label>업종</label>
+        <select id="industry">
+          <option value="">선택 안 함</option>
+          <option>제조업</option>
+          <option>서비스업</option>
+          <option>IT/소프트웨어</option>
+          <option>유통/물류</option>
+          <option>건설업</option>
+          <option>의료/보건</option>
+          <option>교육</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>평가 시행 희망 시점</label>
+        <select id="eval_timing">
+          <option>가능한 빨리</option>
+          <option>1개월 이내</option>
+          <option>2~3개월 이내</option>
+          <option>미정</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>직책자(팀장 등) 포함 여부</label>
+        <select id="has_leader" onchange="calcPrice()">
+          <option value="false">없음</option>
+          <option value="true">있음</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPLOYEE LIST UPLOAD -->
+  <div class="section-card">
+    <div class="section-title">직원 명부 업로드</div>
+    <div class="section-desc">평가 역량을 직무별로 세팅하기 위해 직원 정보가 필요합니다.</div>
+
+    <div class="info-box">
+      <p>명부에 포함할 정보: <em>이름, 생년월일, 입사일, 성별, 부서, 직무, 직급(주니어/시니어), 직책, 전화번호, 이메일</em><br>
+      아래 템플릿을 다운로드해서 작성 후 업로드해 주세요. 개인정보는 암호화되어 전송됩니다.</p>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <a href="#" class="template-link" onclick="downloadTemplate(event)">📥 직원 명부 템플릿 다운로드 (.xlsx)</a>
+    </div>
+
+    <div class="upload-area" id="upload-area"
+      onclick="document.getElementById('emp_file').click()"
+      ondragover="handleDragOver(event)"
+      ondragleave="handleDragLeave(event)"
+      ondrop="handleDrop(event)">
+      <div class="upload-icon">📊</div>
+      <div class="upload-label">클릭하거나 파일을 여기에 드래그하세요</div>
+      <div class="upload-sub">작성 완료된 직원 명부를 업로드해 주세요</div>
+      <div class="upload-format">XLSX, CSV 지원 · 최대 10MB</div>
+      <input type="file" id="emp_file" accept=".xlsx,.xls,.csv" onchange="showFilename(this)">
+      <div class="upload-filename" id="emp_filename"></div>
+    </div>
+  </div>
+
+  <!-- OPTIONS -->
+  <div class="section-card">
+    <div class="section-title">결과 발송 방식</div>
+    <div class="section-desc">평가 결과를 어떻게 받으실지 선택해 주세요.</div>
+    <div class="option-grid">
+      <label class="option-card selected" id="opt-hr" onclick="selectDelivery('hr')">
+        <input type="radio" name="delivery" value="hr" checked>
+        <div class="option-title">인사담당자 일괄 발송</div>
+        <div class="option-price">기본 포함</div>
+        <div class="option-desc">개인별 결과표를 인사담당자에게 한꺼번에 발송합니다.</div>
+      </label>
+      <label class="option-card" id="opt-individual" onclick="selectDelivery('individual')">
+        <input type="radio" name="delivery" value="individual">
+        <div class="option-title">직원 개인별 직접 발송 <span class="toggle-badge">추가</span></div>
+        <div class="option-price">+1인당 3,000원</div>
+        <div class="option-desc">개인별 결과표를 각 직원에게 이메일 또는 카카오톡으로 발송합니다.</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- OPTIONS: EXTRA -->
+  <div class="section-card">
+    <div class="section-title">추가 옵션</div>
+
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">리더십 역량 평가 <span class="toggle-badge">직책자 있을 때</span></div>
+        <div class="toggle-sub">팀장 등 직책자 대상 리더십 역량 항목을 추가 적용합니다.</div>
+      </div>
+      <div class="switch" id="sw-leadership" onclick="toggleSw(this, calcPrice)"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">성과 예측도 분석 리포트</div>
+        <div class="toggle-sub">어떤 역량이 성과와 가장 관계 높은지 분석합니다.</div>
+      </div>
+      <div class="switch" id="sw-prediction" onclick="toggleSw(this, calcPrice)"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-title">평가자 성향 보정 보고서</div>
+        <div class="toggle-sub">관대화·엄격화·중심화 경향을 탐지하고 보정 여부를 제안합니다.</div>
+      </div>
+      <div class="switch on" id="sw-bias" onclick="toggleSw(this, calcPrice)"></div>
+    </div>
+  </div>
+
+  <!-- NOTE -->
+  <div class="section-card">
+    <div class="section-title">기타 요청사항</div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label>특이사항 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(선택)</span></label>
+        <textarea id="note" placeholder="예: 특정 부서만 먼저 시행 희망, 평가 결과를 승진 심사에만 활용할 예정 등"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICE SUMMARY -->
+  <div class="price-summary" id="price-summary">
+    <div class="ps-row">
+      <div class="ps-label">기본 서비스</div>
+      <div class="ps-value" id="ps-base">—</div>
+    </div>
+    <div class="ps-row" id="ps-individual-row" style="display:none">
+      <div class="ps-label">개인별 발송 옵션</div>
+      <div class="ps-value" id="ps-individual-val">—</div>
+    </div>
+    <div class="ps-row" id="ps-leader-row" style="display:none">
+      <div class="ps-label">리더십 역량 평가</div>
+      <div class="ps-value">포함</div>
+    </div>
+    <div class="ps-row">
+      <div class="ps-total-label">최종 금액</div>
+      <div class="ps-total-price"><span id="total-price">직원 수를 입력해 주세요</span></div>
+    </div>
+  </div>
+
+  <button class="btn-submit" onclick="submitForm()">인사평가 의뢰하기</button>
+  <p class="submit-note">접수 후 <em>영업일 2일 이내</em> 역량 세팅 리포트를 보내드립니다.<br>고객 확인 후 평가를 시행합니다.</p>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+  <div style="font-size:13px;color:var(--gray2)">contact@hrer.kr · © 2026 HRer. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+// ─── 가격 계산 ────────────────────────────────────────
+const BASE_PRICE_PER_PERSON = 15000;
+const BASE_MIN = 150000;
+const INDIVIDUAL_DELIVERY_PRICE = 3000;
+let deliveryMode = 'hr';
+
+function calcPrice() {
+  const count = parseInt(document.getElementById('emp_count').value) || 0;
+  if (count < 1) {
+    document.getElementById('total-price').innerHTML = '직원 수를 입력해 주세요';
+    document.getElementById('total-price').style.fontSize = '14px';
+    document.getElementById('ps-base').textContent = '—';
+    document.getElementById('ps-individual-row').style.display = 'none';
+    return;
+  }
+
+  const base = Math.max(BASE_MIN, count * BASE_PRICE_PER_PERSON);
+  document.getElementById('ps-base').textContent = base.toLocaleString() + '원';
+  document.getElementById('total-price').style.fontSize = '';
+
+  let total = base;
+  let individualAdd = 0;
+
+  if (deliveryMode === 'individual') {
+    individualAdd = count * INDIVIDUAL_DELIVERY_PRICE;
+    total += individualAdd;
+    document.getElementById('ps-individual-row').style.display = 'flex';
+    document.getElementById('ps-individual-val').textContent = '+' + individualAdd.toLocaleString() + '원';
+  } else {
+    document.getElementById('ps-individual-row').style.display = 'none';
+  }
+
+  const hasLeader = document.getElementById('has_leader').value === 'true';
+  const leaderOn = document.getElementById('sw-leadership').classList.contains('on');
+  document.getElementById('ps-leader-row').style.display = (hasLeader && leaderOn) ? 'flex' : 'none';
+
+  document.getElementById('total-price').innerHTML = total.toLocaleString() + '<span>원</span>';
+}
+
+// ─── 발송 방식 선택 ───────────────────────────────────
+function selectDelivery(mode) {
+  deliveryMode = mode;
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('opt-' + mode).classList.add('selected');
+  calcPrice();
+}
+
+// ─── 토글 스위치 ──────────────────────────────────────
+function toggleSw(el, callback) {
+  el.classList.toggle('on');
+  if (callback) callback();
+}
+
+// ─── 파일 업로드 ──────────────────────────────────────
+function showFilename(input) {
+  const name = input.files[0]?.name || '';
+  document.getElementById('emp_filename').innerHTML = name ? '<span class="icon">📎</span>' + name : '';
+}
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('upload-area').classList.add('dragover');
+}
+function handleDragLeave(e) {
+  document.getElementById('upload-area').classList.remove('dragover');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-area').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    document.getElementById('emp_file').files;
+    document.getElementById('emp_filename').innerHTML = '<span class="icon">📎</span>' + file.name;
+  }
+}
+
+// ─── 템플릿 다운로드 ──────────────────────────────────
+function downloadTemplate(e) {
+  e.preventDefault();
+  // CSV 형식 템플릿 생성
+  const headers = ['이름', '생년월일(YYYYMMDD)', '입사일(YYYY-MM-DD)', '성별(남/여)', '부서', '직무', '직급(주니어/시니어)', '직책(없으면 빈칸)', '전화번호', '이메일'];
+  const example = ['홍길동', '19900101', '2022-03-01', '남', '개발팀', 'IT개발', '시니어', '팀장', '010-0000-0000', 'gildong@company.com'];
+  const csv = '\uFEFF' + headers.join(',') + '\n' + example.join(',');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'HRer_직원명부_템플릿.csv';
+  a.click();
+}
+
+// ─── 제출 ────────────────────────────────────────────
+function submitForm() {
+  const name = document.getElementById('mgr_name').value.trim();
+  const email = document.getElementById('mgr_email').value.trim();
+  const phone = document.getElementById('mgr_phone').value.trim();
+  const company = document.getElementById('mgr_company').value.trim();
+  const count = parseInt(document.getElementById('emp_count').value) || 0;
+
+  if (!name || !email || !phone || !company) { alert('담당자 필수 항목을 모두 입력해 주세요.'); return; }
+  if (count < 3) { alert('평가 대상 직원 수는 최소 3명 이상이어야 합니다.'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('이메일 형식이 올바르지 않습니다.'); return; }
+
+  const config = {
+    type: 'hr_evaluation',
+    contact: { name, email, phone },
+    company: {
+      name: company,
+      employee_count: count,
+      industry: document.getElementById('industry').value,
+      eval_timing: document.getElementById('eval_timing').value,
+      has_leader: document.getElementById('has_leader').value === 'true',
+    },
+    options: {
+      delivery_mode: deliveryMode,
+      leadership: document.getElementById('sw-leadership').classList.contains('on'),
+      prediction: document.getElementById('sw-prediction').classList.contains('on'),
+      bias_correction: document.getElementById('sw-bias').classList.contains('on'),
+    },
+    employee_file: document.getElementById('emp_file').files[0]?.name || '',
+    note: document.getElementById('note').value,
+    submitted_at: new Date().toISOString(),
+  };
+
+  const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `order_${company.replace(/[^가-힣a-zA-Z0-9]/g,'_')}_인사평가.json`;
+  a.click();
+
+  document.getElementById('main-form').style.display = 'none';
+  document.getElementById('success-screen').style.display = 'block';
+}
+</script>
+</body>
+</html>
