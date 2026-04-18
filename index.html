@@ -141,10 +141,12 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .btn-mint:hover{opacity:0.9}
 
 /* SAMPLE MODAL */
-.sample-card{cursor:pointer;position:relative;transition:transform 0.15s,box-shadow 0.2s}
-.sample-card:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,0.08)}
-.sample-card .expand-hint{position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(0,0,0,0.06);color:#555;letter-spacing:0.3px;opacity:0;transition:opacity 0.15s}
-.sample-card:hover .expand-hint{opacity:1}
+.sample-card{cursor:pointer;position:relative;transition:transform 0.2s,box-shadow 0.25s,border-color 0.25s,background 0.25s,filter 0.25s}
+.sample-card::after{content:'전문 보기 →';position:absolute;bottom:16px;right:20px;font-size:12px;font-weight:700;color:rgba(0,0,0,0.35);letter-spacing:0.2px;transition:color 0.2s,transform 0.2s}
+.sample-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,0.1);filter:brightness(1.04) saturate(1.15)}
+.sample-card:hover::after{color:var(--dark);transform:translateX(3px)}
+.sample-card[data-kind="consult"]:hover{border-color:var(--orange)!important}
+.sample-card[data-kind="eval"]:hover{border-color:var(--blue)!important}
 .modal-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
 .modal-backdrop.active{display:flex;animation:fadein 0.2s}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -391,8 +393,7 @@ body.modal-open{overflow:hidden}
 
   <!-- 자문 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:stretch">
-    <div class="sample-card" onclick="openSample('consult')" style="background:#FFF9DB;border:1.5px solid #FFD43B;border-radius:var(--card-radius);padding:36px 32px;display:flex;flex-direction:column">
-      <span class="expand-hint">전문 보기 →</span>
+    <div class="sample-card" data-kind="consult" onclick="openSample('consult')" style="background:#FFF9DB;border:1.5px solid #FFD43B;border-radius:var(--card-radius);padding:36px 32px 48px;display:flex;flex-direction:column">
       <div style="font-size:12px;font-weight:700;color:var(--orange);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">💬 노무자문</div>
       <h3 style="font-size:22px;font-weight:800;margin-bottom:14px;letter-spacing:-0.5px">행정해석·판례 근거의<br>객관적이고 정확한 서면 답변</h3>
       <div style="background:rgba(255,255,255,0.7);border-radius:10px;padding:18px 20px;margin-bottom:14px;flex:1">
@@ -407,8 +408,7 @@ body.modal-open{overflow:hidden}
     </div>
 
     <!-- 인사평가 -->
-    <div class="sample-card" onclick="openSample('eval')" style="background:#E8F4FD;border:1.5px solid #4C6EF5;border-radius:var(--card-radius);padding:36px 32px;display:flex;flex-direction:column">
-      <span class="expand-hint">샘플 보기 →</span>
+    <div class="sample-card" data-kind="eval" onclick="openSample('eval')" style="background:#E8F4FD;border:1.5px solid #4C6EF5;border-radius:var(--card-radius);padding:36px 32px 48px;display:flex;flex-direction:column">
       <div style="font-size:12px;font-weight:700;color:var(--blue);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">📊 인사평가</div>
       <h3 style="font-size:22px;font-weight:800;margin-bottom:14px;letter-spacing:-0.5px">직무·역량·성과를 연결해<br>'왜 이 등급인지'까지 설명</h3>
       <div style="background:rgba(255,255,255,0.7);border-radius:10px;padding:18px 20px;margin-bottom:14px;flex:1">
@@ -531,7 +531,7 @@ body.modal-open{overflow:hidden}
         </ol>
       </div>
 
-      <p>안녕하세요, <em>공인노무사 윤지민</em>입니다. 문의하신 내용 회신드립니다.</p>
+      <p>안녕하세요, <em>HRer 소속 공인노무사</em>입니다. 문의하신 내용 회신드립니다.</p>
 
       <h4>1. 출퇴근 중 발생한 사고의 산재보험 처리</h4>
       <p>근로자가 통상적인 경로와 방법으로 출퇴근 중 발생한 사고라면 「산업재해보상보험법」 제37조 제1항 제3호에 따라 <em>업무상 재해로 인정</em>됩니다. 즉,</p>
@@ -555,7 +555,7 @@ body.modal-open{overflow:hidden}
       <p>사업주의 법 위반이 직접적인 원인이 아닌 일반적인 통근 중 사고라면 「산업재해조사표」 제출 의무도 면제되며, 근로자가 「요양급여신청서」를 근로복지공단에 직접 제출하여 산재 보상을 신청하면 됩니다.</p>
 
       <div class="modal-signature">
-        <div class="name">공인노무사 윤지민 · HRer</div>
+        <div class="name">HRer 소속 공인노무사</div>
         <div class="disclaimer">* 본 답변은 예시이며, 실제 사안은 사실관계에 따라 결론이 달라질 수 있습니다. 구체적 판단은 담당 노무사 상담을 통해 진행해 주십시오.</div>
       </div>
     </div>
@@ -584,7 +584,7 @@ body.modal-open{overflow:hidden}
       </ul>
       <p style="margin-top:16px">서비스 문의나 사전 논의가 필요하시면 <em>contact@hrer.kr</em>로 편하게 연락 주십시오.</p>
       <div class="modal-signature">
-        <div class="name">공인노무사 윤지민 · HRer</div>
+        <div class="name">HRer 소속 공인노무사</div>
       </div>
     </div>
   </div>
@@ -609,10 +609,10 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
     <div class="footer-col">
       <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
       <div class="footer-info">
-        <span class="b">유한회사 제이씨랩</span> · 대표 윤지민<br>
+        <span class="b">유한회사 제이씨랩</span><br>
 이메일: contact@hrer.kr<br>
         <br>
-        <span style="font-size:11px">HRer는 유한회사 제이씨랩이 운영하는 서비스 브랜드이며, 노무 자문·사건·조사의 실제 직무 수행은 공인노무사 윤지민 사무소가 위탁받아 수행합니다.</span>
+        <span style="font-size:11px">HRer는 유한회사 제이씨랩이 운영하는 서비스 브랜드이며, 노무 자문·사건·조사의 실제 직무 수행은 위탁 공인노무사 사무소가 위탁받아 수행합니다.</span>
       </div>
     </div>
     <div class="footer-col">
