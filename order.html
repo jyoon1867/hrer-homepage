@@ -12,7 +12,7 @@
 html{overflow-y:scroll;scrollbar-gutter:stable}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --mint:#00B893;--blue:#4C6EF5;--dark:#191919;--white:#fff;--bg:#FFFFFF;
   --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;--red:#E03131;
   --card-radius:14px;
 }
@@ -23,9 +23,9 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
-.logo{font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1;display:inline-block}
-.logo-hr{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:900}
-.logo-er{color:var(--dark);font-weight:900}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px;line-height:1.2;display:inline-block;padding:2px 0}
+.logo-hr{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:900;display:inline-block;padding-right:1px}
+.logo-er{color:var(--dark);font-weight:900;display:inline-block}
 .nav-back{font-size:14px;color:var(--gray);font-weight:500;display:flex;align-items:center;gap:6px}
 .nav-back:hover{color:var(--dark)}
 .nav-back::before{content:'←'}
