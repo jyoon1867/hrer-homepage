@@ -114,7 +114,9 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* EXPERT */
 .expert-section{padding:var(--section-gap) 0;background:var(--dark);color:var(--white)}
 .expert-inner{display:flex;align-items:center;gap:48px;max-width:800px;margin:0 auto}
-.expert-avatar{width:100px;height:100px;border-radius:50%;background:var(--navy2);color:var(--mint);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;flex-shrink:0;border:3px solid var(--mint)}
+.expert-avatar{width:100px;height:100px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;flex-shrink:0;border:3px solid var(--mint);letter-spacing:-1.5px}
+.expert-avatar .lg-hr{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.expert-avatar .lg-er{color:var(--dark)}
 .expert-info h3{font-size:24px;font-weight:800;margin-bottom:4px}
 .expert-title{font-size:14px;color:var(--gray2);margin-bottom:14px}
 .expert-info p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7}
@@ -598,7 +600,7 @@ body.modal-open{overflow:hidden}
 <section class="cta-banner">
 <div class="container">
   <div class="expert-inner" style="margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.1)">
-    <div class="expert-avatar">H</div>
+    <div class="expert-avatar"><span class="lg-hr">HR</span><span class="lg-er">er</span></div>
     <div class="expert-info">
       <h3>HRer 전문가</h3>
       <div class="expert-title">공인노무사 · 심리학 전공의 인사평가 전문가</div>
