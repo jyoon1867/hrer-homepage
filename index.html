@@ -135,7 +135,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .faq-q::after{content:'+';font-size:20px;color:var(--gray2);font-weight:300;transition:transform 0.2s;flex-shrink:0}
 .faq-item.active .faq-q::after{transform:rotate(45deg)}
 .faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all 0.25s ease}
-.faq-item.active .faq-a{padding:0 22px 18px;max-height:200px}
+.faq-item.active .faq-a{padding:0 22px 18px;max-height:600px}
 .faq-a p{font-size:14px;line-height:1.7;color:var(--gray)}
 
 /* CTA BANNER */
@@ -319,12 +319,12 @@ body.modal-open{overflow:hidden}
   <div class="section-label">Pain Point</div>
   <h2 class="section-title"><em>인사·노무</em>, 이렇게 번거로우셨죠?</h2>
   <div class="empathy-cards">
-    <div class="empathy-card">질문 <em>하나</em> 확인하려는데, 노무법인은 <em>월 자문료 계약</em>부터 요구해요. 건별로는 받아주는 곳이 없고.</div>
+    <div class="empathy-card">질문 <em>하나</em> 확인하려는데, 노무법인은 <em>월 자문료 계약</em>부터 요구해요.<br>건별로는 받아주는 곳이 없고.</div>
     <div class="empathy-card">'왜 저 사람은 <em>S</em>인데 난 <em>B</em>예요?' 직원이 물으면, <em>객관적으로</em> 답할 자신이 없어요.</div>
     <div class="empathy-card">법이 <em>또 바뀐다</em>는데, 우리 취업규칙은 <em>몇 년째 그대로</em>. 어디부터 손봐야 할지 막막하고.</div>
-    <div class="empathy-card"><em>괴롭힘 신고</em>가 들어왔는데, 내가 직접 조사하자니 관계자 다 아는 사이. <em>2차 피해</em> 걱정에 손도 못 대겠고.</div>
-    <div class="empathy-card">구제신청서 받고 답변서 기한 <em>14일</em>. 변호사 선임은 부담이고, 직접 쓰자니 <em>불리해질까 두렵고</em>.</div>
-    <div class="empathy-hl">사실은 <em>필요할 때마다</em>, <em>단건으로</em>, <em>기록이 남는</em> 서면 자문만 있으면 되는데. <em>그런 서비스가 없었을 뿐</em>.</div>
+    <div class="empathy-card"><em>괴롭힘 신고</em>가 들어왔는데, 내가 직접 조사하자니 관계자 다 아는 사이.<br><em>2차 피해</em> 걱정에 손도 못 대겠고.</div>
+    <div class="empathy-card">구제신청서 받고 답변서 기한 <em>14일</em>.<br>변호사 선임은 부담이고, 직접 쓰자니 <em>불리해질까 두렵고</em>.</div>
+    <div class="empathy-hl">사실은 <em>필요할 때마다</em>, <em>단건으로</em>, <em>기록이 남는</em> 서면 자문만 있으면 되는데.<br><em>그런 서비스가 없었을 뿐</em>.</div>
   </div>
   <div class="empathy-transition">
     이제 더는,<br>
@@ -585,13 +585,17 @@ body.modal-open{overflow:hidden}
   <div class="section-label">FAQ</div>
   <h2 class="section-title">자주 묻는 질문</h2>
   <div class="faq-list" style="margin-top:48px">
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">전화 상담은 안 되나요?</div><div class="faq-a"><p>모든 자문은 서면으로만 진행합니다. 답변이 기록으로 남아 나중에 다시 확인하실 수 있고, 법적 근거로도 활용 가능합니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">급한 건은 어떻게 하나요?</div><div class="faq-a"><p>영업일 기준 24시간 이내 답변드립니다. 긴급 건은 별도 협의 가능합니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">한 번만 이용해도 되나요?</div><div class="faq-a"><p>네, 건별 이용이 기본입니다. 계약이나 약정 없이, 필요할 때마다 이용하세요.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">답변은 어느 수준으로 제공되나요?</div><div class="faq-a"><p>모든 답변에 판례·행정해석·법령 근거를 명시합니다. 구두 자문보다 정확하고, 기록이 남아 언제든 재확인 가능합니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">어떤 분야를 자문받을 수 있나요?</div><div class="faq-a"><p>근로계약, 퇴직금, 연차, 임금, 해고, 징계, 직장 내 괴롭힘, 취업규칙 등 인사노무 전반에 대해 자문 가능합니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">인사평가 서비스는 어떤 회사에 적합한가요?</div><div class="faq-a"><p>10~30인 규모의 사업장에 최적화되어 있습니다. 평가 제도를 처음 도입하거나, 기존 평가의 공정성에 문제를 느끼는 기업에 적합합니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">다른 노무법인과 뭐가 다른가요?</div><div class="faq-a"><p>서면 중심으로 운영하여 비용이 합리적이고, 24만건 DB 기반으로 근거가 명확합니다. 인사평가는 NCS 국가표준과 심리측정학으로 설계하여 다른 곳에서는 제공하기 어려운 수준입니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">요금이 어떻게 되나요?</div><div class="faq-a"><p><strong>노무자문</strong>은 3티어예요. 간편자문 130,000원 / 심층자문 180,000원 / 정식 서면 230,000원 (VAT 별도). <strong>인사평가</strong>는 회사 규모별 50만원부터, <strong>취업규칙 정비</strong>·<strong>사건·조사</strong>는 사안 규모에 따라 별도 견적을 드려요. 견적 문의는 무료입니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">월 자문료 계약해야 하나요?</div><div class="faq-a"><p>아니요. HRer는 <em>건별 이용</em>이 기본이에요. 계약서·월정액 없이 필요할 때만 건별로 결제하시면 됩니다. 부담 없이 한 번만 써보셔도 돼요.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">답변은 얼마나 걸리나요? 급한 건도 받아주나요?</div><div class="faq-a"><p>원칙적으로 <em>영업일 24시간 이내</em> 회신, 정식 서면은 48시간 이내예요. 노동청 출석·심문회의 임박 등 긴급 건은 의뢰 시 '<em>긴급</em>' 표기 주시면 우선 처리해 드려요. 주말·공휴일 접수는 다음 영업일 기준입니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">전화 상담은 안 되나요?</div><div class="faq-a"><p>모든 자문은 <em>서면(이메일)으로만</em> 진행해요. 기록으로 남아 사내 보고·법적 근거로 활용 가능하고, 나중에 다시 꺼내볼 수 있기 때문이에요. 한 번 답변 받으면 몇 번이고 재확인 가능합니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">답변에 법적 근거가 나오나요?</div><div class="faq-a"><p>네, 모든 답변에 <em>관련 법령 조문·행정해석 번호·판례 사건번호</em>를 정확히 명시해요. 가짜 인용 금지가 원칙이고, 확인된 자료만 사용합니다. 공인노무사가 직접 작성·서명하니 <em>사내 보고·감독기관 제출</em>에도 활용 가능해요.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">어떤 분야를 자문받을 수 있나요?</div><div class="faq-a"><p>근로계약·퇴직금·연차·임금·해고·징계·직장 내 괴롭힘·취업규칙·4대보험·외국인 근로·육아휴직·노사협의회 등 <em>인사노무 전반</em>이에요. 노동위원회 사건 대리와 괴롭힘·성희롱 외부 조사도 별도 서비스로 제공합니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">근로자 개인도 의뢰할 수 있나요?</div><div class="faq-a"><p>네. <em>근로자 측·사용자 측 모두</em> 의뢰 가능해요. 의뢰 접수 시 어느 쪽 입장인지 알려주시면 됩니다. 단, 동일 사건에서 양측을 동시에 대리하지는 않아요.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">환불은 가능한가요?</div><div class="faq-a"><p>가능해요. 작업 착수 전 <em>전액 환불</em>, 답변 발송 전 진행 정도 협의 환불(50~80%), 답변 완료 후엔 하자 있을 시 재검토해 드려요. 회사 과실로 제공 불가한 경우 전액 환불. 자세한 건 <a href="/terms">이용약관</a> 7조 참고.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">답변받고 추가 질문이 생기면 어떻게 해요?</div><div class="faq-a"><p>답변 수신 후 <em>3일 이내 추가 질의 1회 무료</em>예요 (정식 서면은 2회). 본래 쟁점 범위 내 후속 질문은 편하게 보내주세요. 새 쟁점은 별도 건으로 의뢰하시면 됩니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">회사 정보·자료를 안심하고 공유해도 되나요?</div><div class="faq-a"><p>네. <em>공인노무사 비밀유지 의무</em>가 적용되고, 개인정보는 「개인정보 보호법」에 따라 엄격 관리해요. 근로계약서·취업규칙·인사기록 등 자료 첨부도 가능하며, 자료가 있으면 더 정확한 답변이 가능합니다. 자세한 건 <a href="/privacy">개인정보처리방침</a> 참고.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">일반 노무법인과 뭐가 다른가요?</div><div class="faq-a"><p>①<em>건별 결제</em> — 월 자문료 계약 없이 필요할 때만. ②<em>서면 중심</em> — 모든 답변이 기록으로 남아 재확인·보고 가능. ③<em>24만 건 DB 기반</em> — 노동위원회 판정례·대법원 판례·행정해석에서 근거를 찾아 답변. ④<em>판정례 분석 리포트</em> — 사건·조사 시 유사 판정 경향을 함께 분석.</p></div></div>
   </div>
 </div>
 </section>
@@ -862,10 +866,10 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
       <h5>서비스</h5>
       <div class="footer-links">
         <a href="/consultation">노무자문</a>
-        <a href="/unfair-dismissal">해고/징계/인사명령</a>
-        <a href="/investigation">괴롭힘/성희롱 조사</a>
         <a href="/hr-evaluation">인사평가</a>
         <a href="/employment-rules">규정정비</a>
+        <a href="/investigation">괴롭힘/성희롱 조사</a>
+        <a href="/unfair-dismissal">해고/징계/인사명령</a>
       </div>
     </div>
     <div class="footer-col">
@@ -884,5 +888,6 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
 </div>
 </footer>
 
+<script src="/chatbot.js" defer></script>
 </body>
 </html>
