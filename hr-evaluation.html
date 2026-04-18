@@ -63,21 +63,47 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 /* VALUE PROPS */
 .vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.vp-card{border-radius:var(--card-radius);padding:32px 28px;background:#fff;border:1px solid var(--border);transition:all 0.2s}
-.vp-card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.06);border-color:var(--mint);transform:translateY(-2px)}
+.vp-card{border-radius:var(--card-radius);padding:32px 28px 44px;background:#fff;border:1px solid var(--border);transition:all 0.2s;cursor:pointer;position:relative}
+.vp-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:20px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.vp-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint);transform:translateY(-3px)}
+.vp-card:hover::after{color:var(--dark);transform:translateX(3px)}
 .vp-card .icon{font-size:30px;margin-bottom:14px}
 .vp-card h3{font-size:18px;font-weight:800;margin-bottom:10px;letter-spacing:-0.3px}
 .vp-card p{font-size:14.5px;color:#555;line-height:1.75}
 
 /* FEATURES */
 .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1000px;margin:0 auto}
-.feat-card{border-radius:var(--card-radius);padding:32px 30px;background:#fff;border:1px solid var(--border)}
+.feat-card{border-radius:var(--card-radius);padding:32px 30px 44px;background:#fff;border:1px solid var(--border);cursor:pointer;position:relative;transition:all 0.2s}
+.feat-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:22px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.feat-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint);transform:translateY(-3px)}
+.feat-card:hover::after{color:var(--dark);transform:translateX(3px)}
 .feat-card .num{display:inline-block;width:34px;height:34px;background:var(--dark);color:var(--mint);border-radius:8px;text-align:center;line-height:34px;font-weight:900;font-size:14px;margin-bottom:14px}
 .feat-card h3{font-size:19px;font-weight:800;margin-bottom:10px;letter-spacing:-0.3px}
 .feat-card p{font-size:14.5px;color:#555;line-height:1.75;margin-bottom:10px}
 .feat-card ul{list-style:none;padding:0;margin-top:10px}
 .feat-card ul li{font-size:13.5px;color:#444;padding:4px 0 4px 20px;position:relative;line-height:1.6}
 .feat-card ul li::before{content:'✓';position:absolute;left:0;color:var(--mint);font-weight:700}
+
+/* INSIGHT MODAL (shared) */
+.i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.i-backdrop.active{display:flex;animation:ifi 0.2s}
+@keyframes ifi{from{opacity:0}to{opacity:1}}
+.i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
+@keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
+.i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
+.i-close:hover{background:#F5F5F5;color:var(--dark)}
+.i-body{padding:22px 30px 26px;max-height:70vh;overflow-y:auto}
+.i-body h4{font-size:15px;font-weight:800;margin:16px 0 8px;color:var(--dark)}
+.i-body p{font-size:14px;color:#333;line-height:1.8;margin-bottom:8px}
+.i-body ul{padding-left:20px;margin:6px 0 10px}
+.i-body ul li{font-size:13.5px;color:#444;line-height:1.75;margin:2px 0}
+.i-highlight{background:#F0FDF4;border-left:3px solid var(--mint);padding:14px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.75;color:#333}
+.i-highlight strong{color:var(--dark);font-weight:700;display:block;margin-bottom:4px;font-size:13.5px}
+.i-disclaimer{margin-top:20px;padding:14px 16px;background:#FAFAFA;border-radius:8px;font-size:11.5px;color:var(--gray);line-height:1.75}
+body.i-open{overflow:hidden}
 
 /* DELIVERABLES */
 .del-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
@@ -217,17 +243,17 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">엑셀로 주먹구구식 평가하거나, 수천만원 컨설팅 없이도 대기업 수준의 평가 체계를 구축합니다.</p>
 
   <div class="vp-grid">
-    <div class="vp-card">
+    <div class="vp-card" onclick="openI('ncs')">
       <div class="icon">📊</div>
       <h3>NCS 국가표준 기반</h3>
       <p>고용노동부 국가직무능력표준 <em>13,289개</em> 직무 데이터를 활용해 회사 직무에 맞춘 평가지표를 설계합니다. 개인 주관이 아닌 객관적 기준.</p>
     </div>
-    <div class="vp-card">
+    <div class="vp-card" onclick="openI('psychometric')">
       <div class="icon">🔬</div>
       <h3>심리측정학 방법론</h3>
       <p><em>T점수 표준화</em>, 평가자 성향 보정, 신뢰도(Cronbach's α) 검증. 점수의 의미를 통계적으로 해석할 수 있게 만듭니다.</p>
     </div>
-    <div class="vp-card">
+    <div class="vp-card" onclick="openI('case_law')">
       <div class="icon">⚖️</div>
       <h3>대법원 판례 반영</h3>
       <p>저성과자 관리·PIP 설계 시 관련 <em>대법원 판례 기준</em>을 반영. 법적 리스크를 최소화한 평가 체계를 제공합니다.</p>
@@ -244,7 +270,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">평가 설계부터 결과 분석까지, 한 번에 해결합니다.</p>
 
   <div class="feat-grid">
-    <div class="feat-card">
+    <div class="feat-card" onclick="openI('compsep')">
       <span class="num">01</span>
       <h3>역량·성과 분리 평가</h3>
       <p>'무엇을 했는가(성과)'와 '어떻게 했는가(역량)'를 분리해 평가합니다.</p>
@@ -255,7 +281,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       </ul>
     </div>
 
-    <div class="feat-card">
+    <div class="feat-card" onclick="openI('tscore')">
       <span class="num">02</span>
       <h3>표준점수 기반 비교</h3>
       <p>부서·직급·평가자별 편차를 T점수로 보정해 공정 비교 가능.</p>
@@ -266,7 +292,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       </ul>
     </div>
 
-    <div class="feat-card">
+    <div class="feat-card" onclick="openI('rater')">
       <span class="num">03</span>
       <h3>평가자 성향 보정</h3>
       <p>관대화·엄격화·중심화 경향을 자동 탐지해 경고 + 보정.</p>
@@ -277,7 +303,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       </ul>
     </div>
 
-    <div class="feat-card">
+    <div class="feat-card" onclick="openI('predict')">
       <span class="num">04</span>
       <h3>성과 예측도 분석</h3>
       <p>역량과 실제 성과의 상관관계를 분석해 핵심역량 도출.</p>
@@ -524,6 +550,206 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   </div>
 </div>
 </footer>
+
+<!-- INSIGHT MODAL -->
+<div class="i-backdrop" id="iBack" onclick="if(event.target===this)closeI()">
+  <div class="i-modal">
+    <div class="i-head">
+      <div>
+        <div class="i-tag" id="iTag"></div>
+        <h3 id="iTitle"></h3>
+      </div>
+      <button class="i-close" onclick="closeI()" aria-label="닫기">×</button>
+    </div>
+    <div class="i-body" id="iBody"></div>
+  </div>
+</div>
+
+<script>
+const EVAL_I={
+  ncs:{
+    tag:'NCS 국가표준 기반',title:'13,289개 직무 데이터로 객관적 평가지표 설계',
+    body:`<h4>NCS란?</h4>
+<p><b>국가직무능력표준(NCS)</b>은 고용노동부가 산업 현장에서 직무를 수행하는 데 필요한 능력을 체계화한 국가 표준입니다. 24개 대분류 · 1,100개 세분류 · <b>13,289개 능력단위</b>로 구성됩니다.</p>
+<h4>HRer가 활용하는 방식</h4>
+<ul>
+  <li>의뢰 기업의 직무를 NCS 능력단위와 <b>매핑</b>하여 평가지표 초안 생성</li>
+  <li>해당 직무의 <b>필수 능력 + 선택 능력</b> 분리해 평가 가중치 반영</li>
+  <li>업종·직군별 실무 용어로 재편집(전문용어 → 현장 용어)</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시: 경영지원 인사총무</strong>
+  NCS 대분류 02(경영·회계·사무) → 02010303 인사 → 10개 능력단위(인사기획·채용관리·평가관리 등)에서 회사 규모에 맞는 5~6개 선정
+</div>
+<h4>왜 중요한가</h4>
+<p>개인 주관이 아닌 <b>국가가 표준화한 직무 기준</b>을 근거로 삼아 <em>공정성·일관성·법적 방어력</em>을 확보합니다. 저성과자 관리나 이의제기 상황에서 "왜 이 역량을 평가했는가"에 객관적 답을 가질 수 있습니다.</p>
+<p class="i-disclaimer">* NCS 데이터는 공공데이터포털(data.go.kr) API 기반으로 최신 버전을 반영합니다.</p>`
+  },
+  psychometric:{
+    tag:'심리측정학 방법론',title:'점수의 의미를 통계적으로 해석합니다',
+    body:`<h4>핵심 3가지 통계 기법</h4>
+<ul>
+  <li><b>T점수 표준화</b>: 원점수를 평균 50·표준편차 10으로 변환. 부서·평가자 편차를 제거해 공정 비교 가능</li>
+  <li><b>Cronbach's α 신뢰도</b>: 같은 역량을 측정하는 여러 문항의 내적 일관성 검증. α ≥ 0.70이 일반적 기준</li>
+  <li><b>평가자 간 일치도(ICC)</b>: 360도 평가 시 여러 평가자의 점수가 일관되는지 측정</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시: 김대리 점수 70점</strong>
+  소속 부서 평균 65 → T점수 약 55 (상위 약 30%)<br>
+  다른 부서 평균 75 → T점수 약 45 (하위 약 30%)<br>
+  <em>같은 원점수라도 소속 집단에 따라 의미가 완전히 달라집니다.</em>
+</div>
+<h4>일반 평가와 무엇이 다른가</h4>
+<ul>
+  <li>엑셀 5점 척도 단순 평가는 "상사가 후하냐 박하냐"에 결과가 좌우됨</li>
+  <li>심리측정학 방법은 그 <b>노이즈를 통계적으로 제거</b>하고 실제 능력 신호만 추출</li>
+  <li>결과를 <b>해석 가능한 수치</b>로 제공 (등급·백분위·신뢰구간)</li>
+</ul>
+<p class="i-disclaimer">* 통계적 신뢰성은 표본 수에 영향을 받습니다. 20인 이상에서 의미 있는 분석이 가능합니다.</p>`
+  },
+  case_law:{
+    tag:'대법원 판례 반영',title:'법적 리스크를 최소화한 평가 체계',
+    body:`<h4>반영하는 대법원 판례 기준</h4>
+<ul>
+  <li><b>대법원 2021.2.25. 선고 2018다253680</b> — 저성과 해고의 정당성 요건: 객관적·합리적 평가 + 개선 기회 부여 + 반복 기록</li>
+  <li><b>대법원 2023.12.28. 선고 2021두33708</b> — 평가 공정성·이의제기 절차의 중요성</li>
+</ul>
+<h4>HRer 설계에 반영되는 요소</h4>
+<ul>
+  <li>평가 기준·절차의 <b>사전 공지</b> (평가 시행 전 직원 동의)</li>
+  <li>등급별 <b>행동 앵커(BARS)</b> 사전 정의 — 주관적 판단 배제</li>
+  <li>PIP(성과개선계획) <b>단계적 양식</b> 제공 — 목표·기한·지원·측정 명시</li>
+  <li>결과 통보 + <b>이의제기 절차</b> 내장</li>
+  <li>평가자 교육 + 평가 기록 보관 양식</li>
+</ul>
+<div class="i-highlight">
+  <strong>실무 포인트</strong>
+  판례는 저성과 해고 시 "회사가 <em>개선 기회를 충분히 제공했는가</em>"를 핵심 기준으로 봅니다. 1회 평가만으로 해고하면 대부분 부당해고로 판정됩니다.
+</div>
+<p class="i-disclaimer">* 개별 사건의 결과는 사실관계에 따라 달라지며, 평가 결과 단독으로 해고를 보장하지 않습니다.</p>`
+  },
+  compsep:{
+    tag:'역량·성과 분리 평가',title:"'무엇을'과 '어떻게'를 따로 봅니다",
+    body:`<h4>왜 분리해야 하는가</h4>
+<p>성과만 보면 운이 좋아 실적을 낸 직원과 실력으로 낸 직원을 구별할 수 없습니다. 역량만 보면 무엇을 실제로 해냈는지 알 수 없습니다.</p>
+<ul>
+  <li><b>성과 평가</b>: 목표 달성도(MBO), KPI, 정량 지표 — '무엇을 했는가'</li>
+  <li><b>역량 평가</b>: 17개 핵심 역량 + 22개 직무군 — '어떻게 했는가'</li>
+</ul>
+<h4>BOS (행동관찰척도) 방식</h4>
+<p>추상적인 "커뮤니케이션 능력" 대신 <b>관찰 가능한 행동</b>을 7점 척도로 평가합니다.</p>
+<div class="i-highlight">
+  <strong>예시 문항 (커뮤니케이션 역량)</strong>
+  "회의에서 의견이 다를 때 상대의 입장을 먼저 확인한 후 자기 의견을 제시한다"<br>
+  1점(거의 없음) · 4점(가끔) · 7점(거의 항상)
+</div>
+<h4>평가 결과 활용</h4>
+<ul>
+  <li><b>높은 성과 + 높은 역량</b>: 핵심 인재 (승진·보상)</li>
+  <li><b>높은 성과 + 낮은 역량</b>: 단기 성과자 (역량 보완 교육)</li>
+  <li><b>낮은 성과 + 높은 역량</b>: 직무 미스매치 (직무 재배치 검토)</li>
+  <li><b>낮은 성과 + 낮은 역량</b>: PIP 대상 (개선 기회 부여)</li>
+</ul>
+<p class="i-disclaimer">* 2×2 매트릭스는 참고 프레임이며, 실제 의사결정은 추가 맥락을 함께 고려합니다.</p>`
+  },
+  tscore:{
+    tag:'표준점수 기반 비교',title:'평가자·부서 편차를 통계적으로 제거',
+    body:`<h4>T점수 공식</h4>
+<p>T = 50 + 10 × (개인점수 − 집단평균) / 집단표준편차</p>
+<p>원점수를 평균 50·표준편차 10의 분포로 변환해 <b>어느 집단에 속했든 비교 가능한 수치</b>로 만듭니다.</p>
+<h4>편차 보정이 필요한 이유</h4>
+<ul>
+  <li>부서마다 평가 문화 다름 (영업팀 평균 8점 vs 관리팀 평균 6점)</li>
+  <li>평가자 성향 다름 (관대한 상사 vs 엄격한 상사)</li>
+  <li>보정 없이 비교하면 "누가 평가했냐"가 결과를 좌우</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시</strong>
+  영업팀 이대리 8.5점 → T점수 52 (약 상위 42%)<br>
+  관리팀 박대리 7.5점 → T점수 65 (약 상위 7%)<br>
+  <em>원점수는 영업팀 이대리가 높지만, 소속 집단 대비로는 관리팀 박대리가 훨씬 뛰어난 편.</em>
+</div>
+<h4>HRer가 제공하는 지표</h4>
+<ul>
+  <li>전사·부서별·직급별 <b>표준화 점수</b></li>
+  <li>개인별 <b>등급</b> (S/A/B/C/D) + 전사 <b>백분위</b></li>
+  <li>부서×직급 <b>교차 비교</b> 표</li>
+</ul>
+<p class="i-disclaimer">* 통계적 비교는 참고 자료이며, 개별 인사결정은 복합적 요소를 함께 고려합니다.</p>`
+  },
+  rater:{
+    tag:'평가자 성향 보정',title:'관대화·엄격화·중심화 자동 탐지',
+    body:`<h4>3가지 평가자 오류 유형</h4>
+<ul>
+  <li><b>관대화 경향</b>: 모든 평가 대상에게 높은 점수. 평균 ≥ 6/7점, 표준편차 매우 낮음</li>
+  <li><b>엄격화 경향</b>: 모든 대상에게 낮은 점수. 평균 ≤ 4/7점</li>
+  <li><b>중심화 경향</b>: 대부분 중간 점수로 몰림. 표준편차 &lt; 0.5</li>
+</ul>
+<h4>자동 탐지 로직</h4>
+<ul>
+  <li>평가자별 <b>점수 분포</b>(평균·표준편차·왜도)를 전체 분포와 비교</li>
+  <li>이상치(z &gt; 2) 감지 시 <b>플래그 표시</b></li>
+  <li>동일 문항에 <b>모두 같은 점수</b> 반복 시 자동 경고</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시 탐지 결과</strong>
+  김과장(평가자): 평균 6.8 / σ=0.2 → <em>관대화 경향 의심</em><br>
+  이과장(평가자): 평균 3.5 / σ=0.3 → <em>엄격화 경향 의심</em><br>
+  두 평가자의 결과를 직접 비교하면 의미 없음. 표준화 필요.
+</div>
+<h4>신뢰도 리포트 구성</h4>
+<ul>
+  <li>평가자별 분포 특성표</li>
+  <li>이상 패턴 플래그 + 영향 받은 피평가자 명단</li>
+  <li>권고 조치 (재평가 / 보정 적용 / 평가자 교육)</li>
+</ul>
+<p class="i-disclaimer">* 평가자 성향 탐지는 통계적 참고 자료이며, 최종 판단은 인사담당자와 협의합니다.</p>`
+  },
+  predict:{
+    tag:'성과 예측도 분석',title:"우리 회사에서 '성과와 가장 관련 깊은 역량'은?",
+    body:`<h4>분석 로직</h4>
+<p>역량 점수 × 실제 성과 점수의 <b>상관관계</b>를 분석해, 우리 회사에서 어떤 역량이 성과로 연결되는지 찾습니다.</p>
+<ul>
+  <li>피어슨 상관계수(r) 계산 — 역량별로 성과와의 관계 강도</li>
+  <li>r ≥ 0.5: 핵심역량 후보</li>
+  <li>r ≈ 0: 성과 무관 역량 (평가 비중 재검토)</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시: A사 분석 결과</strong>
+  문제해결 역량 r = 0.72 → <em>핵심역량</em><br>
+  커뮤니케이션 r = 0.45 → 중요 역량<br>
+  조직이해 r = 0.08 → 성과와 무관 → 평가 비중 축소 검토
+</div>
+<h4>이 데이터를 어디에 쓰는가</h4>
+<ul>
+  <li><b>채용 기준</b>: 핵심역량을 채용 전 검증</li>
+  <li><b>교육 투자 우선순위</b>: 성과로 연결되는 역량 교육 집중</li>
+  <li><b>보상 설계</b>: 핵심역량 보유자에게 가중치</li>
+  <li><b>승진 기준</b>: 향후 성과 예측에 기반</li>
+</ul>
+<h4>분석 한계</h4>
+<ul>
+  <li>표본 수 <b>30명 이상</b>에서 통계적 유의미성 확보</li>
+  <li>성과 지표가 <b>객관적·정량적</b>이어야 신뢰도 높음</li>
+  <li>인과관계가 아닌 <b>상관관계</b>임을 유의</li>
+</ul>
+<p class="i-disclaimer">* 상관관계는 참고 자료이며, 의사결정 시 직무 맥락·외부 변수도 함께 고려합니다.</p>`
+  },
+};
+function openI(k){
+  const d=EVAL_I[k];if(!d)return;
+  document.getElementById('iTag').textContent=d.tag;
+  document.getElementById('iTitle').textContent=d.title;
+  document.getElementById('iBody').innerHTML=d.body;
+  document.getElementById('iBack').classList.add('active');
+  document.body.classList.add('i-open');
+}
+function closeI(){
+  document.getElementById('iBack').classList.remove('active');
+  document.body.classList.remove('i-open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeI()});
+</script>
 
 </body>
 </html>
