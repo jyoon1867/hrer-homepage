@@ -387,39 +387,76 @@
   }
 
   // ============================================================
+  // AI FALLBACK (Gemini) — FAQ 미매칭 시 호출
+  // ============================================================
+  const AI_ENDPOINT = '/api/chat';
+  async function callAI(text){
+    const hist = (loadHistory() || []).slice(-6).map(m => ({
+      role: m.role === 'user' ? 'user' : 'assistant',
+      content: (m.text||'').replace(/<[^>]+>/g,'').slice(0, 400),
+    }));
+    try {
+      const r = await fetch(AI_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({message: text, history: hist}),
+      });
+      if (!r.ok) throw new Error('ai_http_' + r.status);
+      return await r.json();
+    } catch(e){
+      return {reply: null, mode: 'error', error: String(e)};
+    }
+  }
+
+  // ============================================================
   // RESPOND
   // ============================================================
-  function respond(text){
+  async function respond(text){
     addTyping();
     recordStat('query', {q: text});
-    setTimeout(()=>{
+    if (!DATA){
+      await new Promise(r => setTimeout(r, 300));
       removeTyping();
-      if (!DATA){ addBotMsg('잠시만요, 데이터 로딩 중이에요. 다시 시도해 주세요.'); return; }
-      if (needsEscalation(text)){
-        consecutiveMisses = 0;
-        addBotMsg(DATA.escalate.message);
-        addActions(DATA.escalate.actions);
-        return;
-      }
-      const m = matchFAQ(text);
-      if (m){
-        consecutiveMisses = 0;
-        addBotMsg(m.a, {feedback:true, query:text, faqId:m.q});
-        if (m.cta) addActions(m.cta);
-        return;
-      }
-      // 매칭 실패
-      consecutiveMisses++;
-      recordStat('miss', {q: text});
-      addBotMsg(DATA.fallback.text);
-      if (DATA.fallback.use_quick_suggestions) addSuggestions(DATA.quick_suggestions);
-      const acts = DATA.fallback.actions.slice();
-      // 2회 이상 실패 시 사람 상담 강조
-      if (consecutiveMisses >= 2 && !acts.some(a=>a.action==='open-human-form')){
-        acts.unshift({label:'📧 사람과 상담하기', action:'open-human-form'});
-      }
-      addActions(acts);
-    }, 400 + Math.random()*300);
+      addBotMsg('잠시만요, 데이터 로딩 중이에요. 다시 시도해 주세요.');
+      return;
+    }
+    // 1) 법률 판단 의도 — 즉시 에스컬레이션
+    if (needsEscalation(text)){
+      await new Promise(r => setTimeout(r, 400));
+      removeTyping();
+      consecutiveMisses = 0;
+      addBotMsg(DATA.escalate.message);
+      addActions(DATA.escalate.actions);
+      return;
+    }
+    // 2) FAQ 매칭
+    const m = matchFAQ(text);
+    if (m){
+      await new Promise(r => setTimeout(r, 400));
+      removeTyping();
+      consecutiveMisses = 0;
+      addBotMsg(m.a, {feedback:true, query:text, faqId:m.q});
+      if (m.cta) addActions(m.cta);
+      return;
+    }
+    // 3) FAQ 미매칭 → AI 폴백 (Gemini)
+    const ai = await callAI(text);
+    removeTyping();
+    if (ai.reply && ai.mode !== 'error' && ai.mode !== 'no_api_key'){
+      consecutiveMisses = 0;
+      addBotMsg(ai.reply, {feedback:true, query:text, faqId:'[AI]'+ai.mode});
+      return;
+    }
+    // 4) AI도 실패 → 기존 fallback
+    consecutiveMisses++;
+    recordStat('miss', {q: text});
+    addBotMsg(DATA.fallback.text);
+    if (DATA.fallback.use_quick_suggestions) addSuggestions(DATA.quick_suggestions);
+    const acts = DATA.fallback.actions.slice();
+    if (consecutiveMisses >= 2 && !acts.some(a=>a.action==='open-human-form')){
+      acts.unshift({label:'📧 사람과 상담하기', action:'open-human-form'});
+    }
+    addActions(acts);
   }
 
   // ============================================================
