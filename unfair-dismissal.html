@@ -64,8 +64,34 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 /* DATA INSIGHTS */
 .data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.data-card{border-radius:var(--card-radius);padding:28px 24px;background:var(--white);border:1px solid var(--border);transition:box-shadow 0.2s,border-color 0.2s}
-.data-card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.06);border-color:var(--mint)}
+.data-card{border-radius:var(--card-radius);padding:28px 24px 42px;background:var(--white);border:1px solid var(--border);transition:box-shadow 0.2s,border-color 0.2s,transform 0.2s;cursor:pointer;position:relative}
+.data-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:18px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.data-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint);transform:translateY(-3px)}
+.data-card:hover::after{color:var(--dark);transform:translateX(3px)}
+.data-card.strict:hover{border-color:#F59E0B}
+.data-card.strict::after{color:rgba(180,83,9,0.5)}
+.data-card.strict:hover::after{color:#B45309}
+/* INSIGHT MODAL */
+.i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.i-backdrop.active{display:flex;animation:ifi 0.2s}
+@keyframes ifi{from{opacity:0}to{opacity:1}}
+.i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
+@keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
+.i-head .big{font-size:30px;font-weight:900;color:var(--mint);letter-spacing:-1.2px;margin-top:8px}
+.i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
+.i-close:hover{background:#F5F5F5;color:var(--dark)}
+.i-body{padding:22px 30px 26px;max-height:70vh;overflow-y:auto}
+.i-body h4{font-size:15px;font-weight:800;margin:16px 0 8px;color:var(--dark)}
+.i-body p{font-size:14px;color:#333;line-height:1.8;margin-bottom:8px}
+.i-body ul{padding-left:20px;margin:6px 0 10px}
+.i-body ul li{font-size:13.5px;color:#444;line-height:1.75;margin:2px 0}
+.i-case{background:#F0F4FF;border-left:3px solid var(--blue);padding:14px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13px;line-height:1.7;color:#333}
+.i-case strong{color:var(--dark);font-weight:700;display:block;margin-bottom:4px;font-size:13px}
+.i-disclaimer{margin-top:20px;padding:14px 16px;background:#FAFAFA;border-radius:8px;font-size:11.5px;color:var(--gray);line-height:1.75}
+body.i-open{overflow:hidden}
 .data-num{font-size:42px;font-weight:900;color:var(--dark);letter-spacing:-1.3px;line-height:1}
 .data-num .pct{font-size:20px;font-weight:800;color:var(--gray);margin-left:2px}
 .data-label{font-size:12px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:1px;margin-top:12px;margin-bottom:8px}
@@ -218,42 +244,42 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">노동위원회 초심사건 공개 데이터에서 확인할 수 있는 경향성입니다. 수치는 참고 자료이며, 개별 사건 결과를 보장하지 않습니다.</p>
 
   <div class="data-grid">
-    <div class="data-card">
+    <div class="data-card" onclick="openInsight('dismissal')">
       <div class="data-num">32<span class="pct">%</span></div>
       <div class="data-label">부당해고 전체</div>
       <div class="data-title">해고 분쟁, 실제로 어떻게 결론 나는가</div>
       <div class="data-desc">부당해고 구제신청 초심사건 약 64,000건 중 근로자가 승소한 비율은 약 32%. 가장 자주 쟁점이 된 것은 <em>절차</em>(서면통지·소명기회·징계위원회)와 <em>양정</em>(징계의 과·부족)이었습니다.</div>
       <div class="data-foot">총 64,490건 · 초심사건 · 재심 제외</div>
     </div>
-    <div class="data-card">
+    <div class="data-card" onclick="openInsight('discipline')">
       <div class="data-num">40<span class="pct">%</span></div>
       <div class="data-label">징계 (해고 외)</div>
       <div class="data-title">해고보다 낮은 징계, 오히려 다투기 쉽다?</div>
       <div class="data-desc">정직·감봉·견책 등 해고 외 징계 초심사건의 구제 인정률은 약 40%로, 부당해고보다 다소 높게 나타납니다. 양정 적정성과 절차 준수가 주요 쟁점입니다.</div>
       <div class="data-foot">총 6,653건 · 초심사건</div>
     </div>
-    <div class="data-card">
+    <div class="data-card" onclick="openInsight('transfer')">
       <div class="data-num">44<span class="pct">%</span></div>
       <div class="data-label">전보·전직·인사발령</div>
       <div class="data-title">'회사 권한'이라도 무한하지 않습니다</div>
       <div class="data-desc">전보·대기발령 등 인사명령 초심사건의 구제 인정률은 약 44%. 업무상 필요성과 근로자 불이익의 비교·형량, 협의 절차가 반복적으로 다루어집니다.</div>
       <div class="data-foot">총 8,563건 · 초심사건</div>
     </div>
-    <div class="data-card strict">
+    <div class="data-card strict" onclick="openInsight('layoff')">
       <div class="data-num">82<span class="pct">%</span></div>
       <div class="data-label">정리해고 · 엄격 요건</div>
       <div class="data-title">경영상 이유 해고, 까다로운 요건</div>
       <div class="data-desc">정리해고가 쟁점이 된 초심사건의 구제 인정률은 약 82%. 4요건(긴박한 경영상 필요·해고 회피 노력·공정한 선정·근로자 대표 협의)이 엄격히 요구되는 유형입니다.</div>
       <div class="data-foot">총 960건 · 표본 적음, 참고용</div>
     </div>
-    <div class="data-card">
+    <div class="data-card" onclick="openInsight('probation')">
       <div class="data-num">45<span class="pct">%</span></div>
       <div class="data-label">수습·시용 해고</div>
       <div class="data-title">'수습은 자유롭게 해고'는 오해</div>
       <div class="data-desc">수습·시용 기간 해고 초심사건의 구제 인정률은 약 45%. 완화된 기준이긴 하나, 객관적·합리적 평가 근거와 일정한 절차적 요건이 요구되는 경향이 있습니다.</div>
       <div class="data-foot">총 1,946건 · 초심사건</div>
     </div>
-    <div class="data-card">
+    <div class="data-card" onclick="openInsight('renewal')">
       <div class="data-num">28<span class="pct">%</span></div>
       <div class="data-label">계약 갱신거절</div>
       <div class="data-title">계약 종료, 언제 부당해고가 될까</div>
@@ -435,6 +461,149 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   </div>
 </div>
 </footer>
+
+<!-- INSIGHT MODAL -->
+<div class="i-backdrop" id="iBack" onclick="if(event.target===this)closeInsight()">
+  <div class="i-modal">
+    <div class="i-head">
+      <div>
+        <div class="i-tag" id="iTag"></div>
+        <h3 id="iTitle"></h3>
+        <div class="big" id="iBig"></div>
+      </div>
+      <button class="i-close" onclick="closeInsight()" aria-label="닫기">×</button>
+    </div>
+    <div class="i-body" id="iBody"></div>
+  </div>
+</div>
+
+<script>
+const INSIGHTS={
+  dismissal:{
+    tag:'부당해고 전체',
+    title:'해고 분쟁, 실제로 어떻게 결론 나는가',
+    big:'약 32% 인정 · 총 64,490건',
+    body:`<h4>인정 사건에서 자주 언급된 쟁점</h4>
+<ul>
+  <li><b>절차</b> — 약 54% (서면통지·소명기회·징계위원회)</li>
+  <li><b>양정</b> — 약 34% (징계의 과도·부족)</li>
+  <li><b>입증·증거</b> — 약 21%</li>
+  <li><b>취업규칙·단체협약</b> — 약 17%</li>
+  <li><b>서면통지</b> — 약 9% (근로기준법 제27조)</li>
+</ul>
+<h4>참조 판정례</h4>
+<div class="i-case"><strong>2017부해OOO 전부인정</strong>징계위원회 결정에 따라 해고하였으나 해고 통지서에 실질적 사유가 구체적으로 기재되지 않아 서면통지 의무 위반으로 부당해고로 판단됨.</div>
+<p class="i-disclaimer">* 위 키워드 빈도는 판정요지에 해당 단어가 등장한 비율이며, 결정적 요소였는지는 사건마다 다릅니다. 통계는 노동위원회 공개 데이터 기반 참고 자료입니다.</p>`
+  },
+  discipline:{
+    tag:'징계 (해고 외)',
+    title:'해고보다 낮은 징계, 오히려 다투기 쉽다?',
+    big:'약 40% 인정 · 총 6,653건',
+    body:`<h4>왜 인정률이 부당해고(32%)보다 높게 나타날까</h4>
+<ul>
+  <li>해고보다 낮은 징계일수록 <b>양정 적정성</b>이 정밀하게 검토되는 경향</li>
+  <li>비위의 중대성 대비 징계 수위가 <b>균형</b>에서 벗어났다고 판단되면 감경 또는 취소</li>
+  <li>절차 요건(징계위원회·소명기회·서면통지)은 해고 사건과 동일하게 적용</li>
+</ul>
+<h4>주요 쟁점</h4>
+<ul>
+  <li>유사 비위를 범한 다른 직원과의 <b>형평성</b></li>
+  <li>사전 경고·시정 기회 부여 여부</li>
+  <li>비위 입증 증거 수준</li>
+</ul>
+<p class="i-disclaimer">* 개별 사건은 비위의 성격·반복성·회사 규정에 따라 결과가 달라집니다.</p>`
+  },
+  transfer:{
+    tag:'전보·전직·인사발령',
+    title:"'회사 권한'이라도 무한하지 않습니다",
+    big:'약 44% 인정 · 총 8,563건',
+    body:`<h4>반복 등장한 판단 기준</h4>
+<ul>
+  <li><b>업무상 필요성</b>과 <b>근로자 불이익</b>의 비교·형량</li>
+  <li>근로계약·취업규칙상 <b>직무 범위</b> 확인</li>
+  <li>근로자와의 사전 <b>협의</b> 여부</li>
+  <li>생활상 불이익(통근거리·주거 등) 정도</li>
+</ul>
+<h4>자주 문제가 된 상황</h4>
+<ul>
+  <li>대기발령 후 업무를 부여하지 않은 경우</li>
+  <li>징계의 수단으로 전보를 활용한 경우</li>
+  <li>특정 직원을 압박하는 의도가 드러나는 경우</li>
+</ul>
+<p class="i-disclaimer">* 전보·대기발령이 정당한지 여부는 사정의 종합적 고려가 필요합니다.</p>`
+  },
+  layoff:{
+    tag:'정리해고 · 엄격 요건',
+    title:'경영상 이유 해고, 까다로운 요건',
+    big:'약 82% 인정 · 총 960건',
+    body:`<h4>근로기준법 제24조 4요건</h4>
+<ul>
+  <li><b>긴박한 경영상 필요</b> — 적자·합병·양도·사업 축소 등 객관적 자료 요구</li>
+  <li><b>해고 회피 노력</b> — 희망퇴직·전환배치·근로시간 단축 등 선행 조치</li>
+  <li><b>공정한 대상자 선정</b> — 합리적·객관적 기준 + 차별 금지</li>
+  <li><b>근로자 대표와의 협의</b> — 해고 50일 전 통보·성실한 협의</li>
+</ul>
+<h4>왜 인정률이 매우 높은가</h4>
+<p>4요건을 모두 갖추기가 실무상 까다로워, 그 중 하나라도 미흡하면 인정되는 경향입니다. 표본 수가 상대적으로 적은 점(960건)도 참고해 주세요.</p>
+<p class="i-disclaimer">* 정리해고는 개별 회사의 재무 상태·업계 상황·협의 진행 과정에 따라 결과가 크게 달라집니다.</p>`
+  },
+  probation:{
+    tag:'수습·시용 해고',
+    title:"'수습은 자유롭게 해고'는 오해",
+    big:'약 45% 인정 · 총 1,946건',
+    body:`<h4>완화된 기준, 그러나 무제한은 아님</h4>
+<p>판례는 수습·시용 기간 중 해고에 대해 <b>'통상의 해고보다 광범위한 해고의 자유'</b>를 인정합니다. 다만 이것이 <b>자의적 해고</b>까지 허용한다는 뜻은 아닙니다.</p>
+<h4>인정된 사건의 공통 요소</h4>
+<ul>
+  <li><b>객관적·합리적 평가</b> 근거 부재 (평가표·기록 없음)</li>
+  <li>서면통지 누락 또는 해고 사유 불명확</li>
+  <li>개선 기회·피드백 없이 일방 통보</li>
+</ul>
+<h4>권장되는 절차</h4>
+<ul>
+  <li>수습 평가 기준 사전 공유</li>
+  <li>평가표·관찰 기록 보관</li>
+  <li>중간 피드백 1~2회 제공</li>
+  <li>서면 통지 + 구체적 사유 기재</li>
+</ul>
+<p class="i-disclaimer">* 수습·시용 해고도 서면통지(근로기준법 제27조) 적용 대상입니다.</p>`
+  },
+  renewal:{
+    tag:'계약 갱신거절',
+    title:'계약 종료, 언제 부당해고가 될까',
+    big:'약 28% 인정 · 총 7,130건',
+    body:`<h4>핵심 쟁점 — 갱신기대권 형성 여부</h4>
+<ul>
+  <li>근로계약서·취업규칙에 <b>갱신 관련 조항</b>이 있는가</li>
+  <li>반복·형식적 갱신으로 <b>계속근로 관행</b>이 형성되었는가</li>
+  <li>사용자가 갱신에 대한 <b>신뢰</b>를 준 언동이 있었는가</li>
+</ul>
+<h4>기간의 정함이 없는 근로자로 전환되는 경우</h4>
+<p>갱신기대권이 인정되면 기간 만료로 종료해도 <b>실질에 있어 해고</b>로 보아 해고의 정당성을 별도 판단합니다.</p>
+<h4>갱신거절이 정당하려면</h4>
+<ul>
+  <li>경영상 필요성·근로자 귀책사유 등 <b>합리적 사유</b></li>
+  <li>갱신 여부를 판단하는 <b>객관적 평가 기준</b> 존재</li>
+  <li>평가 과정·결과에 대한 <b>절차 준수</b></li>
+</ul>
+<p class="i-disclaimer">* 갱신기대권 인정 여부는 계약 체결 경위·관행·근로조건 변화 등을 종합해 판단합니다.</p>`
+  },
+};
+function openInsight(key){
+  const d=INSIGHTS[key];if(!d)return;
+  document.getElementById('iTag').textContent=d.tag;
+  document.getElementById('iTitle').textContent=d.title;
+  document.getElementById('iBig').textContent=d.big;
+  document.getElementById('iBody').innerHTML=d.body;
+  document.getElementById('iBack').classList.add('active');
+  document.body.classList.add('i-open');
+}
+function closeInsight(){
+  document.getElementById('iBack').classList.remove('active');
+  document.body.classList.remove('i-open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeInsight()});
+</script>
 
 </body>
 </html>
