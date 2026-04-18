@@ -175,6 +175,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .sample-card[data-kind="consult"]:hover{border-color:var(--orange)!important}
 .sample-card[data-kind="dismissal"]:hover{border-color:var(--blue)!important}
 .sample-card[data-kind="invest"]:hover{border-color:var(--mint)!important}
+.sample-card[data-kind="rules"]:hover{border-color:var(--mint)!important}
 .sample-card[data-kind="eval"]:hover{border-color:var(--blue)!important}
 @media(max-width:768px){.samples-row{grid-template-columns:1fr!important}}
 .modal-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
@@ -533,7 +534,7 @@ body.modal-open{overflow:hidden}
   </div>
 
   <!-- 취업규칙 -->
-  <div style="background:#F0FDF4;border:1.5px solid var(--mint);border-radius:var(--card-radius);padding:36px 32px">
+  <div class="sample-card" data-kind="rules" onclick="openSample('rules')" style="background:#F0FDF4;border:1.5px solid var(--mint);border-radius:var(--card-radius);padding:36px 32px 48px;position:relative">
     <div style="font-size:12px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px">📝 취업규칙</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
       <div>
@@ -769,9 +770,80 @@ body.modal-open{overflow:hidden}
   </div>
 </div>
 
+<!-- 취업규칙 신구대조표 모달 -->
+<div class="modal-backdrop" id="modalRules" onclick="if(event.target===this)closeSample()">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="modal-tag" style="color:var(--mint)">📝 취업규칙 신구대조표 — 개정 샘플</div>
+        <h3>2026년 법 개정 반영, 이렇게 정리됩니다</h3>
+      </div>
+      <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-qa" style="background:#F0FDF4;border-left-color:#00B893">
+        <div class="modal-qa-label" style="color:var(--mint)">📨 의뢰 시나리오</div>
+        <p>2019년 제정 후 별도 개정 없이 운영해 온 취업규칙. 2025~2026년 개정 법령 반영 + 육아지원 3법·난임치료휴가 등 <em>11개 항목</em>을 일괄 업데이트하려는 30인 규모 기업의 의뢰.</p>
+      </div>
+
+      <h4>1. 신구대조표 샘플 — 육아기 근로시간 단축</h4>
+      <p>개정 법령: <em>남녀고용평등법 제19조의2</em> (2025.10.23 개정, 2025.12.1 시행) — 단축 가능 기간 확대(최대 36개월) + 대상 자녀 연령 확대(만 8세·초2 → 만 12세·초6).</p>
+
+      <div class="modal-law" style="background:#F8F8F8;border-color:#D1D5DB;padding:0;overflow:hidden">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead>
+            <tr style="background:#E5E7EB">
+              <th style="padding:10px 12px;text-align:left;font-weight:700;width:50%;border-right:1px solid #D1D5DB">현행 (2019년 규정)</th>
+              <th style="padding:10px 12px;text-align:left;font-weight:700;width:50%;background:#D1FAE5">개정안 (2026년 반영)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:14px;vertical-align:top;line-height:1.7;border-right:1px solid #D1D5DB;border-top:1px solid #D1D5DB">
+                <strong style="display:block;margin-bottom:6px;font-size:13px">제47조(육아기 근로시간 단축)</strong>
+                ① 사업주는 만 <s style="color:#DC2626">8세 이하 또는 초등학교 2학년</s> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
+                ② 단축 기간은 <s style="color:#DC2626">1년</s> 이내로 한다.
+              </td>
+              <td style="padding:14px;vertical-align:top;line-height:1.7;background:#F0FDF4;border-top:1px solid #D1D5DB">
+                <strong style="display:block;margin-bottom:6px;font-size:13px">제47조(육아기 근로시간 단축)</strong>
+                ① 사업주는 만 <em>12세 이하 또는 초등학교 6학년</em> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
+                ② 단축 기간은 <em>육아휴직 미사용 기간을 가산하여 최대 36개월</em> 범위에서 사용할 수 있다.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>2. 납품 구성</h4>
+      <ul class="bullet">
+        <li><em>맞춤 규정안 (docx)</em>: 2026 개정 11개 항목 반영 + 회사 유리 조항 포함, 모듈형으로 필요한 조항만 선택</li>
+        <li><em>신구대조표 (xlsx)</em>: 조항별 현행↔개정 대조, 변경 부분 하이라이트, 근거 법령 명시</li>
+        <li><em>의견청취 확인서 (docx)</em>: 근로기준법 제94조 절차용 표준 양식</li>
+        <li><em>동의서 (docx)</em>: 근로자 과반수 동의가 필요한 경우 (불이익 변경)</li>
+        <li><em>노동부 신고 안내</em>: 신고 기한·제출 서류·관할 관서 안내</li>
+      </ul>
+
+      <h4>3. 2026 법 개정 11개 항목 (반영 대상 예시)</h4>
+      <ul class="bullet">
+        <li>배우자 출산휴가 20일 확대 (남녀고용평등법 제18조의2)</li>
+        <li>난임치료휴가 유급화·확대 (남녀고용평등법 제18조의3)</li>
+        <li>육아휴직 최대 1년 6개월로 확대 (남녀고용평등법 제19조)</li>
+        <li>육아기 근로시간 단축 연령·기간 확대 (제19조의2)</li>
+        <li>임신기 근로시간 단축 기간 확대 (근로기준법 제74조)</li>
+        <li>그 외 직장 내 괴롭힘·성희롱 조사 의무 강화, 연장근로 한도 등</li>
+      </ul>
+
+      <div class="modal-signature">
+        <div class="name">HRer 소속 공인노무사</div>
+        <div class="disclaimer">* 본 샘플은 납품물 구성을 보여드리는 예시이며, 실제 규정안·신구대조표는 회사 직무·업종·기존 규정에 맞춰 개별 작성됩니다. 법령 개정 시점·내용은 공포된 관보를 기준으로 반영합니다.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 function openSample(id){
-  const map={consult:'modalConsult',dismissal:'modalDismissal',invest:'modalInvest'};
+  const map={consult:'modalConsult',dismissal:'modalDismissal',invest:'modalInvest',rules:'modalRules'};
   const el=document.getElementById(map[id]);
   if(el){ el.classList.add('active'); document.body.classList.add('modal-open'); }
 }
