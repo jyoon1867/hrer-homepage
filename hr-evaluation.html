@@ -3,171 +3,523 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>인사평가 — 준비중 — HRer</title>
+<title>인사평가·보상 설계 — HRer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+html{overflow-y:scroll;scrollbar-gutter:stable}
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
-  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;
-  --blue:#4C6EF5;--purple:#845EF7;
-  --card-radius:16px;
+  --mint:#00B893;--white:#fff;--gray:#737373;--gray2:#A3A3A3;--dark:#191919;--border:#E5E5E5;
+  --yellow:#FFD43B;--orange:#FF922B;--blue:#4C6EF5;--purple:#845EF7;
+  --card-radius:16px;--section-gap:110px;
 }
-body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:var(--bg);-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word;min-height:100vh;display:flex;flex-direction:column}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#fff;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
 a{text-decoration:none;color:inherit}
-em{font-style:normal;color:var(--mint);font-weight:700}
 .container{max-width:1200px;margin:0 auto;padding:0 32px}
+em{font-style:normal;color:var(--mint);font-weight:700}
+.hero h1 em,.section-title em,.cta-banner h2 em{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
 .logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
 .logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
-.nav-back{font-size:14px;color:var(--gray);font-weight:500}
-.nav-back:hover{color:var(--dark)}
-.nav-back::before{content:'← '}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{color:var(--gray);font-size:15px;font-weight:500;transition:color 0.15s}
+.nav-links a:hover{color:var(--dark)}
+.nav-cta{background:var(--dark);color:var(--white);padding:7px 18px;border-radius:8px;font-weight:600;font-size:13px;transition:opacity 0.15s}
+.nav-cta:hover{opacity:0.85}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:20px;height:2px;background:var(--dark);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;padding:20px 32px;border-bottom:1px solid var(--border);flex-direction:column;gap:14px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.mobile-menu a{color:var(--dark);font-size:15px;font-weight:500;padding:6px 0}
+.mobile-menu.active{display:flex}
 
 /* HERO */
-main{flex:1;padding:120px 20px 80px;display:flex;align-items:center;justify-content:center}
-.coming-wrap{max-width:720px;margin:0 auto;text-align:center}
+.hero{padding:150px 0 90px;background:linear-gradient(135deg,var(--dark) 0%,#2d2d2d 100%);color:var(--white);text-align:center}
+.hero-badge{display:inline-block;padding:8px 20px;border-radius:100px;background:rgba(0,184,147,0.15);color:var(--mint);font-size:14px;font-weight:600;margin-bottom:28px;border:1px solid rgba(0,184,147,0.3)}
+.hero h1{font-size:48px;font-weight:900;line-height:1.22;letter-spacing:-1.8px;margin-bottom:20px}
+.hero p{font-size:19px;color:rgba(255,255,255,0.7);max-width:640px;margin:0 auto 36px;line-height:1.7;font-weight:500}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-dark{display:inline-block;background:var(--dark);color:var(--white);padding:14px 32px;border-radius:10px;font-weight:700;font-size:16px;transition:opacity 0.15s}
+.btn-dark:hover{opacity:0.85}
+.btn-ghost{display:inline-block;background:var(--white);color:var(--dark);padding:14px 32px;border-radius:10px;font-weight:600;font-size:16px;border:1.5px solid var(--border);transition:border-color 0.15s}
+.btn-ghost:hover{border-color:var(--dark)}
+.hero .btn-ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,0.25)}
+.hero .btn-ghost:hover{border-color:var(--white)}
 
-.coming-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:100px;background:linear-gradient(135deg,#F0FDF4 0%,#E8F4FD 100%);color:var(--mint);font-size:14px;font-weight:700;margin-bottom:32px;border:1px solid rgba(0,184,147,0.2)}
-.coming-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+/* SECTION */
+.section{padding:var(--section-gap) 0}
+.section-alt{background:#FAFAFA}
+.section-label{font-size:13px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-align:center}
+.section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
+.section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
-.coming-title{font-size:56px;font-weight:900;line-height:1.15;letter-spacing:-2.5px;margin-bottom:24px}
-.coming-title em{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
-.coming-desc{font-size:19px;color:var(--gray);line-height:1.75;font-weight:500;margin-bottom:48px;max-width:580px;margin-left:auto;margin-right:auto}
-.coming-desc em{color:var(--mint)}
+/* VALUE PROPS */
+.vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.vp-card{border-radius:var(--card-radius);padding:32px 28px;background:#fff;border:1px solid var(--border);transition:all 0.2s}
+.vp-card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.06);border-color:var(--mint);transform:translateY(-2px)}
+.vp-card .icon{font-size:30px;margin-bottom:14px}
+.vp-card h3{font-size:18px;font-weight:800;margin-bottom:10px;letter-spacing:-0.3px}
+.vp-card p{font-size:14.5px;color:#555;line-height:1.75}
 
-/* 기능 프리뷰 카드 */
-.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px;text-align:left}
-.preview-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 22px;transition:all 0.2s;position:relative;overflow:hidden}
-.preview-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,184,147,0.02) 0%,transparent 50%);pointer-events:none}
-.preview-card .icon{font-size:28px;margin-bottom:12px}
-.preview-card h3{font-size:16px;font-weight:800;margin-bottom:6px;letter-spacing:-0.3px}
-.preview-card p{font-size:13px;color:var(--gray);line-height:1.65}
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1000px;margin:0 auto}
+.feat-card{border-radius:var(--card-radius);padding:32px 30px;background:#fff;border:1px solid var(--border)}
+.feat-card .num{display:inline-block;width:34px;height:34px;background:var(--dark);color:var(--mint);border-radius:8px;text-align:center;line-height:34px;font-weight:900;font-size:14px;margin-bottom:14px}
+.feat-card h3{font-size:19px;font-weight:800;margin-bottom:10px;letter-spacing:-0.3px}
+.feat-card p{font-size:14.5px;color:#555;line-height:1.75;margin-bottom:10px}
+.feat-card ul{list-style:none;padding:0;margin-top:10px}
+.feat-card ul li{font-size:13.5px;color:#444;padding:4px 0 4px 20px;position:relative;line-height:1.6}
+.feat-card ul li::before{content:'✓';position:absolute;left:0;color:var(--mint);font-weight:700}
 
-/* 알림 신청 박스 */
-.notify-box{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:40px 44px;text-align:left}
-.notify-box h3{font-size:22px;font-weight:800;margin-bottom:8px;color:var(--white)}
-.notify-box p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:24px}
-.notify-form{display:flex;gap:10px;flex-wrap:wrap}
-.notify-form input{flex:1;min-width:220px;padding:14px 18px;border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;background:rgba(255,255,255,0.05);color:var(--white);font-size:15px;font-family:inherit;font-weight:500;outline:none;transition:border-color 0.15s}
-.notify-form input::placeholder{color:rgba(255,255,255,0.4)}
-.notify-form input:focus{border-color:var(--mint)}
-.notify-form button{padding:14px 28px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;white-space:nowrap}
-.notify-form button:hover{opacity:0.88}
+/* DELIVERABLES */
+.del-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.del-card{border-radius:var(--card-radius);padding:26px 24px;background:#F0FDF4;border:1px solid rgba(0,184,147,0.2)}
+.del-card h4{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--dark)}
+.del-card ul{list-style:none;padding:0}
+.del-card ul li{font-size:13px;color:#444;padding:5px 0 5px 18px;position:relative;line-height:1.6;font-weight:500}
+.del-card ul li::before{content:'✓';position:absolute;left:0;color:var(--mint);font-weight:700}
 
-/* 다른 서비스 이동 */
-.other-services{margin-top:60px;padding-top:40px;border-top:1px solid var(--border);text-align:center}
-.other-services .label{font-size:13px;color:var(--gray2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
-.other-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.other-btns a{padding:12px 22px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-weight:600;color:var(--dark);transition:all 0.15s;background:var(--white)}
-.other-btns a:hover{border-color:var(--mint);color:var(--mint)}
+/* PROCESS timeline */
+.timeline{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.tl-step{display:grid;grid-template-columns:60px 1fr;gap:20px;align-items:start;padding:22px 26px;background:#fff;border:1px solid var(--border);border-radius:14px}
+.tl-n{width:44px;height:44px;border-radius:50%;background:var(--dark);color:var(--mint);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px}
+.tl-body h3{font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-0.2px}
+.tl-body p{font-size:14px;color:#555;line-height:1.7}
+.tl-body .tag{display:inline-block;margin-top:8px;padding:3px 10px;background:#F0FDF4;color:var(--mint);font-size:11px;font-weight:700;border-radius:20px}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.price-card{border-radius:var(--card-radius);padding:32px 28px;background:#fff;border:1px solid var(--border);position:relative;transition:all 0.2s}
+.price-card.popular{border:2px solid var(--mint);transform:scale(1.02)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--mint);color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:0.5px}
+.price-name{font-size:13px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.price-amount{font-size:28px;font-weight:900;letter-spacing:-0.8px;line-height:1.1}
+.price-amount .won{font-size:17px;font-weight:800;margin-left:2px}
+.price-desc{font-size:13.5px;color:var(--gray);margin:14px 0 16px;line-height:1.65}
+.price-features{list-style:none;padding:0}
+.price-features li{font-size:13.5px;color:#444;padding:5px 0 5px 22px;position:relative;line-height:1.6}
+.price-features li::before{content:'✓';position:absolute;left:0;color:var(--mint);font-weight:700}
+
+/* FAQ */
+.faq-list{max-width:760px;margin:0 auto}
+.faq-item{border-radius:12px;margin-bottom:8px;overflow:hidden;border:1px solid var(--border);background:#fff}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q::after{content:'+';font-size:20px;color:var(--gray2);font-weight:300;transition:transform 0.2s;flex-shrink:0;margin-left:12px}
+.faq-item.active .faq-q::after{transform:rotate(45deg)}
+.faq-a{padding:0 22px;max-height:0;overflow:hidden;transition:all 0.3s}
+.faq-item.active .faq-a{padding:0 22px 18px;max-height:400px}
+.faq-a p{font-size:14px;line-height:1.75;color:var(--gray)}
+
+/* CTA */
+.cta-banner{padding:90px 0;background:var(--dark);color:#fff;text-align:center}
+.cta-banner h2{font-size:32px;font-weight:900;margin-bottom:14px;letter-spacing:-1px}
+.cta-banner p{font-size:16px;color:rgba(255,255,255,0.65);margin-bottom:32px}
+.btn-mint{display:inline-block;background:var(--mint);color:var(--dark);padding:14px 36px;border-radius:10px;font-weight:700;font-size:16px;transition:opacity 0.15s}
+.btn-mint:hover{opacity:0.9}
 
 /* FOOTER */
-.footer{background:var(--dark);color:rgba(255,255,255,0.6);padding:40px 0;font-size:13px;text-align:center}
-.footer-logo{font-size:18px;font-weight:900;color:var(--white);margin-bottom:8px}
+.footer{background:#fff;color:var(--gray);padding:56px 0 28px;border-top:1px solid var(--border)}
+.footer-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+.footer-col h5{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:14px}
+.footer-logo{font-size:22px;font-weight:900;margin-bottom:10px;color:var(--dark)}
+.footer-info{font-size:12.5px;line-height:1.9;color:var(--gray2)}
+.footer-info .b{color:var(--gray);font-weight:600}
+.footer-links{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.footer-links a{color:var(--gray2)}
+.footer-links a:hover{color:var(--dark)}
+.footer-copy{text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--gray2);line-height:1.7}
 
+@media(max-width:900px){.vp-grid{grid-template-columns:1fr}.feat-grid{grid-template-columns:1fr}.del-grid{grid-template-columns:1fr}.price-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
 @media(max-width:768px){
-  .coming-title{font-size:36px;letter-spacing:-1.5px}
-  .coming-desc{font-size:16px}
-  .preview-grid{grid-template-columns:1fr}
-  .notify-box{padding:28px 24px}
-  .notify-box h3{font-size:18px}
-  .nav-inner{padding:0 20px}
+  :root{--section-gap:70px}
+  .nav-links{display:none}.hamburger{display:flex}
+  .hero{padding:110px 0 60px}
+  .hero h1{font-size:30px;letter-spacing:-1px}
+  .hero p{font-size:15.5px}
+  .section-title{font-size:26px}
 }
 </style>
+<!-- HRer-SEO-START -->
+<meta name="description" content="NCS 국가표준 + 심리측정학 기반 과학적 평가. 소기업도 대기업 수준의 평가 체계를 갖출 수 있습니다.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/favicon-192.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HRer">
+<meta property="og:title" content="인사평가·보상 설계 — HRer">
+<meta property="og:description" content="NCS 국가표준 + 심리측정학 기반 과학적 평가. 소기업도 대기업 수준의 평가 체계를 갖출 수 있습니다.">
+<meta property="og:url" content="https://hrer-homepage.vercel.app/hr-evaluation">
+<meta property="og:image" content="https://hrer-homepage.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="인사평가·보상 설계 — HRer">
+<meta name="twitter:description" content="NCS 국가표준 + 심리측정학 기반 과학적 평가. 소기업도 대기업 수준의 평가 체계를 갖출 수 있습니다.">
+<meta name="twitter:image" content="https://hrer-homepage.vercel.app/og-image.png">
+<!-- HRer-SEO-END -->
 </head>
 <body>
 
 <nav class="nav">
 <div class="nav-inner">
   <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
-  <a href="/" class="nav-back">홈으로</a>
+  <div class="nav-links">
+    <a href="/consultation">노무자문</a>
+    <a href="/hr-evaluation">인사평가</a>
+    <a href="/employment-rules">규정정비</a>
+    <a href="/investigation">괴롭힘/성희롱</a>
+    <a href="/unfair-dismissal">해고/징계/인사명령</a>
+    <a href="/#faq">FAQ</a>
+    <a href="/order" class="nav-cta">의뢰하기</a>
+  </div>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('active')">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<div class="mobile-menu">
+  <a href="/consultation">노무자문</a>
+  <a href="/hr-evaluation">인사평가</a>
+  <a href="/employment-rules">규정정비</a>
+  <a href="/investigation">괴롭힘/성희롱</a>
+  <a href="/unfair-dismissal">해고/징계/인사명령</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/order" class="nav-cta">의뢰하기</a>
 </div>
 </nav>
 
-<main>
-<div class="coming-wrap">
-
-  <div class="coming-badge">
-    <span class="dot"></span>
-    Coming Soon · 준비중
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+  <div class="hero-badge">NCS 국가표준 · 심리측정학 기반</div>
+  <h1>대기업 수준의 평가를<br><em>소기업 맞춤</em>으로</h1>
+  <p>NCS 13,289개 직무 데이터와 심리측정학 방법론으로 설계된 <em>과학적 평가 체계</em>.<br>10~30인 사업장도 공정한 인사평가를 도입할 수 있습니다.</p>
+  <div class="hero-btns">
+    <a href="/order_hr_evaluation" class="btn-dark">견적 문의하기</a>
+    <a href="#pricing" class="btn-ghost">요금 보기</a>
   </div>
-
-  <h1 class="coming-title">
-    <em>인사평가 서비스</em><br>
-    더 정확하게, 곧 찾아옵니다
-  </h1>
-
-  <p class="coming-desc">
-    소규모 사업장도 <em>과학적 평가 체계</em>를 갖출 수 있도록, HRer 인사평가 서비스를 준비하고 있습니다.<br>
-    NCS 국가직무능력표준 13,289개 데이터와 심리측정학 방법론 기반의 <em>공정한 평가</em>를 곧 만나보실 수 있습니다.
-  </p>
-
-  <div class="preview-grid">
-    <div class="preview-card">
-      <div class="icon">📊</div>
-      <h3>표준점수 기반 평가</h3>
-      <p>개인 점수가 아닌 <em>표준점수</em>로 평가자 간 편차를 보정합니다.</p>
-    </div>
-    <div class="preview-card">
-      <div class="icon">🎯</div>
-      <h3>역량·성과 분리</h3>
-      <p>17개 역량 × 22개 직무군 기반. <em>무엇을, 어떻게</em> 평가하는지 명확히.</p>
-    </div>
-    <div class="preview-card">
-      <div class="icon">⚖️</div>
-      <h3>평가자 성향 보정</h3>
-      <p>관대화·중심화 경향을 자동 분석해 <em>신뢰도</em>를 확인합니다.</p>
-    </div>
-  </div>
-
-  <div class="notify-box">
-    <h3>🔔 출시 알림 받기</h3>
-    <p>인사평가 서비스가 오픈되면 가장 먼저 알려드리겠습니다. 이메일만 남겨주세요.</p>
-    <form class="notify-form" onsubmit="handleNotify(event)">
-      <input type="email" id="notify-email" placeholder="you@email.com" required>
-      <button type="submit">알림 신청</button>
-    </form>
-  </div>
-
-  <div class="other-services">
-    <div class="label">지금 이용 가능한 서비스</div>
-    <div class="other-btns">
-      <a href="/consultation">💬 노무자문</a>
-      <a href="/unfair-dismissal">⚖️ 부당해고·징계</a>
-      <a href="/investigation">🔍 괴롭힘·성희롱 조사</a>
-      <a href="/employment-rules">📝 취업규칙 정비</a>
-    </div>
-  </div>
-
 </div>
-</main>
+</section>
 
+<!-- VALUE PROPS -->
+<section class="section">
+<div class="container">
+  <div class="section-label">Why HRer Evaluation</div>
+  <h2 class="section-title">소기업이 <em>처음 만나는</em> 공정한 평가</h2>
+  <p class="section-sub">엑셀로 주먹구구식 평가하거나, 수천만원 컨설팅 없이도 대기업 수준의 평가 체계를 구축합니다.</p>
+
+  <div class="vp-grid">
+    <div class="vp-card">
+      <div class="icon">📊</div>
+      <h3>NCS 국가표준 기반</h3>
+      <p>고용노동부 국가직무능력표준 <em>13,289개</em> 직무 데이터를 활용해 회사 직무에 맞춘 평가지표를 설계합니다. 개인 주관이 아닌 객관적 기준.</p>
+    </div>
+    <div class="vp-card">
+      <div class="icon">🔬</div>
+      <h3>심리측정학 방법론</h3>
+      <p><em>T점수 표준화</em>, 평가자 성향 보정, 신뢰도(Cronbach's α) 검증. 점수의 의미를 통계적으로 해석할 수 있게 만듭니다.</p>
+    </div>
+    <div class="vp-card">
+      <div class="icon">⚖️</div>
+      <h3>대법원 판례 반영</h3>
+      <p>저성과자 관리·PIP 설계 시 관련 <em>대법원 판례 기준</em>을 반영. 법적 리스크를 최소화한 평가 체계를 제공합니다.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FEATURES -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-label">Core Features</div>
+  <h2 class="section-title">핵심 <em>기능</em></h2>
+  <p class="section-sub">평가 설계부터 결과 분석까지, 한 번에 해결합니다.</p>
+
+  <div class="feat-grid">
+    <div class="feat-card">
+      <span class="num">01</span>
+      <h3>역량·성과 분리 평가</h3>
+      <p>'무엇을 했는가(성과)'와 '어떻게 했는가(역량)'를 분리해 평가합니다.</p>
+      <ul>
+        <li>17개 핵심 역량 + 22개 직무군</li>
+        <li>BOS(행동관찰척도) 기반 문항</li>
+        <li>7점 척도 + 행동 예시 제공</li>
+      </ul>
+    </div>
+
+    <div class="feat-card">
+      <span class="num">02</span>
+      <h3>표준점수 기반 비교</h3>
+      <p>부서·직급·평가자별 편차를 T점수로 보정해 공정 비교 가능.</p>
+      <ul>
+        <li>부서별 표준화 점수</li>
+        <li>직급·직책별 교차 비교</li>
+        <li>개인별 등급 + 전사 백분위</li>
+      </ul>
+    </div>
+
+    <div class="feat-card">
+      <span class="num">03</span>
+      <h3>평가자 성향 보정</h3>
+      <p>관대화·엄격화·중심화 경향을 자동 탐지해 경고 + 보정.</p>
+      <ul>
+        <li>평가자별 표준편차 분석</li>
+        <li>동일 패턴 반복 감지</li>
+        <li>신뢰도 리포트 제공</li>
+      </ul>
+    </div>
+
+    <div class="feat-card">
+      <span class="num">04</span>
+      <h3>성과 예측도 분석</h3>
+      <p>역량과 실제 성과의 상관관계를 분석해 핵심역량 도출.</p>
+      <ul>
+        <li>역량 × 성과 상관분석</li>
+        <li>회사별 핵심역량 리포트</li>
+        <li>교육 투자 ROI 가이드</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- DELIVERABLES + COMPENSATION ANCHOR -->
+<section class="section" id="compensation">
+<div class="container">
+  <div class="section-label">Deliverables</div>
+  <h2 class="section-title">이런 <em>결과물</em>을 받습니다</h2>
+  <p class="section-sub">평가가 끝나면 다음 리포트를 모두 제공합니다. <em>보상 설계</em>와 <em>저성과자 관리</em>까지 연결된 통합 패키지입니다.</p>
+
+  <div class="del-grid">
+    <div class="del-card">
+      <h4>📈 전사 종합 리포트</h4>
+      <ul>
+        <li>전체 평균·분포</li>
+        <li>부서별 비교</li>
+        <li>직급·직책별 분석</li>
+        <li>경영진 1장 요약</li>
+      </ul>
+    </div>
+    <div class="del-card">
+      <h4>👤 개인별 결과표</h4>
+      <ul>
+        <li>역량·성과 개별 점수</li>
+        <li>부서·전사 백분위</li>
+        <li>강점·개선점 정리</li>
+        <li>개인 맞춤 피드백</li>
+      </ul>
+    </div>
+    <div class="del-card">
+      <h4>🔍 신뢰도·타당도 검증</h4>
+      <ul>
+        <li>Cronbach's α 리포트</li>
+        <li>평가자 성향 분석</li>
+        <li>이상치 자동 감지</li>
+        <li>신뢰 수준 평가</li>
+      </ul>
+    </div>
+    <div class="del-card">
+      <h4>🎯 성과 예측 분석</h4>
+      <ul>
+        <li>핵심역량 도출</li>
+        <li>역량·성과 상관표</li>
+        <li>교육 우선순위 제안</li>
+        <li>채용 기준 권고</li>
+      </ul>
+    </div>
+    <div class="del-card">
+      <h4>⚠️ 저성과자 관리 가이드</h4>
+      <ul>
+        <li>PIP(성과개선계획) 양식</li>
+        <li>대법원 판례 기준 반영</li>
+        <li>단계별 기록 템플릿</li>
+        <li>법적 리스크 체크리스트</li>
+      </ul>
+    </div>
+    <div class="del-card">
+      <h4>💼 보상 설계 가이드</h4>
+      <ul>
+        <li>등급별 보상 연계 방안</li>
+        <li>임금체계 정비 제안</li>
+        <li>성과급 배분 구조</li>
+        <li>직무급 전환 로드맵</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">진행 <em>단계</em></h2>
+  <p class="section-sub">의뢰부터 리포트 납품까지 평균 <em>6~8주</em>.</p>
+
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-n">01</div>
+      <div class="tl-body">
+        <h3>사전 진단 + 직무 분석</h3>
+        <p>회사 규모·직무 구성·기존 평가 이력 확인. NCS 기반으로 직무별 평가 역량 세트 설계.</p>
+        <span class="tag">1~2주</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">02</div>
+      <div class="tl-body">
+        <h3>평가지표 확정 + 고객 확인</h3>
+        <p>직무별 역량 세트 리포트 제공 → 고객 피드백 반영 → 최종 확정.</p>
+        <span class="tag">3~5일</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">03</div>
+      <div class="tl-body">
+        <h3>평가 시행</h3>
+        <p>개인별 링크로 온라인 평가(스마트폰·PC). 자기평가 → 상사평가 → 동료평가(선택) 순.</p>
+        <span class="tag">1~2주</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">04</div>
+      <div class="tl-body">
+        <h3>통계 분석 + 리포트 작성</h3>
+        <p>T점수 표준화, 평가자 성향 보정, 신뢰도 검증. 전사·부서·개인별 리포트 생성.</p>
+        <span class="tag">2~3주</span>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-n">05</div>
+      <div class="tl-body">
+        <h3>결과 발송 + 사후 해석 지원</h3>
+        <p>인사담당자 또는 개인별 직접 발송(선택). 이해 안 되는 항목은 서면 질의 응답.</p>
+        <span class="tag">영업일 2~3일</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+<div class="container">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">회사 규모에 맞춘 <em>3가지 플랜</em></h2>
+  <p class="section-sub">직원 수와 원하는 분석 범위에 따라 선택하세요. 견적은 무료입니다.</p>
+
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-name">Basic</div>
+      <div class="price-amount">500,000<span class="won">원부터</span></div>
+      <div class="price-desc">10~20인 · 기본 평가 체계 구축</div>
+      <ul class="price-features">
+        <li>NCS 기반 직무별 평가지표 설계</li>
+        <li>자기평가 + 상사평가</li>
+        <li>전사·부서·개인별 리포트</li>
+        <li>신뢰도 검증 리포트</li>
+      </ul>
+    </div>
+
+    <div class="price-card popular">
+      <span class="price-badge">MOST POPULAR</span>
+      <div class="price-name">Standard</div>
+      <div class="price-amount">1,000,000<span class="won">원부터</span></div>
+      <div class="price-desc">20~40인 · 표준 패키지</div>
+      <ul class="price-features">
+        <li>Basic 플랜 전체 포함</li>
+        <li>동료평가(360도) 추가</li>
+        <li>평가자 성향 보정</li>
+        <li>성과 예측도 분석</li>
+        <li>저성과자 관리 가이드</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <div class="price-name">Advanced</div>
+      <div class="price-amount">2,000,000<span class="won">원부터</span></div>
+      <div class="price-desc">40인 이상 · 연간 관리 포함</div>
+      <ul class="price-features">
+        <li>Standard 플랜 전체 포함</li>
+        <li>직무 분석 심화</li>
+        <li>평가자 교육 1회</li>
+        <li>연 1회 업데이트</li>
+        <li>보상 설계 가이드 포함</li>
+        <li>직무급 전환 로드맵</li>
+      </ul>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:13px;color:var(--gray2);margin-top:28px">VAT 별도 · 직원 수·직무 수에 따라 최종 금액은 달라집니다. 견적은 무료로 안내드립니다.</p>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title">자주 묻는 질문</h2>
+  <div class="faq-list" style="margin-top:48px">
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">직원이 10명 미만이어도 도입할 수 있나요?</div><div class="faq-a"><p>가능하지만 통계적 분석의 신뢰도가 낮아져 <em>표준점수·평가자 보정</em> 같은 핵심 기능의 의미가 줄어듭니다. 소규모 팀은 간단한 목표관리(MBO) 형태를 먼저 권장드리며, 자문 서비스로 상담 후 결정하시는 편이 좋습니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">기존에 쓰던 평가 양식이 있는데 그대로 쓸 수 있나요?</div><div class="faq-a"><p>기존 양식을 검토한 뒤 <em>NCS 기반 표준 체계</em>로 전환하는 것을 권장합니다. 기존 양식은 주관적 서술 위주라 통계 분석이 어려운 경우가 많습니다. 다만 회사 고유의 가치·문화 항목은 별도 섹션으로 유지 가능합니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">평가 결과가 해고·감급의 근거가 될 수 있나요?</div><div class="faq-a"><p>단독 근거로는 <em>부족합니다</em>. 대법원 판례는 저성과 해고 시 ①객관적·합리적 평가 ②개선 기회(PIP) 제공 ③반복된 기록 등을 요구합니다. HRer 평가 결과 + 체계적 PIP 기록이 결합될 때 법적 방어력이 생깁니다. 이 흐름을 Advanced 플랜에서 함께 설계합니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">인사담당자 없이도 운영할 수 있나요?</div><div class="faq-a"><p>가능합니다. 평가 설계·발송·분석·리포트 모두 HRer가 수행하며, 대표님 또는 담당자 한 분과만 소통하면 됩니다. 직원별 링크 발송도 자동화되어 있어 추가 관리 부담이 적습니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">동료평가(360도) 꼭 해야 하나요?</div><div class="faq-a"><p>필수 아닙니다. 20인 미만 소규모에서는 오히려 관계 부담이 커질 수 있어 <em>자기+상사평가</em>만 진행하는 편이 좋습니다. Standard 이상에서 선택 가능하며, 상황에 맞게 권장 여부를 안내드립니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">결과는 어떻게 전달되나요?</div><div class="faq-a"><p>두 가지 선택지가 있습니다. ①인사담당자에게 일괄 발송(추가 비용 없음) ②개인별 이메일·카톡 직접 발송(1인당 추가 3,000원). 개인별 발송 시 HRer가 중립 채널로서 결과를 전달하므로, 평가자-피평가자 간 직접 갈등을 줄일 수 있습니다.</p></div></div>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+<div class="container">
+  <h2>평가 시즌 전에, 체계부터 만드세요</h2>
+  <p>견적 문의는 무료. 회사 상황에 맞는 플랜을 안내해드립니다.</p>
+  <a href="/order_hr_evaluation" class="btn-mint">견적 문의하기</a>
+</div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
 <div class="container">
-  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
-  <div>contact@hrer.kr · © 2026 HRer. 공인노무사 윤지민.</div>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+      <div class="footer-info">
+        <span class="b">유한회사 제이씨랩</span> · 대표 윤지민<br>
+이메일: contact@hrer.kr<br>
+        <br>
+        <span style="font-size:11px">HRer는 유한회사 제이씨랩이 운영하는 서비스 브랜드이며, 노무 자문·사건·조사의 실제 직무 수행은 공인노무사 윤지민 사무소가 위탁받아 수행합니다.</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>서비스</h5>
+      <div class="footer-links">
+        <a href="/consultation">노무자문</a>
+        <a href="/unfair-dismissal">해고/징계/인사명령</a>
+        <a href="/investigation">괴롭힘/성희롱 조사</a>
+        <a href="/hr-evaluation">인사평가</a>
+        <a href="/employment-rules">규정정비</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>약관·정책</h5>
+      <div class="footer-links">
+        <a href="/terms">이용약관</a>
+        <a href="/privacy">개인정보처리방침</a>
+        <a href="/#faq">자주 묻는 질문</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2026 유한회사 제이씨랩. All rights reserved.<br>
+    본 웹사이트의 정보·통계·사례는 일반적인 참고 자료이며, 구체적 사건의 결과를 예측하거나 보장하지 않습니다.
+  </div>
 </div>
 </footer>
-
-<script>
-function handleNotify(e){
-  e.preventDefault();
-  const email = document.getElementById('notify-email').value.trim();
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    alert('올바른 이메일을 입력해주세요.');
-    return;
-  }
-  alert('알림 신청이 완료되었습니다.\n\n인사평가 서비스 오픈 시 ' + email + '로 안내드리겠습니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
-  document.getElementById('notify-email').value = '';
-}
-</script>
 
 </body>
 </html>
