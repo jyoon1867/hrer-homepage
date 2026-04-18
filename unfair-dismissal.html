@@ -173,6 +173,15 @@ body.i-open{overflow:hidden}
   .cmp-table th,.cmp-table td{padding:14px 12px;font-size:13px}
   .cmp-q,.cmp-ai,.cmp-hrer{width:auto}
 }
+
+.step-card{cursor:pointer;padding:26px 22px 44px!important;transition:all 0.2s}
+.step-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:18px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.step-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint)}
+.step-card:hover::after{color:var(--dark);transform:translateX(3px)}
+.process-card{cursor:pointer;padding-bottom:44px!important;transition:all 0.2s;position:relative}
+.process-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:22px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.process-card:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,0.08)}
+.process-card:hover::after{color:var(--dark);transform:translateX(3px)}
 </style>
 <!-- HRer-SEO-START -->
 <meta name="description" content="노동위원회 판정례 9만 건 기반, 부당해고 구제신청을 데이터로 준비합니다. 단계별로 필요한 만큼만 의뢰하세요.">
@@ -343,25 +352,25 @@ body.i-open{overflow:hidden}
   <p class="section-sub">전 과정을 한꺼번에 맡기지 않아도 됩니다. 사건 상황에 맞춰 필요한 단계만 선택하세요.</p>
 
   <div class="steps-grid">
-    <div class="step-card">
+    <div class="step-card" onclick="openInsight('step1')">
       <div class="step-n">Step 01</div>
       <h3>초기 검토</h3>
       <p>사건 개요·증거 리스트·유사 판정례 분석. 승·패 가능성과 쟁점을 먼저 확인합니다.</p>
       <div class="price">건별 결제</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" onclick="openInsight('step2')">
       <div class="step-n">Step 02</div>
       <h3>구제신청·답변서</h3>
       <p>사실관계 정리, 쟁점별 법리 구성, 판정례 인용. 서면으로 제출까지 지원합니다.</p>
       <div class="price">건별 결제</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" onclick="openInsight('step3')">
       <div class="step-n">Step 03</div>
       <h3>심문회의 전략</h3>
       <p>예상 질문 대응, 주장 요약서, 추가 증거 검토. 심문 당일 준비까지 함께합니다.</p>
       <div class="price">건별 결제</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" onclick="openInsight('step4')">
       <div class="step-n">Step 04</div>
       <h3>출석·대리 (선택)</h3>
       <p>필요 시 심문회의 동석 또는 대리 출석. 사건 규모·거리에 따라 별도 협의.</p>
@@ -379,17 +388,17 @@ body.i-open{overflow:hidden}
   <p class="section-sub">사건을 맡으면 이런 과정을 거쳐 서면을 준비합니다.</p>
 
   <div class="process-grid">
-    <div class="process-card">
+    <div class="process-card" onclick="openInsight('proc1')">
       <div class="badge">1</div>
       <h3>유사 판정례 분석</h3>
       <p>같은 유형(해고 사유·업종·절차 등)의 유사 사안 판정례를 수집해, 인정된 사건과 불인정된 사건의 <em>갈린 지점</em>을 정리합니다.</p>
     </div>
-    <div class="process-card">
+    <div class="process-card" onclick="openInsight('proc2')">
       <div class="badge">2</div>
       <h3>입증 포인트 도출</h3>
       <p>인정된 사건에서 반복 등장한 요소(절차 준수, 양정 합리성, 경고·시정기회 등)를 기준으로, <em>우리 사건에서 입증해야 할 지점</em>을 구체화합니다.</p>
     </div>
-    <div class="process-card">
+    <div class="process-card" onclick="openInsight('proc3')">
       <div class="badge">3</div>
       <h3>서면·전략 구성</h3>
       <p>인용 가능한 판정례를 선별해 서면에 반영하고, 심문회의에서 예상되는 쟁점별 대응 전략을 준비합니다.</p>
@@ -587,6 +596,165 @@ const INSIGHTS={
   <li>평가 과정·결과에 대한 <b>절차 준수</b></li>
 </ul>
 <p class="i-disclaimer">* 갱신기대권 인정 여부는 계약 체결 경위·관행·근로조건 변화 등을 종합해 판단합니다.</p>`
+  },
+  step1:{
+    tag:'Step 01 · 초기 검토',title:'승·패 가능성과 쟁점부터 확인',big:'사건 의뢰 첫 단계',
+    body:`<h4>이 단계에서 하는 일</h4>
+<ul>
+  <li>사건 개요·경위·증거 현황 정리</li>
+  <li>유사 판정례 3~5건 검토 → 인정·불인정 경향 확인</li>
+  <li>주요 쟁점 도출 + 각 쟁점의 우리 측 유리·불리 평가</li>
+  <li>구제신청 진행 여부에 대한 <em>솔직한 판단</em> 제시</li>
+</ul>
+<h4>결과물</h4>
+<ul>
+  <li>초기 검토 리포트 (A4 2~3매)</li>
+  <li>쟁점 우선순위 + 보강해야 할 증거 목록</li>
+  <li>예상 소요 기간·비용 가이드</li>
+</ul>
+<div class="i-case">
+  <strong>이 단계가 중요한 이유</strong>
+  "무조건 이길 수 있다"는 말을 듣고 시작했다가 중간에 불리한 쟁점이 나오면 시간·비용 손실이 큽니다. 이 단계에서 <em>솔직한 가능성 진단</em>을 받고 진행 여부를 결정하는 것이 합리적입니다.
+</div>
+<p class="i-disclaimer">* 초기 검토 결과는 "이길 수 있다/없다" 이분법이 아니라 <em>각 쟁점의 상대적 유불리</em>로 전달됩니다.</p>`
+  },
+  step2:{
+    tag:'Step 02 · 구제신청·답변서',title:'사실관계 정리와 법리 구성을 서면으로',big:'노동위원회 제출 단계',
+    body:`<h4>주요 작업</h4>
+<ul>
+  <li><b>사실관계 정리</b>: 시간순 정리 + 일치·불일치 구간 명시</li>
+  <li><b>법리 구성</b>: 해고 사유·양정·절차 3개 쟁점별 주장 구조화</li>
+  <li><b>유사 판정례 인용</b>: 우리 주장에 유리한 판정례 선별</li>
+  <li><b>입증 자료 첨부</b>: 근로계약서·취업규칙·경고장·근태 기록 등 번호 부여</li>
+</ul>
+<h4>답변서 기본 구성</h4>
+<ul>
+  <li>당사자 표시 · 대리인 표시</li>
+  <li>신청 취지에 대한 답변</li>
+  <li>신청 원인에 대한 답변</li>
+  <li>이 사건 해고(또는 인사조치)의 정당성</li>
+  <li>입증 자료 목록</li>
+</ul>
+<div class="i-case">
+  <strong>실무 팁</strong>
+  답변서 제출 기한(통상 14일)은 짧습니다. 근로자 측은 구제신청서 작성 전, 사용자 측은 접수 통지 즉시 <em>Step 01부터</em> 시작하는 것이 안전합니다.
+</div>
+<p class="i-disclaimer">* 답변서는 근로자 측·사용자 측 모두 의뢰 가능합니다.</p>`
+  },
+  step3:{
+    tag:'Step 03 · 심문회의 전략',title:'심문 당일 대비 + 주장 요약서',big:'심문회의 직전 단계',
+    body:`<h4>심문 전 준비</h4>
+<ul>
+  <li><b>예상 질문 시뮬레이션</b>: 상대 측·심판위원이 물어볼 가능성 높은 질문 정리</li>
+  <li><b>답변 방향 코칭</b>: 대답해야 할 핵심 vs 피해야 할 답변</li>
+  <li><b>주장 요약서</b>: 1~2페이지로 쟁점·주장·근거 요약 (심판위원용)</li>
+  <li><b>추가 증거 검토</b>: Step 02 이후 확보한 자료 보강</li>
+</ul>
+<h4>주장 요약서의 효과</h4>
+<ul>
+  <li>심판위원이 방대한 서면을 다 읽기 어려움 → 핵심만 명확히</li>
+  <li>발언 기회가 짧을 때 주장 요약서가 대신 말해줌</li>
+  <li>심의 시간이 길어질수록 요약서 참조 빈도 높음</li>
+</ul>
+<div class="i-case">
+  <strong>심문 당일 태도</strong>
+  감정적 대응·장황한 설명은 불리합니다. <em>사실관계 중심 + 간결한 답변</em>이 원칙. 사전 준비가 없으면 실전에서 흔들리기 쉬워, 이 단계가 승패를 가르는 경우가 많습니다.
+</div>
+<p class="i-disclaimer">* 심문회의 참석 여부는 사건 특성에 따라 선택 가능합니다.</p>`
+  },
+  step4:{
+    tag:'Step 04 · 출석·대리',title:'심문회의 동석 또는 대리 출석',big:'별도 협의',
+    body:`<h4>출석·대리가 필요한 경우</h4>
+<ul>
+  <li>의뢰인이 직접 출석하기 어려운 상황 (업무·건강·지역)</li>
+  <li>쟁점이 복잡해 즉흥적 대응이 어려운 경우</li>
+  <li>상대 측이 노무사·변호사를 선임한 경우 (형평성 확보)</li>
+</ul>
+<h4>공인노무사의 출석 권한</h4>
+<ul>
+  <li>노동위원회 심문회의 <b>출석 진술</b> 가능 (공인노무사법 제2조)</li>
+  <li>대리인으로서 의뢰인을 대신해 답변·신문·증거 제출</li>
+  <li>필요 시 의뢰인과 동석하여 상담·조언</li>
+</ul>
+<h4>비용 구조</h4>
+<ul>
+  <li>사건 규모·심문 예상 소요 시간·지역에 따라 별도 협의</li>
+  <li>동석(의뢰인 중심)과 단독 대리는 비용 차이</li>
+  <li>원거리 지방 심문의 경우 출장비 별도</li>
+</ul>
+<div class="i-case">
+  <strong>권장 시점</strong>
+  Step 02·03를 HRer에서 진행했다면 Step 04는 거의 자동 연결. 답변서·전략을 작성한 사람이 직접 출석하는 것이 일관성·효과 면에서 유리합니다.
+</div>
+<p class="i-disclaimer">* 출석·대리는 선택 사항이며, 서면 제출만으로도 진행 가능합니다.</p>`
+  },
+  proc1:{
+    tag:'Process 1 · 유사 판정례 분석',title:'인정된 사건과 불인정된 사건의 갈린 지점',big:'사건 의뢰 후 첫 작업',
+    body:`<h4>분석 방법</h4>
+<ul>
+  <li><b>유형 매칭</b>: 해고 사유(근태·비위·성과·경영상) · 업종 · 규모별 필터</li>
+  <li><b>표본 수집</b>: 유사 사안 판정례 3~10건 선별 (노동위원회 공개 데이터)</li>
+  <li><b>갈린 지점 추출</b>: 인정된 사건 vs 불인정된 사건의 결정적 차이 비교</li>
+</ul>
+<h4>확인하는 요소</h4>
+<ul>
+  <li><b>절차</b>: 서면통지·소명기회·징계위원회 개최 여부</li>
+  <li><b>양정</b>: 비위 중대성 대비 징계 수위의 균형</li>
+  <li><b>입증</b>: 증거 수준·반복성 기록 유무</li>
+  <li><b>경고 이력</b>: 사전 경고·시정기회 부여 흔적</li>
+  <li><b>형평성</b>: 유사 비위 다른 직원 처우와 비교</li>
+</ul>
+<div class="i-case">
+  <strong>분석 결과 예시</strong>
+  "유사 사안 5건 중 4건이 인정. 갈린 지점은 <em>서면통지 의무 이행</em>. 통지에 구체적 사유가 기재된 경우는 기각, 단순히 '회사 방침 위반'으로만 기재된 경우는 인정."
+</div>
+<p class="i-disclaimer">* 판정례는 공개 데이터 기반 참고 자료이며, 개별 사건 결과를 예측하거나 보장하지 않습니다.</p>`
+  },
+  proc2:{
+    tag:'Process 2 · 입증 포인트 도출',title:'우리 사건에서 입증해야 할 지점 구체화',big:'판정례 분석 이후',
+    body:`<h4>도출 방법</h4>
+<p>유사 판정례에서 <em>인정된 사건들이 공통으로 갖췄던 요소</em>를 우리 사건의 확보 자료와 대조합니다.</p>
+<h4>근로자 측 사건 예시 (해고 다툼)</h4>
+<ul>
+  <li>서면통지 구체성 여부 → 통지서 원본 확보</li>
+  <li>회사의 징계 절차 준수 여부 → 인사위원회 회의록·출석 요청 여부</li>
+  <li>사전 시정 기회 부여 → 경고장·면담 기록</li>
+  <li>유사 비위 다른 직원 처우 → 사내 비공식 자료 활용 가능성 검토</li>
+</ul>
+<h4>사용자 측 사건 예시 (해고 정당성 방어)</h4>
+<ul>
+  <li>비위 사실 입증 → 출근 기록·CCTV·이메일·목격자 진술</li>
+  <li>징계 양정의 적정성 → 취업규칙·단체협약 근거</li>
+  <li>징계위원회 절차 → 회의록·구성원 서명·의결 정족수</li>
+  <li>형평성 → 동종 비위 처우 비교표</li>
+</ul>
+<div class="i-case">
+  <strong>보강 권고</strong>
+  확보되지 않은 자료가 있다면 <em>이 단계에서 보강</em>합니다. 답변서 제출 이후에는 입증 자료 추가가 제한되므로, 미리 준비해야 합니다.
+</div>
+<p class="i-disclaimer">* 입증 포인트는 사건 유형·방향에 따라 달라집니다. 모든 사건이 동일하게 진행되지 않습니다.</p>`
+  },
+  proc3:{
+    tag:'Process 3 · 서면·전략 구성',title:'판정례 인용 + 심문 예상 대응',big:'답변서 작성 단계',
+    body:`<h4>서면 구성</h4>
+<ul>
+  <li><b>사실관계 정리</b>: 시간순 · 쟁점별 · 일치/불일치 구분</li>
+  <li><b>법리 전개</b>: 해고 요건 3요소(사유·양정·절차)별 논증</li>
+  <li><b>판정례 인용</b>: 우리 주장과 일치하는 판정례 사건번호·요지 인용</li>
+  <li><b>입증 자료 첨부</b>: 번호 부여 + 입증 취지 명시</li>
+</ul>
+<h4>심문 전략</h4>
+<ul>
+  <li><b>우리 주장의 핵심 2~3가지</b>를 명확히 — 쟁점이 많을수록 분산</li>
+  <li><b>상대 측 주장의 약점</b> 파악 — 입증 부족·모순 지점</li>
+  <li><b>예상 질문 시나리오</b> 준비 — 불리한 질문에 대한 대응안</li>
+  <li><b>주장 요약서</b> — 심판위원이 핵심을 빠르게 파악하도록</li>
+</ul>
+<div class="i-case">
+  <strong>판정례 인용의 효과</strong>
+  "근로기준법 제27조에 따라…"만 주장하는 서면보다, "유사 사안인 <em>2017부해OOO 전부인정</em>에서 판정된 바와 같이…" 하고 구체 판정례를 인용하는 서면이 설득력이 훨씬 강합니다. 심판위원이 이미 알고 있는 기준을 다시 상기시키는 효과.
+</div>
+<p class="i-disclaimer">* 서면·전략은 근로자 측·사용자 측 모두 동일하게 준비됩니다. 단, 동일 사건에서 양측을 동시에 대리하지 않습니다.</p>`
   },
 };
 function openInsight(key){

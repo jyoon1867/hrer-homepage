@@ -137,6 +137,35 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   .hero p{font-size:15.5px}
   .section-title{font-size:26px}
 }
+
+.stage-card{cursor:pointer;transition:all 0.2s}
+.stage-card:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,0.1)}
+.stage-card::before{content:'자세히 보기 →';position:absolute;top:20px;right:24px;font-size:11.5px;font-weight:700;opacity:0.5;transition:opacity 0.2s,transform 0.2s}
+.stage-card:hover::before{opacity:1;transform:translateX(3px)}
+.why-card{cursor:pointer;position:relative;padding-bottom:40px!important;transition:all 0.2s}
+.why-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:20px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.why-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint);transform:translateY(-3px)}
+.why-card:hover::after{color:var(--dark);transform:translateX(3px)}
+/* I-MODAL */
+.i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.i-backdrop.active{display:flex;animation:ifi 0.2s}
+@keyframes ifi{from{opacity:0}to{opacity:1}}
+.i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
+@keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
+.i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
+.i-close:hover{background:#F5F5F5;color:var(--dark)}
+.i-body{padding:22px 30px 26px;max-height:70vh;overflow-y:auto}
+.i-body h4{font-size:15px;font-weight:800;margin:16px 0 8px;color:var(--dark)}
+.i-body p{font-size:14px;color:#333;line-height:1.8;margin-bottom:8px}
+.i-body ul{padding-left:20px;margin:6px 0 10px}
+.i-body ul li{font-size:13.5px;color:#444;line-height:1.75;margin:2px 0}
+.i-highlight{background:#F0FDF4;border-left:3px solid var(--mint);padding:14px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.75;color:#333}
+.i-highlight strong{color:var(--dark);font-weight:700;display:block;margin-bottom:4px;font-size:13.5px}
+.i-disclaimer{margin-top:20px;padding:14px 16px;background:#FAFAFA;border-radius:8px;font-size:11.5px;color:var(--gray);line-height:1.75}
+body.i-open{overflow:hidden}
 </style>
 <!-- HRer-SEO-START -->
 <meta name="description" content="공정한 조사가 먼저, 전문적 판단은 그 다음. 노동위원회 판정례 기반의 2단계 외부 조사 서비스.">
@@ -206,7 +235,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">한쪽에 치우친 조사는 조사보고서의 신뢰를 무너뜨립니다. 먼저 공정하게 조사하고, 그 다음 판단합니다.</p>
 
   <div class="stage-grid">
-    <div class="stage-card s1">
+    <div class="stage-card s1" onclick="openI('stage1')">
       <span class="stage-label">STAGE 01</span>
       <h3>공정한 조사</h3>
       <p class="sub">신고인·피신고인·목격자 진술, 증거 자료를 <em>예단 없이</em> 수집합니다.</p>
@@ -220,7 +249,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       </div>
     </div>
 
-    <div class="stage-card s2">
+    <div class="stage-card s2" onclick="openI('stage2')">
       <span class="stage-label">STAGE 02</span>
       <h3>전문적 판단</h3>
       <p class="sub">수집된 사실관계를 <em>판정례 데이터</em>와 비교해 공인노무사가 판단합니다.</p>
@@ -248,17 +277,17 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">사내 조사는 신뢰도에 한계가 있습니다. 그리고 조사보고서는 나중에 노동위원회·법원에서 <em>검증 대상</em>이 됩니다.</p>
 
   <div class="why-grid">
-    <div class="why-card">
+    <div class="why-card" onclick="openI('why_proc')">
       <div class="icon">⚖️</div>
       <h4>절차적 정당성</h4>
       <p>조사권자가 사건 관련자와 이해관계가 없어야 조사보고서의 중립성이 인정됩니다. 사내 조사는 이 부분에서 <em>취약</em>합니다.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card" onclick="openI('why_safe')">
       <div class="icon">🛡</div>
       <h4>2차 피해 방지</h4>
       <p>신고인·피신고인의 분리, 비밀 유지, 보복 방지 등 세밀한 조치가 필요합니다. 외부 조사자가 중립적으로 안내합니다.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card" onclick="openI('why_record')">
       <div class="icon">📋</div>
       <h4>방어 가능한 기록</h4>
       <p>회사가 후속 조치(징계·교육·분리 등)를 할 때, 조사보고서가 <em>노동위원회·법원에서 검증 가능한 형식</em>이어야 합니다.</p>
@@ -391,6 +420,156 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   </div>
 </div>
 </footer>
+
+<!-- INSIGHT MODAL -->
+<div class="i-backdrop" id="iBack" onclick="if(event.target===this)closeI()">
+  <div class="i-modal">
+    <div class="i-head">
+      <div>
+        <div class="i-tag" id="iTag"></div>
+        <h3 id="iTitle"></h3>
+      </div>
+      <button class="i-close" onclick="closeI()" aria-label="닫기">×</button>
+    </div>
+    <div class="i-body" id="iBody"></div>
+  </div>
+</div>
+
+<script>
+const INVEST_I={
+  stage1:{
+    tag:'STAGE 01 · 공정한 조사',title:'예단 없이 사실관계부터 수집합니다',
+    body:`<h4>조사 착수 전 원칙</h4>
+<ul>
+  <li><b>중립성 선언</b>: 의뢰 기업 경영진의 영향을 받지 않음을 서면으로 확인</li>
+  <li><b>비밀유지 서약</b>: 조사자·관계자 전원 서약서 작성</li>
+  <li><b>결론 상정 금지</b>: "괴롭힘이다/아니다" 예단 없이 시작</li>
+</ul>
+<h4>진술 수집 절차</h4>
+<ul>
+  <li><b>신고인 면담</b>: 사건 시기·장소·발언 내용 특정. 심리적 영향 기록. 별도 공간 or 비대면 화상</li>
+  <li><b>피신고인 면담</b>: 동일 사실관계에 대한 방어권 보장. 충분한 답변 기회 제공</li>
+  <li><b>목격자 진술</b>: 평균 2~4명. 개별 확인(동석 금지). 진술 일치도 확인</li>
+  <li><b>참고인</b>: 필요 시 동료·관리자·HR 등 추가 청취</li>
+</ul>
+<h4>증거 자료 수집</h4>
+<ul>
+  <li>이메일·메신저(스크린샷 + 원본 해시값)</li>
+  <li>업무 일지·근태 기록·CCTV(필요 시)</li>
+  <li>의료 기록·정신과 진단서(신고인 제출)</li>
+  <li>회사 내부 규정·조직도·업무 분장표</li>
+</ul>
+<div class="i-highlight">
+  <strong>2차 피해 방지 조치</strong>
+  조사 기간 중 신고인·피신고인 <em>분리 근무</em>, 보복 방지 안내, 비밀 유지 의무 공지. 모든 조치는 사전에 안내 후 시행.
+</div>
+<p class="i-disclaimer">* 조사 중 알게 된 정보는 조사 목적 외 사용 금지. 공인노무사 비밀유지 의무 적용.</p>`
+  },
+  stage2:{
+    tag:'STAGE 02 · 전문적 판단',title:'수집된 사실을 판정례 데이터와 비교합니다',
+    body:`<h4>판단 절차</h4>
+<ul>
+  <li><b>사실관계 정리</b>: 조사 단계에서 수집된 진술·증거를 시간순·쟁점별로 재구성</li>
+  <li><b>대조</b>: 일치·불일치 구간 식별. 입증된 사실과 당사자 주장만 별도 정리</li>
+  <li><b>법적 요건 해당성 검토</b>: 근로기준법 제76조의2·3 (지위·업무상 적정범위·정신적 고통)</li>
+  <li><b>유사 판정례 비교</b>: 노동위원회 판정례 2,200여 건에서 유사 사안 검색</li>
+</ul>
+<h4>판정례 비교로 확인하는 것</h4>
+<ul>
+  <li>비슷한 행위 유형(폭언·업무배제·반복 지적)이 <em>인정된 케이스 vs 불인정된 케이스</em></li>
+  <li>갈린 지점: 반복성·지속성·업무 관련성 정도</li>
+  <li>우리 사안이 어느 쪽에 가까운가</li>
+</ul>
+<div class="i-highlight">
+  <strong>판단 결과 기록</strong>
+  단순 결론만 제시하지 않음. "왜 그렇게 판단했는가"를 <em>사실관계 근거·법령 근거·판정례 근거</em> 3층으로 명시.
+</div>
+<h4>조사와 판단의 분리</h4>
+<p>같은 공인노무사가 조사와 판단을 모두 수행하지만, <b>두 단계를 의식적으로 분리</b>합니다. 조사 단계에서는 결론을 유보하고, 판단 단계에서야 종합 평가. 조사보고서에도 두 단계 기록을 별도 섹션으로 남깁니다.</p>
+<p class="i-disclaimer">* 판단은 절차적 정당성을 갖춘 사실관계에 한해 이루어지며, 조사 보강이 필요하면 2단계 전 재조사 권고.</p>`
+  },
+  why_proc:{
+    tag:'절차적 정당성',title:'조사권자의 중립성이 보고서의 신뢰를 만듭니다',
+    body:`<h4>왜 사내 조사로는 부족한가</h4>
+<ul>
+  <li>의뢰 기업 HR 담당자는 <b>이해관계인</b>일 가능성 — 피신고인의 상사·동료</li>
+  <li>신고인이 사내 조사자를 <b>신뢰하지 못함</b> — 조사 자체에 응하지 않거나 축소 진술</li>
+  <li>조사 결과에 불복하면 <b>절차 공정성</b>부터 다퉈짐</li>
+</ul>
+<h4>외부 공인노무사가 조사하면</h4>
+<ul>
+  <li>사건 관련자와 <b>이해관계 없음</b> (공인노무사법상 독립성 의무)</li>
+  <li>직무 수행 중 알게 된 정보 <b>비밀 유지 의무</b> (공인노무사법 제15조)</li>
+  <li>조사보고서에 <b>조사자 자격·객관성 선언</b> 명시 → 후속 절차에서 채택률 상승</li>
+</ul>
+<div class="i-highlight">
+  <strong>실무 효과</strong>
+  동일한 사실관계라도 <em>누가 조사했는가</em>에 따라 조사보고서의 설득력이 달라집니다. 외부 전문가가 조사한 보고서는 노동위원회·법원에서 <em>증거 가치를 더 높게</em> 평가하는 경향이 있습니다.
+</div>
+<p class="i-disclaimer">* 최종 증거 채택 여부는 해당 기관의 종합 판단에 따릅니다.</p>`
+  },
+  why_safe:{
+    tag:'2차 피해 방지',title:'조사 중 신고인이 더 다치지 않도록',
+    body:`<h4>2차 피해가 자주 발생하는 지점</h4>
+<ul>
+  <li>신고 사실이 <b>타 직원에게 노출</b>되어 소문으로 번짐</li>
+  <li>피신고인이 <b>보복성 인사 조치</b>(전보·업무배제)를 시도</li>
+  <li>조사 중 신고인을 <b>압박하는 분위기</b> 형성 (같은 층 근무·엘리베이터 마주침)</li>
+  <li>조사 결과 발표 후 <b>사내 여론</b>에서 신고인이 고립됨</li>
+</ul>
+<h4>HRer가 권고·지원하는 조치</h4>
+<ul>
+  <li><b>근무 분리</b>: 층·부서·출퇴근 시간 조정 (신고인 의사 우선)</li>
+  <li><b>비밀 유지 서약</b>: 조사 관계자 전원 (HR·상사·목격자 포함)</li>
+  <li><b>보복 방지 안내</b>: 근로기준법 제76조의3 제6항 위반 시 형사처벌 고지</li>
+  <li><b>심리 지원 연계</b>: 필요 시 EAP·외부 상담기관 연결</li>
+  <li><b>조사 후 모니터링</b>: 결과 통보 후 2~4주 간 신고인 상태 확인</li>
+</ul>
+<div class="i-highlight">
+  <strong>법적 근거</strong>
+  근로기준법 제76조의3은 <em>신고자에게 불리한 처우를 한 자</em>에 대해 3년 이하 징역 또는 3,000만원 이하 벌금을 규정. 보복은 회사와 개인 모두에게 형사 리스크.
+</div>
+<p class="i-disclaimer">* 2차 피해 방지 조치는 신고인 의사를 반영해 결정하며, 강제하지 않습니다.</p>`
+  },
+  why_record:{
+    tag:'방어 가능한 기록',title:'노동위원회·법원에서 검증되는 형식',
+    body:`<h4>조사보고서가 후속 절차에서 어떻게 쓰이나</h4>
+<ul>
+  <li><b>징계·인사 조치</b>의 근거 자료 → 피징계자가 부당성 주장 시 대응</li>
+  <li><b>노동위원회 심문회의</b>에서 증거 자료로 제출</li>
+  <li><b>민사·형사 소송</b>에서 회사의 <em>조사 의무 이행</em> 증명</li>
+  <li><b>근로감독관 조사</b> 시 회사 대응의 정당성 입증</li>
+</ul>
+<h4>검증 가능한 형식의 요건</h4>
+<ul>
+  <li><b>조사자 정보</b>: 자격·독립성 선언</li>
+  <li><b>시간순 기록</b>: 조사 일정·방법·소요 시간</li>
+  <li><b>진술자별 요약</b>: 원문 인용 + 본인 확인 서명</li>
+  <li><b>증거 목록 + 출처</b>: 각 자료의 획득 경로 명시</li>
+  <li><b>판단 근거</b>: 법령·판정례·사실관계 3층 구조</li>
+  <li><b>결론 + 권고 조치</b>: 단계별 후속 조치 안내</li>
+</ul>
+<div class="i-highlight">
+  <strong>판정례가 보여주는 것</strong>
+  노동위원회 판정례(2022부해OOO 전부인정)에서는 "사용자의 조사가 <em>형식적이고 입증이 부족</em>하다"는 이유로 사용자 측 징계 조치를 부당하다고 판단한 사례가 있습니다. 조사의 <em>질</em>이 후속 조치의 정당성을 좌우합니다.
+</div>
+<p class="i-disclaimer">* 조사보고서는 공인노무사 서명과 함께 납품되며, docx·pdf 포맷으로 제공됩니다.</p>`
+  },
+};
+function openI(k){
+  const d=INVEST_I[k];if(!d)return;
+  document.getElementById('iTag').textContent=d.tag;
+  document.getElementById('iTitle').textContent=d.title;
+  document.getElementById('iBody').innerHTML=d.body;
+  document.getElementById('iBack').classList.add('active');
+  document.body.classList.add('i-open');
+}
+function closeI(){
+  document.getElementById('iBack').classList.remove('active');
+  document.body.classList.remove('i-open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeI()});
+</script>
 
 </body>
 </html>
