@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부당해고·징계·인사명령 사건 의뢰 — HRer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;--red:#E03131;
+  --blue:#4C6EF5;--orange:#FF922B;--purple:#845EF7;
+  --card-radius:14px;
+}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#FAFAFA;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
+a{text-decoration:none;color:inherit}
+em{font-style:normal;color:var(--mint);font-weight:700}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
+.logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
+.nav-back{font-size:14px;color:var(--gray);font-weight:500;display:flex;align-items:center;gap:6px}
+.nav-back:hover{color:var(--dark)}
+.nav-back::before{content:'←'}
+
+.page-wrap{min-height:100vh;padding:88px 20px 80px}
+.form-container{max-width:780px;margin:0 auto}
+
+.page-header{text-align:center;margin-bottom:40px}
+.page-badge{display:inline-block;padding:6px 18px;border-radius:100px;background:#F0FDF4;color:var(--mint);font-size:13px;font-weight:600;margin-bottom:16px;border:1px solid rgba(0,184,147,0.15)}
+.page-header h1{font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:12px}
+.page-header p{font-size:16px;color:var(--gray);line-height:1.7}
+
+/* 사건 유형 선택 */
+.type-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.type-card{border:2px solid var(--border);border-radius:10px;padding:14px 12px;cursor:pointer;transition:all 0.15s;background:var(--white);text-align:center}
+.type-card:hover{border-color:var(--mint)}
+.type-card.selected{border-color:var(--mint);background:#F0FDF4}
+.type-card input{display:none}
+.type-icon{font-size:22px;margin-bottom:4px}
+.type-name{font-size:13px;font-weight:700}
+
+/* 단계 카드 */
+.stage-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+.stage-card{border:2px solid var(--border);border-radius:var(--card-radius);padding:20px 22px;cursor:pointer;transition:all 0.15s;background:var(--white);display:flex;gap:16px;align-items:flex-start}
+.stage-card:hover{border-color:var(--mint)}
+.stage-card.selected{border-color:var(--mint);background:#F0FDF4}
+.stage-card input{display:none}
+.stage-num{width:36px;height:36px;border-radius:50%;background:#F5F5F5;color:var(--gray);font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stage-card.selected .stage-num{background:var(--mint);color:var(--white)}
+.stage-body{flex:1}
+.stage-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.stage-name{font-size:16px;font-weight:800}
+.stage-price{font-size:14px;color:var(--dark);font-weight:700;white-space:nowrap}
+.stage-price .small{font-size:11px;color:var(--gray2);font-weight:500;margin-left:4px}
+.stage-desc{font-size:13px;color:var(--gray);line-height:1.7}
+
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:26px 28px;margin-bottom:14px}
+.section-title{font-size:16px;font-weight:800;color:var(--dark);margin-bottom:4px}
+.section-desc{font-size:12px;color:var(--gray2);margin-bottom:16px;line-height:1.6}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;font-weight:600;color:var(--dark)}
+.form-group .required{color:var(--mint);margin-left:2px}
+.form-group input,.form-group select,.form-group textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:14px;color:var(--dark);font-family:inherit;font-weight:500;
+  background:var(--white);transition:border-color 0.15s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--mint)}
+.form-group textarea{resize:vertical;min-height:100px;line-height:1.7}
+.form-full{grid-column:1/-1}
+.form-hint{font-size:11px;color:var(--gray2);margin-top:2px;line-height:1.5}
+
+.upload-area{border:2px dashed var(--border);border-radius:10px;padding:26px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#FAFAFA}
+.upload-area:hover{border-color:var(--mint)}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-label{font-size:14px;color:var(--gray);margin-bottom:4px;font-weight:600}
+.upload-format{font-size:12px;color:var(--gray2);line-height:1.6}
+.upload-area input{display:none}
+.upload-filelist{margin-top:10px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.upload-filelist .file{font-size:12px;color:var(--mint);font-weight:600;background:#F0FDF4;padding:6px 10px;border-radius:6px;display:flex;justify-content:space-between;align-items:center}
+.upload-filelist .file button{background:none;border:none;color:var(--gray2);cursor:pointer;font-size:14px;padding:0 4px}
+
+.price-summary{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:22px 26px;margin-bottom:14px}
+.price-summary-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.price-summary-label{font-size:14px;color:rgba(255,255,255,0.6)}
+.price-summary-amount{font-size:28px;font-weight:900;color:var(--white)}
+.price-summary-amount span{font-size:14px;font-weight:500;color:rgba(255,255,255,0.6);margin-left:4px}
+.price-list{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.9}
+.price-list .row{display:flex;justify-content:space-between;gap:12px}
+.price-note{font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.6}
+
+.btn-submit{display:block;width:100%;padding:17px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s}
+.btn-submit:hover{opacity:0.88}
+.btn-submit:disabled{opacity:0.5;cursor:not-allowed}
+.submit-note{text-align:center;font-size:12px;color:var(--gray2);margin-top:10px;line-height:1.6}
+
+.urgent-banner{background:#FFF9DB;border:1px solid #FFD43B;border-radius:10px;padding:16px 20px;margin-bottom:14px}
+.urgent-banner strong{color:#8B6914;font-size:13px;display:block;margin-bottom:4px}
+.urgent-banner p{font-size:13px;color:#5C4400;line-height:1.7}
+
+.footer{background:var(--white);color:var(--gray);padding:32px 0;border-top:1px solid var(--border);margin-top:40px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:18px;font-weight:900;color:var(--dark)}
+
+@media(max-width:600px){
+  .type-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:24px}
+  .nav-inner{padding:0 20px}
+  .section-card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-inner">
+  <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
+  <a href="/unfair-dismissal" class="nav-back">부당해고 페이지로 돌아가기</a>
+</div>
+</nav>
+
+<div class="page-wrap">
+<div class="form-container">
+
+  <div class="page-header">
+    <div class="page-badge">노동위원회 사건 의뢰</div>
+    <h1>부당해고·징계·인사명령<br><em>단계별 의뢰</em></h1>
+    <p>필요한 단계만 선택해서 의뢰하세요. 판례·행정해석 DB 24만건 기반.</p>
+  </div>
+
+  <!-- 긴급 안내 -->
+  <div class="urgent-banner">
+    <strong>⚠ 구제신청 기한 확인</strong>
+    <p>부당해고·부당징계·부당전보 구제신청은 <em>해당 처분이 있은 날로부터 3개월 이내</em>에 접수해야 합니다(근로기준법 제28조 제2항). 기한이 얼마 남지 않았다면 아래 '긴급 건' 체크박스를 선택해주세요.</p>
+  </div>
+
+  <!-- 1. 사건 유형 -->
+  <div class="section-card">
+    <div class="section-title">1. 사건 유형 선택 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">해당하는 사건 유형을 선택해주세요. 복수 선택 시 아래 '기타'에서 추가 설명 가능합니다.</div>
+    <div class="type-grid">
+      <label class="type-card selected" onclick="selectType(this,'부당해고')">
+        <input type="radio" name="case_type" value="부당해고" checked>
+        <div class="type-icon">⚖️</div>
+        <div class="type-name">부당해고</div>
+      </label>
+      <label class="type-card" onclick="selectType(this,'부당징계')">
+        <input type="radio" name="case_type" value="부당징계">
+        <div class="type-icon">🚫</div>
+        <div class="type-name">부당징계</div>
+      </label>
+      <label class="type-card" onclick="selectType(this,'부당전보')">
+        <input type="radio" name="case_type" value="부당전보">
+        <div class="type-icon">🔄</div>
+        <div class="type-name">부당전보·인사명령</div>
+      </label>
+      <label class="type-card" onclick="selectType(this,'기타')">
+        <input type="radio" name="case_type" value="기타">
+        <div class="type-icon">📋</div>
+        <div class="type-name">기타 노동위 사건</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- 2. 의뢰 단계 -->
+  <div class="section-card">
+    <div class="section-title">2. 의뢰 단계 선택 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">복수 선택 가능합니다. 필요한 단계만 체크하세요.</div>
+    <div class="stage-grid">
+      <label class="stage-card" onclick="toggleStage(this,'consult')">
+        <input type="checkbox" name="stage" value="consult">
+        <div class="stage-num">1</div>
+        <div class="stage-body">
+          <div class="stage-top">
+            <div class="stage-name">초기 상담</div>
+            <div class="stage-price">000,000원<span class="small">(VAT 별도)</span></div>
+          </div>
+          <div class="stage-desc">사건 분석, 구제 가능성 판단, 전략 방향 제시. 서면 의견 1페이지 포함.</div>
+        </div>
+      </label>
+      <label class="stage-card" onclick="toggleStage(this,'brief1')">
+        <input type="checkbox" name="stage" value="brief1">
+        <div class="stage-num">2</div>
+        <div class="stage-body">
+          <div class="stage-top">
+            <div class="stage-name">서면 1회 (본 서면)</div>
+            <div class="stage-price">000,000원<span class="small">(VAT 별도)</span></div>
+          </div>
+          <div class="stage-desc">구제신청서 또는 답변서 작성. 판례·행정해석 근거 명시. 초안 송부 후 수정 2회 포함.</div>
+        </div>
+      </label>
+      <label class="stage-card" onclick="toggleStage(this,'brief2')">
+        <input type="checkbox" name="stage" value="brief2">
+        <div class="stage-num">3</div>
+        <div class="stage-body">
+          <div class="stage-top">
+            <div class="stage-name">서면 2회 (추가 서면)</div>
+            <div class="stage-price">000,000원<span class="small">(VAT 별도)</span></div>
+          </div>
+          <div class="stage-desc">상대방 서면에 대한 <em>짧은 추가 서면</em>. 반박·보완 논거 정리 (A4 3~5매 기준).</div>
+        </div>
+      </label>
+      <label class="stage-card" onclick="toggleStage(this,'hearing')">
+        <input type="checkbox" name="stage" value="hearing">
+        <div class="stage-num">4</div>
+        <div class="stage-body">
+          <div class="stage-top">
+            <div class="stage-name">심문회의 출석</div>
+            <div class="stage-price">000,000원<span class="small">(VAT 별도)</span></div>
+          </div>
+          <div class="stage-desc">모의 질의응답, 당일 출석 대리(화상 가능), 결과 안내까지 포함.</div>
+        </div>
+      </label>
+    </div>
+    <div class="form-hint" style="margin-top:12px">※ 구체적인 비용은 사건 복잡도·쟁점 수에 따라 상담 후 최종 확정됩니다.</div>
+  </div>
+
+  <!-- 3. 담당자 정보 -->
+  <div class="section-card">
+    <div class="section-title">3. 담당자 정보</div>
+    <div class="form-grid">
+      <div class="form-group"><label>이름 <span class="required">*</span></label><input type="text" id="name" placeholder="홍길동" required></div>
+      <div class="form-group"><label>의뢰인 구분 <span class="required">*</span></label>
+        <select id="client_type" required>
+          <option value="">선택</option>
+          <option>근로자(신청인)</option>
+          <option>사용자(피신청인)</option>
+          <option>대리인</option>
+        </select>
+      </div>
+      <div class="form-group"><label>이메일 <span class="required">*</span></label><input type="email" id="email" placeholder="you@email.com" required></div>
+      <div class="form-group"><label>전화번호 <span class="required">*</span></label><input type="tel" id="phone" placeholder="010-0000-0000" required></div>
+      <div class="form-group"><label>회사명 <span class="required">*</span></label><input type="text" id="company" placeholder="주식회사 ○○" required></div>
+      <div class="form-group"><label>상시근로자 수</label><input type="number" id="employee_count" placeholder="30" min="1"></div>
+    </div>
+  </div>
+
+  <!-- 4. 사건 기본 정보 -->
+  <div class="section-card">
+    <div class="section-title">4. 사건 기본 정보 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">정확한 판단을 위해 가능한 한 구체적으로 작성해주세요.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>입사일 <span class="required">*</span></label><input type="date" id="hire_date" required></div>
+      <div class="form-group"><label>처분일(해고·징계·전보일) <span class="required">*</span></label><input type="date" id="action_date" required></div>
+      <div class="form-group"><label>직위·직책</label><input type="text" id="position" placeholder="예: 과장, 팀장, 사원"></div>
+      <div class="form-group"><label>월 급여(세전)</label><input type="text" id="salary" placeholder="예: 350만원"></div>
+      <div class="form-group form-full"><label>처분 내용 <span class="required">*</span></label>
+        <input type="text" id="action_detail" placeholder="예: 2026년 4월 10일자 징계해고 / 감봉 3개월 / 대기발령 / 지방 전보" required>
+      </div>
+      <div class="form-group form-full"><label>회사가 제시한 처분 사유 <span class="required">*</span></label>
+        <textarea id="action_reason" placeholder="해고통지서·징계사유서·인사명령서에 기재된 사유를 가능한 한 그대로 옮겨 적어주세요." required></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 사실관계 상세 -->
+  <div class="section-card">
+    <div class="section-title">5. 사실관계 상세 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">시간 순서대로 서술해주시면 좋습니다. 관련 증거·서류가 있다면 아래에서 첨부해주세요.</div>
+    <div class="form-grid">
+      <div class="form-group form-full"><label>사건 경위 <span class="required">*</span></label>
+        <textarea id="facts" placeholder="예: 2025년 3월 입사. 2026년 1월 부서 이동 후 상사 A와 갈등 발생. 2026년 3월 10일 회사 감사팀에서 조사 시작. 3월 20일 징계위원회 개최, 3월 25일 징계해고 통보 수령. ..." style="min-height:180px" required></textarea>
+      </div>
+      <div class="form-group form-full"><label>절차적 쟁점 (해당사항 체크)</label>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:4px">
+          <label style="font-size:13px;color:var(--dark);display:flex;gap:6px;align-items:center"><input type="checkbox" value="서면통지 미이행"> 해고사유·시기 서면통지 X</label>
+          <label style="font-size:13px;color:var(--dark);display:flex;gap:6px;align-items:center"><input type="checkbox" value="소명기회 미부여"> 소명기회 미부여</label>
+          <label style="font-size:13px;color:var(--dark);display:flex;gap:6px;align-items:center"><input type="checkbox" value="징계위원회 미개최"> 징계위원회 미개최</label>
+          <label style="font-size:13px;color:var(--dark);display:flex;gap:6px;align-items:center"><input type="checkbox" value="사전협의 미이행"> 전보 관련 사전협의 X</label>
+          <label style="font-size:13px;color:var(--dark);display:flex;gap:6px;align-items:center"><input type="checkbox" value="취업규칙 위반"> 취업규칙 절차 위반</label>
+        </div>
+      </div>
+      <div class="form-group form-full"><label>현재 진행 상황</label>
+        <select id="progress">
+          <option>아직 구제신청 전(처분만 받은 상태)</option>
+          <option>구제신청 접수 완료, 상대방 답변서 대기 중</option>
+          <option>상대방 답변서 수령, 회신 준비 중</option>
+          <option>심문회의 일정 잡힘</option>
+          <option>심문회의 종료, 판정 대기 중</option>
+          <option>재심 단계(중앙노동위원회)</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="form-group form-full">
+        <label style="display:flex;gap:8px;align-items:center;font-weight:700">
+          <input type="checkbox" id="urgent"> <span>⚠ 긴급 건 — 구제신청 기한이 임박했습니다 (1주일 이내)</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 원하는 결과 -->
+  <div class="section-card">
+    <div class="section-title">6. 의뢰인이 원하는 결과</div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <textarea id="goal" placeholder="예: 원직복직을 원합니다. / 복직은 원치 않고 금전보상만 원합니다. / 징계 감경을 원합니다. / 회사 측은 징계의 정당성 확인을 원합니다." style="min-height:80px"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 증거자료 첨부 -->
+  <div class="section-card">
+    <div class="section-title">7. 관련 자료 첨부</div>
+    <div class="section-desc">가능한 자료를 모두 첨부해주세요. 근로계약서·취업규칙·해고통지서·징계의결서·메신저·이메일·녹취록 등. <em>첨부파일이 많을수록 정확한 서면 작성이 가능합니다.</em></div>
+    <div class="upload-area" onclick="document.getElementById('attachments').click()">
+      <div class="upload-icon">📎</div>
+      <div class="upload-label">클릭하여 파일 첨부 (여러 개 가능)</div>
+      <div class="upload-format">PDF · DOCX · HWP · JPG · PNG · MP3 · MP4 등<br>개당 최대 50MB, 총 500MB까지</div>
+      <input type="file" id="attachments" multiple accept=".pdf,.docx,.hwp,.doc,.jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.zip,.xlsx,.txt" onchange="updateFilelist()">
+      <div class="upload-filelist" id="filelist"></div>
+    </div>
+    <div class="form-hint" style="margin-top:8px">※ 대용량 파일은 접수 후 보안 링크(구글드라이브·드롭박스)로 별도 전달 가능합니다.</div>
+  </div>
+
+  <!-- 8. 기타 -->
+  <div class="section-card">
+    <div class="section-title">8. 기타 전달사항 (선택)</div>
+    <div class="form-group form-full">
+      <textarea id="etc" placeholder="기타 참고사항, 특별히 강조하고 싶은 점, 회사 내부 분위기 등 자유롭게 기재"></textarea>
+    </div>
+  </div>
+
+  <!-- 금액 -->
+  <div class="price-summary">
+    <div class="price-summary-head">
+      <div class="price-summary-label">선택한 단계별 비용 (합산)</div>
+      <div class="price-summary-amount" id="summary-price">000,000<span>원</span></div>
+    </div>
+    <div class="price-list" id="price-list">
+      <div class="row"><span>단계를 선택해주세요</span><span></span></div>
+    </div>
+    <div class="price-note">※ 단계별 비용은 접수 후 사건 복잡도·쟁점 수에 따라 최종 확정되며, 별도 견적서로 안내드립니다. 결제는 견적 확정 후 진행됩니다.</div>
+  </div>
+
+  <button class="btn-submit" onclick="submitOrder()">의뢰 접수하기 (무료)</button>
+  <p class="submit-note">접수 후 영업일 24시간 이내 담당 노무사가 연락드립니다.<br>결제는 견적 확정 후 진행되며, 접수 단계에서는 비용이 청구되지 않습니다.</p>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+  <div style="font-size:13px;color:var(--gray2)">contact@hrer.kr · © 2026 HRer. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+let selectedStages = new Set();
+const STAGE_LABELS = {
+  consult:'초기 상담',
+  brief1:'서면 1회 (본 서면)',
+  brief2:'서면 2회 (추가 서면)',
+  hearing:'심문회의 출석'
+};
+
+function selectType(el, val){
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+}
+
+function toggleStage(el, key){
+  const cb = el.querySelector('input');
+  cb.checked = !cb.checked;
+  if(cb.checked){selectedStages.add(key); el.classList.add('selected')}
+  else{selectedStages.delete(key); el.classList.remove('selected')}
+  updatePrice();
+}
+
+function updatePrice(){
+  const list = document.getElementById('price-list');
+  if(selectedStages.size===0){
+    list.innerHTML = '<div class="row"><span>단계를 선택해주세요</span><span></span></div>';
+    document.getElementById('summary-price').innerHTML = '000,000<span>원</span>';
+    return;
+  }
+  let html = '';
+  selectedStages.forEach(k=>{
+    html += `<div class="row"><span>· ${STAGE_LABELS[k]}</span><span>000,000원</span></div>`;
+  });
+  list.innerHTML = html;
+  document.getElementById('summary-price').innerHTML = '000,000<span>원 ~</span>';
+}
+
+function updateFilelist(){
+  const input = document.getElementById('attachments');
+  const list = document.getElementById('filelist');
+  list.innerHTML = '';
+  Array.from(input.files).forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'file';
+    div.innerHTML = `<span>📄 ${f.name} (${(f.size/1024/1024).toFixed(1)}MB)</span>`;
+    list.appendChild(div);
+  });
+}
+
+function submitOrder(){
+  const required = ['name','client_type','email','phone','company','hire_date','action_date','action_detail','action_reason','facts'];
+  for(const id of required){
+    const el = document.getElementById(id);
+    if(!el.value.trim()){alert('필수 항목을 모두 입력해주세요: ' + el.closest('.form-group')?.querySelector('label')?.textContent); el.focus(); return;}
+  }
+  if(selectedStages.size===0){alert('의뢰 단계를 1개 이상 선택해주세요.'); return;}
+  alert('의뢰가 접수되었습니다. 영업일 24시간 이내 담당 노무사가 연락드립니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
+}
+</script>
+
+</body>
+</html>

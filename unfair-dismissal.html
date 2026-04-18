@@ -262,7 +262,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <h1>부당해고 구제신청,<br><em>단계별로 필요한 만큼만</em></h1>
   <p>초기 상담부터 심문회의 참석까지. <em>변호사보다 합리적인 비용</em>.</p>
   <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
-    <a href="/order" class="btn-mint">부당해고 사건 문의하기</a>
+    <a href="/order_unfair-dismissal" class="btn-mint">부당해고 사건 의뢰하기</a>
     <a href="/case-trends" style="display:inline-block;background:var(--white);color:var(--dark);padding:14px 28px;border-radius:10px;font-weight:600;font-size:15px;border:1.5px solid var(--border);transition:border-color 0.15s">📊 최근 판정 경향 보기</a>
   </div>
 </div>
@@ -299,13 +299,69 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">모든 단계를 다 의뢰할 필요 없습니다. <em>서면만 필요하면 서면만, 심문회의만 필요하면 심문회의만</em>.</p>
   <div class="timeline" style="margin-top:48px">
     <div class="tl-item"><div class="tl-num">1</div><div class="tl-content"><h4>초기 상담</h4><p>사건 분석, <em>구제 가능성 판단</em>. 방향 제시.</p></div></div>
-    <div class="tl-item"><div class="tl-num">2</div><div class="tl-content"><h4>서면 작성</h4><p><em>구제신청서</em> 또는 <em>답변서</em> 작성. <em>판례·행정해석 DB 24만건</em> 기반.</p></div></div>
-    <div class="tl-item"><div class="tl-num">3</div><div class="tl-content"><h4>심문회의</h4><p><em>노동위원회 출석</em>, 진술·증거 제출, 상대방 반박 대응.</p></div></div>
-    <div class="tl-item"><div class="tl-num">4</div><div class="tl-content"><h4>재심</h4><p><em>중앙노동위원회</em> 재심 대리 (필요 시).</p></div></div>
+    <div class="tl-item"><div class="tl-num">2</div><div class="tl-content"><h4>서면 1회 (본 서면)</h4><p><em>구제신청서</em> 또는 <em>답변서</em> 작성. 판례·행정해석 DB 기반.</p></div></div>
+    <div class="tl-item"><div class="tl-num">3</div><div class="tl-content"><h4>서면 2회 (추가 서면)</h4><p>상대방 서면에 대한 <em>짧은 추가 서면</em> 1회. 반박·보완 논거 정리.</p></div></div>
+    <div class="tl-item"><div class="tl-num">4</div><div class="tl-content"><h4>심문회의</h4><p><em>노동위원회 출석</em>, 진술·증거 제출, 상대방 반박 대응.</p></div></div>
   </div>
   <div class="highlight-box" style="max-width:700px;margin:32px auto 0;text-align:center">
     <h3>💡 필요한 단계만 선택하세요</h3>
     <p>전체 패키지가 아닌, <em>단계별 의뢰</em>가 가능합니다. 비용 부담을 최소화하세요.</p>
+  </div>
+</div>
+</section>
+
+<!-- 의뢰 후 프로세스 -->
+<section class="section">
+<div class="container">
+  <div class="section-label">After You Order</div>
+  <h2 class="section-title">의뢰 후 <em>이렇게 진행</em>됩니다</h2>
+  <p class="section-sub">단계별 의뢰이므로, 선택하신 단계에 해당하는 절차만 진행됩니다.</p>
+
+  <div style="max-width:860px;margin:48px auto 0">
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:56px;font-weight:900;color:var(--mint);letter-spacing:-2px;line-height:1">01</div>
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">의뢰폼 작성 · 결제</h3>
+        <p style="color:var(--gray);line-height:1.8">홈페이지 의뢰폼에서 <em>단계 선택</em> → 사실관계 입력 → 관련 자료 첨부(근로계약서·해고통지서·인사명령서 등) → 결제.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:56px;font-weight:900;color:var(--mint);letter-spacing:-2px;line-height:1">02</div>
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">접수 확인 · 초기 검토</h3>
+        <p style="color:var(--gray);line-height:1.8">영업일 기준 <em>24시간 이내</em> 접수 확인 메일 발송. 자료 검토 후, <em>추가로 필요한 사실관계·자료</em>가 있으면 이메일로 요청드립니다.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:56px;font-weight:900;color:var(--mint);letter-spacing:-2px;line-height:1">03</div>
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">서면 초안 송부</h3>
+        <p style="color:var(--gray);line-height:1.8"><em>구제신청서·답변서·추가 서면</em> 초안을 이메일로 송부해드립니다. 의뢰인 검토 후 <em>수정 요청사항</em>을 회신해주시면 반영합니다. 수정은 <em>2회까지</em> 기본 포함됩니다.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:56px;font-weight:900;color:var(--mint);letter-spacing:-2px;line-height:1">04</div>
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">최종본 확정 · 제출</h3>
+        <p style="color:var(--gray);line-height:1.8">최종본 확정 후, 의뢰인이 직접 노동위원회에 제출하시거나, 대리 제출을 요청하실 수 있습니다. 제출 <em>증빙(접수증)</em>을 이메일로 송부해드립니다.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:80px 1fr;gap:24px;padding:28px 0">
+      <div style="font-size:56px;font-weight:900;color:var(--mint);letter-spacing:-2px;line-height:1">05</div>
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px">심문회의 대응 (선택 시)</h3>
+        <p style="color:var(--gray);line-height:1.8">심문회의 단계를 선택하신 경우, <em>모의 질의응답</em>과 <em>당일 출석 대리</em>를 진행합니다. 화상 출석도 가능합니다. 심문회의 종료 후 <em>결과 안내</em>까지 포함됩니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:860px;margin:40px auto 0;padding:24px 28px;background:#F0FDF4;border:1px solid rgba(0,184,147,0.25);border-radius:12px">
+    <div style="font-size:13px;font-weight:700;color:var(--mint);letter-spacing:0.5px;margin-bottom:8px">진행 시 유의사항</div>
+    <p style="font-size:14px;color:var(--dark);line-height:1.8">· 부당해고 구제신청은 <em>해고일로부터 3개월 이내</em>에 접수해야 합니다(근로기준법 제28조 제2항).<br>· 구제신청 기한이 얼마 남지 않은 경우, 의뢰 시점에서 <em>긴급 건</em>으로 표시해주세요.<br>· 사실관계와 증거자료가 많을수록 서면의 설득력이 높아집니다. <em>관련 자료는 가급적 전부 첨부</em>해주세요.</p>
   </div>
 </div>
 </section>
@@ -327,7 +383,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 <div class="container">
   <h2>부당해고, 혼자 고민하지 마세요.</h2>
   <p>전문가의 서면이 결과를 바꿉니다.</p>
-  <a href="/order" class="btn-mint">부당해고 사건 문의하기</a>
+  <a href="/order_unfair-dismissal" class="btn-mint">부당해고 사건 의뢰하기</a>
 </div>
 </section>
 

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>괴롭힘·성희롱 사건조사 의뢰 — HRer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --mint:#00B893;--dark:#191919;--white:#fff;--bg:#FFFFFF;
+  --gray:#737373;--gray2:#A3A3A3;--border:#E5E5E5;--red:#E03131;
+  --blue:#4C6EF5;--orange:#FF922B;--purple:#845EF7;--pink:#F06595;
+  --card-radius:14px;
+}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:#FAFAFA;-webkit-font-smoothing:antialiased;font-weight:500;word-break:keep-all;overflow-wrap:break-word}
+a{text-decoration:none;color:inherit}
+em{font-style:normal;color:var(--mint);font-weight:700}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:56px;max-width:1200px;margin:0 auto;padding:0 32px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-0.5px}
+.logo-hr{color:var(--mint)}.logo-er{color:var(--dark)}
+.nav-back{font-size:14px;color:var(--gray);font-weight:500;display:flex;align-items:center;gap:6px}
+.nav-back:hover{color:var(--dark)}
+.nav-back::before{content:'←'}
+
+.page-wrap{min-height:100vh;padding:88px 20px 80px}
+.form-container{max-width:780px;margin:0 auto}
+
+.page-header{text-align:center;margin-bottom:40px}
+.page-badge{display:inline-block;padding:6px 18px;border-radius:100px;background:#F0FDF4;color:var(--mint);font-size:13px;font-weight:600;margin-bottom:16px;border:1px solid rgba(0,184,147,0.15)}
+.page-header h1{font-size:34px;font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:12px}
+.page-header p{font-size:16px;color:var(--gray);line-height:1.7}
+
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.type-card{border:2px solid var(--border);border-radius:10px;padding:14px 12px;cursor:pointer;transition:all 0.15s;background:var(--white);text-align:center}
+.type-card:hover{border-color:var(--mint)}
+.type-card.selected{border-color:var(--mint);background:#F0FDF4}
+.type-card input{display:none}
+.type-icon{font-size:22px;margin-bottom:4px}
+.type-name{font-size:13px;font-weight:700}
+
+.option-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+.option-card{border:2px solid var(--border);border-radius:var(--card-radius);padding:22px 24px;cursor:pointer;transition:all 0.15s;background:var(--white);position:relative}
+.option-card:hover{border-color:var(--mint)}
+.option-card.selected{border-color:var(--mint);background:#F0FDF4}
+.option-card input{display:none}
+.option-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.option-tag{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gray2)}
+.option-card.selected .option-tag{color:var(--mint)}
+.option-name{font-size:17px;font-weight:800;margin-bottom:8px}
+.option-price{font-size:14px;color:var(--dark);font-weight:700;white-space:nowrap}
+.option-price .small{font-size:11px;color:var(--gray2);font-weight:500;margin-left:4px}
+.option-desc{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:8px}
+.option-result{font-size:12px;color:var(--mint);font-weight:700;background:#F0FDF4;display:inline-block;padding:4px 10px;border-radius:6px;border:1px solid rgba(0,184,147,0.2)}
+.option-card.selected .option-result{background:var(--white)}
+.option-badge{position:absolute;top:-9px;right:16px;background:var(--mint);color:var(--white);font-size:10px;font-weight:700;padding:3px 10px;border-radius:6px}
+
+.section-card{background:var(--white);border:1px solid var(--border);border-radius:var(--card-radius);padding:26px 28px;margin-bottom:14px}
+.section-title{font-size:16px;font-weight:800;color:var(--dark);margin-bottom:4px}
+.section-desc{font-size:12px;color:var(--gray2);margin-bottom:16px;line-height:1.6}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;font-weight:600;color:var(--dark)}
+.form-group .required{color:var(--mint);margin-left:2px}
+.form-group input,.form-group select,.form-group textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:14px;color:var(--dark);font-family:inherit;font-weight:500;
+  background:var(--white);transition:border-color 0.15s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--mint)}
+.form-group textarea{resize:vertical;min-height:100px;line-height:1.7}
+.form-full{grid-column:1/-1}
+.form-hint{font-size:11px;color:var(--gray2);margin-top:2px;line-height:1.5}
+
+.upload-area{border:2px dashed var(--border);border-radius:10px;padding:26px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:#FAFAFA}
+.upload-area:hover{border-color:var(--mint)}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-label{font-size:14px;color:var(--gray);margin-bottom:4px;font-weight:600}
+.upload-format{font-size:12px;color:var(--gray2);line-height:1.6}
+.upload-area input{display:none}
+.upload-filelist{margin-top:10px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.upload-filelist .file{font-size:12px;color:var(--mint);font-weight:600;background:#F0FDF4;padding:6px 10px;border-radius:6px}
+
+.price-summary{background:var(--dark);color:var(--white);border-radius:var(--card-radius);padding:22px 26px;margin-bottom:14px}
+.price-summary-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.price-summary-label{font-size:14px;color:rgba(255,255,255,0.6)}
+.price-summary-plan{font-size:13px;color:var(--mint);margin-top:4px;font-weight:600}
+.price-summary-amount{font-size:28px;font-weight:900;color:var(--white)}
+.price-summary-amount span{font-size:14px;font-weight:500;color:rgba(255,255,255,0.6);margin-left:4px}
+.price-note{font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.6}
+
+.btn-submit{display:block;width:100%;padding:17px;background:var(--mint);color:var(--white);border:none;border-radius:10px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s}
+.btn-submit:hover{opacity:0.88}
+.submit-note{text-align:center;font-size:12px;color:var(--gray2);margin-top:10px;line-height:1.6}
+
+.info-banner{background:#FFF9DB;border:1px solid #FFD43B;border-radius:10px;padding:16px 20px;margin-bottom:14px}
+.info-banner strong{color:#8B6914;font-size:13px;display:block;margin-bottom:4px}
+.info-banner p{font-size:13px;color:#5C4400;line-height:1.7}
+
+.footer{background:var(--white);color:var(--gray);padding:32px 0;border-top:1px solid var(--border);margin-top:40px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-logo{font-size:18px;font-weight:900;color:var(--dark)}
+
+@media(max-width:600px){
+  .type-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .page-header h1{font-size:24px}
+  .nav-inner{padding:0 20px}
+  .section-card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-inner">
+  <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
+  <a href="/investigation" class="nav-back">사건조사 페이지로 돌아가기</a>
+</div>
+</nav>
+
+<div class="page-wrap">
+<div class="form-container">
+
+  <div class="page-header">
+    <div class="page-badge">괴롭힘·성희롱 사건조사 의뢰</div>
+    <h1>직장 내 사건조사,<br><em>필요한 범위</em>만 의뢰하세요</h1>
+    <p>외부 전문가의 공정한 조사. 비밀 엄수. 비대면 원칙.</p>
+  </div>
+
+  <!-- 범위 안내 -->
+  <div class="info-banner">
+    <strong>⚠ 서비스 범위 안내</strong>
+    <p>· <em>심의위원회 참석은 제공하지 않습니다.</em> 심의·징계위원회는 회사 내부 절차이므로 외부 조사자가 참여하지 않습니다.<br>· 최종 결과물: <em>녹취록, 녹취파일, 조사보고서</em> (선택 옵션에 따라 달라집니다.)</p>
+  </div>
+
+  <!-- 1. 사건 유형 -->
+  <div class="section-card">
+    <div class="section-title">1. 사건 유형 <span style="color:var(--mint)">*</span></div>
+    <div class="type-grid">
+      <label class="type-card selected" onclick="selectType(this,'괴롭힘')">
+        <input type="radio" name="case_type" value="괴롭힘" checked>
+        <div class="type-icon">🔍</div>
+        <div class="type-name">직장 내 괴롭힘</div>
+      </label>
+      <label class="type-card" onclick="selectType(this,'성희롱')">
+        <input type="radio" name="case_type" value="성희롱">
+        <div class="type-icon">⚠️</div>
+        <div class="type-name">직장 내 성희롱</div>
+      </label>
+      <label class="type-card" onclick="selectType(this,'기타')">
+        <input type="radio" name="case_type" value="기타">
+        <div class="type-icon">📋</div>
+        <div class="type-name">징계 사실관계</div>
+      </label>
+    </div>
+  </div>
+
+  <!-- 2. 서비스 옵션 -->
+  <div class="section-card">
+    <div class="section-title">2. 서비스 옵션 선택 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">사안에 맞는 옵션을 선택해주세요. 하나만 선택합니다.</div>
+    <div class="option-grid">
+      <label class="option-card" onclick="selectOption(this,'A')">
+        <input type="radio" name="option" value="A">
+        <div class="option-head">
+          <div><div class="option-tag">OPTION A</div><div class="option-name">조사만</div></div>
+          <div class="option-price">000,000원<span class="small">(VAT 별도)</span></div>
+        </div>
+        <div class="option-desc">관련자 면담·사실확인 조사만 수행. 보고서는 회사에서 자체 작성하거나 다른 기관에 의뢰.</div>
+        <div class="option-result">결과물: 녹취록 · 녹취파일</div>
+      </label>
+      <label class="option-card selected" onclick="selectOption(this,'B')">
+        <input type="radio" name="option" value="B" checked>
+        <div class="option-badge">추천</div>
+        <div class="option-head">
+          <div><div class="option-tag">OPTION B</div><div class="option-name">조사 + 보고서</div></div>
+          <div class="option-price">000,000원<span class="small">(VAT 별도)</span></div>
+        </div>
+        <div class="option-desc">관련자 조사부터 조사보고서 작성까지 전 과정. 대부분의 사안에 적합한 기본 패키지.</div>
+        <div class="option-result">결과물: 녹취록 · 녹취파일 · 조사보고서</div>
+      </label>
+      <label class="option-card" onclick="selectOption(this,'C')">
+        <input type="radio" name="option" value="C">
+        <div class="option-head">
+          <div><div class="option-tag">OPTION C</div><div class="option-name">보고서만</div></div>
+          <div class="option-price">000,000원<span class="small">(VAT 별도)</span></div>
+        </div>
+        <div class="option-desc">회사에서 자체 조사를 완료한 후, 제공된 녹취록·조사자료를 토대로 조사보고서만 작성.</div>
+        <div class="option-result">결과물: 조사보고서</div>
+      </label>
+    </div>
+    <div class="form-hint" style="margin-top:12px">※ 구체적인 비용은 관련자 수·사건 복잡도에 따라 상담 후 최종 확정됩니다.</div>
+  </div>
+
+  <!-- 3. 담당자 정보 -->
+  <div class="section-card">
+    <div class="section-title">3. 담당자 정보</div>
+    <div class="section-desc">회사 측 담당자(인사팀·총무·대표) 정보를 입력해주세요.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>담당자 이름 <span class="required">*</span></label><input type="text" id="name" required></div>
+      <div class="form-group"><label>직책</label><input type="text" id="position" placeholder="예: 인사팀장"></div>
+      <div class="form-group"><label>이메일 <span class="required">*</span></label><input type="email" id="email" required></div>
+      <div class="form-group"><label>전화번호 <span class="required">*</span></label><input type="tel" id="phone" placeholder="010-0000-0000" required></div>
+      <div class="form-group"><label>회사명 <span class="required">*</span></label><input type="text" id="company" required></div>
+      <div class="form-group"><label>상시근로자 수</label><input type="number" id="employee_count" placeholder="30" min="1"></div>
+    </div>
+  </div>
+
+  <!-- 4. 사건 개요 -->
+  <div class="section-card">
+    <div class="section-title">4. 사건 개요 <span style="color:var(--mint)">*</span></div>
+    <div class="section-desc">사건 일시, 장소, 관련자 수 등 기본 정보를 입력해주세요. <em>실명은 기재하지 마시고</em> A, B, C 등으로 표기해주세요.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>신고 접수일 <span class="required">*</span></label><input type="date" id="report_date" required></div>
+      <div class="form-group"><label>사건 발생 기간</label><input type="text" id="incident_period" placeholder="예: 2025년 10월 ~ 2026년 3월"></div>
+      <div class="form-group"><label>피해자 수</label><input type="number" id="victim_count" min="1" placeholder="1"></div>
+      <div class="form-group"><label>피신고자 수</label><input type="number" id="accused_count" min="1" placeholder="1"></div>
+      <div class="form-group"><label>목격자(예상) 수</label><input type="number" id="witness_count" min="0" placeholder="2"></div>
+      <div class="form-group"><label>피해자·피신고자 관계</label>
+        <select id="relation">
+          <option>상사-부하</option>
+          <option>동료(수평)</option>
+          <option>부하-상사(역괴롭힘)</option>
+          <option>원청-하청</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="form-group form-full"><label>사건 요약 <span class="required">*</span></label>
+        <textarea id="summary" placeholder="예: 팀장 A가 팀원 B에게 2025년 10월부터 지속적으로 업무상 적정 범위를 벗어난 질책, 사적 심부름 지시, 회식 강요 등을 했다는 신고가 접수됨. 2026년 3월 B가 인사팀에 서면 신고. ..." style="min-height:150px" required></textarea>
+      </div>
+      <div class="form-group form-full"><label>신고된 주요 행위 (해당사항 체크)</label>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:4px">
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="폭언"> 폭언·욕설</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="과도지시"> 업무상 적정 범위 초과 지시</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="따돌림"> 따돌림·배제</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="사적심부름"> 사적 심부름</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="성적언동"> 성적 언동</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="신체접촉"> 원치 않는 신체 접촉</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="성적자료"> 성적 사진·영상 전송</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="회식강요"> 회식·술 강요</label>
+          <label style="font-size:13px;display:flex;gap:6px;align-items:center"><input type="checkbox" value="기타"> 기타</label>
+        </div>
+      </div>
+      <div class="form-group form-full"><label>회사의 현재까지 조치사항</label>
+        <textarea id="action_taken" placeholder="예: 신고 접수 후 피해자-피신고자 분리조치(재택근무 전환) 시행. 내부 조사는 아직 시작 전. / 내부 조사 1차 완료." style="min-height:70px"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 조사 범위 및 요청사항 -->
+  <div class="section-card">
+    <div class="section-title">5. 조사 범위 · 요청사항</div>
+    <div class="form-grid">
+      <div class="form-group form-full"><label>조사 대상자 특이사항</label>
+        <textarea id="special_note" placeholder="예: 피해자가 현재 병가 중. / 피신고자가 조사 거부 의사를 표명. / 목격자 중 1명은 이미 퇴사. 등" style="min-height:80px"></textarea>
+      </div>
+      <div class="form-group form-full"><label>희망 진행 방식</label>
+        <select id="method">
+          <option>비대면 (화상) 우선</option>
+          <option>비대면 (서면) 우선</option>
+          <option>비대면 우선, 필요 시 대면 보충</option>
+          <option>대면 요청</option>
+        </select>
+      </div>
+      <div class="form-group"><label>희망 착수일</label><input type="date" id="start_date"></div>
+      <div class="form-group"><label>희망 완료일</label><input type="date" id="end_date"></div>
+    </div>
+  </div>
+
+  <!-- 6. 자료 첨부 -->
+  <div class="section-card">
+    <div class="section-title">6. 관련 자료 첨부</div>
+    <div class="section-desc">신고서, 취업규칙, 사건 관련 메신저·이메일·SNS 캡처, 기존 조사기록, 녹취파일 등. <em>민감 자료이므로 암호화하여 업로드</em>하실 것을 권장합니다.</div>
+    <div class="upload-area" onclick="document.getElementById('attachments').click()">
+      <div class="upload-icon">📎</div>
+      <div class="upload-label">클릭하여 파일 첨부 (여러 개 가능)</div>
+      <div class="upload-format">PDF · DOCX · HWP · JPG · PNG · MP3 · MP4 · M4A · ZIP 등<br>개당 최대 50MB, 총 500MB까지</div>
+      <input type="file" id="attachments" multiple accept=".pdf,.docx,.hwp,.doc,.jpg,.jpeg,.png,.mp3,.mp4,.wav,.m4a,.zip,.xlsx,.txt" onchange="updateFilelist()">
+      <div class="upload-filelist" id="filelist"></div>
+    </div>
+    <div class="form-hint" style="margin-top:8px">※ 대용량 파일(녹취파일 등)은 접수 후 보안 링크(구글드라이브·드롭박스)로 별도 전달 가능합니다.</div>
+  </div>
+
+  <!-- 7. 기타 -->
+  <div class="section-card">
+    <div class="section-title">7. 기타 전달사항 (선택)</div>
+    <div class="form-group form-full">
+      <textarea id="etc" placeholder="기타 참고사항, 회사 내부 분위기, 특별 요청사항 등"></textarea>
+    </div>
+  </div>
+
+  <!-- 비용 요약 -->
+  <div class="price-summary">
+    <div class="price-summary-head">
+      <div>
+        <div class="price-summary-label">선택한 옵션</div>
+        <div class="price-summary-plan" id="summary-option">OPTION B · 조사 + 보고서</div>
+      </div>
+      <div class="price-summary-amount" id="summary-price">000,000<span>원</span></div>
+    </div>
+    <div class="price-note">※ 구체적 비용은 관련자 수·사건 복잡도에 따라 상담 후 최종 확정됩니다. 접수 단계에서는 비용이 청구되지 않습니다.</div>
+  </div>
+
+  <button class="btn-submit" onclick="submitOrder()">의뢰 접수하기 (무료)</button>
+  <p class="submit-note">접수 후 영업일 24시간 이내 담당 노무사가 연락드립니다.<br>결제는 견적 확정 후 진행됩니다. 모든 의뢰 내용은 비밀이 엄수됩니다.</p>
+
+</div>
+</div>
+
+<footer class="footer">
+<div class="footer-inner">
+  <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
+  <div style="font-size:13px;color:var(--gray2)">contact@hrer.kr · © 2026 HRer. All rights reserved.</div>
+</div>
+</footer>
+
+<script>
+const OPTIONS = {
+  A: 'OPTION A · 조사만',
+  B: 'OPTION B · 조사 + 보고서',
+  C: 'OPTION C · 보고서만'
+};
+
+function selectType(el, val){
+  document.querySelectorAll('.type-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+}
+
+function selectOption(el, key){
+  document.querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  document.getElementById('summary-option').textContent = OPTIONS[key];
+}
+
+function updateFilelist(){
+  const input = document.getElementById('attachments');
+  const list = document.getElementById('filelist');
+  list.innerHTML = '';
+  Array.from(input.files).forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'file';
+    div.innerHTML = `📄 ${f.name} (${(f.size/1024/1024).toFixed(1)}MB)`;
+    list.appendChild(div);
+  });
+}
+
+function submitOrder(){
+  const required = ['name','email','phone','company','report_date','summary'];
+  for(const id of required){
+    const el = document.getElementById(id);
+    if(!el.value.trim()){alert('필수 항목을 입력해주세요.'); el.focus(); return;}
+  }
+  alert('의뢰가 접수되었습니다. 영업일 24시간 이내 담당 노무사가 연락드립니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
+}
+</script>
+
+</body>
+</html>
