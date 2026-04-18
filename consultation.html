@@ -134,6 +134,36 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   .section-title{font-size:26px}
   .sample-box{padding:24px 20px}
 }
+
+.tier-card{cursor:pointer}
+.tier-card{padding:32px 28px 46px!important}
+.tier-card::after{content:'자세히 보기 →';position:absolute;bottom:16px;right:22px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.tier-card:hover::after{color:var(--dark);transform:translateX(3px)}
+.why-card{cursor:pointer;position:relative;padding-bottom:40px!important;transition:all 0.2s}
+.why-card::after{content:'자세히 보기 →';position:absolute;bottom:14px;right:20px;font-size:11.5px;font-weight:700;color:rgba(0,0,0,0.35);transition:color 0.2s,transform 0.2s}
+.why-card:hover{box-shadow:0 10px 32px rgba(0,0,0,0.08);border-color:var(--mint);transform:translateY(-3px)}
+.why-card:hover::after{color:var(--dark);transform:translateX(3px)}
+/* INSIGHT MODAL (shared) */
+.i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.i-backdrop.active{display:flex;animation:ifi 0.2s}
+@keyframes ifi{from{opacity:0}to{opacity:1}}
+.i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
+@keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
+.i-head .big{font-size:26px;font-weight:900;color:var(--mint);letter-spacing:-1px;margin-top:8px}
+.i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
+.i-close:hover{background:#F5F5F5;color:var(--dark)}
+.i-body{padding:22px 30px 26px;max-height:70vh;overflow-y:auto}
+.i-body h4{font-size:15px;font-weight:800;margin:16px 0 8px;color:var(--dark)}
+.i-body p{font-size:14px;color:#333;line-height:1.8;margin-bottom:8px}
+.i-body ul{padding-left:20px;margin:6px 0 10px}
+.i-body ul li{font-size:13.5px;color:#444;line-height:1.75;margin:2px 0}
+.i-highlight{background:#F0FDF4;border-left:3px solid var(--mint);padding:14px 16px;margin:12px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.75;color:#333}
+.i-highlight strong{color:var(--dark);font-weight:700;display:block;margin-bottom:4px;font-size:13.5px}
+.i-disclaimer{margin-top:20px;padding:14px 16px;background:#FAFAFA;border-radius:8px;font-size:11.5px;color:var(--gray);line-height:1.75}
+body.i-open{overflow:hidden}
 </style>
 <!-- HRer-SEO-START -->
 <meta name="description" content="자문 계약 없이 건별 결제. 판례·행정해석 근거의 서면 답변을 영업일 24시간 이내 드립니다.">
@@ -204,7 +234,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <p class="section-sub">문의 내용의 분량과 복잡도에 따라 자동 분류됩니다. 어떤 티어인지 확인이 어려우면 일단 간편자문으로 보내주세요. 필요 시 다른 티어로 안내드립니다.</p>
 
   <div class="tier-grid">
-    <div class="tier-card">
+    <div class="tier-card" onclick="openI('simple')">
       <div class="tier-name">Simple</div>
       <div class="tier-price">130,000<span class="won">원</span></div>
       <div class="tier-vat">VAT 포함 143,000원</div>
@@ -219,7 +249,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       <p class="tier-note">"연차가 이월되나요?", "퇴직금 중간정산 가능한가요?" 등 단일 쟁점에 적합.</p>
     </div>
 
-    <div class="tier-card popular">
+    <div class="tier-card popular" onclick="openI('deep')">
       <span class="tier-popular-badge">MOST POPULAR</span>
       <div class="tier-name">Deep</div>
       <div class="tier-price">180,000<span class="won">원</span></div>
@@ -235,7 +265,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       <p class="tier-note">"이 징계가 적정한가요?", "해고 가능한가요?" 등 <em>판단이 필요한 사안</em>에 적합.</p>
     </div>
 
-    <div class="tier-card">
+    <div class="tier-card" onclick="openI('written')">
       <div class="tier-name">Written</div>
       <div class="tier-price">230,000<span class="won">원</span></div>
       <div class="tier-vat">VAT 포함 253,000원</div>
@@ -308,17 +338,17 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <div class="section-label">Why HRer</div>
   <h2 class="section-title">일반 자문과 <em>무엇이 다른가</em></h2>
   <div class="why-grid">
-    <div class="why-card">
+    <div class="why-card" onclick="openI('db')">
       <div class="icon">📚</div>
       <h4>24만 건 DB 기반</h4>
       <p>판례·행정해석·노동위원회 판정례 <em>24만 건 이상</em>의 데이터에서 근거를 찾아 답변합니다. <em>공인노무사가 직접 작성·서명</em>하는 서면입니다.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card" onclick="openI('record')">
       <div class="icon">📝</div>
       <h4>기록으로 남는 서면</h4>
       <p>구두 자문은 기억에 의존합니다. HRer 답변은 문서로 남아 <em>사내 보고·법적 근거</em>로 활용 가능하고, 나중에 재확인할 수 있습니다.</p>
     </div>
-    <div class="why-card">
+    <div class="why-card" onclick="openI('speed')">
       <div class="icon">⚡</div>
       <h4>건별 · 24시간 이내</h4>
       <p>자문 계약 없이 필요할 때만. 영업일 24시간 이내 답변 원칙. 미팅·전화·결재 절차 없이 이메일 한 통으로 시작합니다.</p>
@@ -388,6 +418,201 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   </div>
 </div>
 </footer>
+
+<!-- INSIGHT MODAL -->
+<div class="i-backdrop" id="iBack" onclick="if(event.target===this)closeI()">
+  <div class="i-modal">
+    <div class="i-head">
+      <div>
+        <div class="i-tag" id="iTag"></div>
+        <h3 id="iTitle"></h3>
+        <div class="big" id="iBig"></div>
+      </div>
+      <button class="i-close" onclick="closeI()" aria-label="닫기">×</button>
+    </div>
+    <div class="i-body" id="iBody"></div>
+  </div>
+</div>
+
+<script>
+const CONSULT_I={
+  simple:{
+    tag:'Simple · 간편자문',title:'단일 쟁점 · 1,000자 이내 질의',big:'130,000원 (VAT 포함 143,000원)',
+    body:`<h4>이런 질문에 적합합니다</h4>
+<ul>
+  <li>"연차 이월·소멸 기준이 어떻게 되나요?"</li>
+  <li>"퇴직금 중간정산 요건 확인하고 싶어요"</li>
+  <li>"수습 기간 연장 가능한가요?"</li>
+  <li>"주 40시간 근무제 적용 대상인가요?"</li>
+</ul>
+<h4>답변 구성</h4>
+<ul>
+  <li>관련 법령 조문 인용</li>
+  <li>실무 적용 방법 설명</li>
+  <li>관련 행정해석 1~2건 (필요 시)</li>
+  <li>실무상 권고사항</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시 답변 분량</strong>
+  A4 약 0.5~1매 · 800~1,500자 정도. 답변 내에서 근거와 결론을 명확히 제시.
+</div>
+<h4>포함 서비스</h4>
+<ul>
+  <li>영업일 24시간 이내 회신</li>
+  <li>추가 질의 1회 무료 (답변 받은 뒤 3일 이내)</li>
+  <li>서면 기록 남음 — 사내 보고용 활용 가능</li>
+</ul>
+<h4>이 티어가 아닐 수도 있어요</h4>
+<p>복수 쟁점이 얽혀있거나 판단이 필요한 사안은 <em>심층자문</em>, 이사회·거래처 제출용 공식 문서는 <em>정식 서면</em>을 추천드립니다. 일단 이 티어로 보내주시면, 필요 시 다른 티어로 안내드립니다.</p>`
+  },
+  deep:{
+    tag:'Deep · 심층자문',title:'복합 쟁점 · 2,000자 이내 · 판단 필요 사안',big:'180,000원 (VAT 포함 198,000원)',
+    body:`<h4>이런 질문에 적합합니다</h4>
+<ul>
+  <li>"이 직원 징계 어느 수위가 적정할까요? (폭언+무단결근+업무태만)"</li>
+  <li>"수습 종료 시 정식 채용 거부, 가능한가요? 리스크는?"</li>
+  <li>"경영 악화로 일부 인원 구조조정하려는데, 어떤 절차가 필요할까요?"</li>
+  <li>"재택 근무자 연장근로수당·중식대 어떻게 처리해야 하나요?"</li>
+</ul>
+<h4>답변 구성</h4>
+<ul>
+  <li>복수 쟁점 통합 검토</li>
+  <li>법령 + 행정해석 + 판례 종합 인용</li>
+  <li><b>리스크 평가</b> — 각 선택지의 법적 위험도</li>
+  <li>실무 권고 + 단계별 진행 순서</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시 답변 분량</strong>
+  A4 약 1.5~2매 · 1,500~2,500자 정도. 쟁점별로 소제목 나눠 구성.
+</div>
+<h4>포함 서비스</h4>
+<ul>
+  <li>영업일 24시간 이내 회신</li>
+  <li>추가 질의 1회 무료</li>
+  <li>서면 기록 남음</li>
+</ul>
+<h4>가장 많은 문의 유형</h4>
+<p>실제로는 이 티어가 가장 많이 선택됩니다. 단순한 "가능·불가능" 답이 아니라 "<em>어떻게 가능하게 만들지</em>" 실무 경로를 제시받고 싶을 때 적합합니다.</p>`
+  },
+  written:{
+    tag:'Written · 정식 서면',title:'공식 의견서 형식 · 3,000자 이내',big:'230,000원 (VAT 포함 253,000원)',
+    body:`<h4>이런 용도에 적합합니다</h4>
+<ul>
+  <li><b>사내 보고·회람</b>: 임원 보고, 이사회 의결 참고자료</li>
+  <li><b>대외 제출</b>: 거래처·감독기관 소명자료</li>
+  <li><b>분쟁 대응</b>: 노동위원회·법원 제출 전 법리 검토</li>
+  <li><b>정책 결정</b>: 규정 개정·인사제도 변경 근거</li>
+</ul>
+<h4>답변 구성 (공식 의견서 형식)</h4>
+<ul>
+  <li><b>1. 질의 요지</b> — 검토 대상 명확화</li>
+  <li><b>2. 관련 법령 및 행정해석</b> — 조문 원문 + 해석례</li>
+  <li><b>3. 판례 분석</b> — 관련 대법원·하급심 판례 정리</li>
+  <li><b>4. 검토 의견</b> — 쟁점별 법리 전개 + 결론</li>
+  <li><b>5. 실무 권고</b> — 실행 단계별 주의사항</li>
+</ul>
+<div class="i-highlight">
+  <strong>예시 답변 분량</strong>
+  A4 약 3~5매 · 2,500~3,500자. 독립 문서로 활용 가능한 형식. <em>공인노무사 서명</em> 포함.
+</div>
+<h4>포함 서비스</h4>
+<ul>
+  <li>영업일 48시간 이내 회신 (작성 밀도 고려)</li>
+  <li>추가 질의 2회 무료</li>
+  <li>문서 포맷 docx + pdf 제공</li>
+</ul>
+<h4>언제 선택해야 하나</h4>
+<p>구두 답변이나 짧은 메일로는 <em>부족</em>하고, 책임 있는 제3자 의견이 필요한 상황. 대외 신뢰도가 중요한 의사결정이 걸린 사안에 적합합니다.</p>`
+  },
+  db:{
+    tag:'판례·행정해석 DB',title:'24만 건 데이터에서 근거를 찾습니다',big:'총 240,000건',
+    body:`<h4>DB 구성</h4>
+<ul>
+  <li><b>노동위원회 판정례</b> — 90,000건+ (부당해고·부당노동행위·차별시정 등)</li>
+  <li><b>고용노동부 법령해석</b> — 17,000건+</li>
+  <li><b>대법원·하급심 판례</b> — 13,000건+ (노동 관련)</li>
+  <li><b>행정해석 (질의회시)</b> — 5,000건+</li>
+  <li><b>헌재결정례·국가인권위원회 결정</b> — 노동·차별 관련</li>
+  <li><b>기타</b> — 행정규칙·고용노동부 해석·현행법령</li>
+</ul>
+<h4>검색·인용 방식</h4>
+<ul>
+  <li>질의 접수 후 <b>사실관계 기반 키워드</b>로 DB 내 유사 사안 검색</li>
+  <li>인정·불인정 <b>경향성</b> 확인</li>
+  <li>답변에 <b>조문·해석 번호·사건번호</b> 정확히 명시</li>
+  <li>가짜 인용 금지 — 확인된 자료만 사용</li>
+</ul>
+<div class="i-highlight">
+  <strong>왜 중요한가</strong>
+  대부분의 노무 상담은 "제가 경험한 바로는..."식 개인 경험에 의존합니다. HRer는 <em>기록된 실제 판정·해석</em>을 인용하므로 근거가 투명하고, 추후 검증·재확인이 가능합니다.
+</div>
+<p class="i-disclaimer">* DB는 공공 자료 기반으로 지속 업데이트됩니다. 법제처·노동위원회 등 공개 데이터를 출처로 합니다.</p>`
+  },
+  record:{
+    tag:'서면 답변',title:'구두가 아닌 기록으로 남습니다',big:'사내 보고·재확인 가능',
+    body:`<h4>구두 자문과 서면 자문의 차이</h4>
+<ul>
+  <li><b>구두 자문</b>: 말로 끝남. 들은 사람 기억에만 의존. "그때 뭐라 했지?" 재확인 불가</li>
+  <li><b>서면 자문</b>: 문서로 남음. 여러 사람이 공유 가능. 3개월·1년 뒤에도 재확인 가능</li>
+</ul>
+<h4>실무 활용 방법</h4>
+<ul>
+  <li><b>사내 보고</b>: "노무사 의견서 첨부합니다" → 의사결정 근거</li>
+  <li><b>회람</b>: 팀장·대표 여러 관계자에게 동일한 내용 공유</li>
+  <li><b>규정 개정 근거</b>: 취업규칙·사규 개정 시 근거 자료로 첨부</li>
+  <li><b>분쟁 대응</b>: 노동청 조사·노동위원회 심문에서 증거자료 활용</li>
+  <li><b>내부 자산화</b>: 회사 FAQ/매뉴얼 업데이트 재료</li>
+</ul>
+<div class="i-highlight">
+  <strong>왜 서면만 하는가</strong>
+  "말로 듣고 금방 잊어버려서 또 물어봐야 하는" 상황을 없애기 위함입니다. 한 번 답변 받으면, 필요할 때 몇 번이고 다시 꺼내볼 수 있습니다.
+</div>
+<h4>추가 질의 1회 무료</h4>
+<p>답변을 받은 뒤 해석이 모호하거나 관련 후속 질문이 생기면 <em>3일 이내 1회 무료</em>로 추가 답변 드립니다. (본래 쟁점 범위 내)</p>`
+  },
+  speed:{
+    tag:'영업일 24시간 이내',title:'빠르지만 꼼꼼하게',big:'영업일 기준 24시간',
+    body:`<h4>실제 응답 프로세스</h4>
+<ul>
+  <li><b>0h</b> — 의뢰 접수 + 사실관계 확인</li>
+  <li><b>~4h</b> — 쟁점 정리 + 관련 DB 검색</li>
+  <li><b>~16h</b> — 초안 작성 (법령·판례·행정해석 인용)</li>
+  <li><b>~20h</b> — 내부 교차 검토 (가짜 인용 여부·논리성 확인)</li>
+  <li><b>~24h</b> — 이메일 발송</li>
+</ul>
+<h4>왜 24시간인가</h4>
+<ul>
+  <li>너무 빠르면 <b>DB 검색·교차 검증</b>을 할 수 없음</li>
+  <li>너무 느리면 실무상 <b>의사결정 타이밍</b>을 놓침</li>
+  <li>24시간이 '꼼꼼함 + 실용성' 균형점</li>
+</ul>
+<div class="i-highlight">
+  <strong>긴급 건은?</strong>
+  노동청 출석·심문회의 임박 등 긴급 건은 별도 협의 가능. 접수 시 "<em>긴급</em>" 표기해 주시면 우선 처리합니다.
+</div>
+<h4>예외</h4>
+<ul>
+  <li>정식서면(Written) 티어 — 48시간 이내 (분량·밀도 고려)</li>
+  <li>주말·공휴일 접수 — 다음 영업일 기준</li>
+  <li>대형 사건 답변서 등 — 별도 협의</li>
+</ul>`
+  },
+};
+function openI(k){
+  const d=CONSULT_I[k];if(!d)return;
+  document.getElementById('iTag').textContent=d.tag;
+  document.getElementById('iTitle').textContent=d.title;
+  document.getElementById('iBig').textContent=d.big;
+  document.getElementById('iBody').innerHTML=d.body;
+  document.getElementById('iBack').classList.add('active');
+  document.body.classList.add('i-open');
+}
+function closeI(){
+  document.getElementById('iBack').classList.remove('active');
+  document.body.classList.remove('i-open');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeI()});
+</script>
 
 </body>
 </html>
