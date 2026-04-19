@@ -93,7 +93,7 @@ function retrieveFAQ(query, data, top = 5){
 // GEMINI CALL
 // ============================================================
 async function callGemini(apiKey, systemPrompt, messages){
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
 
   // Gemini는 첫 메시지가 system 역할이 아니라 systemInstruction 필드로 전달
   const contents = messages.map(m => ({
