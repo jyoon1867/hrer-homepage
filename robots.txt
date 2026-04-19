@@ -8,4 +8,4 @@ Disallow: /order_employment_rules
 Disallow: /complete
 Disallow: /bot-admin
 
-Sitemap: https://hrer-homepage.vercel.app/sitemap.xml
+Sitemap: https://hrer.kr/sitemap.xml

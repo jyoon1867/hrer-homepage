@@ -130,7 +130,7 @@ async function sendNotification({service, name, email, phone, company, question,
         <h3 style="margin-top:24px;">문의 내용</h3>
         <div style="background:#F7F9FC;padding:16px;border-radius:8px;white-space:pre-wrap;line-height:1.7;">${esc(question)}</div>
         ${chatBlock}
-        <p style="margin-top:28px;font-size:14px;color:#666;">→ 관리 대시보드: <a href="https://hrer-homepage.vercel.app/bot-admin">bot-admin</a></p>
+        <p style="margin-top:28px;font-size:14px;color:#666;">→ 관리 대시보드: <a href="https://hrer.kr/bot-admin">bot-admin</a></p>
       `,
     }),
   });

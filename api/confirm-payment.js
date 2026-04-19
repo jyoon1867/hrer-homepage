@@ -171,7 +171,7 @@ async function sendNotification(payment, orderData){
         <h3 style="margin-top:24px;">질문 내용</h3>
         <div style="background:#F7F9FC;padding:16px;border-radius:8px;white-space:pre-wrap;line-height:1.7;">${esc(question) || '(내용 없음)'}</div>
         ${chatContext ? `<h3 style="margin-top:24px;">챗봇 사전 대화 요약</h3>${chatContext}` : ''}
-        <p style="margin-top:28px;font-size:14px;color:#666;">→ 관리 대시보드: <a href="https://hrer-homepage.vercel.app/bot-admin">bot-admin</a></p>
+        <p style="margin-top:28px;font-size:14px;color:#666;">→ 관리 대시보드: <a href="https://hrer.kr/bot-admin">bot-admin</a></p>
       `,
     }),
   });
