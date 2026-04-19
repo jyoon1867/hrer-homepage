@@ -36,6 +36,7 @@ th{background:#FAFAFA;font-weight:700}
 em{font-style:normal;color:var(--mint);font-weight:700}
 </style>
 <!-- HRer-SEO-START -->
+<link rel="canonical" href="https://hrer-homepage.vercel.app/privacy">
 <meta name="description" content="HRer 서비스의 개인정보 수집·이용·보관·파기 방침 안내.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -112,13 +113,25 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <h2><span class="n">5.</span>개인정보 처리의 위탁</h2>
   <p>회사는 원활한 서비스 제공을 위해 아래와 같이 개인정보 처리 업무를 위탁하고 있습니다.</p>
   <table>
-    <tr><th>수탁자</th><th>위탁 업무</th></tr>
-    <tr><td>위탁 공인노무사 사무소</td><td>노무 자문·사건 대리·조사 등 노무사 직무 수행</td></tr>
-    <tr><td>토스페이먼츠㈜</td><td>결제 처리 및 결제 수단 인증</td></tr>
-    <tr><td>Vercel Inc.</td><td>웹사이트 호스팅</td></tr>
-    <tr><td>Resend</td><td>이메일 발송 (결제 확인·답변 전달)</td></tr>
+    <tr><th>수탁자</th><th>위탁 업무</th><th>보관 지역</th></tr>
+    <tr><td>위탁 공인노무사 사무소</td><td>노무 자문·사건 대리·조사 등 노무사 직무 수행</td><td>국내</td></tr>
+    <tr><td>토스페이먼츠㈜</td><td>결제 처리 및 결제 수단 인증</td><td>국내</td></tr>
+    <tr><td>Vercel Inc.</td><td>웹사이트 호스팅 (Edge 서버, 서울·도쿄 리전)</td><td>국내·일본</td></tr>
+    <tr><td>Supabase Inc.</td><td>데이터베이스 운영 (챗봇 대화·의뢰 내용·답변 이력 저장)</td><td>해외(지역 선택 가능)</td></tr>
+    <tr><td>Resend Inc.</td><td>이메일 발송 (접수·답변·결제 확인)</td><td>해외</td></tr>
+    <tr><td>Google LLC (Gemini API) / Anthropic PBC (Claude API, 도입 예정)</td><td>챗봇 응답 생성·대화 요약 AI 처리</td><td>해외</td></tr>
   </table>
   <p>회사는 위탁계약 시 개인정보 보호 관련 법령의 준수, 개인정보 보호조치, 재위탁 제한, 수탁자 관리·감독 등을 계약서에 명시하고 있습니다.</p>
+  <p>해외 수탁 시에는 <em>개인정보 보호법 제28조의8</em>에 따른 국외 이전 고지 의무를 준수하며, 이용자는 이에 대한 동의를 거부할 권리가 있습니다. 단, 동의 거부 시 일부 서비스(챗봇·의뢰폼) 이용이 제한될 수 있습니다.</p>
+
+  <h2><span class="n">5-1.</span>챗봇·AI 보조 도구 이용 안내</h2>
+  <p>HRer는 고객 응대 및 자문 초안 작성 품질 향상을 위해 아래와 같이 AI 기반 보조 도구를 활용합니다. 최종 자문 답변은 공인노무사가 직접 검토·서명한 결과물입니다.</p>
+  <ul>
+    <li><strong>챗봇(고객 응대)</strong>: 이용자가 챗봇에 입력하는 질문·대화 내용은 대화 품질 관리와 의뢰 연결 목적으로 저장됩니다. 법률 판단·금액 확정 등 구체적 자문은 챗봇이 수행하지 않으며, 답변이 필요한 경우 유료 자문으로 안내됩니다.</li>
+    <li><strong>자문봇(내부 초안 생성)</strong>: 의뢰 접수 내용 일부를 AI에 입력하여 내부 검토용 초안(A)을 생성할 수 있습니다. 이 초안은 <em>고객에게 직접 전달되지 않으며</em>, 담당 공인노무사가 검토 후 수정·보완한 최종본(B)이 발송됩니다.</li>
+    <li><strong>학습 데이터 활용</strong>: 회사는 서비스 품질 개선 목적으로 최종 자문 답변을 <em>익명화(고객명·회사명·연락처·고유식별정보 제거)</em> 후 내부 학습 데이터로 활용할 수 있습니다. 이용자는 이 활용에 대한 동의를 철회할 수 있으며, 철회 시 해당 건은 학습 대상에서 제외됩니다.</li>
+    <li><strong>AI 공급업체 데이터 정책</strong>: 위탁된 AI 공급업체(Google·Anthropic 등)는 자사 모델 학습에 고객 데이터를 사용하지 않는 기업용 API 조건으로 이용합니다.</li>
+  </ul>
 
   <h2><span class="n">6.</span>정보주체의 권리·의무 및 행사 방법</h2>
   <p>이용자는 언제든지 다음과 같은 권리를 행사할 수 있습니다.</p>

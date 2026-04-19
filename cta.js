@@ -201,7 +201,7 @@
           <button type="button" class="hrer-cta-btn hrer-cta-btn-primary" id="hrer-cta-chat">💬 챗봇에서 상황 정리하기</button>
           <a class="hrer-cta-btn hrer-cta-btn-ghost" href="${serviceHref}?from=cta&taxonomy=${encodeURIComponent(ctx.taxonomy)}">📨 바로 의뢰 접수</a>
         </div>
-        <p class="hrer-cta-meta">공인노무사 <strong>윤지민</strong> 직접 검토 · 영업일 <strong>24시간</strong> 이내 답변 · 건별 결제 (월 자문료 계약 없음)</p>
+        <p class="hrer-cta-meta">공인노무사 <strong>직접 검토</strong> · 영업일 <strong>24시간</strong> 이내 답변 · 건별 결제 (월 자문료 계약 없음)</p>
       </div>
     `;
 

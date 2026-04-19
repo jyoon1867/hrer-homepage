@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /order
+Disallow: /order_unfair-dismissal
+Disallow: /order_investigation
+Disallow: /order_hr_evaluation
+Disallow: /order_employment_rules
+Disallow: /complete
+Disallow: /bot-admin
+
+Sitemap: https://hrer-homepage.vercel.app/sitemap.xml

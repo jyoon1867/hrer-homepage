@@ -79,7 +79,7 @@ export default async function handler(req){
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          from: 'HRer 공인노무사 윤지민 <reply@hrer.kr>',
+          from: 'HRer <reply@hrer.kr>',
           to: [customerEmail],
           reply_to: 'contact@hrer.kr',
           subject: `[HRer] ${prettyService(order.service, order.tier)} 답변 드립니다`,
@@ -139,7 +139,7 @@ function renderEmail({customerName, serviceName, body}){
       추가 문의사항이 있으시면 본 메일로 회신해 주시거나 <a href="mailto:contact@hrer.kr" style="color:#00B893;">contact@hrer.kr</a>로 연락 주시기 바랍니다.
     </p>
     <div style="margin-top:28px;padding-top:20px;border-top:1px solid #E2E8F0;">
-      <p style="margin:0;font-size:14px;color:#0F2744;font-weight:600;">HRer 공인노무사 윤지민 드림</p>
+      <p style="margin:0;font-size:14px;color:#0F2744;font-weight:600;">HRer 담당 공인노무사 드림</p>
       <p style="margin:4px 0 0;font-size:12px;color:#8A9AB0;">hrer.kr · contact@hrer.kr</p>
     </div>
   </div>

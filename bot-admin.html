@@ -87,6 +87,15 @@ a.home:hover{color:var(--dark)}
 .ans-saved{background:#F0FDF4;border:1px solid #BBF7D0;color:#065F46;padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none}
 .ans-err{background:#FEF2F2;border:1px solid #FECACA;color:#991B1B;padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none}
 .ans-prev{background:#EEF2FF;border:1px solid #C7D2FE;padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;display:none;line-height:1.7}
+.ai-draft-card{background:#FEF3C7;border:1px solid #FCD34D;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13px;line-height:1.75}
+.ai-draft-card .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-weight:700;color:#92400E}
+.ai-draft-card .meta{font-size:11.5px;color:#A16207;font-weight:500}
+.ai-draft-card .ai-body{background:#fff;border:1px solid #FCD34D;border-radius:6px;padding:12px 14px;max-height:280px;overflow-y:auto;white-space:pre-wrap;color:#333;font-size:13px;line-height:1.8}
+.ai-draft-card .ai-cites{margin-top:8px;font-size:11.5px;color:#78350F}
+.ai-draft-card .ai-cites strong{color:#92400E}
+.ai-draft-card button{margin-top:8px;background:#fff;border:1px solid #F59E0B;color:#92400E;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.ai-draft-card button:hover{background:#FEF3C7}
+.ai-draft-empty{font-size:12px;color:#A16207;padding:10px 0}
 </style>
 </head>
 <body>
@@ -162,7 +171,7 @@ a.home:hover{color:var(--dark)}
     </div>
 
     <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--dark)">답변 본문</div>
-    <textarea id="a-body" class="ans-editor" placeholder="답변을 작성하세요. 줄바꿈은 그대로 유지됩니다. &#10;&#10;예:&#10;귀하께서 문의하신 수습 해고 건에 대하여 다음과 같이 회신드립니다.&#10;&#10;1. 사실관계&#10;...&#10;&#10;추가 문의사항이 있으시면 편하게 연락 주십시오.&#10;&#10;HRer 노무사 윤지민 드림"></textarea>
+    <textarea id="a-body" class="ans-editor" placeholder="답변을 작성하세요. 줄바꿈은 그대로 유지됩니다. &#10;&#10;예:&#10;귀하께서 문의하신 수습 해고 건에 대하여 다음과 같이 회신드립니다.&#10;&#10;1. 사실관계&#10;...&#10;&#10;추가 문의사항이 있으시면 편하게 연락 주십시오.&#10;&#10;HRer 담당 공인노무사 드림"></textarea>
 
     <div class="ans-prev" id="a-prev"></div>
     <div class="ans-saved" id="a-saved"></div>
@@ -313,6 +322,46 @@ async function openAnswer(orderId){
   const bullets = (o.handoff_summary && Array.isArray(o.handoff_summary.bullets)) ? o.handoff_summary.bullets : [];
 
   document.getElementById('a-title').textContent = `답변 작성 — ${pretty} ${tierLabel}`;
+
+  // 자문봇 A 초안 영역 (있으면 표시, 없으면 안내 문구)
+  const aiDraft = o.ai_draft || '';
+  const aiCites = o.ai_citations || {};
+  const aiModel = o.ai_model || '';
+  const aiAt = o.ai_draft_at || '';
+  const aiVerified = o.ai_verified || {};
+  const aiTokens = (o.ai_input_tokens != null || o.ai_output_tokens != null)
+    ? `토큰 ${o.ai_input_tokens||0}↓ ${o.ai_output_tokens||0}↑` : '';
+  let aiBlock = '';
+  if (aiDraft){
+    const cites = [];
+    if (aiCites.법령 && aiCites.법령.length) cites.push('법령 ' + aiCites.법령.length + '건');
+    if (aiCites.판례 && aiCites.판례.length) cites.push('판례 ' + aiCites.판례.length + '건');
+    if (aiCites.행정해석 && aiCites.행정해석.length) cites.push('행정해석 ' + aiCites.행정해석.length + '건');
+    const unv = aiVerified.unverified_count || 0;
+    aiBlock = `
+      <div class="ai-draft-card">
+        <div class="head">
+          <span>🤖 자문봇 초안 (A) — 내부 참고용</span>
+          <span class="meta">${escapeHTML(aiModel)} · ${fmtTime(aiAt)} · ${aiTokens}</span>
+        </div>
+        <div class="ai-body">${escapeHTML(aiDraft)}</div>
+        <div class="ai-cites">
+          <strong>자동 추출 인용:</strong> ${cites.join(' · ') || '없음'}
+          ${unv ? ` · <span style="color:#DC2626;font-weight:700">⚠ 미확인 ${unv}건</span>` : ''}
+        </div>
+        <button type="button" onclick="useAIDraft()">📥 이 초안을 에디터로 복사</button>
+      </div>
+    `;
+  } else {
+    aiBlock = `
+      <div class="ai-draft-card" style="background:#F3F4F6;border-color:#E5E7EB">
+        <div class="ai-draft-empty">
+          🤖 자문봇 초안은 아직 생성되지 않았습니다. (법인 완료 및 Claude API 연결 후 자동 생성됩니다)
+        </div>
+      </div>
+    `;
+  }
+
   document.getElementById('a-order-info').innerHTML = `
     <div class="row"><div class="k">의뢰번호</div><div><code style="color:#6366F1">${escapeHTML(o.id)}</code></div></div>
     <div class="row"><div class="k">의뢰인</div><div><strong>${escapeHTML(o.name||'-')}</strong> · ${escapeHTML(o.contact||'(이메일 없음)')}</div></div>
@@ -323,8 +372,12 @@ async function openAnswer(orderId){
     ${bullets.length ? `<div class="row"><div class="k">핵심</div><div>${bullets.map(b=>'· '+escapeHTML(b)).join('<br>')}</div></div>` : ''}
     <div class="row"><div class="k">질문</div><div></div></div>
     <div class="ans-q">${escapeHTML(o.question||'(질문 내용 없음)')}</div>
+    ${aiBlock}
     ${o.response_body ? `<div class="row" style="margin-top:14px"><div class="k">기존 답변</div><div style="color:var(--mint);font-weight:600">✔ ${fmtTime(o.answered_at)} (${escapeHTML(o.response_channel||'-')}) — 다시 작성 시 덮어씁니다</div></div><div class="ans-q" style="border-color:#BBF7D0;background:#F0FDF4">${escapeHTML(o.response_body).replace(/\n/g,'<br>')}</div>` : ''}
   `;
+
+  // useAIDraft 전역 노출 (초안 복사 버튼용)
+  window.__aiDraftText = aiDraft;
 
   // 기존 답변이 있으면 에디터에 로드
   document.getElementById('a-body').value = o.response_body || '';
@@ -341,6 +394,17 @@ async function openAnswer(orderId){
 function closeAnswer(){
   document.getElementById('answer-bg').classList.remove('on');
   _currentOrderId = null;
+}
+
+function useAIDraft(){
+  const draft = window.__aiDraftText || '';
+  if (!draft){ alert('자문봇 초안이 없습니다.'); return; }
+  const editor = document.getElementById('a-body');
+  if (editor.value && editor.value.trim().length > 20){
+    if (!confirm('현재 에디터에 작성 중인 내용을 덮어쓸까요?')) return;
+  }
+  editor.value = draft;
+  editor.focus();
 }
 
 async function submitAnswer(){
@@ -377,7 +441,7 @@ async function submitAnswer(){
         orderId: _currentOrderId,
         responseBody: body,
         channel,
-        answeredBy: 'HRer 윤지민',
+        answeredBy: 'HRer',
       }),
     });
     const j = await r.json().catch(()=>({}));
