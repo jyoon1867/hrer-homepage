@@ -22,7 +22,7 @@ export const config = {
   regions: ['hnd1'], // Tokyo
 };
 
-const MODEL = 'gemini-flash-lite-latest';
+const MODELS = ['gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-2.0-flash'];
 
 const SYSTEM_PROMPT = `당신은 HRer의 '정리 동반자'입니다. 상담봇이 아니라, 회사·HR 담당자가 인사노무 이슈를 스스로 정리할 수 있도록 돕는 조용한 파트너입니다.
 
@@ -150,9 +150,9 @@ function sanitize(text){
 // ============================================================
 // GEMINI STREAMING — streamGenerateContent + SSE
 // ============================================================
-async function *streamGemini(apiKey, systemPrompt, messages){
+async function *streamGemini(apiKey, systemPrompt, messages, model){
   // Gemini streamGenerateContent: POST https://...:streamGenerateContent?alt=sse
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse&key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`;
   const contents = messages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{text: m.content}],
@@ -279,17 +279,26 @@ export default async function handler(req){
         let accumulated = '';
         const send = (obj) => controller.enqueue(encoder.encode(`data: ${JSON.stringify(obj)}\n\n`));
         try {
-          for await (const chunk of streamGemini(apiKey, SYSTEM_PROMPT, fullMessages)){
-            if (chunk.chunk){
-              accumulated += chunk.chunk;
-              send({chunk: chunk.chunk});
-            }
-            if (chunk.finish){
-              // Safety/blocked 등
-              send({error: 'finish_' + chunk.finish});
-              break;
+          let lastErr = null;
+          for (const mdl of MODELS){
+            try {
+              for await (const chunk of streamGemini(apiKey, SYSTEM_PROMPT, fullMessages, mdl)){
+                if (chunk.chunk){
+                  accumulated += chunk.chunk;
+                  send({chunk: chunk.chunk});
+                }
+                if (chunk.finish){
+                  send({error: 'finish_' + chunk.finish});
+                  break;
+                }
+              }
+              if (accumulated) { lastErr = null; break; }
+            } catch(e){
+              lastErr = e;
+              if (!/503|UNAVAILABLE|429|overload/i.test(String(e.message||''))) throw e;
             }
           }
+          if (!accumulated && lastErr) throw lastErr;
           // 스트림 완료 후 위험 패턴 검사
           const sanitized = sanitize(accumulated);
           const finalReply = sanitized.blocked ? FALLBACK_MSG : sanitized.text;
@@ -327,9 +336,20 @@ export default async function handler(req){
   // ============================================================
   try {
     let full = '';
-    for await (const chunk of streamGemini(apiKey, SYSTEM_PROMPT, fullMessages)){
-      if (chunk.chunk) full += chunk.chunk;
+    let lastErr = null;
+    for (const mdl of MODELS){
+      try {
+        full = '';
+        for await (const chunk of streamGemini(apiKey, SYSTEM_PROMPT, fullMessages, mdl)){
+          if (chunk.chunk) full += chunk.chunk;
+        }
+        if (full){ lastErr = null; break; }
+      } catch(e){
+        lastErr = e;
+        if (!/503|UNAVAILABLE|429|overload/i.test(String(e.message||''))) throw e;
+      }
     }
+    if (!full && lastErr) throw lastErr;
     const sanitized = sanitize(full);
     return new Response(JSON.stringify({
       reply: sanitized.blocked ? FALLBACK_MSG : sanitized.text,
