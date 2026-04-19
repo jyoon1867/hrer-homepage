@@ -26,10 +26,16 @@
         t = 'ses_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10);
         localStorage.setItem(SESSION_KEY, t);
       }
+      // analytics.js에 토큰 공유 (유입→챗봇 연결)
+      try { window.__HRER_CHAT_SESSION_TOKEN = t; } catch(e){}
       return t;
     } catch(e){
       return 'ses_tmp_' + Date.now();
     }
+  }
+  // analytics 이벤트 (analytics.js가 있으면 호출, 없으면 조용히 무시)
+  function track(event, meta){
+    try { if (typeof window.hrerTrack === 'function') window.hrerTrack(event, meta); } catch(e){}
   }
   function serverLog(payload){
     // fire-and-forget, 실패 무시
@@ -441,6 +447,7 @@
     }
     addTyping();
     recordStat('query', {type:'handoff'});
+    track('handoff');
     try {
       const r = await fetch(SUMMARIZE_ENDPOINT, {
         method:'POST',
@@ -554,6 +561,7 @@
   // ============================================================
   async function respond(text){
     recordStat('query', {q: text});
+    track('send_message');
     if (!DATA){
       addBotMsg('잠시만요, 데이터 로딩 중이에요. 다시 시도해 주세요.');
       return;
@@ -755,6 +763,7 @@
     if (s.open){
       const b = fab.querySelector('.hrbot-badge'); if (b) b.remove();
       setTimeout(()=>input.focus(), 250);
+      track('open');
     }
   }
   function close(){ window.__hrbot_state.open = false; win.classList.remove('open'); }

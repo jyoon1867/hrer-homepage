@@ -51,6 +51,22 @@ export default async function handler(req){
       return new Response(JSON.stringify({messages: messages || []}), {status:200, headers});
     }
 
+    if (view === 'analytics'){
+      // 최근 30일 채널별 유입·전환
+      const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      const [views, chatEvents, recentOrders] = await Promise.all([
+        dbSelect('page_views', `created_at=gte.${encodeURIComponent(since)}&order=created_at.desc&limit=5000`),
+        dbSelect('chatbot_events', `created_at=gte.${encodeURIComponent(since)}&order=created_at.desc&limit=2000`),
+        dbSelect('orders', `created_at=gte.${encodeURIComponent(since)}&order=created_at.desc&limit=500`),
+      ]);
+      return new Response(JSON.stringify({
+        views: views || [],
+        chatEvents: chatEvents || [],
+        orders: recentOrders || [],
+        sinceDays: 30,
+      }), {status:200, headers});
+    }
+
     return new Response(JSON.stringify({error:'unknown_view'}), {status:400, headers});
   } catch(e){
     return new Response(JSON.stringify({error:'server', message: String(e.message||e).slice(0,200)}), {status:500, headers});

@@ -127,6 +127,25 @@ a.home:hover{color:var(--dark)}
       <button class="btn danger" onclick="logout()">🔓 로그아웃</button>
     </div>
 
+    <!-- 유입 분석 (최근 30일) -->
+    <div class="section">
+      <h2>📈 유입 분석 (최근 30일) <span class="cnt" id="an-summary"></span></h2>
+      <div class="grid2" style="margin-bottom:14px">
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--gray)">소스별 방문자 (unique)</div>
+          <div class="list" id="an-sources" style="max-height:280px"></div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--gray)">페이지별 조회</div>
+          <div class="list" id="an-pages" style="max-height:280px"></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--gray)">🎯 채널별 퍼널 (방문 → 챗봇 → 의뢰)</div>
+        <div class="list" id="an-funnel" style="max-height:260px"></div>
+      </div>
+    </div>
+
     <div class="grid2">
       <div class="section">
         <h2>❌ 매칭 실패 질문 <span class="cnt" id="miss-count"></span></h2>
@@ -237,6 +256,8 @@ function logout(){
 async function refresh(){
   const d = await apiGet('overview');
   if (!d) return;
+  // analytics도 병렬로 로드
+  apiGet('analytics').then(a => { if (a) renderAnalytics(a); }).catch(()=>{});
   const s = d.sessions || [], m = d.misses || [], f = d.feedback || [], o = d.orders || [];
 
   document.getElementById('k-sessions').textContent = s.length;
@@ -396,6 +417,121 @@ function closeAnswer(){
   _currentOrderId = null;
 }
 
+function renderAnalytics(a){
+  const views = a.views || [];
+  const events = a.chatEvents || [];
+  const orders = a.orders || [];
+  const days = a.sinceDays || 30;
+
+  // 소스별 unique 방문자 집계 (utm_source > referrer_host > direct)
+  const bySource = {};
+  const pageCount = {};
+  for (const v of views){
+    const src = v.utm_source || v.referrer_host || '(direct)';
+    if (!bySource[src]) bySource[src] = new Set();
+    bySource[src].add(v.session_id);
+    pageCount[v.path] = (pageCount[v.path] || 0) + 1;
+  }
+  const sourceList = Object.entries(bySource)
+    .map(([src, set]) => ({src, visitors: set.size}))
+    .sort((a,b) => b.visitors - a.visitors)
+    .slice(0, 12);
+
+  const totalVisitors = new Set(views.map(v => v.session_id)).size;
+  const totalPV = views.length;
+
+  document.getElementById('an-summary').textContent =
+    `${totalVisitors.toLocaleString()} 방문자 · ${totalPV.toLocaleString()} 페이지뷰 · ${days}일`;
+
+  document.getElementById('an-sources').innerHTML = sourceList.length
+    ? sourceList.map(s => {
+        const pct = totalVisitors ? Math.round(s.visitors / totalVisitors * 100) : 0;
+        const label = formatSource(s.src);
+        return `<div class="item"><div class="q">${label}</div><div class="t"><strong>${s.visitors.toLocaleString()}</strong> · ${pct}%</div></div>`;
+      }).join('')
+    : '<div class="empty">아직 방문자 데이터가 없어요.<br>analytics.js 배포 후 데이터가 쌓여요.</div>';
+
+  // 페이지별 조회
+  const pageList = Object.entries(pageCount)
+    .sort((a,b) => b[1] - a[1]).slice(0, 12)
+    .map(([p, n]) => ({p, n}));
+
+  document.getElementById('an-pages').innerHTML = pageList.length
+    ? pageList.map(p => `<div class="item"><div class="q"><code>${escapeHTML(p.p)}</code></div><div class="t">${p.n.toLocaleString()}</div></div>`).join('')
+    : '<div class="empty">조회 데이터 없음</div>';
+
+  // 채널별 퍼널 (방문 → 챗봇오픈 → 의뢰)
+  const chatOpenersBySource = {};
+  const ordersBySource = {};
+  // 챗봇 오픈 이벤트 session_id를 소스별로 집계 (page_views에서 해당 session의 소스 찾아 매칭)
+  const sessionToSource = {};
+  for (const v of views){
+    const src = v.utm_source || v.referrer_host || '(direct)';
+    if (!sessionToSource[v.session_id]) sessionToSource[v.session_id] = src;
+  }
+  for (const e of events){
+    if (e.event !== 'open') continue;
+    const src = e.utm_source || sessionToSource[e.session_id] || '(direct)';
+    if (!chatOpenersBySource[src]) chatOpenersBySource[src] = new Set();
+    chatOpenersBySource[src].add(e.session_id);
+  }
+  for (const o of orders){
+    const src = o.utm_source || '(direct)';
+    ordersBySource[src] = (ordersBySource[src] || 0) + 1;
+  }
+
+  const funnelSources = new Set([...Object.keys(bySource), ...Object.keys(ordersBySource)]);
+  const funnel = Array.from(funnelSources).map(src => ({
+    src,
+    visitors: (bySource[src] || new Set()).size,
+    chatOpens: (chatOpenersBySource[src] || new Set()).size,
+    orders: ordersBySource[src] || 0,
+  })).filter(x => x.visitors + x.orders > 0)
+    .sort((a,b) => b.visitors - a.visitors)
+    .slice(0, 10);
+
+  document.getElementById('an-funnel').innerHTML = funnel.length
+    ? funnel.map(f => {
+        const chatRate = f.visitors ? Math.round(f.chatOpens / f.visitors * 1000)/10 : 0;
+        const orderRate = f.visitors ? Math.round(f.orders / f.visitors * 1000)/10 : 0;
+        return `<div class="item">
+          <div class="q" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <strong style="min-width:120px">${formatSource(f.src)}</strong>
+            <span>👥 <b>${f.visitors}</b></span>
+            <span>💬 ${f.chatOpens} (${chatRate}%)</span>
+            <span>📨 <b style="color:var(--mint)">${f.orders}</b> (${orderRate}%)</span>
+          </div>
+        </div>`;
+      }).join('')
+    : '<div class="empty">퍼널 데이터 없음</div>';
+}
+
+function formatSource(src){
+  if (!src || src === '(direct)') return '<span style="color:var(--gray2)">직접 방문</span>';
+  const map = {
+    'naver.com':'🟢 네이버 검색',
+    'm.naver.com':'🟢 네이버 모바일',
+    'google.com':'🔵 구글 검색',
+    'google.co.kr':'🔵 구글 검색',
+    'search.daum.net':'🟤 다음 검색',
+    'tistory.com':'📝 티스토리',
+    'blog.naver.com':'🟢 네이버 블로그',
+    'linkedin.com':'💼 LinkedIn',
+    'instagram.com':'📷 인스타그램',
+    'youtube.com':'▶️ 유튜브',
+    'facebook.com':'f Facebook',
+    't.co':'🐦 X/Twitter',
+    'x.com':'🐦 X/Twitter',
+    'brunch.co.kr':'🟤 브런치',
+    'kakao.com':'💬 카카오',
+    'tistory':'📝 티스토리',
+    'naver_blog':'🟢 네이버 블로그 (UTM)',
+    'naver_kin':'🟢 네이버 지식iN (UTM)',
+    'tistory_blog':'📝 티스토리 (UTM)',
+  };
+  return map[src] || `<code>${escapeHTML(src)}</code>`;
+}
+
 function useAIDraft(){
   const draft = window.__aiDraftText || '';
   if (!draft){ alert('자문봇 초안이 없습니다.'); return; }
@@ -495,5 +631,6 @@ function exportJSON(){
 // 5분마다 자동 새로고침
 setInterval(()=>{ if (TOKEN) refresh(); }, 5*60*1000);
 </script>
+<script src="/analytics.js" defer></script>
 </body>
 </html>
