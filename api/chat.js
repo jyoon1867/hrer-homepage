@@ -219,9 +219,14 @@ export default async function handler(req, res){
       geminiResult = await callGemini(apiKey, SYSTEM_PROMPT, fullMessages);
     } catch (e){
       console.error('gemini_call_failed', e.message);
+      // 디버그 모드: ?debug=1 쿼리 시 실제 에러 노출
+      const debug = req.query && req.query.debug === '1';
       return res.status(200).json({
         reply: '지금은 답변을 불러오기 어려워요. 잠시 후 다시 시도하시거나, <a href="/order">자문 의뢰</a>로 바로 문의해 주세요.',
         mode: 'gemini_error',
+        debug: debug ? (e.message || String(e)) : undefined,
+        has_key: debug ? !!apiKey : undefined,
+        key_prefix: debug && apiKey ? apiKey.slice(0, 4) : undefined,
       });
     }
 
