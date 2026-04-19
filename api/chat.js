@@ -326,6 +326,6 @@ export default async function handler(req){
       mode: sanitized.blocked ? 'blocked' : 'ai',
     }), {status:200, headers:{...headers, 'Content-Type':'application/json'}});
   } catch(e){
-    return new Response(JSON.stringify({reply:'지금은 답변을 불러오기 어려워요.', mode:'error'}), {status:200, headers:{...headers, 'Content-Type':'application/json'}});
+    return new Response(JSON.stringify({reply:'지금은 답변을 불러오기 어려워요.', mode:'error', debug: String(e.message || e).slice(0, 500)}), {status:200, headers:{...headers, 'Content-Type':'application/json'}});
   }
 }
