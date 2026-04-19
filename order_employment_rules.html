@@ -433,7 +433,7 @@ function updateFilelist(inputId, listId){
   });
 }
 
-function submitOrder(){
+async function submitOrder(){
   const required = ['name','email','phone','company','industry','employee_count'];
   for(const id of required){
     const el = document.getElementById(id);
@@ -443,7 +443,54 @@ function submitOrder(){
     const files = document.getElementById('attach_modify').files;
     if(files.length===0){alert('현행 취업규칙 파일을 업로드해주세요.'); return;}
   }
-  alert('의뢰가 접수되었습니다. 영업일 24시간 이내 담당 노무사가 연락드립니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
+  const email = document.getElementById('email').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('이메일 형식이 올바르지 않습니다.'); return; }
+
+  let handoff = {};
+  try { const h = sessionStorage.getItem('hrer_chat_handoff'); if (h) handoff = JSON.parse(h); } catch(e){}
+
+  const noteEl = document.getElementById('note');
+  const note = noteEl ? noteEl.value.trim() : '';
+  const question = [
+    `[진행 방식] ${currentTrack === 'modify' ? '현행 규정 개정·정비' : '신규 제정'}`,
+    `[업종] ${document.getElementById('industry').value.trim()}`,
+    `[상시 근로자 수] ${document.getElementById('employee_count').value.trim()}`,
+    note ? `[추가 메모]\n${note}` : '',
+  ].filter(Boolean).join('\n');
+
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true; btn.textContent = '접수 중…';
+  try {
+    const res = await fetch('/api/inquiry', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        service: 'employment-rules',
+        name: document.getElementById('name').value.trim(),
+        email,
+        phone: document.getElementById('phone').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        question,
+        taxonomyId: '취업규칙',
+        rawInput: {
+          track: currentTrack,
+          industry: document.getElementById('industry').value.trim(),
+          employee_count: document.getElementById('employee_count').value.trim(),
+        },
+        handoffSession: handoff.sessionToken || null,
+        handoffSummary: handoff.summary ? {title: handoff.title, summary: handoff.summary, bullets: handoff.bullets||[]} : null,
+        utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+        utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+        utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+        referrer: document.referrer || '',
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok){ alert('접수 실패: ' + (data.error || res.status)); btn.disabled=false; btn.textContent='의뢰 접수하기 (무료)'; return; }
+    try { localStorage.removeItem('hrer_bot_handoff'); sessionStorage.removeItem('hrer_chat_handoff'); } catch(e){}
+    location.href = '/complete?inquiry=1';
+  } catch(e){
+    alert('서버 오류: ' + (e.message || e)); btn.disabled=false; btn.textContent='의뢰 접수하기 (무료)';
+  }
 }
 
 (function(){

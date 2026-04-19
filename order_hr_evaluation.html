@@ -546,7 +546,7 @@ function downloadTemplate(e) {
 }
 
 // ─── 제출 ────────────────────────────────────────────
-function submitForm() {
+async function submitForm() {
   const name = document.getElementById('mgr_name').value.trim();
   const email = document.getElementById('mgr_email').value.trim();
   const phone = document.getElementById('mgr_phone').value.trim();
@@ -557,35 +557,61 @@ function submitForm() {
   if (count < 3) { alert('평가 대상 직원 수는 최소 3명 이상이어야 합니다.'); return; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('이메일 형식이 올바르지 않습니다.'); return; }
 
-  const config = {
-    type: 'hr_evaluation',
-    contact: { name, email, phone },
-    company: {
-      name: company,
-      employee_count: count,
-      industry: document.getElementById('industry').value,
-      eval_timing: document.getElementById('eval_timing').value,
-      has_leader: document.getElementById('has_leader').value === 'true',
-    },
-    options: {
-      delivery_mode: deliveryMode,
-      leadership: document.getElementById('sw-leadership').classList.contains('on'),
-      prediction: document.getElementById('sw-prediction').classList.contains('on'),
-      bias_correction: document.getElementById('sw-bias').classList.contains('on'),
-    },
-    employee_file: document.getElementById('emp_file').files[0]?.name || '',
-    note: document.getElementById('note').value,
-    submitted_at: new Date().toISOString(),
+  let handoff = {};
+  try { const h = sessionStorage.getItem('hrer_chat_handoff'); if (h) handoff = JSON.parse(h); } catch(e){}
+
+  const options = {
+    delivery_mode: deliveryMode,
+    leadership: document.getElementById('sw-leadership').classList.contains('on'),
+    prediction: document.getElementById('sw-prediction').classList.contains('on'),
+    bias_correction: document.getElementById('sw-bias').classList.contains('on'),
   };
+  const rawInput = {
+    employee_count: count,
+    industry: document.getElementById('industry').value,
+    eval_timing: document.getElementById('eval_timing').value,
+    has_leader: document.getElementById('has_leader').value === 'true',
+    delivery_mode: deliveryMode,
+    options,
+    employee_file: document.getElementById('emp_file').files[0]?.name || '',
+  };
+  const question = [
+    `[평가 대상] ${count}명`,
+    `[업종] ${rawInput.industry}`,
+    `[평가 시기] ${rawInput.eval_timing}`,
+    `[리더 포함] ${rawInput.has_leader ? '예' : '아니오'}`,
+    `[산출물] ${deliveryMode === 'hr' ? 'HR 담당자용' : '개별 피평가자 공유'}`,
+    `[옵션] 리더십=${options.leadership?'O':'X'} / 성과예측=${options.prediction?'O':'X'} / 평가자성향보정=${options.bias_correction?'O':'X'}`,
+    document.getElementById('note').value.trim() ? `[추가 메모]\n${document.getElementById('note').value.trim()}` : '',
+  ].filter(Boolean).join('\n');
 
-  const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `order_${company.replace(/[^가-힣a-zA-Z0-9]/g,'_')}_인사평가.json`;
-  a.click();
-
-  document.getElementById('main-form').style.display = 'none';
-  document.getElementById('success-screen').style.display = 'block';
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true; btn.textContent = '접수 중…';
+  try {
+    const res = await fetch('/api/inquiry', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        service: 'hr-evaluation',
+        name, email, phone, company,
+        question,
+        taxonomyId: '인사평가',
+        rawInput,
+        handoffSession: handoff.sessionToken || null,
+        handoffSummary: handoff.summary ? {title: handoff.title, summary: handoff.summary, bullets: handoff.bullets||[]} : null,
+        utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+        utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+        utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+        referrer: document.referrer || '',
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok){ alert('접수 실패: ' + (data.error || res.status)); btn.disabled=false; btn.textContent='인사평가 의뢰하기'; return; }
+    try { localStorage.removeItem('hrer_bot_handoff'); sessionStorage.removeItem('hrer_chat_handoff'); } catch(e){}
+    document.getElementById('main-form').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+  } catch(e){
+    alert('서버 오류: ' + (e.message || e)); btn.disabled=false; btn.textContent='인사평가 의뢰하기';
+  }
 }
 </script>
 <script src="/chatbot.js" defer></script>

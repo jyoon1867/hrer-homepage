@@ -457,12 +457,16 @@
         title: data.title || '상담봇 대화 문의',
         recommended: data.recommended || 'consult',
         tier: data.tier || null,
+        taxonomyId: data.taxonomyId || null,
+        sessionToken: getSessionToken(),
         transcript: hist.slice(-40).map(m => ({
           role: m.role,
           text: (m.text||'').replace(/<[^>]+>/g,'').slice(0,600),
           at: m.at,
         })),
       };
+      // order.html이 sessionStorage에서 읽기 쉽게 미러링
+      try { sessionStorage.setItem('hrer_chat_handoff', JSON.stringify(payload)); } catch(e){}
       try { localStorage.setItem(HANDOFF_KEY, JSON.stringify(payload)); } catch(e){}
       // 서버 로깅 — 세션을 핸드오프로 마킹 + orders 사전 레코드 생성
       serverLog({type:'handoff', service: payload.recommended, summary: payload});

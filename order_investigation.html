@@ -447,13 +447,52 @@ function updateFilelist(){
   });
 }
 
-function submitOrder(){
+async function submitOrder(){
   const required = ['name','email','phone','company','report_date','summary'];
   for(const id of required){
     const el = document.getElementById(id);
     if(!el.value.trim()){alert('필수 항목을 입력해주세요.'); el.focus(); return;}
   }
-  alert('의뢰가 접수되었습니다. 영업일 24시간 이내 담당 노무사가 연락드립니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
+  const email = document.getElementById('email').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('이메일 형식이 올바르지 않습니다.'); return; }
+
+  let handoff = {};
+  try { const h = sessionStorage.getItem('hrer_chat_handoff'); if (h) handoff = JSON.parse(h); } catch(e){}
+
+  const question = [
+    `[신고 접수일] ${document.getElementById('report_date').value}`,
+    `[사안 요약] ${document.getElementById('summary').value.trim()}`,
+  ].filter(Boolean).join('\n\n');
+
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true; btn.textContent = '접수 중…';
+  try {
+    const res = await fetch('/api/inquiry', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        service: 'investigation',
+        name: document.getElementById('name').value.trim(),
+        email,
+        phone: document.getElementById('phone').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        question,
+        taxonomyId: '괴롭힘',
+        rawInput: {report_date: document.getElementById('report_date').value},
+        handoffSession: handoff.sessionToken || null,
+        handoffSummary: handoff.summary ? {title: handoff.title, summary: handoff.summary, bullets: handoff.bullets||[]} : null,
+        utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+        utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+        utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+        referrer: document.referrer || '',
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok){ alert('접수 실패: ' + (data.error || res.status)); btn.disabled=false; btn.textContent='의뢰 접수하기 (무료)'; return; }
+    try { localStorage.removeItem('hrer_bot_handoff'); sessionStorage.removeItem('hrer_chat_handoff'); } catch(e){}
+    location.href = '/complete?inquiry=1';
+  } catch(e){
+    alert('서버 오류: ' + (e.message || e)); btn.disabled=false; btn.textContent='의뢰 접수하기 (무료)';
+  }
 }
 </script>
 

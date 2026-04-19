@@ -499,14 +499,78 @@ function updateFilelist(){
   });
 }
 
-function submitOrder(){
+async function submitOrder(){
   const required = ['name','client_type','email','phone','company','hire_date','action_date','action_detail','action_reason','facts'];
   for(const id of required){
     const el = document.getElementById(id);
     if(!el.value.trim()){alert('필수 항목을 모두 입력해주세요: ' + el.closest('.form-group')?.querySelector('label')?.textContent); el.focus(); return;}
   }
   if(selectedStages.size===0){alert('의뢰 단계를 1개 이상 선택해주세요.'); return;}
-  alert('의뢰가 접수되었습니다. 영업일 24시간 이내 담당 노무사가 연락드립니다.\n\n(실제 전송은 백엔드 연동 후 활성화됩니다.)');
+
+  // 이메일 형식 체크
+  const email = document.getElementById('email').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert('이메일 형식이 올바르지 않습니다.'); return; }
+
+  // 챗봇 핸드오프
+  let handoff = {};
+  try { const h = sessionStorage.getItem('hrer_chat_handoff'); if (h) handoff = JSON.parse(h); } catch(e){}
+
+  // 질문 본문 조합
+  const actionType = document.querySelector('input[name="action_type"]:checked')?.value || '';
+  const stagesList = Array.from(selectedStages).map(k => STAGE_LABELS[k]).join(', ');
+  const question = [
+    `[조치 유형] ${actionType}`,
+    `[희망 진행 단계] ${stagesList}`,
+    `[입사일] ${document.getElementById('hire_date').value}`,
+    `[조치일] ${document.getElementById('action_date').value}`,
+    `[조치 내용] ${document.getElementById('action_detail').value.trim()}`,
+    `[사유] ${document.getElementById('action_reason').value.trim()}`,
+    `[사실관계] ${document.getElementById('facts').value.trim()}`,
+  ].join('\n\n');
+
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.textContent = '접수 중…';
+
+  try {
+    const res = await fetch('/api/inquiry', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        service: 'unfair-dismissal',
+        name: document.getElementById('name').value.trim(),
+        email,
+        phone: document.getElementById('phone').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        question,
+        taxonomyId: '사건',
+        rawInput: {
+          client_type: document.getElementById('client_type').value,
+          action_type: actionType,
+          stages: Array.from(selectedStages),
+          hire_date: document.getElementById('hire_date').value,
+          action_date: document.getElementById('action_date').value,
+        },
+        handoffSession: handoff.sessionToken || null,
+        handoffSummary: handoff.summary ? {title: handoff.title, summary: handoff.summary, bullets: handoff.bullets||[]} : null,
+        utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+        utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+        utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+        referrer: document.referrer || '',
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok){
+      alert('접수 실패: ' + (data.error || res.status) + '\n잠시 후 다시 시도해 주세요.');
+      btn.disabled = false; btn.textContent = '의뢰 접수하기 (무료)';
+      return;
+    }
+    try { localStorage.removeItem('hrer_bot_handoff'); sessionStorage.removeItem('hrer_chat_handoff'); } catch(e){}
+    location.href = '/complete?inquiry=1';
+  } catch(e){
+    alert('서버 오류: ' + (e.message || e) + '\n잠시 후 다시 시도해 주세요.');
+    btn.disabled = false; btn.textContent = '의뢰 접수하기 (무료)';
+  }
 }
 </script>
 

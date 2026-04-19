@@ -144,6 +144,19 @@
     return;
   }
 
+  // 견적형 접수 완료 (결제 없음)
+  if (params.get('inquiry') === '1'){
+    document.getElementById('resOrderId').textContent = '접수 완료';
+    document.getElementById('resService').textContent = '견적 안내 예정';
+    document.getElementById('resPrice').textContent = '견적 확정 후 안내';
+    document.getElementById('resEmail').textContent = '접수 이메일로 발송됨';
+    // 문구 살짝 변경
+    const descEl = document.querySelector('#successState .desc');
+    if (descEl) descEl.innerHTML = '영업일 기준 24시간 이내에<br>담당 노무사가 연락드려 견적을 안내해 드리겠습니다.';
+    document.getElementById('successState').style.display = 'block';
+    return;
+  }
+
   if (!paymentKey || !orderId || !amount) {
     document.getElementById('failState').style.display = 'block';
     document.getElementById('failMsg').textContent = '잘못된 접근입니다.';
@@ -169,9 +182,19 @@
         amount,
         name: orderInfo.name || '',
         email: orderInfo.email || '',
+        phone: orderInfo.phone || '',
         company: orderInfo.company || '',
         question: orderInfo.question || '',
-        service: orderInfo.service || '',
+        service: orderInfo.service || 'consult',
+        tier: orderInfo.tier || null,
+        taxonomyId: orderInfo.taxonomyId || null,
+        handoffSession: orderInfo.handoffSession || null,
+        handoffSummary: orderInfo.handoffSummary || null,
+        utmSource: orderInfo.utmSource || '',
+        utmMedium: orderInfo.utmMedium || '',
+        utmCampaign: orderInfo.utmCampaign || '',
+        referrer: orderInfo.referrer || document.referrer || '',
+        rawInput: {phone: orderInfo.phone, service: orderInfo.service, tier: orderInfo.tier, taxonomyId: orderInfo.taxonomyId},
       }),
     });
 

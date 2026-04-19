@@ -384,9 +384,9 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 <script>
 // ─── 상태 ─────────────────────────────────────────────
 const PLANS = {
-  simple:  { label: '간편 자문', price: 143000 },
-  precise: { label: '심층 자문', price: 198000 },
-  written: { label: '의견서', price: 253000 },
+  simple:  { label: '간편 자문', price: 143000, tier: 'simple' },
+  precise: { label: '심층 자문', price: 198000, tier: 'deep' },
+  written: { label: '의견서', price: 253000, tier: 'written' },
 };
 let currentPlan = 'precise';
 let paymentWidget = null;
@@ -401,21 +401,25 @@ async function initPaymentWidget(price) {
   await paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
 }
 
-// URL 파라미터로 success/fail 처리
-(function checkRedirect() {
+// 위젯 초기화 (결제 실패 파라미터 처리만, 성공은 /complete 에서)
+(function init() {
   const params = new URLSearchParams(location.search);
-  if (params.get('paymentKey')) {
-    // 결제 성공 — success 화면 표시
-    document.getElementById('main-form').style.display = 'none';
-    document.getElementById('success-screen').style.display = 'block';
-    return;
-  }
   if (params.get('code')) {
-    // 결제 실패
     alert('결제가 취소되었습니다. 다시 시도해 주세요.\n' + (params.get('message') || ''));
     history.replaceState({}, '', location.pathname);
   }
-  // 위젯 초기화
+  // UTM·referrer를 sessionStorage에 저장해뒀다가 결제 성공 시 complete.html에서 서버로 전달
+  try {
+    const utm = {
+      utm_source: params.get('utm_source') || sessionStorage.getItem('hrer_utm_source') || '',
+      utm_medium: params.get('utm_medium') || sessionStorage.getItem('hrer_utm_medium') || '',
+      utm_campaign: params.get('utm_campaign') || sessionStorage.getItem('hrer_utm_campaign') || '',
+      referrer: document.referrer || '',
+    };
+    if (utm.utm_source) sessionStorage.setItem('hrer_utm_source', utm.utm_source);
+    if (utm.utm_medium) sessionStorage.setItem('hrer_utm_medium', utm.utm_medium);
+    if (utm.utm_campaign) sessionStorage.setItem('hrer_utm_campaign', utm.utm_campaign);
+  } catch(e){}
   initPaymentWidget(PLANS[currentPlan].price);
 })();
 
@@ -455,9 +459,37 @@ async function requestPayment() {
   const plan = PLANS[currentPlan];
   const orderId = 'HRER-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
 
+  // 챗봇 핸드오프 정보 (handoff.js가 sessionStorage에 저장해둔 것)
+  let handoff = {};
+  try {
+    const h = sessionStorage.getItem('hrer_chat_handoff');
+    if (h) handoff = JSON.parse(h);
+  } catch(e){}
+
+  // /complete 에서 사용할 전체 의뢰 정보를 sessionStorage에 저장
+  try {
+    sessionStorage.setItem('hrer_order', JSON.stringify({
+      name, email, phone, company, question,
+      service: 'consult',
+      tier: plan.tier,
+      serviceLabel: plan.label,
+      taxonomyId: handoff.taxonomyId || null,
+      handoffSession: handoff.sessionToken || null,
+      handoffSummary: handoff.summary ? {
+        title: handoff.title || null,
+        summary: handoff.summary,
+        bullets: handoff.bullets || [],
+      } : null,
+      utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+      utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+      utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+      referrer: document.referrer || '',
+    }));
+  } catch(e){}
+
   const btn = document.getElementById('btn-submit');
   btn.disabled = true;
-  btn.textContent = '결제창 열는 중...';
+  btn.textContent = '결제창 여는 중...';
 
   try {
     await paymentWidget.requestPayment({
@@ -466,8 +498,8 @@ async function requestPayment() {
       customerName: name,
       customerEmail: email,
       customerMobilePhone: phone.replace(/-/g, ''),
-      successUrl: location.origin + location.pathname + '?paymentKey={PAYMENT_KEY}&orderId=' + orderId + '&amount=' + plan.price,
-      failUrl: location.origin + location.pathname + '?code=FAIL&message={MESSAGE}',
+      successUrl: location.origin + '/complete?paymentKey={PAYMENT_KEY}&orderId=' + orderId + '&amount=' + plan.price,
+      failUrl: location.origin + '/complete?fail=1&orderId=' + orderId + '&code={CODE}&message={MESSAGE}',
     });
   } catch (e) {
     if (e.code !== 'USER_CANCEL') {
