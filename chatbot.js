@@ -10,9 +10,38 @@
   const DATA_URL = '/chatbot-data.json?v=' + Date.now();
   const STORAGE_KEY = 'hrer_bot_history';
   const STATS_KEY = 'hrer_bot_stats';
+  const SESSION_KEY = 'hrer_bot_session_token';
+  const LOG_ENDPOINT = '/api/log';
   const MAX_HISTORY = 50;
   let DATA = null, body, input, fab, win;
   let consecutiveMisses = 0;
+
+  // ============================================================
+  // SESSION TOKEN — 서버 DB 매칭용 영구 식별자
+  // ============================================================
+  function getSessionToken(){
+    try {
+      let t = localStorage.getItem(SESSION_KEY);
+      if (!t){
+        t = 'ses_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10);
+        localStorage.setItem(SESSION_KEY, t);
+      }
+      return t;
+    } catch(e){
+      return 'ses_tmp_' + Date.now();
+    }
+  }
+  function serverLog(payload){
+    // fire-and-forget, 실패 무시
+    try {
+      fetch(LOG_ENDPOINT, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({...payload, sessionToken: getSessionToken()}),
+        keepalive: true,
+      }).catch(()=>{});
+    } catch(e){}
+  }
 
   // ============================================================
   // STORAGE
@@ -209,10 +238,12 @@
       const up = h('button',{'class':'up','onClick':()=>{
         up.classList.add('active'); up.disabled = true; down.disabled = true;
         recordStat('feedback', {q: opts.query, a: opts.faqId, up: true});
+        serverLog({type:'feedback', faqId: opts.faqId, query: opts.query, up: true});
       }},'👍 도움됐어요');
       const down = h('button',{'class':'down','onClick':()=>{
         down.classList.add('active'); up.disabled = true; down.disabled = true;
         recordStat('feedback', {q: opts.query, a: opts.faqId, up: false});
+        serverLog({type:'feedback', faqId: opts.faqId, query: opts.query, up: false});
         // 👎 시 사람 상담 폼 유도
         setTimeout(()=>{
           addBotMsg('답변이 부족했다면 <em>담당 노무사에게 직접 문의</em>를 받아보시겠어요?');
@@ -433,6 +464,8 @@
         })),
       };
       try { localStorage.setItem(HANDOFF_KEY, JSON.stringify(payload)); } catch(e){}
+      // 서버 로깅 — 세션을 핸드오프로 마킹 + orders 사전 레코드 생성
+      serverLog({type:'handoff', service: payload.recommended, summary: payload});
       // 요약 확인 카드 표시
       const card = h('div',{'class':'hrbot-wiz-result'}, [
         h('h5',null,'📋 의뢰폼으로 보낼 요약'),
@@ -473,7 +506,7 @@
     const r = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: {'Content-Type':'application/json','Accept':'text/event-stream'},
-      body: JSON.stringify({message: text, history: hist, stream: true}),
+      body: JSON.stringify({message: text, history: hist, stream: true, sessionToken: getSessionToken()}),
     });
     if (!r.ok) throw new Error('ai_http_' + r.status);
     const ctype = r.headers.get('content-type') || '';
@@ -526,6 +559,7 @@
       consecutiveMisses = 0;
       addBotMsg(DATA.escalate.message);
       addActions(DATA.escalate.actions);
+      serverLog({type:'escalate', userMessage:text, botReply:DATA.escalate.message});
       return;
     }
     // 2) FAQ 매칭 — 즉시 답변 (인위 지연 삭제)
@@ -534,6 +568,7 @@
       consecutiveMisses = 0;
       addBotMsg(m.a, {feedback:true, query:text, faqId:m.q});
       if (m.cta) addActions(m.cta);
+      serverLog({type:'faq_hit', userMessage:text, botReply:m.a, matchedFAQ:m.q});
       return;
     }
     // 3) FAQ 미매칭 → AI 스트리밍
@@ -562,10 +597,12 @@
           const up = h('button',{'class':'up','onClick':()=>{
             up.classList.add('active'); up.disabled = true; down.disabled = true;
             recordStat('feedback', {q:text, a:'[AI]', up:true});
+            serverLog({type:'feedback', faqId:'[AI]', query:text, up:true});
           }},'👍 도움됐어요');
           const down = h('button',{'class':'down','onClick':()=>{
             down.classList.add('active'); up.disabled = true; down.disabled = true;
             recordStat('feedback', {q:text, a:'[AI]', up:false});
+            serverLog({type:'feedback', faqId:'[AI]', query:text, up:false});
           }},'👎 부족해요');
           fb.appendChild(up); fb.appendChild(down);
           streamMsg.appendChild(fb); scrollBottom();
@@ -593,6 +630,7 @@
       acts.unshift({label:'📧 사람과 상담하기', action:'open-human-form'});
     }
     addActions(acts);
+    serverLog({type:'fallback', userMessage:text, botReply:DATA.fallback.text});
   }
 
   // ============================================================

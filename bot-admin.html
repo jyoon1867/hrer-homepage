@@ -10,176 +10,268 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--mint:#00B893;--blue:#4C6EF5;--dark:#191919;--gray:#737373;--gray2:#A3A3A3;--border:#E5E7EB;--bg:#FAFAFA}
 body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:var(--bg);padding:40px 24px;line-height:1.6}
-.wrap{max-width:1200px;margin:0 auto}
+.wrap{max-width:1300px;margin:0 auto}
 h1{font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:8px}
-.sub{color:var(--gray);font-size:14px;margin-bottom:32px}
-.notice{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:14px 18px;font-size:13px;color:#92400E;margin-bottom:24px;line-height:1.7}
-.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-.kpi-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px}
-.kpi-card .n{font-size:30px;font-weight:900;color:var(--dark);letter-spacing:-1px}
+.sub{color:var(--gray);font-size:14px;margin-bottom:24px}
+.login{max-width:420px;margin:60px auto;background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px}
+.login h2{font-size:18px;margin-bottom:14px}
+.login input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px}
+.login input:focus{border-color:var(--mint)}
+.login button{width:100%;padding:11px;background:var(--dark);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.login .err{color:#DC2626;font-size:13px;margin-top:8px}
+.kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+.kpi-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px}
+.kpi-card .n{font-size:28px;font-weight:900;color:var(--dark);letter-spacing:-0.8px}
 .kpi-card .n.good{color:var(--mint)}
 .kpi-card .n.bad{color:#DC2626}
+.kpi-card .n.highlight{color:var(--blue)}
 .kpi-card .l{font-size:12px;color:var(--gray);margin-top:4px}
-.section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:18px}
-.section h2{font-size:17px;font-weight:800;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+.section h2{font-size:16px;font-weight:800;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
 .section h2 .cnt{font-size:12px;color:var(--gray);font-weight:500}
-.list{display:flex;flex-direction:column;gap:6px;max-height:360px;overflow-y:auto}
-.item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.list{display:flex;flex-direction:column;gap:6px;max-height:420px;overflow-y:auto}
+.item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;transition:border-color 0.15s}
+.item:hover{border-color:var(--mint)}
 .item .q{flex:1;font-weight:500;color:var(--dark);word-break:break-word}
 .item .t{color:var(--gray2);font-size:11px;white-space:nowrap}
 .item .b{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700;margin-right:6px}
 .item .b.up{background:#D1FAE5;color:#065F46}
 .item .b.down{background:#FEE2E2;color:#991B1B}
+.item .b.ai{background:#EEF2FF;color:#4338CA}
+.item .b.faq{background:#F0FDF4;color:#065F46}
+.item .b.esc{background:#FFFBEB;color:#B45309}
+.item .b.handoff{background:#DBEAFE;color:#1E40AF}
 .empty{text-align:center;color:var(--gray2);font-size:13px;padding:32px}
-.actions{display:flex;gap:8px;margin-bottom:24px}
+.actions{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
 .btn{padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn:hover{border-color:var(--mint);color:var(--mint)}
+.btn.primary{background:var(--dark);color:#fff;border-color:var(--dark)}
+.btn.primary:hover{background:#333;color:#fff}
 .btn.danger{border-color:#FCA5A5;color:#B91C1C}
 .btn.danger:hover{background:#FEE2E2}
-table{width:100%;border-collapse:collapse;font-size:12.5px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
-th{background:#F9FAFB;font-weight:700;color:var(--gray);font-size:11.5px;text-transform:uppercase;letter-spacing:0.5px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:800px){.kpi{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}}
-a.home{display:inline-block;font-size:13px;color:var(--gray);margin-bottom:24px;text-decoration:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:900px){.kpi{grid-template-columns:1fr 1fr}.grid2,.grid3{grid-template-columns:1fr}}
+a.home{display:inline-block;font-size:13px;color:var(--gray);margin-bottom:20px;text-decoration:none}
 a.home:hover{color:var(--dark)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
+.modal-bg.on{display:flex}
+.modal{background:#fff;border-radius:14px;max-width:720px;width:100%;margin:auto;padding:26px 30px;max-height:85vh;overflow-y:auto}
+.modal h3{font-size:17px;font-weight:800;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.modal h3 button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--gray)}
+.msg{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:13px;line-height:1.7;max-width:80%}
+.msg.user{background:linear-gradient(135deg,#00B893,#4C6EF5);color:#fff;margin-left:auto;border-radius:14px 14px 4px 14px}
+.msg.bot{background:#F3F4F6;border:1px solid var(--border);border-radius:4px 14px 14px 14px}
+.msg .who{font-size:10.5px;font-weight:700;color:var(--gray2);margin-bottom:3px;letter-spacing:0.5px}
+.msg.user .who{color:rgba(255,255,255,0.8)}
+.status{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10.5px;font-weight:700}
+.status.ok{background:#D1FAE5;color:#065F46}
+.status.warn{background:#FEF3C7;color:#92400E}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a href="/" class="home">← 홈으로</a>
   <h1>챗봇 관리 대시보드</h1>
-  <div class="sub">HRer CS 상담봇 사용 통계 (현재 브라우저에 저장된 데이터 기준)</div>
+  <div class="sub" id="sub">서버 DB 기반 · 실시간 통계</div>
 
-  <div class="notice">
-    <strong>⚠ 데이터 저장 위치 안내</strong><br>
-    현재 버전은 통계를 <em>접속한 브라우저의 localStorage</em>에만 저장합니다. 따라서 이 대시보드는 <em>지민이 평소 사용하는 브라우저에서 열어야</em> 실제 고객 데이터를 볼 수 있습니다. (다른 기기·시크릿 모드엔 보이지 않음)<br>
-    서버 기반 통계가 필요하면 추후 백엔드 연동 시점에 업그레이드 예정.
+  <div id="login" class="login">
+    <h2>🔒 관리자 인증</h2>
+    <p style="font-size:13px;color:var(--gray);margin-bottom:14px">ADMIN_TOKEN을 입력하세요. (Vercel 환경변수에 등록된 값)</p>
+    <input type="password" id="token-input" placeholder="토큰 입력" autocomplete="off">
+    <button onclick="login()">로그인</button>
+    <div class="err" id="login-err"></div>
   </div>
 
-  <div class="kpi">
-    <div class="kpi-card"><div class="n" id="k-queries">-</div><div class="l">누적 질문 수</div></div>
-    <div class="kpi-card"><div class="n good" id="k-hit">-</div><div class="l">FAQ 매칭 (%)</div></div>
-    <div class="kpi-card"><div class="n bad" id="k-miss">-</div><div class="l">매칭 실패</div></div>
-    <div class="kpi-card"><div class="n" id="k-feedback">-</div><div class="l">피드백 건수</div></div>
-  </div>
-
-  <div class="actions">
-    <button class="btn" onclick="refresh()">🔄 새로고침</button>
-    <button class="btn" onclick="exportCSV()">📥 CSV 내보내기</button>
-    <button class="btn danger" onclick="clearAll()">🗑 통계 초기화</button>
-  </div>
-
-  <div class="grid2">
-    <div class="section">
-      <h2>❌ 매칭 실패한 질문 <span class="cnt" id="miss-count"></span></h2>
-      <div class="sub" style="font-size:12px;margin-bottom:10px">여기 있는 질문들을 <code>chatbot-data.json</code>의 FAQ로 추가하면 챗봇이 점점 똑똑해집니다.</div>
-      <div class="list" id="miss-list"></div>
+  <div id="dashboard" style="display:none">
+    <div class="kpi">
+      <div class="kpi-card"><div class="n" id="k-sessions">-</div><div class="l">세션 수</div></div>
+      <div class="kpi-card"><div class="n good" id="k-faq">-</div><div class="l">FAQ 매칭 (%)</div></div>
+      <div class="kpi-card"><div class="n highlight" id="k-ai">-</div><div class="l">AI 답변</div></div>
+      <div class="kpi-card"><div class="n bad" id="k-miss">-</div><div class="l">매칭 실패</div></div>
+      <div class="kpi-card"><div class="n" id="k-handoff">-</div><div class="l">의뢰 전환</div></div>
     </div>
+
+    <div class="actions">
+      <button class="btn primary" onclick="refresh()">🔄 새로고침</button>
+      <button class="btn" onclick="exportJSON()">📥 JSON 내보내기</button>
+      <button class="btn danger" onclick="logout()">🔓 로그아웃</button>
+    </div>
+
+    <div class="grid2">
+      <div class="section">
+        <h2>❌ 매칭 실패 질문 <span class="cnt" id="miss-count"></span></h2>
+        <div class="sub" style="font-size:12px;margin-bottom:10px">이 질문들을 <code>chatbot-data.json</code>의 FAQ로 추가하면 챗봇이 점점 똑똑해져요.</div>
+        <div class="list" id="miss-list"></div>
+      </div>
+      <div class="section">
+        <h2>💬 최근 세션 <span class="cnt" id="sess-count"></span></h2>
+        <div class="sub" style="font-size:12px;margin-bottom:10px">세션 클릭 → 전체 대화 내용 확인</div>
+        <div class="list" id="sess-list"></div>
+      </div>
+    </div>
+
     <div class="section">
-      <h2>💬 최근 질문 <span class="cnt" id="query-count"></span></h2>
-      <div class="list" id="query-list"></div>
+      <h2>🎯 의뢰 전환 <span class="cnt" id="orders-count"></span></h2>
+      <div class="list" id="orders-list"></div>
+    </div>
+
+    <div class="section">
+      <h2>👍👎 피드백 <span class="cnt" id="fb-count"></span></h2>
+      <div class="list" id="fb-list"></div>
     </div>
   </div>
+</div>
 
-  <div class="section">
-    <h2>👍👎 피드백 <span class="cnt" id="feedback-count"></span></h2>
-    <div class="sub" style="font-size:12px;margin-bottom:10px">👎 피드백이 많이 달린 FAQ는 답변을 개선하면 좋습니다.</div>
-    <div class="list" id="feedback-list"></div>
-  </div>
-
-  <div class="section">
-    <h2>📊 FAQ별 매칭 빈도 <span class="cnt" id="faq-count"></span></h2>
-    <table>
-      <thead><tr><th>FAQ 질문</th><th style="text-align:right;width:80px">매칭</th><th style="text-align:right;width:60px">👍</th><th style="text-align:right;width:60px">👎</th></tr></thead>
-      <tbody id="faq-tbl"></tbody>
-    </table>
+<div id="modal-bg" class="modal-bg" onclick="if(event.target===this)closeSession()">
+  <div class="modal">
+    <h3><span id="m-title">세션 상세</span><button onclick="closeSession()">×</button></h3>
+    <div id="m-messages"></div>
   </div>
 </div>
 
 <script>
-const STATS_KEY = 'hrer_bot_stats';
+const TK_KEY = 'hrer_admin_token';
+let TOKEN = null;
 
-function loadStats(){
-  try { return JSON.parse(localStorage.getItem(STATS_KEY) || '{"queries":[],"misses":[],"feedback":[]}'); }
-  catch(e){ return {queries:[],misses:[],feedback:[]}; }
-}
+function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function fmtTime(t){
+  if (!t) return '-';
   const d = new Date(t);
   return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
-function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-function refresh(){
-  const s = loadStats();
-  const q = s.queries || [], m = s.misses || [], f = s.feedback || [];
-  document.getElementById('k-queries').textContent = q.length;
-  document.getElementById('k-hit').textContent = q.length ? ((q.length - m.length) / q.length * 100).toFixed(0) + '%' : '-';
-  document.getElementById('k-miss').textContent = m.length;
-  document.getElementById('k-feedback').textContent = f.length;
-
-  // 매칭 실패 (최근순)
-  const mList = document.getElementById('miss-list');
-  document.getElementById('miss-count').textContent = `${m.length}건`;
-  mList.innerHTML = m.length ? '' : '<div class="empty">아직 없음</div>';
-  m.slice().reverse().forEach(x => {
-    mList.innerHTML += `<div class="item"><div class="q">${escapeHTML(x.q)}</div><div class="t">${fmtTime(x.t)}</div></div>`;
-  });
-
-  // 최근 질문
-  const qList = document.getElementById('query-list');
-  document.getElementById('query-count').textContent = `${q.length}건`;
-  qList.innerHTML = q.length ? '' : '<div class="empty">아직 없음</div>';
-  q.slice(-50).reverse().forEach(x => {
-    const qt = x.q || (x.type === 'human_form' ? '[사람상담 신청] ' + (x.name || '') : '');
-    qList.innerHTML += `<div class="item"><div class="q">${escapeHTML(qt)}</div><div class="t">${fmtTime(x.t)}</div></div>`;
-  });
-
-  // 피드백
-  const fList = document.getElementById('feedback-list');
-  document.getElementById('feedback-count').textContent = `${f.length}건 (👍 ${f.filter(x=>x.up).length} / 👎 ${f.filter(x=>!x.up).length})`;
-  fList.innerHTML = f.length ? '' : '<div class="empty">아직 없음</div>';
-  f.slice().reverse().forEach(x => {
-    const b = x.up ? '<span class="b up">👍 도움됨</span>' : '<span class="b down">👎 부족</span>';
-    fList.innerHTML += `<div class="item"><div class="q">${b}${escapeHTML(x.a)} <span style="color:#888;margin-left:8px">← "${escapeHTML(x.q)}"</span></div><div class="t">${fmtTime(x.t)}</div></div>`;
-  });
-
-  // FAQ별 매칭 빈도
-  const faqMap = {};
-  f.forEach(x => {
-    if (!x.a) return;
-    if (!faqMap[x.a]) faqMap[x.a] = {hit:0, up:0, down:0};
-    faqMap[x.a].hit++;
-    if (x.up) faqMap[x.a].up++; else faqMap[x.a].down++;
-  });
-  const rows = Object.entries(faqMap).sort((a,b) => b[1].hit - a[1].hit);
-  document.getElementById('faq-count').textContent = `${rows.length}개 FAQ`;
-  document.getElementById('faq-tbl').innerHTML = rows.length
-    ? rows.map(([q, d]) => `<tr><td>${escapeHTML(q)}</td><td style="text-align:right">${d.hit}</td><td style="text-align:right;color:#10B981">${d.up}</td><td style="text-align:right;color:#DC2626">${d.down}</td></tr>`).join('')
-    : '<tr><td colspan="4" style="text-align:center;color:#9CA3AF;padding:24px">아직 피드백 없음</td></tr>';
+async function apiGet(view, extra=''){
+  const q = new URLSearchParams({view, ...extra});
+  const r = await fetch('/api/admin?' + q, {headers: {'X-Admin-Token': TOKEN}});
+  if (r.status === 401){
+    alert('인증 실패'); logout(); return null;
+  }
+  if (!r.ok){
+    console.error('api fail', r.status);
+    return null;
+  }
+  return await r.json();
 }
 
-function exportCSV(){
-  const s = loadStats();
-  let csv = 'type,time,data\n';
-  (s.queries||[]).forEach(x => csv += `query,${new Date(x.t).toISOString()},"${(x.q||'').replace(/"/g,'""')}"\n`);
-  (s.misses||[]).forEach(x => csv += `miss,${new Date(x.t).toISOString()},"${(x.q||'').replace(/"/g,'""')}"\n`);
-  (s.feedback||[]).forEach(x => csv += `feedback,${new Date(x.t).toISOString()},"${x.up?'up':'down'}|${(x.a||'').replace(/"/g,'""')}|${(x.q||'').replace(/"/g,'""')}"\n`);
-  const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `hrer-bot-stats-${new Date().toISOString().slice(0,10)}.csv`;
-  a.click(); URL.revokeObjectURL(url);
-}
-
-function clearAll(){
-  if (!confirm('모든 통계를 정말 삭제할까요? 되돌릴 수 없어요.')) return;
-  localStorage.removeItem(STATS_KEY);
+async function login(){
+  const t = document.getElementById('token-input').value.trim();
+  if (!t) return;
+  const r = await fetch('/api/admin?view=overview', {headers: {'X-Admin-Token': t}});
+  if (r.status === 401){
+    document.getElementById('login-err').textContent = '토큰이 올바르지 않아요.';
+    return;
+  }
+  if (!r.ok){
+    document.getElementById('login-err').textContent = '서버 오류: ' + r.status;
+    return;
+  }
+  TOKEN = t;
+  try { sessionStorage.setItem(TK_KEY, t); } catch(e){}
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
   refresh();
 }
+function logout(){
+  TOKEN = null;
+  try { sessionStorage.removeItem(TK_KEY); } catch(e){}
+  document.getElementById('login').style.display = 'block';
+  document.getElementById('dashboard').style.display = 'none';
+}
 
-refresh();
-setInterval(refresh, 5000);
+async function refresh(){
+  const d = await apiGet('overview');
+  if (!d) return;
+  const s = d.sessions || [], m = d.misses || [], f = d.feedback || [], o = d.orders || [];
+
+  document.getElementById('k-sessions').textContent = s.length;
+  const handoffCount = s.filter(x=>x.handoff_to).length;
+  document.getElementById('k-handoff').textContent = `${handoffCount} / ${s.length}`;
+  document.getElementById('k-miss').textContent = m.length;
+  document.getElementById('k-ai').textContent = m.filter(x=>x.ai_handled).length;
+  // FAQ 매칭률 추정: 전체 세션 대비 매칭 실패 비율 역산은 부정확하여 생략, 단순 건수
+  const faqPct = s.length ? Math.max(0, 100 - Math.round(m.length / Math.max(s.length,1) * 100)) : 0;
+  document.getElementById('k-faq').textContent = faqPct + '%';
+
+  // 매칭 실패
+  document.getElementById('miss-count').textContent = `${m.length}건`;
+  document.getElementById('miss-list').innerHTML = m.length
+    ? m.slice(0,50).map(x => `<div class="item"><div class="q">${x.ai_handled?'<span class="b ai">AI</span>':'<span class="b">미답</span>'}${escapeHTML(x.query)}</div><div class="t">${fmtTime(x.created_at)}</div></div>`).join('')
+    : '<div class="empty">아직 없음</div>';
+
+  // 세션 리스트
+  document.getElementById('sess-count').textContent = `${s.length}건`;
+  document.getElementById('sess-list').innerHTML = s.length
+    ? s.slice(0,50).map(x => {
+        const handoff = x.handoff_to ? `<span class="b handoff">→ ${x.handoff_to}</span>` : '';
+        const tok = (x.session_token||'').slice(-8);
+        return `<div class="item" onclick="openSession('${escapeHTML(x.session_token)}')"><div class="q">${handoff}<code style="color:#6366F1">${tok}</code> · ${fmtTime(x.first_message_at)} 시작</div><div class="t">${fmtTime(x.last_message_at)}</div></div>`;
+      }).join('')
+    : '<div class="empty">아직 세션 없음</div>';
+
+  // 의뢰 전환
+  document.getElementById('orders-count').textContent = `${o.length}건`;
+  document.getElementById('orders-list').innerHTML = o.length
+    ? o.map(x => {
+        const status = x.payment_status === 'paid' ? '<span class="status ok">결제완료</span>' : '<span class="status warn">대기</span>';
+        const title = x.handoff_summary?.title || x.service;
+        const sess = x.handoff_session ? `<code style="color:#6366F1;font-size:11px">${(x.handoff_session||'').slice(-8)}</code> ` : '';
+        return `<div class="item"><div class="q">${status} <b>${escapeHTML(x.service)}</b> ${x.tier?'('+x.tier+')':''} · ${sess}${escapeHTML(title)}</div><div class="t">${fmtTime(x.created_at)}</div></div>`;
+      }).join('')
+    : '<div class="empty">아직 의뢰 없음</div>';
+
+  // 피드백
+  document.getElementById('fb-count').textContent = `${f.length}건 (👍 ${f.filter(x=>x.up).length} / 👎 ${f.filter(x=>!x.up).length})`;
+  document.getElementById('fb-list').innerHTML = f.length
+    ? f.slice(0,50).map(x => {
+        const b = x.up ? '<span class="b up">👍</span>' : '<span class="b down">👎</span>';
+        return `<div class="item"><div class="q">${b}${escapeHTML(x.faq_id || '-')} <span style="color:#888;margin-left:8px">"${escapeHTML(x.query||'')}"</span></div><div class="t">${fmtTime(x.created_at)}</div></div>`;
+      }).join('')
+    : '<div class="empty">아직 없음</div>';
+}
+
+async function openSession(token){
+  const d = await apiGet('session', {session: token});
+  if (!d) return;
+  const msgs = d.messages || [];
+  document.getElementById('m-title').innerHTML = `세션 <code style="color:#6366F1">${token.slice(-8)}</code> · ${msgs.length}건 메시지`;
+  document.getElementById('m-messages').innerHTML = msgs.length
+    ? msgs.map(m => {
+        const who = m.role === 'user' ? '고객' : '봇';
+        const mode = m.mode ? `<span class="b ${m.mode==='faq'?'faq':m.mode==='ai'?'ai':m.mode==='escalate'?'esc':''}">${m.mode}</span>` : '';
+        return `<div class="msg ${m.role}"><div class="who">${who} · ${fmtTime(m.created_at)} ${mode}</div>${escapeHTML(m.content).replace(/\n/g,'<br>')}</div>`;
+      }).join('')
+    : '<div class="empty">메시지가 없어요.</div>';
+  document.getElementById('modal-bg').classList.add('on');
+}
+function closeSession(){
+  document.getElementById('modal-bg').classList.remove('on');
+}
+
+function exportJSON(){
+  apiGet('overview').then(d => {
+    if (!d) return;
+    const blob = new Blob([JSON.stringify(d, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `hrer-bot-${new Date().toISOString().slice(0,10)}.json`;
+    a.click(); URL.revokeObjectURL(url);
+  });
+}
+
+// 자동 로그인 (세션 저장된 경우)
+(function autologin(){
+  try {
+    const saved = sessionStorage.getItem(TK_KEY);
+    if (saved){
+      document.getElementById('token-input').value = saved;
+      login();
+    }
+  } catch(e){}
+})();
+
+// 5분마다 자동 새로고침
+setInterval(()=>{ if (TOKEN) refresh(); }, 5*60*1000);
 </script>
 </body>
 </html>

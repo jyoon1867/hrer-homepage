@@ -16,7 +16,7 @@
     "note": "주말·공휴일 접수는 다음 영업일 응답"
   },
   "greeting": {
-    "text": "안녕하세요. 👋<br>편하게 말씀해 주세요. 지금 어떤 일로 고민이 있으신지, 상황을 차근차근 정리해 나가도록 도와드릴게요.<br><br><span style=\"font-size:12px;color:#6B7280\">※ 여기서 정리한 내용은 그대로 의뢰폼으로 이어져, 같은 얘기를 두 번 쓰지 않으셔도 돼요.</span>",
+    "text": "안녕하세요. 👋<br>회사에서 마주하신 인사노무 이슈를 차근차근 정리해 볼 수 있도록 도와드릴게요. 지금 어떤 상황이 고민이세요?<br><br><span style=\"font-size:12px;color:#6B7280\">※ 여기서 정리한 내용은 그대로 의뢰폼으로 이어져, 같은 얘기를 두 번 쓰지 않으셔도 돼요.</span>",
     "use_quick_suggestions": false,
     "show_wizard_hint": false
   },
