@@ -248,7 +248,7 @@
       const c = h('button',{'class':'hrbot-chip','type':'button','onClick':()=>{
         wrap.remove();
         addUserMsg(s);
-        setTimeout(()=>respond(s), 400);
+        respond(s);
       }}, s);
       wrap.appendChild(c);
     });
@@ -301,7 +301,7 @@
       const c = h('button',{'class':'hrbot-chip','type':'button','onClick':()=>{
         wrap.remove();
         addUserMsg(f.q);
-        setTimeout(()=>respond(f.q), 300);
+        respond(f.q);
       }}, f.q);
       wrap.appendChild(c);
     });
@@ -335,7 +335,7 @@
     step.options.forEach(o => {
       card.appendChild(h('button',{'class':'hrbot-wiz-opt','type':'button','onClick':()=>{
         addUserMsg(o.label);
-        setTimeout(()=>showWizardStep(o.next), 300);
+        showWizardStep(o.next);
       }}, o.label));
     });
     body.appendChild(card); scrollBottom();
@@ -456,67 +456,134 @@
   function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
   // ============================================================
-  // AI FALLBACK (Gemini) — FAQ 미매칭 시 호출
+  // AI STREAM (Gemini) — Server-Sent Events로 토큰 단위 수신
   // ============================================================
   const AI_ENDPOINT = '/api/chat';
-  async function callAI(text){
+  function createStreamingBubble(){
+    const bubble = h('div',{'class':'hrbot-bubble','html':''});
+    const msg = h('div',{'class':'hrbot-msg bot'}, bubble);
+    body.appendChild(msg); scrollBottom();
+    return {msg, bubble};
+  }
+  async function streamAI(text, onChunk){
     const hist = (loadHistory() || []).slice(-6).map(m => ({
       role: m.role === 'user' ? 'user' : 'assistant',
       content: (m.text||'').replace(/<[^>]+>/g,'').slice(0, 400),
     }));
-    try {
-      const r = await fetch(AI_ENDPOINT, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({message: text, history: hist}),
-      });
-      if (!r.ok) throw new Error('ai_http_' + r.status);
-      return await r.json();
-    } catch(e){
-      return {reply: null, mode: 'error', error: String(e)};
+    const r = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'text/event-stream'},
+      body: JSON.stringify({message: text, history: hist, stream: true}),
+    });
+    if (!r.ok) throw new Error('ai_http_' + r.status);
+    const ctype = r.headers.get('content-type') || '';
+    // 스트리밍 미지원 시 JSON으로 폴백
+    if (!ctype.includes('text/event-stream')){
+      const data = await r.json();
+      if (data.reply) onChunk(data.reply, true);
+      return {mode: data.mode || 'json'};
     }
+    const reader = r.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '', mode = 'ai';
+    while(true){
+      const {done, value} = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, {stream:true});
+      const parts = buf.split('\n\n');
+      buf = parts.pop();
+      for (const p of parts){
+        const lines = p.split('\n');
+        for (const line of lines){
+          if (!line.startsWith('data:')) continue;
+          const raw = line.slice(5).trim();
+          if (!raw) continue;
+          if (raw === '[DONE]') continue;
+          try {
+            const j = JSON.parse(raw);
+            if (j.chunk) onChunk(j.chunk, false);
+            if (j.replace) onChunk({replace: j.replace}, false);
+            if (j.mode) mode = j.mode;
+            if (j.done) onChunk('', true);
+          } catch(e){ /* skip */ }
+        }
+      }
+    }
+    return {mode};
   }
 
   // ============================================================
-  // RESPOND
+  // RESPOND — 인위 지연 제거, 스트리밍 우선
   // ============================================================
   async function respond(text){
-    addTyping();
     recordStat('query', {q: text});
     if (!DATA){
-      await new Promise(r => setTimeout(r, 300));
-      removeTyping();
       addBotMsg('잠시만요, 데이터 로딩 중이에요. 다시 시도해 주세요.');
       return;
     }
     // 1) 법률 판단 의도 — 즉시 에스컬레이션
     if (needsEscalation(text)){
-      await new Promise(r => setTimeout(r, 400));
-      removeTyping();
       consecutiveMisses = 0;
       addBotMsg(DATA.escalate.message);
       addActions(DATA.escalate.actions);
       return;
     }
-    // 2) FAQ 매칭
+    // 2) FAQ 매칭 — 즉시 답변 (인위 지연 삭제)
     const m = matchFAQ(text);
     if (m){
-      await new Promise(r => setTimeout(r, 400));
-      removeTyping();
       consecutiveMisses = 0;
       addBotMsg(m.a, {feedback:true, query:text, faqId:m.q});
       if (m.cta) addActions(m.cta);
       return;
     }
-    // 3) FAQ 미매칭 → AI 폴백 (Gemini)
-    const ai = await callAI(text);
-    removeTyping();
-    if (ai.reply && ai.mode !== 'error' && ai.mode !== 'no_api_key'){
-      consecutiveMisses = 0;
-      addBotMsg(ai.reply, {feedback:true, query:text, faqId:'[AI]'+ai.mode});
-      return;
+    // 3) FAQ 미매칭 → AI 스트리밍
+    addTyping();
+    let streamMsg = null, streamBubble = null, accumulated = '';
+    try {
+      const result = await streamAI(text, (chunk, done) => {
+        if (!streamMsg){
+          removeTyping();
+          const s = createStreamingBubble();
+          streamMsg = s.msg; streamBubble = s.bubble;
+        }
+        if (chunk && typeof chunk === 'object' && chunk.replace){
+          // 위험 패턴 감지 시 전체 텍스트 교체
+          accumulated = chunk.replace;
+          streamBubble.innerHTML = accumulated;
+          scrollBottom();
+        } else if (typeof chunk === 'string' && chunk){
+          accumulated += chunk;
+          streamBubble.innerHTML = accumulated;
+          scrollBottom();
+        }
+        if (done && streamBubble){
+          // 피드백 버튼 부착
+          const fb = h('div',{'class':'hrbot-feedback'});
+          const up = h('button',{'class':'up','onClick':()=>{
+            up.classList.add('active'); up.disabled = true; down.disabled = true;
+            recordStat('feedback', {q:text, a:'[AI]', up:true});
+          }},'👍 도움됐어요');
+          const down = h('button',{'class':'down','onClick':()=>{
+            down.classList.add('active'); up.disabled = true; down.disabled = true;
+            recordStat('feedback', {q:text, a:'[AI]', up:false});
+          }},'👎 부족해요');
+          fb.appendChild(up); fb.appendChild(down);
+          streamMsg.appendChild(fb); scrollBottom();
+          rec('bot', accumulated);
+        }
+      });
+      if (result && result.mode === 'ai'){
+        consecutiveMisses = 0;
+        return;
+      }
+      // 스트리밍 성공했지만 ai 모드가 아닌 경우 (no_api_key 등) → fallback 처리 이어감
+      if (accumulated) return;
+    } catch(e){
+      console.error('stream_error', e);
     }
-    // 4) AI도 실패 → 기존 fallback
+    // 4) AI 실패 → fallback
+    removeTyping();
+    if (streamMsg) streamMsg.remove();
     consecutiveMisses++;
     recordStat('miss', {q: text});
     addBotMsg(DATA.fallback.text);
