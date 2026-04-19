@@ -263,6 +263,8 @@
         el = h('button',{'class':'hrbot-action'+(a.ghost?' ghost':''),'onClick':()=>{wrap.remove();showHumanForm();}}, a.label);
       } else if (a.action === 'start-wizard'){
         el = h('button',{'class':'hrbot-action'+(a.ghost?' ghost':''),'onClick':()=>{wrap.remove();startWizard();}}, a.label);
+      } else if (a.action === 'handoff'){
+        el = h('button',{'class':'hrbot-action'+(a.ghost?' ghost':''),'onClick':()=>{wrap.remove();summarizeAndHandoff();}}, a.label);
       } else if (a.href){
         el = h('a',{'class':'hrbot-action'+(a.ghost?' ghost':''),'href':a.href}, a.label);
       }
@@ -388,6 +390,72 @@
   }
 
   // ============================================================
+  // HANDOFF — 대화 내용을 의뢰폼으로 넘기기
+  // ============================================================
+  const HANDOFF_KEY = 'hrer_bot_handoff';
+  const SUMMARIZE_ENDPOINT = '/api/summarize';
+  const ORDER_ROUTES = {
+    'consult': '/order',
+    'unfair-dismissal': '/order_unfair-dismissal',
+    'investigation': '/order_investigation',
+    'hr-evaluation': '/order_hr_evaluation',
+    'employment-rules': '/order_employment_rules',
+  };
+  async function summarizeAndHandoff(){
+    const hist = loadHistory() || [];
+    const userCount = hist.filter(m => m.role==='user').length;
+    if (userCount < 1){
+      addBotMsg('아직 대화 내용이 충분하지 않아요. 몇 가지 질문을 더 나눠주시거나, <a href="/order">바로 의뢰 폼</a>으로 가셔도 됩니다.', {norecord:true});
+      return;
+    }
+    addTyping();
+    recordStat('query', {type:'handoff'});
+    try {
+      const r = await fetch(SUMMARIZE_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({history: hist}),
+      });
+      const data = await r.json();
+      removeTyping();
+      // localStorage에 핸드오프 데이터 저장 (30분 유효)
+      const payload = {
+        at: Date.now(),
+        summary: data.summary || '',
+        bullets: data.bullets || [],
+        title: data.title || '상담봇 대화 문의',
+        recommended: data.recommended || 'consult',
+        tier: data.tier || null,
+        transcript: hist.slice(-40).map(m => ({
+          role: m.role,
+          text: (m.text||'').replace(/<[^>]+>/g,'').slice(0,600),
+          at: m.at,
+        })),
+      };
+      try { localStorage.setItem(HANDOFF_KEY, JSON.stringify(payload)); } catch(e){}
+      // 요약 확인 카드 표시
+      const card = h('div',{'class':'hrbot-wiz-result'}, [
+        h('h5',null,'📋 의뢰폼으로 보낼 요약'),
+        h('p',{'html': '<strong>제목:</strong> '+escapeHTML(payload.title)+'<br><br><strong>요지:</strong><br>'+escapeHTML(payload.summary)+'<br><br>'+(payload.bullets.length?'<strong>핵심 포인트:</strong><br>• '+payload.bullets.map(escapeHTML).join('<br>• '):'')}),
+        h('p',{'style':{fontSize:'12px',color:'#6B7280',marginBottom:'14px'}},'의뢰 페이지에서 확인·수정 후 제출하실 수 있어요. 전체 대화 기록도 자동 첨부됩니다.'),
+        (function(){
+          const w = h('div',{'class':'hrbot-actions'});
+          const route = ORDER_ROUTES[payload.recommended] || '/order';
+          const url = route + '?from=chatbot';
+          w.appendChild(h('a',{'class':'hrbot-action','href':url},'✅ 의뢰 페이지로 이동'));
+          w.appendChild(h('button',{'class':'hrbot-action ghost','type':'button','onClick':()=>{card.remove(); addBotMsg('더 이야기 나눠주세요!', {norecord:true});}},'↩ 대화 계속하기'));
+          return w;
+        })(),
+      ]);
+      body.appendChild(card); scrollBottom();
+    } catch(e){
+      removeTyping();
+      addBotMsg('요약에 실패했어요. <a href="/order">의뢰 폼으로 직접 이동</a>하셔도 돼요.', {norecord:true});
+    }
+  }
+  function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // ============================================================
   // AI FALLBACK (Gemini) — FAQ 미매칭 시 호출
   // ============================================================
   const AI_ENDPOINT = '/api/chat';
@@ -506,7 +574,8 @@
         ]),
         h('div',{'class':'hrbot-head-btns'},[
           h('button',{'aria-label':'카테고리 보기','title':'카테고리 보기','onClick':showCategories},'📋'),
-          h('button',{'aria-label':'서비스 추천','title':'서비스 추천','onClick':startWizard},'🧭'),
+          h('button',{'aria-label':'서비스 추천 마법사','title':'서비스 추천 마법사','onClick':startWizard},'🧭'),
+          h('button',{'aria-label':'이 대화로 의뢰하기','title':'이 대화로 의뢰하기','onClick':summarizeAndHandoff},'🎯'),
           h('button',{'aria-label':'대화 초기화','title':'대화 초기화','onClick':resetChat},'🔄'),
           h('button',{'aria-label':'닫기','class':'close-btn','onClick':close},'×')
         ])
