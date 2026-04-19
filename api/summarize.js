@@ -22,8 +22,19 @@ HRer의 주 타겟은 회사·사용자 입장의 고객입니다: <b>대표·HR
   "bullets": ["핵심 사실 1", "핵심 사실 2", "핵심 사실 3"],
   "recommended": "consult" | "unfair-dismissal" | "investigation" | "hr-evaluation" | "employment-rules",
   "tier": "simple" | "deep" | "written" | null,
-  "title": "20자 내외 제목"
+  "title": "20자 내외 제목",
+  "taxonomyId": "임금수당|근로시간|연차휴가|해고|징계|퇴직|근로계약|취업규칙|괴롭힘|성희롱|인사평가|인사이동|노사관계|산업안전|모성보호|외국인|비밀유지|개인정보|채용|사건|감독|기타 중 하나"
 }
+
+# taxonomyId 선정 기준
+- 대화에서 다뤄진 '주제'를 가장 잘 나타내는 대분류 1개 선택
+- 해고·징계 관련 → '해고' 또는 '징계'
+- 구제신청·심문·답변서 → '사건'
+- 괴롭힘·성희롱 신고·조사 → '괴롭힘' 또는 '성희롱'
+- 임금·수당·퇴직금 → '임금수당' 또는 '퇴직'
+- 취업규칙 제정·개정 → '취업규칙'
+- 평가제도 설계 → '인사평가'
+- 판단 불가 시 '기타'
 
 # 추천 기준
 - consult(노무자문): 법·규정 해석 질문, 절차 문의, 단발 이슈
@@ -182,6 +193,19 @@ export default async function handler(req){
   const validTier = ['simple','deep','written'];
   if (parsed.recommended !== 'consult') parsed.tier = null;
   else if (!validTier.includes(parsed.tier)) parsed.tier = 'simple';
+  const validTax = ['임금수당','근로시간','연차휴가','해고','징계','퇴직','근로계약','취업규칙','괴롭힘','성희롱','인사평가','인사이동','노사관계','산업안전','모성보호','외국인','비밀유지','개인정보','채용','사건','감독','기타'];
+  let taxonomyId = parsed.taxonomyId || null;
+  if (!validTax.includes(taxonomyId)) {
+    // 서비스에서 역추론
+    const fallback = {
+      'unfair-dismissal':'사건',
+      'investigation':'괴롭힘',
+      'hr-evaluation':'인사평가',
+      'employment-rules':'취업규칙',
+      'consult':'기타',
+    };
+    taxonomyId = fallback[parsed.recommended] || '기타';
+  }
 
   return new Response(JSON.stringify({
     summary: String(parsed.summary||'').slice(0, 1000),
@@ -189,6 +213,7 @@ export default async function handler(req){
     recommended: parsed.recommended,
     tier: parsed.tier,
     title: String(parsed.title||'챗봇 대화 문의').slice(0, 40),
+    taxonomyId,
     mode: 'ai',
   }), {status:200, headers});
 }
