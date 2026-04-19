@@ -65,7 +65,8 @@
       });
       if (score > bestScore){ bestScore = score; best = f; }
     });
-    return bestScore >= 2 ? best : null;
+    // FAQ 매칭 점수 임계값 상향 — 단일 키워드만으론 매칭 안 되게
+    return bestScore >= 5 ? best : null;
   }
 
   function needsEscalation(text){
