@@ -173,14 +173,24 @@ async function *streamGemini(apiKey, systemPrompt, messages){
     ],
   };
 
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload),
-  });
+  const controller = new AbortController();
+  const timer = setTimeout(()=>controller.abort(), 18000);
+  let r;
+  try {
+    r = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+  } catch(e){
+    clearTimeout(timer);
+    throw new Error(`Gemini fetch failed: ${e.name} ${e.message}`);
+  }
 
   if (!r.ok){
     const txt = await r.text();
+    clearTimeout(timer);
     throw new Error(`Gemini ${r.status}: ${txt.slice(0,200)}`);
   }
 
@@ -190,7 +200,7 @@ async function *streamGemini(apiKey, systemPrompt, messages){
 
   while(true){
     const {done, value} = await reader.read();
-    if (done) break;
+    if (done){ clearTimeout(timer); break; }
     buf += decoder.decode(value, {stream:true});
     const parts = buf.split('\n\n');
     buf = parts.pop();
