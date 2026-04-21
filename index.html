@@ -88,10 +88,18 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 /* SERVICES — 벤토 그리드 */
 .bento-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.bento-card{border-radius:var(--card-radius);padding:32px 26px;border:1px solid var(--border);background:var(--white);transition:box-shadow 0.2s,border-color 0.2s}
-.bento-card:hover{box-shadow:0 4px 24px rgba(0,0,0,0.06);border-color:var(--mint)}
-.bento-icon{font-size:28px;margin-bottom:14px}
-.bento-card h3{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px}
+.bento-card{position:relative;display:block;border-radius:var(--card-radius);padding:32px 26px;border:1px solid var(--border);background:var(--white);transition:transform 0.2s ease,box-shadow 0.2s ease,border-color 0.2s ease,background 0.2s ease;color:inherit;text-decoration:none;cursor:pointer;overflow:hidden}
+.bento-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--mint),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform 0.3s ease}
+.bento-card::after{content:"→";position:absolute;top:28px;right:26px;width:32px;height:32px;border-radius:50%;background:#F3F4F6;color:var(--gray2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;transition:background 0.2s ease,color 0.2s ease,transform 0.2s ease}
+.bento-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,184,147,0.16);border-color:var(--mint);background:#FAFFFE}
+.bento-card:hover::before{transform:scaleX(1)}
+.bento-card:hover::after{background:var(--mint);color:#fff;transform:translateX(4px)}
+.bento-card:hover .bento-icon{transform:scale(1.15) rotate(-4deg)}
+.bento-card:hover h3{color:var(--mint)}
+.bento-card:hover .bento-link{color:var(--mint);letter-spacing:0.2px}
+.bento-card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.bento-icon{font-size:32px;margin-bottom:14px;display:inline-block;transition:transform 0.3s ease;line-height:1}
+.bento-card h3{font-size:20px;font-weight:800;margin-bottom:8px;letter-spacing:-0.3px;transition:color 0.2s ease;padding-right:40px}
 .bento-card p{font-size:15px;color:var(--gray);line-height:1.7;margin-bottom:14px;font-weight:500}
 .bento-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .bento-tags span{background:#F5F5F5;color:#555;font-size:12px;padding:4px 10px;border-radius:6px;font-weight:500}
@@ -366,48 +374,48 @@ body.modal-open{overflow:hidden}
   <h2 class="section-title"><em>인사</em>와 <em>노무</em>, 한곳에서</h2>
   <p class="section-sub">이메일 중심, 합리적 비용으로 운영됩니다</p>
   <div class="bento-grid">
-    <div class="bento-card">
+    <a href="/consultation" class="bento-card">
       <div class="bento-icon">💬</div>
       <h3>노무 자문</h3>
       <p>이메일로 질문하면, <em>판례·행정해석 근거</em>와 함께 서면 답변을 드립니다. <em>건별 결제</em>. 간편자문 130,000원부터(VAT 별도).</p>
       <div class="bento-tags"><span>서면 자문</span><span>판례 기반</span><span>건별 결제</span></div>
-      <a href="/consultation" class="bento-link">자세히 보기 →</a>
-    </div>
-    <div class="bento-card">
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
+    <a href="/hr-evaluation" class="bento-card">
       <div class="bento-icon">📊</div>
       <h3>인사평가·보상 설계</h3>
       <p><em>NCS 국가표준</em> 기반, <em>17개 역량·22개 직무</em>. 대법원 판례 기준을 반영한 <em>공정한 평가 체계</em>.</p>
       <div class="bento-tags"><span>NCS 기반</span><span>성과+역량 분리</span><span>표준점수</span></div>
-      <a href="/hr-evaluation" class="bento-link">자세히 보기 →</a>
-    </div>
-    <div class="bento-card">
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
+    <a href="/employment-rules" class="bento-card">
       <div class="bento-icon">📝</div>
       <h3>취업규칙 정비</h3>
       <p><em>신규 제정</em>부터 <em>기존 개정</em>까지. <em>모듈형 시스템</em>으로 2026 법 개정 자동 반영.</p>
       <div class="bento-tags"><span>신규 제정</span><span>기존 개정</span><span>모듈형</span></div>
-      <a href="/employment-rules" class="bento-link">자세히 보기 →</a>
-    </div>
-    <div class="bento-card">
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
+    <a href="/investigation" class="bento-card">
       <div class="bento-icon">🔍</div>
       <h3>직장 내 사건 조사</h3>
       <p>괴롭힘·성희롱 <em>외부 전문 조사</em>. <em>비대면 원칙</em>, 조사보고서 포함.</p>
       <div class="bento-tags"><span>괴롭힘</span><span>성희롱</span><span>비대면</span></div>
-      <a href="/investigation" class="bento-link">자세히 보기 →</a>
-    </div>
-    <div class="bento-card">
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
+    <a href="/unfair-dismissal" class="bento-card">
       <div class="bento-icon">⚖️</div>
       <h3>부당해고·노동위원회</h3>
       <p>초기 상담부터 심문회의 참석까지. <em>단계별로 필요한 만큼만</em> 의뢰하세요.</p>
       <div class="bento-tags"><span>구제신청</span><span>답변서</span><span>심문회의</span></div>
-      <a href="/unfair-dismissal" class="bento-link">자세히 보기 →</a>
-    </div>
-    <div class="bento-card">
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
+    <a href="/hr-evaluation#compensation" class="bento-card">
       <div class="bento-icon">💰</div>
       <h3>보상 설계·저성과자 관리</h3>
       <p>평가→보상 연계, <em>PIP 자동 생성</em>. <em>법적 리스크 없는</em> 저성과자 관리.</p>
       <div class="bento-tags"><span>임금체계</span><span>성과급</span><span>PIP</span></div>
-      <a href="/hr-evaluation#compensation" class="bento-link">자세히 보기 →</a>
-    </div>
+      <span class="bento-link">자세히 보기 →</span>
+    </a>
   </div>
 </div>
 </section>
