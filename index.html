@@ -377,8 +377,7 @@ body[data-stage="1"] .process-card .step-num,body[data-stage="6"] .process-card 
 .bento-card:hover{padding-left:24px;padding-right:24px;background:rgba(0,184,147,0.04)}
 .bento-card .bento-num{font-size:clamp(28px,2.8vw,42px);font-weight:900;letter-spacing:-1.5px;color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;transition:color 0.25s ease}
 .bento-card:hover .bento-num{color:var(--mint)}
-.bento-card h3{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.8px;line-height:1.2;margin:0 0 10px;color:var(--dark);transition:color 0.25s ease}
-.bento-card .bento-meta{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:1.8px;text-transform:uppercase;line-height:1.6;margin-bottom:0}
+.bento-card h3{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.8px;line-height:1.2;margin:0;color:var(--dark);transition:color 0.25s ease}
 .bento-card:hover h3{color:var(--dark)}
 .bento-card p{font-size:14.5px;color:var(--gray);line-height:1.7;font-weight:500;margin:0}
 .bento-card p em{font-style:normal;color:var(--dark);font-weight:700;-webkit-text-fill-color:var(--dark);background:none}
@@ -587,12 +586,6 @@ body[data-stage="5"] .faq-item{border-bottom-color:rgba(15,39,68,0.08)}
 .modal-head h3{font-size:23px;font-weight:800;letter-spacing:-0.5px;line-height:1.35;color:var(--dark)}
 .modal-close{background:none;border:none;cursor:pointer;padding:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0;transition:color 0.15s}
 .modal-close:hover{color:var(--dark)}
-.modal-nav{display:flex;align-items:center;gap:0;flex-shrink:0;margin-right:4px}
-.modal-nav button{background:none;border:none;cursor:pointer;padding:6px 10px;font-size:15px;color:var(--gray);line-height:1;font-weight:400;font-family:inherit;transition:color 0.2s ease,transform 0.25s cubic-bezier(0.2,0.8,0.2,1)}
-.modal-nav button:hover{color:var(--mint)}
-.modal-nav .mn-prev:hover{transform:translateX(-3px)}
-.modal-nav .mn-next:hover{transform:translateX(3px)}
-.modal-nav .mn-count{font-size:10.5px;font-weight:700;color:var(--gray2);letter-spacing:2px;padding:0 10px;font-variant-numeric:tabular-nums}
 .modal-body{padding:28px 36px 32px;max-height:70vh;overflow-y:auto}
 .modal-qa{margin-bottom:28px;padding:2px 0 2px 20px;border-left:2px solid var(--dark);background:transparent;border-radius:0}
 .modal-qa-label{font-size:10.5px;font-weight:700;color:var(--dark);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
@@ -631,22 +624,7 @@ body.modal-open{overflow:hidden}
 
 /* FOOTER */
 .footer{background:var(--white);color:var(--gray);padding:56px 0 28px;border-top:1px solid var(--border)}
-.footer-inner{display:grid;grid-template-columns:1.3fr 0.9fr 0.9fr 1.4fr;gap:48px}
-/* Newsletter signup */
-.newsletter h5{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.newsletter h5::before{content:"";width:28px;height:1px;background:var(--mint)}
-.newsletter .nl-desc{font-size:13.5px;color:var(--gray);line-height:1.65;margin-bottom:18px;max-width:340px;font-weight:500}
-.newsletter .nl-desc em{color:var(--dark);font-weight:700;font-style:normal}
-.newsletter .nl-form{display:flex;align-items:center;gap:0;border-bottom:1.5px solid var(--dark);padding-bottom:8px;max-width:340px;transition:border-color 0.25s ease}
-.newsletter .nl-form:focus-within{border-bottom-color:var(--mint)}
-.newsletter .nl-input{flex:1;border:none;background:transparent;padding:6px 0;font-size:14px;font-family:inherit;font-weight:500;color:var(--dark);outline:none;min-width:0}
-.newsletter .nl-input::placeholder{color:var(--gray2)}
-.newsletter .nl-btn{flex-shrink:0;background:transparent;border:none;color:var(--dark);font-size:18px;font-weight:400;cursor:pointer;padding:4px 0 4px 14px;font-family:inherit;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease}
-.newsletter .nl-btn:hover{color:var(--mint);transform:translateX(5px)}
-.newsletter .nl-note{font-size:11px;color:var(--gray2);margin-top:12px;line-height:1.65;letter-spacing:0.1px}
-.newsletter .nl-success{display:none;font-size:13px;color:var(--mint);font-weight:700;margin-top:12px;align-items:center;gap:8px}
-.newsletter .nl-success.show{display:flex}
-.newsletter .nl-success::before{content:"✓";font-size:14px}
+.footer-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 .footer-col h5{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:14px;letter-spacing:-0.2px}
 .footer-logo{font-size:22px;font-weight:900;margin-bottom:10px;color:var(--dark)}
 .footer-info{font-size:12.5px;line-height:1.9;color:var(--gray2)}
@@ -700,7 +678,7 @@ body.modal-open{overflow:hidden}
   .delv-row{grid-template-columns:80px 1fr;gap:16px;padding:28px 0}
   .delv-idx{font-size:56px;letter-spacing:-3px}
   .delv-meta,.delv-arrow{grid-column:1/-1;padding-left:96px}
-  .footer-inner{grid-template-columns:1fr;gap:40px}
+  .footer-inner{flex-direction:column}
 }
 </style>
 <!-- HRer-SEO-START -->
@@ -907,42 +885,36 @@ body.modal-open{overflow:hidden}
     <a href="/consultation" class="bento-card fade-up">
       <div class="bento-num">01</div>
       <h3>노무 자문</h3>
-      <div class="bento-meta">Written Opinion · Legal Citation · Risk Review</div>
       <p>판례·행정해석 근거로 <em>서면 답변</em>. 건별 결제, 간편자문 <em>143,000원</em>부터.</p>
       <span class="bento-arrow">↗</span>
     </a>
     <a href="/hr-evaluation" class="bento-card fade-up">
       <div class="bento-num">02</div>
       <h3>인사평가·보상 설계</h3>
-      <div class="bento-meta">NCS · Psychometrics · Compensation Design</div>
       <p>NCS 기반 <em>17개 역량·22개 직무</em>. 평가자 성향 보정·성과 예측.</p>
       <span class="bento-arrow">↗</span>
     </a>
     <a href="/employment-rules" class="bento-card fade-up">
       <div class="bento-num">03</div>
       <h3>취업규칙 정비</h3>
-      <div class="bento-meta">Drafting · Revision · Comparison Chart</div>
       <p>신규 제정부터 개정까지. <em>모듈형 시스템</em>으로 2026 법 개정 자동 반영.</p>
       <span class="bento-arrow">↗</span>
     </a>
     <a href="/investigation" class="bento-card fade-up">
       <div class="bento-num">04</div>
       <h3>직장 내 사건 조사</h3>
-      <div class="bento-meta">Fact-finding · Judgment · Investigation Report</div>
       <p>괴롭힘·성희롱 외부 전문 조사. <em>비대면 원칙</em>, 조사보고서 포함.</p>
       <span class="bento-arrow">↗</span>
     </a>
     <a href="/unfair-dismissal" class="bento-card fade-up">
       <div class="bento-num">05</div>
       <h3>부당해고·노동위원회</h3>
-      <div class="bento-meta">Case Representation · Pleading · Hearing</div>
       <p>초기 상담부터 심문회의까지. <em>단계별로 필요한 만큼만</em>.</p>
       <span class="bento-arrow">↗</span>
     </a>
     <a href="/hr-evaluation#compensation" class="bento-card fade-up">
       <div class="bento-num">06</div>
       <h3>보상 설계·저성과자 관리</h3>
-      <div class="bento-meta">Compensation · PIP · Low-performer Management</div>
       <p>평가→보상 연계, <em>PIP 자동 생성</em>. 법적 리스크 없는 저성과자 관리.</p>
       <span class="bento-arrow">↗</span>
     </a>
@@ -1307,11 +1279,6 @@ body.modal-open{overflow:hidden}
         <div class="modal-tag">A1 · Written Opinion</div>
         <h3>출퇴근 중 사고의 산재보험 처리와 회사 책임 범위</h3>
       </div>
-      <div class="modal-nav">
-        <button class="mn-prev" onclick="navSample(-1)" aria-label="이전 샘플">←</button>
-        <span class="mn-count">01 / 04</span>
-        <button class="mn-next" onclick="navSample(1)" aria-label="다음 샘플">→</button>
-      </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
@@ -1363,11 +1330,6 @@ body.modal-open{overflow:hidden}
         <div class="modal-tag">A2 · Analysis Report</div>
         <h3>지각·무단결근을 이유로 한 해고, 이길 수 있을까?</h3>
       </div>
-      <div class="modal-nav">
-        <button class="mn-prev" onclick="navSample(-1)" aria-label="이전 샘플">←</button>
-        <span class="mn-count">02 / 04</span>
-        <button class="mn-next" onclick="navSample(1)" aria-label="다음 샘플">→</button>
-      </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
@@ -1416,11 +1378,6 @@ body.modal-open{overflow:hidden}
       <div>
         <div class="modal-tag">A3 · Investigation Report</div>
         <h3>공정한 조사가 먼저, 전문적 판단은 그 다음</h3>
-      </div>
-      <div class="modal-nav">
-        <button class="mn-prev" onclick="navSample(-1)" aria-label="이전 샘플">←</button>
-        <span class="mn-count">03 / 04</span>
-        <button class="mn-next" onclick="navSample(1)" aria-label="다음 샘플">→</button>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
@@ -1477,11 +1434,6 @@ body.modal-open{overflow:hidden}
       <div>
         <div class="modal-tag">A4 · Policy Package</div>
         <h3>2026년 법 개정 반영, 이렇게 정리됩니다</h3>
-      </div>
-      <div class="modal-nav">
-        <button class="mn-prev" onclick="navSample(-1)" aria-label="이전 샘플">←</button>
-        <span class="mn-count">04 / 04</span>
-        <button class="mn-next" onclick="navSample(1)" aria-label="다음 샘플">→</button>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
@@ -1541,54 +1493,16 @@ body.modal-open{overflow:hidden}
 </div>
 
 <script>
-// Sample modals with prev/next navigation
-const SAMPLE_ORDER=['consult','dismissal','invest','rules'];
-const SAMPLE_MAP={consult:'modalConsult',dismissal:'modalDismissal',invest:'modalInvest',rules:'modalRules'};
-let currentSample=null;
 function openSample(id){
-  const el=document.getElementById(SAMPLE_MAP[id]);
-  if(!el)return;
-  document.querySelectorAll('.modal-backdrop.active').forEach(m=>m.classList.remove('active'));
-  el.classList.add('active');
-  document.body.classList.add('modal-open');
-  currentSample=id;
-  // Reset scroll to top of modal body
-  const body=el.querySelector('.modal-body');
-  if(body)body.scrollTop=0;
+  const map={consult:'modalConsult',dismissal:'modalDismissal',invest:'modalInvest',rules:'modalRules'};
+  const el=document.getElementById(map[id]);
+  if(el){ el.classList.add('active'); document.body.classList.add('modal-open'); }
 }
 function closeSample(){
   document.querySelectorAll('.modal-backdrop.active').forEach(m=>m.classList.remove('active'));
   document.body.classList.remove('modal-open');
-  currentSample=null;
 }
-function navSample(dir){
-  if(!currentSample)return;
-  const i=SAMPLE_ORDER.indexOf(currentSample);
-  if(i<0)return;
-  const next=(i+dir+SAMPLE_ORDER.length)%SAMPLE_ORDER.length;
-  openSample(SAMPLE_ORDER[next]);
-}
-document.addEventListener('keydown', e=>{
-  if(!document.body.classList.contains('modal-open'))return;
-  if(e.key==='Escape')closeSample();
-  else if(e.key==='ArrowRight')navSample(1);
-  else if(e.key==='ArrowLeft')navSample(-1);
-});
-
-// Newsletter subscribe (client-side stub — wire to backend later)
-function subscribeNewsletter(e){
-  e.preventDefault();
-  const form=e.target;
-  const email=form.querySelector('.nl-input').value.trim();
-  if(!email||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return;
-  // TODO: POST to /api/subscribe
-  form.style.display='none';
-  const note=form.parentElement.querySelector('.nl-note');
-  if(note)note.style.display='none';
-  const ok=form.parentElement.querySelector('.nl-success');
-  if(ok)ok.classList.add('show');
-  try{localStorage.setItem('hrer_newsletter_email',email);}catch(_){}
-}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); });
 </script>
 
 <!-- FOOTER -->
@@ -1621,16 +1535,6 @@ function subscribeNewsletter(e){
         <a href="/privacy">개인정보처리방침</a>
         <a href="/#faq">자주 묻는 질문</a>
       </div>
-    </div>
-    <div class="footer-col newsletter">
-      <h5>Monthly Briefing</h5>
-      <p class="nl-desc">매월 <em>노동법령 개정</em>과 <em>주요 판정례</em>를 메일 한 통으로 받아보세요.</p>
-      <form class="nl-form" onsubmit="subscribeNewsletter(event)" novalidate>
-        <input type="email" class="nl-input" name="email" placeholder="you@company.com" required>
-        <button type="submit" class="nl-btn" aria-label="구독하기">→</button>
-      </form>
-      <p class="nl-note">개인정보는 브리핑 발송에만 사용하며 언제든 해지 가능합니다.</p>
-      <div class="nl-success">구독 신청 완료. 다음 호를 기다려주세요.</div>
     </div>
   </div>
   <div class="footer-copy">
