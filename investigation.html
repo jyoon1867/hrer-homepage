@@ -70,20 +70,29 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
 /* 2-STAGE */
-.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:960px;margin:0 auto}
-.stage-card{border-radius:var(--card-radius);padding:36px 32px;background:var(--white);border:2px solid var(--border);position:relative}
-.stage-card.s1{background:linear-gradient(135deg,#F0FDF4 0%,#fff 60%);border-color:var(--mint)}
-.stage-card.s2{background:linear-gradient(135deg,#EEF2FF 0%,#fff 60%);border-color:var(--blue)}
-.stage-card .stage-label{display:inline-block;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:14px;color:#fff}
-.stage-card.s1 .stage-label{background:var(--mint)}
-.stage-card.s2 .stage-label{background:var(--blue)}
-.stage-card h3{font-size:24px;font-weight:900;margin-bottom:10px;letter-spacing:-0.5px}
-.stage-card .sub{font-size:14px;color:var(--gray);margin-bottom:18px;line-height:1.7}
-.stage-list{display:flex;flex-direction:column;gap:10px}
-.stage-item{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.65;color:#333}
-.stage-item .ck{flex-shrink:0;width:20px;height:20px;border-radius:5px;background:var(--mint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:2px}
-.stage-card.s2 .stage-item .ck{background:var(--blue)}
-.stage-divider{text-align:center;font-size:15px;color:var(--gray);font-weight:600;margin:32px auto 0;max-width:640px;padding:14px 20px;background:#FFFBEB;border:1px dashed #FDE68A;border-radius:10px}
+/* STAGE — v2 Editorial Magazine (先/後 flow with arrow) */
+.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1100px;margin:56px auto 0;position:relative;padding-top:24px;border-top:1px solid rgba(25,25,25,0.15)}
+.stage-grid::before{content:"→";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:32px;font-weight:300;color:var(--mint);z-index:1;background:#fff;padding:14px 10px;line-height:1}
+.stage-card{border-radius:0;padding:40px 0 8px 32px;background:transparent;border:none;border-left:2px solid rgba(25,25,25,0.15);position:relative;cursor:pointer;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1),border-color 0.3s ease}
+.stage-card.s1{border-left-color:var(--mint)}
+.stage-card.s2{border-left-color:var(--dark)}
+.stage-card:hover{padding-left:40px}
+.stage-card .stage-label{display:flex;align-items:baseline;gap:14px;padding:0;border-radius:0;font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;color:var(--mint);background:transparent}
+.stage-card.s2 .stage-label{color:var(--dark)}
+.stage-card .stage-label::before{content:attr(data-num);font-size:clamp(56px,6.5vw,96px);font-weight:900;letter-spacing:-3px;line-height:0.85;color:transparent;-webkit-text-stroke:1.5px var(--mint);font-variant-numeric:tabular-nums}
+.stage-card.s2 .stage-label::before{-webkit-text-stroke-color:var(--dark)}
+.stage-card h3{font-size:clamp(26px,2.8vw,36px);font-weight:900;margin:4px 0 14px;letter-spacing:-1px;color:var(--dark);line-height:1.15}
+.stage-card .sub{font-size:15.5px;color:var(--gray);margin-bottom:28px;line-height:1.75;font-weight:500;padding-bottom:24px;border-bottom:1px dashed rgba(25,25,25,0.15)}
+.stage-card .sub em{color:var(--dark);font-weight:700;font-style:normal;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.stage-card.s2 .sub em{border-bottom-color:var(--dark)}
+.stage-list{display:flex;flex-direction:column;gap:0;list-style:none;padding:0}
+.stage-item{display:flex;align-items:flex-start;gap:14px;font-size:14px;line-height:1.7;color:var(--dark);padding:11px 0;border-bottom:1px solid rgba(25,25,25,0.06);font-weight:500}
+.stage-item:last-child{border-bottom:none}
+.stage-item .ck{flex-shrink:0;width:auto;height:auto;border-radius:0;background:transparent!important;color:var(--mint)!important;display:inline-flex;align-items:center;justify-content:flex-start;font-size:10.5px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums;letter-spacing:1.5px;min-width:24px}
+.stage-card.s2 .stage-item .ck{color:var(--dark)!important}
+.stage-divider{display:flex;align-items:center;gap:14px;text-align:left;font-size:13px;color:var(--gray);font-weight:500;margin:48px auto 0;max-width:1100px;padding:20px 0 0;background:transparent;border:none;border-top:1px solid rgba(25,25,25,0.1);border-radius:0;line-height:1.7}
+.stage-divider::before{content:"NOTE";font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2.5px;padding-right:14px;border-right:1px solid rgba(25,25,25,0.15);flex-shrink:0}
+.stage-divider em{color:var(--dark);font-weight:700;font-style:normal}
 
 /* WHY MATTERS */
 .why-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
@@ -156,10 +165,9 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   .section-title{font-size:26px}
 }
 
-.stage-card{cursor:pointer;transition:all 0.2s}
-.stage-card:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,0.1)}
-.stage-card::before{content:'자세히 보기 →';position:absolute;top:20px;right:24px;font-size:11.5px;font-weight:700;opacity:0.5;transition:opacity 0.2s,transform 0.2s}
-.stage-card:hover::before{opacity:1;transform:translateX(3px)}
+.stage-card{cursor:pointer}
+.stage-card::after{content:"↗";position:absolute;top:48px;right:0;font-size:18px;font-weight:400;color:rgba(25,25,25,0.35);transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease}
+.stage-card:hover::after{color:var(--mint);transform:translate(4px,-4px)}
 .why-card{cursor:pointer;position:relative}
 /* I-MODAL */
 .i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
@@ -252,31 +260,31 @@ body.i-open{overflow:hidden}
 
   <div class="stage-grid">
     <div class="stage-card s1" onclick="openI('stage1')">
-      <span class="stage-label">STAGE 01</span>
+      <span class="stage-label" data-num="01">Stage · 先 Fact-finding</span>
       <h3>공정한 조사</h3>
       <p class="sub">신고인·피신고인·목격자 진술, 증거 자료를 <em>예단 없이</em> 수집합니다.</p>
-      <div class="stage-list">
-        <div class="stage-item"><span class="ck">✓</span>신고 접수 및 사건 개요 정리</div>
-        <div class="stage-item"><span class="ck">✓</span>신고인 면담 (별도 진술서 확보)</div>
-        <div class="stage-item"><span class="ck">✓</span>피신고인 면담 (방어권 보장)</div>
-        <div class="stage-item"><span class="ck">✓</span>목격자·참고인 진술 수집</div>
-        <div class="stage-item"><span class="ck">✓</span>관련 자료·기록 확보 (이메일·메신저·근태 등)</div>
-        <div class="stage-item"><span class="ck">✓</span>2차 피해 방지 조치 안내</div>
-      </div>
+      <ul class="stage-list">
+        <li class="stage-item"><span class="ck">01</span>신고 접수 및 사건 개요 정리</li>
+        <li class="stage-item"><span class="ck">02</span>신고인 면담 (별도 진술서 확보)</li>
+        <li class="stage-item"><span class="ck">03</span>피신고인 면담 (방어권 보장)</li>
+        <li class="stage-item"><span class="ck">04</span>목격자·참고인 진술 수집</li>
+        <li class="stage-item"><span class="ck">05</span>관련 자료·기록 확보 (이메일·메신저·근태 등)</li>
+        <li class="stage-item"><span class="ck">06</span>2차 피해 방지 조치 안내</li>
+      </ul>
     </div>
 
     <div class="stage-card s2" onclick="openI('stage2')">
-      <span class="stage-label">STAGE 02</span>
+      <span class="stage-label" data-num="02">Stage · 後 Judgment</span>
       <h3>전문적 판단</h3>
       <p class="sub">수집된 사실관계를 <em>판정례 데이터</em>와 비교해 공인노무사가 판단합니다.</p>
-      <div class="stage-list">
-        <div class="stage-item"><span class="ck">✓</span>수집된 사실관계 정리·대조</div>
-        <div class="stage-item"><span class="ck">✓</span>유사 사안 판정례 비교 분석</div>
-        <div class="stage-item"><span class="ck">✓</span>법적 요건 해당성 검토</div>
-        <div class="stage-item"><span class="ck">✓</span>'업무상 적정범위'·'반복성' 등 쟁점 판단</div>
-        <div class="stage-item"><span class="ck">✓</span>판단 근거와 함께 조사보고서 작성</div>
-        <div class="stage-item"><span class="ck">✓</span>사후 조치 권고 (징계·교육·분리 등)</div>
-      </div>
+      <ul class="stage-list">
+        <li class="stage-item"><span class="ck">01</span>수집된 사실관계 정리·대조</li>
+        <li class="stage-item"><span class="ck">02</span>유사 사안 판정례 비교 분석</li>
+        <li class="stage-item"><span class="ck">03</span>법적 요건 해당성 검토</li>
+        <li class="stage-item"><span class="ck">04</span>'업무상 적정범위'·'반복성' 등 쟁점 판단</li>
+        <li class="stage-item"><span class="ck">05</span>판단 근거와 함께 조사보고서 작성</li>
+        <li class="stage-item"><span class="ck">06</span>사후 조치 권고 (징계·교육·분리 등)</li>
+      </ul>
     </div>
   </div>
 

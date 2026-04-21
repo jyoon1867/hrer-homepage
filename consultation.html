@@ -66,24 +66,45 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
-/* PRICING TIERS — v2 Editorial Rows */
+/* PRICING TIERS — v3 Editorial Rows (T1/T2/T3 hero numbers) */
 .tier-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
-.tier-card{display:grid;grid-template-columns:140px minmax(0,1.2fr) minmax(0,1.8fr) 60px;gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);position:relative;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.tier-card:hover{padding-left:16px;padding-right:16px;box-shadow:none;transform:none;border-color:rgba(25,25,25,0.15)}
+.tier-card{display:grid;grid-template-columns:160px minmax(180px,1fr) minmax(0,1.5fr) 40px;gap:40px;align-items:flex-start;padding:44px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);position:relative;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.tier-card:hover{padding-left:16px;padding-right:16px;box-shadow:none;transform:none}
 .tier-card.popular{border:none;border-bottom:1px solid rgba(25,25,25,0.1)}
-.tier-popular-badge{position:static;transform:none;background:transparent;color:var(--mint);font-size:10.5px;font-weight:700;padding:0;border-radius:0;letter-spacing:2.5px;display:block;margin-bottom:10px;text-transform:uppercase}
-.tier-name{font-size:clamp(28px,3vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:0.95;color:var(--dark);text-transform:none;margin-bottom:0}
-.tier-price{font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1.5px;line-height:1;color:var(--dark);font-variant-numeric:tabular-nums}
+
+/* Left column: T1/T2/T3 giant outlined number + small English name */
+.tier-name{display:flex;flex-direction:column;gap:14px;line-height:1}
+.tier-name .tier-idx{font-size:clamp(56px,6.5vw,104px);font-weight:900;letter-spacing:-4px;line-height:0.85;color:transparent;-webkit-text-stroke:1.5px var(--dark);font-variant-numeric:tabular-nums;transition:all 0.3s ease}
+.tier-card:hover .tier-name .tier-idx{color:var(--mint);-webkit-text-stroke-color:var(--mint)}
+.tier-name .tier-en{font-size:13px;font-weight:700;color:var(--dark);letter-spacing:1.5px;text-transform:uppercase}
+.tier-name .tier-popular-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-top:-6px}
+/* Overrides for old inline name structure */
+.tier-name br,.tier-name > span:not(.tier-idx):not(.tier-en):not(.tier-popular-badge){display:none}
+
+/* Middle column: price */
+.tier-price{font-size:clamp(30px,3.2vw,44px);font-weight:900;letter-spacing:-1.8px;line-height:1;color:var(--dark);font-variant-numeric:tabular-nums;margin-bottom:6px}
 .tier-price .won{font-size:0.4em;font-weight:700;margin-left:4px;color:var(--mint)}
-.tier-vat{font-size:12px;color:var(--gray2);margin-top:10px;letter-spacing:0.2px}
-.tier-desc{font-size:13px;color:var(--gray);margin:12px 0 20px;line-height:1.65;letter-spacing:-0.1px}
-.tier-features{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
-.tier-features li{font-size:13px;color:var(--dark);padding:4px 0 4px 14px;position:relative;line-height:1.6;font-weight:500}
-.tier-features li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:1px;background:var(--dark)}
-.tier-note{font-size:12px;color:var(--gray2);margin-top:20px;padding-top:16px;border-top:1px dashed rgba(25,25,25,0.15);line-height:1.7}
+.tier-vat{font-size:11.5px;color:var(--gray2);margin-top:0;letter-spacing:0.2px}
+.tier-desc{font-size:12.5px;color:var(--gray);margin:16px 0 0;line-height:1.65;letter-spacing:-0.1px;padding-top:14px;border-top:1px solid rgba(25,25,25,0.08)}
+
+/* Right column: features */
+.tier-features{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;margin:0}
+.tier-features li{font-size:13px;color:var(--dark);padding:4px 0 4px 14px;position:relative;line-height:1.65;font-weight:500}
+.tier-features li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:1px;background:var(--dark)}
+.tier-note{font-size:12px;color:var(--gray2);margin-top:18px;padding-top:14px;border-top:1px dashed rgba(25,25,25,0.15);line-height:1.7;grid-column:1/-1}
 .tier-note em{color:var(--dark);font-weight:700;font-style:normal}
+
+/* Arrow */
 .tier-card::after{content:"↗";position:static!important;font-size:18px;color:rgba(25,25,25,0.35);font-weight:400;justify-self:end;align-self:center;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease;background:none!important;border:none!important;width:auto!important;height:auto!important}
 .tier-card:hover::after{color:var(--mint);transform:translate(6px,-6px)}
+
+@media(max-width:900px){
+  .tier-card{grid-template-columns:90px 1fr 24px;gap:20px;padding:32px 0}
+  .tier-name .tier-idx{font-size:52px;letter-spacing:-2.5px}
+  .tier-card > div:nth-of-type(2){grid-column:1/-1;padding-left:110px;margin-top:-8px}
+  .tier-card > div:nth-of-type(3){grid-column:1/-1;padding-left:110px;padding-top:12px}
+  .tier-features{grid-template-columns:1fr}
+}
 
 /* PROCESS — v2 Editorial Rows */
 .process-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
@@ -253,7 +274,10 @@ body.i-open{overflow:hidden}
 
   <div class="tier-grid">
     <div class="tier-card" onclick="openI('simple')">
-      <div class="tier-name">Simple<br><span style="font-size:10.5px;font-weight:700;color:var(--gray2);letter-spacing:2px;display:block;margin-top:10px">T1</span></div>
+      <div class="tier-name">
+        <span class="tier-idx">T1</span>
+        <span class="tier-en">Simple</span>
+      </div>
       <div>
         <div class="tier-price">130,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 143,000원</div>
@@ -272,7 +296,11 @@ body.i-open{overflow:hidden}
     </div>
 
     <div class="tier-card popular" onclick="openI('deep')">
-      <div class="tier-name">Deep<br><span class="tier-popular-badge">Most Popular · T2</span></div>
+      <div class="tier-name">
+        <span class="tier-idx">T2</span>
+        <span class="tier-en">Deep</span>
+        <span class="tier-popular-badge">— Most Popular</span>
+      </div>
       <div>
         <div class="tier-price">180,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 198,000원</div>
@@ -291,7 +319,10 @@ body.i-open{overflow:hidden}
     </div>
 
     <div class="tier-card" onclick="openI('written')">
-      <div class="tier-name">Written<br><span style="font-size:10.5px;font-weight:700;color:var(--gray2);letter-spacing:2px;display:block;margin-top:10px">T3</span></div>
+      <div class="tier-name">
+        <span class="tier-idx">T3</span>
+        <span class="tier-en">Written</span>
+      </div>
       <div>
         <div class="tier-price">230,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 253,000원</div>

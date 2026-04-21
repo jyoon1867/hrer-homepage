@@ -63,17 +63,29 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-title{font-size:clamp(32px,4.2vw,54px);font-weight:900;text-align:center;margin-bottom:18px;letter-spacing:-2px;line-height:1.25;color:var(--dark)}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
-/* STAT GRID — v2 Editorial Rows */
+/* STAT GRID — v4 Editorial Magazine (flat, readable) */
 .stat-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:56px auto 0;border-top:1px solid rgba(25,25,25,0.15)}
-.stat-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.6fr);gap:40px;align-items:flex-start;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);border-radius:0;padding:40px 0;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.stat-card:hover{padding-left:16px;box-shadow:none}
-.stat-card .tag{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:0;border-radius:0;margin-bottom:10px;letter-spacing:2.5px;text-transform:uppercase;background:transparent!important;color:var(--mint)!important}
-.stat-card .big{font-size:clamp(52px,6vw,88px);font-weight:900;letter-spacing:-3px;line-height:0.85;margin-bottom:0;color:var(--dark)!important;font-variant-numeric:tabular-nums}
-.stat-card h3{font-size:clamp(18px,1.8vw,24px);font-weight:800;margin-bottom:10px;letter-spacing:-0.4px;color:var(--dark);line-height:1.3}
-.stat-card p{font-size:14px;color:var(--gray);line-height:1.8;font-weight:500}
-.stat-card .bar{height:3px;background:rgba(25,25,25,0.08);border-radius:0;overflow:hidden;margin:18px 0 8px}
-.stat-card .bar-fill{height:100%;border-radius:0;background:var(--dark)!important}
-.stat-card .foot{font-size:11.5px;color:var(--gray2);margin-top:6px;letter-spacing:0.2px}
+.stat-card{display:grid;grid-template-columns:minmax(260px,340px) minmax(0,1fr);gap:72px;align-items:flex-start;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);border-radius:0;padding:64px 0;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1);position:relative}
+.stat-card:hover{padding-left:16px;padding-right:16px}
+.stat-card > *{grid-column:unset}
+/* LEFT: tag + huge number (stacked via wrapper div expected) */
+.stat-card .tag{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:0;border-radius:0;margin:0 0 16px;letter-spacing:2.5px;text-transform:uppercase;background:transparent!important;color:var(--mint)!important;grid-column:1;grid-row:1}
+.stat-card .big{font-size:clamp(72px,9vw,148px);font-weight:900;letter-spacing:-6px;line-height:0.85;margin:0;color:var(--dark)!important;font-variant-numeric:tabular-nums;grid-column:1;grid-row:2;white-space:nowrap}
+.stat-card .big .num-unit{font-size:0.35em;font-weight:800;margin-left:4px;color:var(--mint);letter-spacing:-0.5px;vertical-align:baseline}
+/* RIGHT: title + desc + bar + foot (all on row 1 via span) */
+.stat-card h3{font-size:clamp(22px,2.4vw,32px);font-weight:800;margin:0 0 20px;letter-spacing:-0.8px;color:var(--dark);line-height:1.25;grid-column:2;grid-row:1}
+.stat-card p{font-size:15px;color:var(--gray);line-height:1.85;font-weight:500;margin:0;grid-column:2;grid-row:2}
+.stat-card p em{color:var(--dark);font-weight:700;font-style:normal;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.stat-card .bar{height:4px;background:rgba(25,25,25,0.08);border-radius:0;overflow:hidden;margin:28px 0 10px;grid-column:2;grid-row:3}
+.stat-card .bar-fill{height:100%;border-radius:0;background:var(--dark)!important;transition:width 1s cubic-bezier(0.2,0.8,0.2,1)}
+.stat-card .foot{font-size:11.5px;color:var(--gray2);margin:0;letter-spacing:0.2px;grid-column:2;grid-row:4;font-weight:500}
+
+@media(max-width:900px){
+  .stat-card{grid-template-columns:1fr;gap:12px;padding:44px 0}
+  .stat-card .tag,.stat-card .big,.stat-card h3,.stat-card p,.stat-card .bar,.stat-card .foot{grid-column:1;grid-row:auto}
+  .stat-card .big{font-size:80px;letter-spacing:-3.5px;margin-bottom:12px}
+  .stat-card h3{margin-top:4px}
+}
 
 /* Color classes deprecated — all use dark + mint */
 .c-pink,.c-purple,.c-blue,.c-orange,.c-teal,.c-yellow{color:var(--dark)!important}
@@ -198,56 +210,56 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
   <div class="stat-grid">
     <div class="stat-card">
-      <div class="tag bg-pink">직장 내 괴롭힘</div>
-      <div class="big c-pink">약 36%</div>
+      <div class="tag">N° 01 · 직장 내 괴롭힘</div>
+      <div class="big">36<span class="num-unit">%</span></div>
       <h3>괴롭힘 인정 비율</h3>
-      <p>노동위원회 시정신청에서 괴롭힘이 인정된 비율. 업무상 적정 범위를 넘는 지시·폭언·따돌림이 주요 쟁점.</p>
-      <div class="bar"><div class="bar-fill fill-pink" style="width:36%"></div></div>
+      <p>노동위원회 시정신청에서 괴롭힘이 인정된 비율. <em>업무상 적정 범위를 넘는 지시·폭언·따돌림</em>이 주요 쟁점.</p>
+      <div class="bar"><div class="bar-fill" style="width:36%"></div></div>
       <div class="foot">신청인의 주장이 일부 이상 인정된 사건 기준</div>
     </div>
 
     <div class="stat-card">
-      <div class="tag bg-purple">성희롱</div>
-      <div class="big c-purple">약 28%</div>
+      <div class="tag">N° 02 · 성희롱</div>
+      <div class="big">28<span class="num-unit">%</span></div>
       <h3>성희롱 인정 비율</h3>
-      <p>피해 진술의 일관성, 목격자 진술, 서면·메신저 등 객관적 자료의 유무가 판단의 핵심.</p>
-      <div class="bar"><div class="bar-fill fill-purple" style="width:28%"></div></div>
+      <p><em>피해 진술의 일관성</em>, 목격자 진술, 서면·메신저 등 객관적 자료의 유무가 판단의 핵심.</p>
+      <div class="bar"><div class="bar-fill" style="width:28%"></div></div>
       <div class="foot">신청인의 주장이 일부 이상 인정된 사건 기준</div>
     </div>
 
     <div class="stat-card">
-      <div class="tag bg-blue">부당해고</div>
-      <div class="big c-blue">약 32%</div>
+      <div class="tag">N° 03 · 부당해고</div>
+      <div class="big">32<span class="num-unit">%</span></div>
       <h3>부당해고 인정 비율</h3>
-      <p>해고사유의 정당성, 징계양정의 적정성, 절차적 요건(서면통지·소명기회)이 3대 판단 기준.</p>
-      <div class="bar"><div class="bar-fill fill-blue" style="width:32%"></div></div>
+      <p>해고사유의 정당성, 징계양정의 적정성, <em>절차적 요건</em>(서면통지·소명기회)이 3대 판단 기준.</p>
+      <div class="bar"><div class="bar-fill" style="width:32%"></div></div>
       <div class="foot">신청인의 주장이 일부 이상 인정된 사건 기준</div>
     </div>
 
     <div class="stat-card">
-      <div class="tag bg-orange">부당징계</div>
-      <div class="big c-orange">약 40%</div>
+      <div class="tag">N° 04 · 부당징계</div>
+      <div class="big">40<span class="num-unit">%</span></div>
       <h3>부당징계 인정 비율</h3>
       <p>징계사유 자체보다 <em>양정의 과다</em> 또는 절차적 하자(징계위원회 구성·소명절차)로 인한 인정 사례 다수.</p>
-      <div class="bar"><div class="bar-fill fill-orange" style="width:40%"></div></div>
+      <div class="bar"><div class="bar-fill" style="width:40%"></div></div>
       <div class="foot">신청인의 주장이 일부 이상 인정된 사건 기준</div>
     </div>
 
     <div class="stat-card">
-      <div class="tag bg-teal">부당전보</div>
-      <div class="big c-teal">약 44%</div>
+      <div class="tag">N° 05 · 부당전보</div>
+      <div class="big">44<span class="num-unit">%</span></div>
       <h3>부당전보 인정 비율</h3>
-      <p>업무상 필요성, 근로자의 생활상 불이익, 성실한 협의 절차가 균형 판단 요소.</p>
-      <div class="bar"><div class="bar-fill fill-teal" style="width:44%"></div></div>
+      <p>업무상 필요성, 근로자의 생활상 불이익, <em>성실한 협의 절차</em>가 균형 판단 요소.</p>
+      <div class="bar"><div class="bar-fill" style="width:44%"></div></div>
       <div class="foot">신청인의 주장이 일부 이상 인정된 사건 기준</div>
     </div>
 
     <div class="stat-card">
-      <div class="tag bg-yellow">정리해고</div>
-      <div class="big" style="color:#C79600">약 82%</div>
+      <div class="tag">N° 06 · 정리해고</div>
+      <div class="big">82<span class="num-unit">%</span></div>
       <h3>정리해고 부당 인정 비율</h3>
-      <p>긴박한 경영상 필요성, 해고회피 노력, 공정한 대상자 선정, 근로자 대표와의 성실한 협의 — 4요건 중 <em>하나만 흠결되어도</em> 부당 판정.</p>
-      <div class="bar"><div class="bar-fill fill-yellow" style="width:82%"></div></div>
+      <p>긴박한 경영상 필요성, 해고회피 노력, 공정한 대상자 선정, 근로자 대표와의 성실한 협의 — <em>4요건 중 하나만 흠결되어도</em> 부당 판정.</p>
+      <div class="bar"><div class="bar-fill" style="width:82%"></div></div>
       <div class="foot">요건 미충족 시 부당 판정되는 비율이 높은 편</div>
     </div>
   </div>
