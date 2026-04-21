@@ -113,18 +113,41 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .scroll-dots a.active{background:var(--mint);transform:scale(1.4)}
 @media(max-width:900px){.scroll-dots{display:none}}
 
-/* 미니멀 커서 (데스크탑 전용) */
-.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:var(--dark);pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width 0.2s ease,height 0.2s ease,background 0.2s ease,opacity 0.2s ease;mix-blend-mode:difference;opacity:0}
-.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;border:1px solid rgba(15,39,68,0.3);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s cubic-bezier(0.2,0.8,0.2,1),height 0.3s cubic-bezier(0.2,0.8,0.2,1),border-color 0.2s ease,opacity 0.2s ease;opacity:0}
-body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{opacity:1}
-body.cursor-hover .cursor-dot{width:0;height:0}
-body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:var(--mint);background:rgba(0,184,147,0.08)}
-@media(max-width:900px){.cursor-dot,.cursor-ring{display:none}}
-@media(hover:none){.cursor-dot,.cursor-ring{display:none}}
-
 /* 스크롤 스냅 — 섹션마다 '걸리는 맛' */
 html{scroll-behavior:smooth}
 .snap{scroll-snap-align:start;scroll-snap-stop:normal}
+
+/* ──────────────────────────────────────────────
+   SCROLL STAGE — 배경·텍스트 색상이 스크롤에 따라 전환
+   newgenre.studio 참조
+   ────────────────────────────────────────────── */
+body{transition:background-color 0.8s cubic-bezier(0.4,0,0.2,1),color 0.8s cubic-bezier(0.4,0,0.2,1)}
+body[data-stage="1"]{background:#FFFFFF;color:#0F2744}
+body[data-stage="2"]{background:#F0FDF4;color:#0F2744}
+body[data-stage="3"]{background:#0F2744;color:#FFFFFF}
+body[data-stage="4"]{background:#F7F9FC;color:#0F2744}
+body[data-stage="5"]{background:#FAF8F3;color:#0F2744}
+body[data-stage="6"]{background:#0F2744;color:#FFFFFF}
+body[data-stage="7"]{background:#FFFFFF;color:#0F2744}
+
+/* Nav도 스테이지에 맞춰 배경 변환 */
+body[data-stage="3"] .nav,body[data-stage="6"] .nav{background:rgba(15,39,68,0.75);border-bottom-color:rgba(255,255,255,0.08)}
+body[data-stage="3"] .logo-er,body[data-stage="6"] .logo-er{color:#fff}
+body[data-stage="3"] .nav-links a,body[data-stage="6"] .nav-links a{color:rgba(255,255,255,0.85)}
+
+/* Section 배경 지우기 (body가 스테이지로 색칠) */
+.section-alt,.section-cream,.section-mist{background:transparent}
+
+/* ──────────────────────────────────────────────
+   HERO MORPH — 스크롤에 따라 히어로 타이포 교체
+   ────────────────────────────────────────────── */
+.morph{position:relative;display:inline-block;min-width:1em}
+.morph .word{display:inline-block;transition:opacity 0.6s cubic-bezier(0.4,0,0.2,1),transform 0.6s cubic-bezier(0.4,0,0.2,1),filter 0.6s cubic-bezier(0.4,0,0.2,1);position:absolute;left:0;top:0;opacity:0;transform:translateY(20px);filter:blur(8px);white-space:nowrap}
+.morph .word.active{position:relative;opacity:1;transform:translateY(0);filter:blur(0)}
+
+/* 네비 점 색상도 스테이지에 따라 */
+body[data-stage="3"] .scroll-dots a,body[data-stage="6"] .scroll-dots a{background:rgba(255,255,255,0.25)}
+body[data-stage="3"] .scroll-dots a.active,body[data-stage="6"] .scroll-dots a.active{background:var(--mint)}
 
 /* REVEAL — 히어로 h1 line 애니메이션 */
 .reveal .line{transform:translateY(0)}
@@ -440,9 +463,6 @@ body.modal-open{overflow:hidden}
 
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
 <nav class="scroll-dots" aria-hidden="true" id="scroll-dots">
   <a href="#hero" data-label="Intro"></a>
   <a href="#services" data-label="Services"></a>
@@ -488,7 +508,9 @@ body.modal-open{overflow:hidden}
 
   <h1 class="reveal">
     <span class="line"><span>노무 자문의</span></span>
-    <span class="line"><span><span class="faint">새로운</span> <em>형식</em><span class="dot"></span></span></span>
+    <span class="line"><span><span class="faint">새로운</span> <em class="morph" data-morph="형식,질서,표준,방식,태도">
+      <span class="word active">형식</span><span class="word">질서</span><span class="word">표준</span><span class="word">방식</span><span class="word">태도</span>
+    </em><span class="dot"></span></span></span>
   </h1>
 
   <div class="hero-foot">
@@ -1247,37 +1269,40 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
     requestAnimationFrame(tick);
   }
 
-  // 4) 미니멀 커서 — dot + ring (desktop only)
-  if (window.matchMedia('(min-width: 900px) and (hover:hover)').matches){
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    if (dot && ring){
-      let mx = 0, my = 0, rx = 0, ry = 0;
-      document.addEventListener('mousemove', (e) => {
-        mx = e.clientX; my = e.clientY;
-        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-        if (!document.body.classList.contains('cursor-ready')){
-          document.body.classList.add('cursor-ready');
-        }
-      });
-      // Ring은 부드럽게 추적 (lerp)
-      function loop(){
-        rx += (mx - rx) * 0.18;
-        ry += (my - ry) * 0.18;
-        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-        requestAnimationFrame(loop);
-      }
-      loop();
-      // hover 확장
-      const hoverSel = 'a, button, .chip, .pillar, .bento-card, [role="button"]';
-      document.querySelectorAll(hoverSel).forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-      });
+  // 4) 스크롤 스테이지 전환 — 섹션마다 배경·텍스트 색상 변화
+  const stageMap = [
+    {sel:'#hero',     stage:'1'},
+    {sel:'#services', stage:'2'},
+    {sel:'#how',      stage:'3'},
+    {sel:'#process',  stage:'4'},
+    {sel:'#faq',      stage:'5'},
+  ];
+  const stageEls = stageMap.map(m => ({el: document.querySelector(m.sel), stage: m.stage})).filter(x => x.el);
+  function updateStage(){
+    const y = window.scrollY + window.innerHeight * 0.35;
+    let current = '1';
+    stageEls.forEach(({el, stage}) => { if (el.offsetTop <= y) current = stage; });
+    if (document.body.getAttribute('data-stage') !== current){
+      document.body.setAttribute('data-stage', current);
     }
   }
+  window.addEventListener('scroll', updateStage, {passive:true});
+  updateStage();
 
-  // 5) 섹션 네비 점 — active 상태 전환
+  // 5) Hero 타이포 Morph — 단어 순환 (3초 간격)
+  const morphEls = document.querySelectorAll('.morph');
+  morphEls.forEach(m => {
+    const words = m.querySelectorAll('.word');
+    if (words.length < 2) return;
+    let idx = 0;
+    setInterval(() => {
+      words[idx].classList.remove('active');
+      idx = (idx + 1) % words.length;
+      words[idx].classList.add('active');
+    }, 2600);
+  });
+
+  // 6) 섹션 네비 점 — active 상태 전환
   const dots = document.querySelectorAll('.scroll-dots a');
   if (dots.length){
     const sections = Array.from(dots).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
