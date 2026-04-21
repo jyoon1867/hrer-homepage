@@ -42,11 +42,15 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .mobile-menu.active{display:flex}
 
 /* HERO */
-.hero{padding:150px 0 90px;background:linear-gradient(135deg,var(--dark) 0%,#2d2d2d 100%);color:var(--white);text-align:center}
-.hero-badge{display:inline-block;padding:8px 20px;border-radius:100px;background:rgba(0,184,147,0.15);color:var(--mint);font-size:14px;font-weight:600;margin-bottom:28px;border:1px solid rgba(0,184,147,0.3)}
-.hero h1{font-size:48px;font-weight:900;line-height:1.22;letter-spacing:-1.8px;margin-bottom:20px}
-.hero p{font-size:19px;color:rgba(255,255,255,0.7);max-width:660px;margin:0 auto 36px;line-height:1.7;font-weight:500}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero{padding:160px 0 80px;background:#F7F4EE;color:var(--dark);text-align:left;border-bottom:1px solid rgba(25,25,25,0.1)}
+.hero .container{max-width:1100px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;padding:0;background:transparent;border:none;border-radius:0}
+.hero-badge::before{content:"";width:28px;height:1px;background:var(--mint)}
+.hero h1{font-size:clamp(40px,5.5vw,72px);font-weight:900;line-height:1.08;letter-spacing:-2.5px;margin-bottom:28px;max-width:880px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.hero p{font-size:17px;color:rgba(25,25,25,0.7);max-width:640px;margin:0 0 36px;line-height:1.75;font-weight:500}
+.hero p em{font-style:normal;color:var(--dark);font-weight:700}
+.hero-btns{display:flex;gap:24px;justify-content:flex-start;flex-wrap:wrap;padding-top:12px;border-top:1px solid rgba(25,25,25,0.15);max-width:640px}
 .btn-dark{display:inline-flex;align-items:center;gap:10px;background:var(--dark);color:#fff;padding:13px 22px;border-radius:3px;font-weight:700;font-size:14.5px;letter-spacing:-0.2px;transition:background 0.25s ease;border:none}
 .btn-dark::after{content:"→";display:inline-block;font-weight:400;font-size:16px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
 .btn-dark:hover{background:#2d2d2d}
