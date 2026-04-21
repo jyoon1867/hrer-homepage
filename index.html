@@ -82,17 +82,18 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .hero-num-big .plus{font-size:0.45em;color:var(--mint);margin-left:4px;margin-top:0.05em;font-weight:600}
 .hero-num-label{font-size:11px;color:var(--gray2);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-top:14px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .hero-num-label::before{content:"";width:20px;height:1px;background:var(--gray2)}
-/* BUTTONS — v4: Editorial Text Link (no container) */
-.btn-dark{position:relative;display:inline-flex;align-items:center;gap:20px;background:transparent;color:var(--dark);padding:4px 0 12px;border-radius:0;font-weight:800;font-size:17px;letter-spacing:-0.3px;border-bottom:1.5px solid var(--dark);transition:color 0.25s ease,border-color 0.25s ease;min-width:180px;justify-content:space-between}
-.btn-dark::after{content:"→";display:inline-block;font-weight:400;font-size:19px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.btn-dark:hover{color:var(--mint);border-bottom-color:var(--mint)}
-.btn-dark:hover::after{transform:translateX(8px)}
+/* BUTTONS — v5: Tight Rounded Filled (composite.nyc inspired) */
+.btn-dark{position:relative;display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:13px 22px;border-radius:3px;font-weight:700;font-size:14.5px;letter-spacing:-0.2px;transition:background 0.25s ease;border:none}
+.btn-dark::before{display:none}
+.btn-dark::after{content:"→";display:inline-block;font-weight:400;font-size:16px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-dark:hover{background:#1A3A5C}
+.btn-dark:hover::after{transform:translateX(5px)}
 
-.btn-ghost{position:relative;display:inline-flex;align-items:center;gap:14px;background:transparent;color:rgba(15,39,68,0.6);padding:4px 0 12px;border-radius:0;border:none;border-bottom:1px solid transparent;font-weight:700;font-size:16px;letter-spacing:-0.3px;transition:color 0.25s ease,border-color 0.25s ease}
+.btn-ghost{position:relative;display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:13px 6px 13px 0;border-radius:0;border:none;border-bottom:1px solid rgba(15,39,68,0.3);font-weight:700;font-size:14.5px;letter-spacing:-0.2px;transition:color 0.25s ease,border-color 0.25s ease}
 .btn-ghost::before{display:none;content:""}
-.btn-ghost::after{content:"↗";display:inline-block;font-weight:400;font-size:15px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.btn-ghost:hover{color:var(--dark);border-bottom-color:var(--dark)}
-.btn-ghost:hover::after{transform:translate(4px,-4px)}
+.btn-ghost::after{content:"↗";display:inline-block;font-weight:400;font-size:14px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-ghost:hover{color:var(--mint);border-bottom-color:var(--mint)}
+.btn-ghost:hover::after{transform:translate(3px,-3px)}
 
 /* 서비스 칩 — 카드형 + 호버 강화 */
 .chips-section{padding:40px 0 80px;background:transparent}
