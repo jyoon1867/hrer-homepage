@@ -20,7 +20,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--dark);background:var(--bg
 a{text-decoration:none;color:inherit}
 .container{max-width:1200px;margin:0 auto;padding:0 32px}
 em{font-style:normal;color:var(--mint);font-weight:700}
-.section-title em,.cta-banner h2 em{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.section-title em{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
 
 /* NAV — 노션 스타일: 깔끔, 투명감 */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.06)}
@@ -408,12 +408,18 @@ body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color
 .bento-card.soon .bento-link{color:#B45309}
 .soon-badge{position:absolute;top:14px;right:14px;background:#FEF3C7;color:#B45309;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.3px}
 
-/* TRUST */
-.trust-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.trust-card{border-radius:var(--card-radius);padding:28px 24px;display:flex;gap:16px;align-items:flex-start;border:1px solid var(--border);background:var(--white)}
-.trust-num{flex-shrink:0;width:36px;height:36px;background:var(--dark);color:var(--mint);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
-.trust-card h4{font-size:17px;font-weight:700;margin-bottom:6px}
-.trust-card p{font-size:15px;color:var(--gray);line-height:1.65;font-weight:500}
+/* TRUST — v3: Editorial List (no cards) */
+.principle-list{margin-top:56px;border-top:1px solid rgba(15,39,68,0.15)}
+.principle{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.4fr);gap:40px;padding:40px 0 36px;border-bottom:1px solid rgba(15,39,68,0.1);align-items:flex-start;position:relative;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.principle:hover{padding-left:16px}
+.p-num{font-size:clamp(56px,6vw,88px);font-weight:900;letter-spacing:-4px;line-height:0.85;color:transparent;-webkit-text-stroke:1.5px var(--dark);font-variant-numeric:tabular-nums;transition:all 0.3s ease}
+.principle:hover .p-num{color:var(--mint);-webkit-text-stroke-color:var(--mint)}
+.p-head{display:flex;flex-direction:column;gap:12px;padding-top:8px}
+.p-tag{font-size:10.5px;font-weight:700;letter-spacing:2.5px;color:var(--mint);text-transform:uppercase}
+.p-head h4{font-size:19px;font-weight:800;line-height:1.35;letter-spacing:-0.4px;color:var(--dark);margin:0}
+.p-head h4 em{color:var(--mint);font-weight:900;font-style:normal}
+.principle .p-body{font-size:14px;line-height:1.8;color:var(--gray);font-weight:500;margin:0;padding-top:12px;max-width:520px}
+.principle .p-body em{color:var(--dark);font-weight:700;font-style:normal}
 
 /* EXPERT */
 .expert-section{padding:var(--section-gap) 0;background:var(--dark);color:var(--white)}
@@ -450,11 +456,11 @@ body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color
 
 /* DELIVERABLES — Index Row (v2) */
 .delv-grid{margin-top:56px;border-top:1px solid rgba(15,39,68,0.12);max-width:1200px;margin-left:auto;margin-right:auto}
-.delv-row{display:grid;grid-template-columns:80px minmax(0,1.4fr) minmax(0,1fr) 52px;gap:36px;align-items:flex-start;width:100%;padding:32px 0;border-bottom:1px solid rgba(15,39,68,0.1);background:transparent;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:inherit;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1),background 0.3s ease}
-.delv-row:hover{padding-left:20px;padding-right:20px;background:rgba(0,184,147,0.04)}
+.delv-row{display:grid;grid-template-columns:160px minmax(0,1.4fr) minmax(0,1fr) 52px;gap:36px;align-items:flex-start;width:100%;padding:40px 0;border-bottom:1px solid rgba(15,39,68,0.1);background:transparent;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:inherit;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.delv-row:hover{padding-left:16px;padding-right:16px}
 .delv-row:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
-.delv-idx{font-size:clamp(28px,2.8vw,40px);font-weight:900;letter-spacing:-1.5px;color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;transition:color 0.25s ease}
-.delv-row:hover .delv-idx{color:var(--mint)}
+.delv-idx{font-size:clamp(64px,7.5vw,112px);font-weight:900;letter-spacing:-5px;color:transparent;-webkit-text-stroke:1.5px var(--dark);line-height:0.85;font-variant-numeric:tabular-nums;transition:all 0.3s ease}
+.delv-row:hover .delv-idx{color:var(--mint);-webkit-text-stroke-color:var(--mint)}
 .delv-body{min-width:0}
 .delv-kind{font-size:11.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
 .delv-body h3{font-size:clamp(20px,1.9vw,26px);font-weight:800;letter-spacing:-0.7px;line-height:1.3;color:var(--dark);margin:0 0 16px}
@@ -504,40 +510,54 @@ body[data-stage="3"] .faq-list,body[data-stage="6"] .faq-list,body[data-stage="5
 body[data-stage="5"] .faq-item{border-bottom-color:rgba(15,39,68,0.08)}
 
 /* CTA BANNER */
-.cta-banner{padding:100px 0;background:var(--dark);color:var(--white);text-align:center}
-.cta-banner h2{font-size:40px;font-weight:900;margin-bottom:14px;letter-spacing:-1.5px;line-height:1.3}
-.cta-banner p{font-size:16px;color:rgba(255,255,255,0.6);margin-bottom:36px}
-.btn-mint{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:#fff;padding:16px 36px;border-radius:9999px;font-weight:700;font-size:16px;letter-spacing:-0.2px;transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease}
-.btn-mint:hover{background:#00A984;transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,184,147,0.35)}
-.btn-mint::after{content:"→";display:inline-block;transition:transform 0.2s ease}
-.btn-mint:hover::after{transform:translateX(4px)}
+/* CTA — v3: Giant Typography */
+.cta-v2{background:var(--dark);color:#fff;padding:120px 0 100px;position:relative;overflow:hidden}
+.cta-v2 .container{max-width:1280px;position:relative;z-index:2}
+.cta-v2-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,0.15);margin-bottom:24px}
+.cta-v2-label{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--mint);text-transform:uppercase}
+.cta-v2-sub{font-size:14px;color:rgba(255,255,255,0.6);margin:0;line-height:1.7;text-align:right;max-width:340px}
+.cta-v2-h{font-size:clamp(44px,9.5vw,156px);font-weight:900;letter-spacing:-6px;line-height:0.95;margin:0;color:#fff;display:flex;flex-direction:column;gap:2px}
+.cta-v2-line{display:block}
+.cta-v2-h em{background:linear-gradient(135deg,var(--mint) 0%,#5EEAD4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-style:normal}
+.cta-v2-foot{margin-top:48px;display:flex;justify-content:space-between;align-items:center;gap:24px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.15)}
+.cta-v2-link{display:inline-flex;align-items:center;gap:14px;font-size:17px;font-weight:700;color:#fff;border-bottom:1px solid rgba(255,255,255,0.4);padding-bottom:10px;transition:all 0.25s ease;letter-spacing:-0.3px}
+.cta-v2-link span{display:inline-block;transition:transform 0.25s ease;font-weight:400}
+.cta-v2-link:hover{color:var(--mint);border-color:var(--mint)}
+.cta-v2-link:hover span{transform:translateX(8px)}
+.cta-v2-meta{font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:2px;font-weight:600}
 
-/* STATS BAND */
-.stats-band{background:linear-gradient(135deg,var(--dark) 0%,#1a2a3f 100%);color:#fff;padding:60px 0;text-align:center}
-.stats-label{font-size:12px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2.5px;margin-bottom:14px}
-.stats-title{font-size:30px;font-weight:900;letter-spacing:-1px;margin-bottom:40px}
-.stats-title em{background:linear-gradient(135deg,var(--mint) 0%,#5EEAD4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1000px;margin:0 auto;padding:0 32px}
-.stat-box{padding:24px 12px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)}
-.stat-num{font-size:36px;font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1.1}
-.stat-num .unit{font-size:17px;font-weight:700;color:var(--mint);margin-left:3px}
-.stat-desc{font-size:13px;color:rgba(255,255,255,0.65);margin-top:8px;font-weight:500;line-height:1.5}
+/* STATS — v3: Editorial Typography (no cards) */
+.stats-v2{background:var(--dark);color:#fff;padding:110px 0 90px;position:relative;overflow:hidden}
+.stats-v2 .container{max-width:1280px}
+.stats-v2-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:48px}
+.stats-v2-label{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--mint);text-transform:uppercase;margin-bottom:14px;display:block}
+.stats-v2-title{font-size:clamp(28px,3.2vw,44px);font-weight:900;letter-spacing:-1.4px;margin:0;line-height:1.15}
+.stats-v2-title em{background:linear-gradient(135deg,var(--mint) 0%,#5EEAD4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-style:normal}
+.stats-v2-note{font-size:13px;color:rgba(255,255,255,0.45);max-width:280px;text-align:right;line-height:1.65;margin:0}
+.stats-v2-rows{border-top:1px solid rgba(255,255,255,0.15)}
+.stat-v2-row{display:grid;grid-template-columns:80px minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center;padding:32px 0;border-bottom:1px solid rgba(255,255,255,0.1);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.stat-v2-row:hover{padding-left:12px}
+.stat-v2-idx{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.4);font-variant-numeric:tabular-nums}
+.stat-v2-fig{font-size:clamp(52px,7.5vw,112px);font-weight:900;letter-spacing:-5px;line-height:0.9;color:#fff;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.stat-v2-fig .unit{font-size:0.28em;font-weight:700;color:var(--mint);letter-spacing:-0.5px}
+.stat-v2-note{font-size:14px;color:rgba(255,255,255,0.7);font-weight:500;margin:0;line-height:1.65;letter-spacing:-0.2px}
 
-/* COMPARISON */
-.cmp-section{padding:var(--section-gap) 0}
-.cmp-wrap{max-width:960px;margin:24px auto 0}
-.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.cmp-side{border-radius:14px;padding:28px 28px 24px;border:1px solid var(--border);background:#fff}
-.cmp-side.normal{background:#FAFAFA}
-.cmp-side.hrer{background:linear-gradient(135deg,#F0FDF4 0%,#fff 100%);border-color:var(--mint)}
-.cmp-tag{display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.5px;margin-bottom:14px}
-.cmp-side.normal .cmp-tag{background:#E5E5E5;color:#666}
-.cmp-side.hrer .cmp-tag{background:var(--mint);color:#fff}
-.cmp-side h4{font-size:17px;font-weight:800;margin-bottom:16px;letter-spacing:-0.3px}
-.cmp-side .q{font-size:13px;color:var(--gray);margin-bottom:6px;font-weight:600}
-.cmp-side .a{font-size:14px;line-height:1.7;color:#333;margin-bottom:16px;font-weight:500;padding-bottom:14px;border-bottom:1px dashed rgba(0,0,0,0.1)}
-.cmp-side .a:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.cmp-side.hrer .a em{color:var(--mint);font-weight:700}
+/* COMPARISON — v3: Split Editorial (no cards) */
+.cmp-v2{padding:var(--section-gap) 0}
+.cmp-v2-wrap{margin-top:56px;max-width:1100px;margin-left:auto;margin-right:auto}
+.cmp-v2-head{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;padding-bottom:20px;border-bottom:1px solid rgba(15,39,68,0.15)}
+.cmp-v2-tag{font-size:10.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;display:inline-block;width:fit-content}
+.cmp-v2-tag--dim{color:rgba(15,39,68,0.4)}
+.cmp-v2-tag--hrer{color:var(--mint)}
+.cmp-v2-qa{padding:36px 0;border-bottom:1px dashed rgba(15,39,68,0.12)}
+.cmp-v2-qa:last-of-type{border-bottom:none;padding-bottom:12px}
+.cmp-v2-q{font-size:22px;font-weight:800;color:var(--dark);letter-spacing:-0.5px;margin-bottom:24px;line-height:1.35}
+.cmp-v2-row{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:flex-start}
+.cmp-v2-a{font-size:14px;line-height:1.8;margin:0;font-weight:500}
+.cmp-v2-a--dim{color:rgba(15,39,68,0.45);font-size:13px;padding-top:2px}
+.cmp-v2-a--hrer{color:var(--dark);font-weight:500;border-left:2px solid var(--mint);padding:2px 0 2px 22px}
+.cmp-v2-a--hrer em{color:var(--mint);font-weight:800;font-style:normal}
+.cmp-v2-foot{font-size:12px;color:var(--gray2);text-align:center;margin-top:36px;line-height:1.7}
 
 /* SAMPLE MODAL */
 .sample-card{cursor:pointer;position:relative;transition:transform 0.2s,box-shadow 0.25s,border-color 0.25s,background 0.25s,filter 0.25s}
@@ -614,13 +634,25 @@ body.modal-open{overflow:hidden}
   .process-grid{grid-template-columns:1fr}
   .bento-grid{grid-template-columns:1fr}
   .bento-wide{grid-column:span 1}
-  .trust-grid{grid-template-columns:1fr}
+  .principle{grid-template-columns:80px 1fr;gap:16px;padding:28px 0}
+  .principle .p-body{grid-column:1/-1;padding-left:96px;padding-top:4px}
+  .p-num{font-size:60px;letter-spacing:-3px}
   .expert-inner{flex-direction:column;text-align:center;gap:24px}
   .section-title{font-size:34px;letter-spacing:-1.3px}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .stats-title{font-size:22px}
-  .stat-num{font-size:30px}
-  .cmp-grid{grid-template-columns:1fr}
+  .stats-v2-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .stats-v2-note{text-align:left}
+  .stat-v2-row{grid-template-columns:48px 1fr;gap:16px;padding:24px 0}
+  .stat-v2-note{grid-column:1/-1;padding-left:64px;padding-top:4px}
+  .stat-v2-fig{font-size:56px;letter-spacing:-3px}
+  .cmp-v2-head{grid-template-columns:1fr 1fr;gap:16px}
+  .cmp-v2-row{grid-template-columns:1fr;gap:20px}
+  .cmp-v2-q{font-size:18px}
+  .cta-v2-head{flex-direction:column;align-items:flex-start}
+  .cta-v2-sub{text-align:left}
+  .cta-v2-foot{flex-direction:column;align-items:flex-start;gap:16px}
+  .delv-row{grid-template-columns:80px 1fr;gap:16px;padding:28px 0}
+  .delv-idx{font-size:56px;letter-spacing:-3px}
+  .delv-meta,.delv-arrow{grid-column:1/-1;padding-left:96px}
   .footer-inner{flex-direction:column}
 }
 </style>
@@ -958,65 +990,107 @@ body.modal-open{overflow:hidden}
   <div class="section-label">Quality</div>
   <h2 class="section-title">간편하지만, <em>타협하지 않습니다</em></h2>
   <p class="section-sub">신뢰할 수 있는 자문을 위한 네 가지 원칙</p>
-  <div class="trust-grid">
-    <div class="trust-card"><div class="trust-num">01</div><div><h4>판례·행정해석 DB <em>24만건</em></h4><p>판례, 행정해석, 노동위원회 결정문 등 <em>24만건 이상</em>의 데이터에서 근거를 찾아 답변합니다.</p></div></div>
-    <div class="trust-card"><div class="trust-num">02</div><div><h4><em>기록이 남는</em> 서면 자문</h4><p>전화 자문은 기억에 의존하지만, HRer의 답변은 <em>문서로 남습니다</em>. 언제든 다시 확인하세요.</p></div></div>
-    <div class="trust-card"><div class="trust-num">03</div><div><h4>영업일 <em>24시간 이내</em> 답변</h4><p>빠르지만 꼼꼼하게. 판례와 행정해석을 <em>직접 검토한</em> 근거 있는 답변을 드립니다.</p></div></div>
-    <div class="trust-card"><div class="trust-num">04</div><div><h4>공인노무사 <em>직접 작성·서명</em></h4><p>자동 응답도, '카더라' 답변도 아닙니다. <em>24만 건 데이터</em>에서 근거를 찾아 <em>공인노무사가 직접 작성·서명</em>합니다. 책임지는 서면입니다.</p></div></div>
+  <div class="principle-list">
+    <article class="principle">
+      <div class="p-num">01</div>
+      <div class="p-head">
+        <span class="p-tag">Database</span>
+        <h4>판례·행정해석 DB <em>24만건</em></h4>
+      </div>
+      <p class="p-body">판례, 행정해석, 노동위원회 결정문 등 <em>24만건 이상</em>의 데이터에서 근거를 찾아 답변합니다.</p>
+    </article>
+    <article class="principle">
+      <div class="p-num">02</div>
+      <div class="p-head">
+        <span class="p-tag">On Record</span>
+        <h4><em>기록이 남는</em> 서면 자문</h4>
+      </div>
+      <p class="p-body">전화 자문은 기억에 의존하지만, HRer의 답변은 <em>문서로 남습니다</em>. 언제든 다시 확인하세요.</p>
+    </article>
+    <article class="principle">
+      <div class="p-num">03</div>
+      <div class="p-head">
+        <span class="p-tag">24 Hours</span>
+        <h4>영업일 <em>24시간 이내</em> 답변</h4>
+      </div>
+      <p class="p-body">빠르지만 꼼꼼하게. 판례와 행정해석을 <em>직접 검토한</em> 근거 있는 답변을 드립니다.</p>
+    </article>
+    <article class="principle">
+      <div class="p-num">04</div>
+      <div class="p-head">
+        <span class="p-tag">Signed</span>
+        <h4>공인노무사 <em>직접 작성·서명</em></h4>
+      </div>
+      <p class="p-body">자동 응답도, '카더라' 답변도 아닙니다. <em>24만 건 데이터</em>에서 근거를 찾아 <em>공인노무사가 직접 작성·서명</em>합니다. 책임지는 서면입니다.</p>
+    </article>
   </div>
 </div>
 </section>
 
-<!-- STATS BAND -->
-<section class="stats-band">
-  <div class="stats-label">By the Numbers</div>
-  <h2 class="stats-title"><em>데이터</em>로 말합니다</h2>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-num">240,000<span class="unit">건</span></div>
-      <div class="stat-desc">판례·행정해석·<br>판정례 통합 DB</div>
+<!-- STATS — v3: Editorial Typography -->
+<section class="stats-v2">
+<div class="container">
+  <div class="stats-v2-head">
+    <div>
+      <span class="stats-v2-label">By the Numbers</span>
+      <h2 class="stats-v2-title"><em>데이터</em>로 말합니다.</h2>
     </div>
-    <div class="stat-box">
-      <div class="stat-num">90,000<span class="unit">건</span></div>
-      <div class="stat-desc">노동위원회<br>판정례</div>
+    <p class="stats-v2-note">감에 의존하지 않습니다. 숫자로 증명합니다.</p>
+  </div>
+  <div class="stats-v2-rows">
+    <div class="stat-v2-row">
+      <span class="stat-v2-idx">N° 01</span>
+      <div class="stat-v2-fig">240,000<span class="unit">건</span></div>
+      <p class="stat-v2-note">판례·행정해석·판정례 통합 DB</p>
     </div>
-    <div class="stat-box">
-      <div class="stat-num">24<span class="unit">시간</span></div>
-      <div class="stat-desc">영업일 이내<br>서면 회신 원칙</div>
+    <div class="stat-v2-row">
+      <span class="stat-v2-idx">N° 02</span>
+      <div class="stat-v2-fig">90,000<span class="unit">건</span></div>
+      <p class="stat-v2-note">노동위원회 판정례 분석</p>
     </div>
-    <div class="stat-box">
-      <div class="stat-num">건별<span class="unit"> 결제</span></div>
-      <div class="stat-desc">자문 계약 없이<br>필요한 만큼만</div>
+    <div class="stat-v2-row">
+      <span class="stat-v2-idx">N° 03</span>
+      <div class="stat-v2-fig">24<span class="unit">시간</span></div>
+      <p class="stat-v2-note">영업일 이내 서면 회신 원칙</p>
+    </div>
+    <div class="stat-v2-row">
+      <span class="stat-v2-idx">N° 04</span>
+      <div class="stat-v2-fig">건별<span class="unit">결제</span></div>
+      <p class="stat-v2-note">자문 계약 없이 필요한 만큼만</p>
     </div>
   </div>
+</div>
 </section>
 
-<!-- COMPARISON -->
-<section class="cmp-section">
+<!-- COMPARISON — v3: Split Editorial -->
+<section class="cmp-v2">
 <div class="container">
   <div class="section-label">Why HRer</div>
   <h2 class="section-title"><em>법 조문 해석</em>만으로는 부족합니다</h2>
-  <p class="section-sub" style="max-width:820px">같은 질문에도 답이 이렇게 달라집니다. HRer는 '실제 판정 경향'을 함께 봅니다.</p>
-  <div class="cmp-wrap">
-    <div class="cmp-grid">
-      <div class="cmp-side normal">
-        <span class="cmp-tag">일반 법령 해석</span>
-        <h4>법 조문·요건만 알려줍니다</h4>
-        <div class="q">Q. "이게 괴롭힘인가요?"</div>
-        <div class="a">근로기준법 제76조의2 요건(지위·업무상 적정범위 초과·정신적 고통)을 설명합니다.</div>
-        <div class="q">Q. "해고 이길 수 있나요?"</div>
-        <div class="a">해고의 정당성 일반 요건(사유·양정·절차)을 설명합니다.</div>
-      </div>
-      <div class="cmp-side hrer">
-        <span class="cmp-tag">HRer</span>
-        <h4><em>실제 판정 경향</em>을 함께 분석합니다</h4>
-        <div class="q">Q. "이게 괴롭힘인가요?"</div>
-        <div class="a">유사 사안 판정례 <em>수 건</em>을 비교해 인정·불인정이 갈린 지점과 우리 사안의 사실관계 정리 방향을 제시합니다.</div>
-        <div class="q">Q. "해고 이길 수 있나요?"</div>
-        <div class="a">같은 유형 사건의 <em>인정 경향</em>, 주로 다투어진 쟁점, 입증해야 할 포인트를 함께 안내합니다.</div>
+  <p class="section-sub" style="max-width:820px">같은 질문에도 답이 이렇게 달라집니다.</p>
+  <div class="cmp-v2-wrap">
+    <div class="cmp-v2-head">
+      <span class="cmp-v2-tag cmp-v2-tag--dim">일반 법령 해석</span>
+      <span class="cmp-v2-tag cmp-v2-tag--hrer">— HRer</span>
+    </div>
+
+    <div class="cmp-v2-qa">
+      <div class="cmp-v2-q">Q. "이게 괴롭힘인가요?"</div>
+      <div class="cmp-v2-row">
+        <p class="cmp-v2-a cmp-v2-a--dim">근로기준법 제76조의2 요건(지위·업무상 적정범위 초과·정신적 고통)을 설명합니다.</p>
+        <p class="cmp-v2-a cmp-v2-a--hrer">유사 사안 판정례 <em>수 건</em>을 비교해 인정·불인정이 갈린 지점과 우리 사안의 사실관계 정리 방향을 제시합니다.</p>
       </div>
     </div>
-    <p style="font-size:12px;color:var(--gray2);text-align:center;margin-top:18px;line-height:1.7">* 판정 경향은 참고 자료이며, 개별 사건 결과는 사실관계에 따라 달라집니다.</p>
+
+    <div class="cmp-v2-qa">
+      <div class="cmp-v2-q">Q. "해고 이길 수 있나요?"</div>
+      <div class="cmp-v2-row">
+        <p class="cmp-v2-a cmp-v2-a--dim">해고의 정당성 일반 요건(사유·양정·절차)을 설명합니다.</p>
+        <p class="cmp-v2-a cmp-v2-a--hrer">같은 유형 사건의 <em>인정 경향</em>, 주로 다투어진 쟁점, 입증해야 할 포인트를 함께 안내합니다.</p>
+      </div>
+    </div>
+
+    <p class="cmp-v2-foot">* 판정 경향은 참고 자료이며, 개별 사건 결과는 사실관계에 따라 달라집니다.</p>
   </div>
 </div>
 </section>
@@ -1153,12 +1227,22 @@ body.modal-open{overflow:hidden}
 </div>
 </section>
 
-<!-- CTA + EXPERT -->
-<section class="cta-banner">
+<!-- CTA — v3: Giant Typography -->
+<section class="cta-v2">
 <div class="container">
-  <h2>인사·노무, 이제 HRer에게 맡기세요</h2>
-  <p>자문부터 인사평가, 취업규칙, 사건 대리까지. 이메일 한 통으로 시작합니다.</p>
-  <a href="/order" class="btn-mint">의뢰하기</a>
+  <div class="cta-v2-head">
+    <span class="cta-v2-label">Start with HRer</span>
+    <p class="cta-v2-sub">자문부터 인사평가, 취업규칙, 사건 대리까지.<br>이메일 한 통으로 시작합니다.</p>
+  </div>
+  <h2 class="cta-v2-h">
+    <span class="cta-v2-line">인사·노무,</span>
+    <span class="cta-v2-line">이제 HRer에게</span>
+    <span class="cta-v2-line"><em>맡기세요.</em></span>
+  </h2>
+  <div class="cta-v2-foot">
+    <a href="/order" class="cta-v2-link">의뢰하기 <span>→</span></a>
+    <span class="cta-v2-meta">HRer · 2026</span>
+  </div>
 </div>
 </section>
 
