@@ -167,21 +167,7 @@ body.i-open{overflow:hidden}
 
 /* FOOTER */
 .footer{background:var(--white);color:var(--gray);padding:56px 0 28px;border-top:1px solid var(--border)}
-.footer-inner{display:grid;grid-template-columns:1.3fr 0.9fr 0.9fr 1.4fr;gap:48px}
-.newsletter h5{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.newsletter h5::before{content:"";width:28px;height:1px;background:var(--mint)}
-.newsletter .nl-desc{font-size:13.5px;color:var(--gray);line-height:1.65;margin-bottom:18px;max-width:340px;font-weight:500}
-.newsletter .nl-desc em{color:var(--dark);font-weight:700;font-style:normal}
-.newsletter .nl-form{display:flex;align-items:center;gap:0;border-bottom:1.5px solid var(--dark);padding-bottom:8px;max-width:340px;transition:border-color 0.25s ease}
-.newsletter .nl-form:focus-within{border-bottom-color:var(--mint)}
-.newsletter .nl-input{flex:1;border:none;background:transparent;padding:6px 0;font-size:14px;font-family:inherit;font-weight:500;color:var(--dark);outline:none;min-width:0}
-.newsletter .nl-input::placeholder{color:var(--gray2)}
-.newsletter .nl-btn{flex-shrink:0;background:transparent;border:none;color:var(--dark);font-size:18px;font-weight:400;cursor:pointer;padding:4px 0 4px 14px;font-family:inherit;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease}
-.newsletter .nl-btn:hover{color:var(--mint);transform:translateX(5px)}
-.newsletter .nl-note{font-size:11px;color:var(--gray2);margin-top:12px;line-height:1.65;letter-spacing:0.1px}
-.newsletter .nl-success{display:none;font-size:13px;color:var(--mint);font-weight:700;margin-top:12px;align-items:center;gap:8px}
-.newsletter .nl-success.show{display:flex}
-.newsletter .nl-success::before{content:"✓";font-size:14px}
+.footer-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
 .footer-col h5{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:14px}
 .footer-logo{font-size:22px;font-weight:900;margin-bottom:10px;color:var(--dark)}
 .footer-info{font-size:12.5px;line-height:1.9;color:var(--gray2)}
@@ -191,7 +177,7 @@ body.i-open{overflow:hidden}
 .footer-links a:hover{color:var(--dark)}
 .footer-copy{text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--gray2);line-height:1.7}
 
-@media(max-width:900px){.data-grid{grid-template-columns:1fr 1fr}.steps-grid{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr;gap:40px}}
+@media(max-width:900px){.data-grid{grid-template-columns:1fr 1fr}.steps-grid{grid-template-columns:1fr 1fr}.footer-inner{grid-template-columns:1fr}}
 @media(max-width:768px){
   :root{--section-gap:70px}
   .nav-links{display:none}.hamburger{display:flex}
@@ -489,16 +475,6 @@ body.i-open{overflow:hidden}
         <a href="/privacy">개인정보처리방침</a>
         <a href="/#faq">자주 묻는 질문</a>
       </div>
-    </div>
-    <div class="footer-col newsletter">
-      <h5>Monthly Briefing</h5>
-      <p class="nl-desc">매월 <em>노동법령 개정</em>과 <em>주요 판정례</em>를 메일 한 통으로 받아보세요.</p>
-      <form class="nl-form" onsubmit="subscribeNewsletter(event)" novalidate>
-        <input type="email" class="nl-input" name="email" placeholder="you@company.com" required>
-        <button type="submit" class="nl-btn" aria-label="구독하기">→</button>
-      </form>
-      <p class="nl-note">개인정보는 브리핑 발송에만 사용하며 언제든 해지 가능합니다.</p>
-      <div class="nl-success">구독 신청 완료. 다음 호를 기다려주세요.</div>
     </div>
   </div>
   <div class="footer-copy">
@@ -808,18 +784,6 @@ function closeInsight(){
   document.body.classList.remove('i-open');
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeInsight()});
-function subscribeNewsletter(e){
-  e.preventDefault();
-  const form=e.target;
-  const email=form.querySelector('.nl-input').value.trim();
-  if(!email||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return;
-  form.style.display='none';
-  const note=form.parentElement.querySelector('.nl-note');
-  if(note)note.style.display='none';
-  const ok=form.parentElement.querySelector('.nl-success');
-  if(ok)ok.classList.add('show');
-  try{localStorage.setItem('hrer_newsletter_email',email);}catch(_){}
-}
 </script>
 
 <script src="/chatbot.js" defer></script>

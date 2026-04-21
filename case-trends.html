@@ -133,21 +133,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 /* FOOTER */
 .footer{background:var(--dark);color:rgba(255,255,255,0.6);padding:48px 0 32px;font-size:13px}
-.footer-inner{display:grid;grid-template-columns:1.3fr 0.9fr 0.9fr 1.4fr;gap:48px;margin-bottom:32px}
-.newsletter h5{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.newsletter h5::before{content:"";width:28px;height:1px;background:var(--mint)}
-.newsletter .nl-desc{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.65;margin-bottom:18px;max-width:320px;font-weight:500}
-.newsletter .nl-desc em{color:#fff;font-weight:700;font-style:normal}
-.newsletter .nl-form{display:flex;align-items:center;gap:0;border-bottom:1.5px solid rgba(255,255,255,0.4);padding-bottom:8px;max-width:320px;transition:border-color 0.25s ease}
-.newsletter .nl-form:focus-within{border-bottom-color:var(--mint)}
-.newsletter .nl-input{flex:1;border:none;background:transparent;padding:6px 0;font-size:14px;font-family:inherit;font-weight:500;color:#fff;outline:none;min-width:0}
-.newsletter .nl-input::placeholder{color:rgba(255,255,255,0.4)}
-.newsletter .nl-btn{flex-shrink:0;background:transparent;border:none;color:#fff;font-size:18px;font-weight:400;cursor:pointer;padding:4px 0 4px 14px;font-family:inherit;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease}
-.newsletter .nl-btn:hover{color:var(--mint);transform:translateX(5px)}
-.newsletter .nl-note{font-size:11px;color:rgba(255,255,255,0.4);margin-top:12px;line-height:1.65;letter-spacing:0.1px;max-width:320px}
-.newsletter .nl-success{display:none;font-size:13px;color:var(--mint);font-weight:700;margin-top:12px;align-items:center;gap:8px}
-.newsletter .nl-success.show{display:flex}
-.newsletter .nl-success::before{content:"✓";font-size:14px}
+.footer-inner{display:flex;justify-content:space-between;flex-wrap:wrap;gap:32px;margin-bottom:32px}
 .footer-logo{font-size:18px;font-weight:900;color:var(--white);margin-bottom:10px}
 .footer-info{line-height:1.8}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:rgba(255,255,255,0.4)}
@@ -162,7 +148,6 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   .section-title{font-size:28px}
   .stat-grid{grid-template-columns:1fr}
   .stat-card .big{font-size:42px}
-  .footer-inner{grid-template-columns:1fr;gap:40px}
   .trend-row{grid-template-columns:1fr;gap:8px;padding:18px 20px}
   .trend-row .rate{text-align:left;font-size:16px}
   .trend-row.header{display:none}
@@ -408,16 +393,6 @@ em{font-style:normal;color:var(--mint);font-weight:700}
         <a href="/order">의뢰하기</a>
       </div>
     </div>
-    <div class="newsletter">
-      <h5>Monthly Briefing</h5>
-      <p class="nl-desc">매월 <em>노동법령 개정</em>과 <em>주요 판정례</em>를 메일 한 통으로 받아보세요.</p>
-      <form class="nl-form" onsubmit="subscribeNewsletter(event)" novalidate>
-        <input type="email" class="nl-input" name="email" placeholder="you@company.com" required>
-        <button type="submit" class="nl-btn" aria-label="구독하기">→</button>
-      </form>
-      <p class="nl-note">개인정보는 브리핑 발송에만 사용하며 언제든 해지 가능합니다.</p>
-      <div class="nl-success">구독 신청 완료. 다음 호를 기다려주세요.</div>
-    </div>
   </div>
   <div class="footer-bottom">© 2026 HRer.</div>
 </div>
@@ -425,19 +400,5 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 <script src="/chatbot.js" defer></script>
 <script src="/analytics.js" defer></script>
-<script>
-function subscribeNewsletter(e){
-  e.preventDefault();
-  const form=e.target;
-  const email=form.querySelector('.nl-input').value.trim();
-  if(!email||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return;
-  form.style.display='none';
-  const note=form.parentElement.querySelector('.nl-note');
-  if(note)note.style.display='none';
-  const ok=form.parentElement.querySelector('.nl-success');
-  if(ok)ok.classList.add('show');
-  try{localStorage.setItem('hrer_newsletter_email',email);}catch(_){}
-}
-</script>
 </body>
 </html>
