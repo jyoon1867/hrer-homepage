@@ -118,77 +118,82 @@ html{scroll-behavior:smooth}
 .snap{scroll-snap-align:start;scroll-snap-stop:normal}
 
 /* ──────────────────────────────────────────────
-   GEOMETRIC ANCHORS — 섹션마다 배경에 도형 앵커
-   스크롤 따라 회전, z-index 음수로 콘텐츠 뒤
+   GEOMETRIC ANCHORS — 섹션마다 배경 도형 (v2)
+   더 선명하고 대담한 프레즌스
    ────────────────────────────────────────────── */
 .geo-stage{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.geo{position:absolute;opacity:0;transition:opacity 1.2s cubic-bezier(0.4,0,0.2,1),transform 1.5s cubic-bezier(0.4,0,0.2,1);will-change:transform,opacity;transform-origin:center}
+.geo{position:absolute;opacity:0;transition:opacity 1.4s cubic-bezier(0.4,0,0.2,1),transform 1.8s cubic-bezier(0.2,0.8,0.2,1);will-change:transform,opacity;transform-origin:center}
 .geo.on{opacity:1}
 
-/* Shape 1 — 거대 원 (Hero, 우하단) */
-.geo-1{width:clamp(320px,42vw,620px);aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(15,39,68,0.08);right:-12%;top:12%;transform:rotate(0deg) scale(0.85)}
+/* Shape 1 — 거대 원 (Hero) */
+.geo-1{width:clamp(380px,48vw,720px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(15,39,68,0.16);right:-16%;top:10%;transform:rotate(0deg) scale(0.88)}
 .geo-1.on{transform:rotate(var(--rot,0deg)) scale(1)}
-.geo-1::before{content:"";position:absolute;inset:12%;border-radius:50%;border:1px solid rgba(0,184,147,0.18)}
-.geo-1::after{content:"";position:absolute;inset:32%;border-radius:50%;background:radial-gradient(circle,rgba(0,184,147,0.08),transparent 70%)}
+.geo-1::before{content:"";position:absolute;inset:14%;border-radius:50%;border:1px solid rgba(0,184,147,0.3)}
+.geo-1::after{content:"";position:absolute;inset:36%;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(0,184,147,0.2),rgba(76,110,245,0.1) 50%,transparent 75%)}
 
-/* Shape 2 — 네모 프레임 (Services, 좌하단) */
-.geo-2{width:clamp(280px,38vw,540px);aspect-ratio:1;border:1.5px solid rgba(15,39,68,0.1);left:-10%;bottom:8%;transform:rotate(12deg) scale(0.9)}
-.geo-2.on{transform:rotate(calc(var(--rot,0deg) + 12deg)) scale(1)}
-.geo-2::before{content:"";position:absolute;top:20%;left:20%;right:20%;bottom:20%;border:1px dashed rgba(0,184,147,0.35)}
+/* Shape 2 — 네모 회전 프레임 (Empathy, 우상단) */
+.geo-2{width:clamp(320px,42vw,580px);aspect-ratio:1;border:1px solid rgba(15,39,68,0.2);right:-8%;top:8%;transform:rotate(15deg) scale(0.9)}
+.geo-2.on{transform:rotate(calc(var(--rot,0deg) + 15deg)) scale(1)}
+.geo-2::before{content:"";position:absolute;inset:20%;border:1px dashed rgba(0,184,147,0.45)}
+.geo-2::after{content:"";position:absolute;inset:42%;background:var(--mint);border-radius:50%;opacity:0.25}
 
-/* Shape 3 — 삼각형 (How We Work, 우상단 큰 + 좌하단 작은) */
-.geo-3{width:clamp(360px,46vw,680px);height:clamp(360px,46vw,680px);right:-14%;top:4%;transform:rotate(-8deg) scale(0.85)}
-.geo-3.on{transform:rotate(calc(var(--rot,0deg) - 8deg)) scale(1)}
-.geo-3::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 48%,rgba(255,255,255,0.08) 50%,transparent 52%);clip-path:polygon(50% 0%,100% 100%,0% 100%)}
-.geo-3::after{content:"";position:absolute;inset:15%;border:1.5px solid rgba(255,255,255,0.15);clip-path:polygon(50% 0%,100% 100%,0% 100%)}
+/* Shape 3 — 삼각형 + 다이아 (Services) */
+.geo-3{width:clamp(400px,50vw,720px);height:clamp(400px,50vw,720px);left:-16%;bottom:-12%;transform:rotate(-10deg) scale(0.88)}
+.geo-3.on{transform:rotate(calc(var(--rot,0deg) - 10deg)) scale(1)}
+.geo-3::before{content:"";position:absolute;inset:0;border:1px solid rgba(15,39,68,0.15);clip-path:polygon(50% 0%,100% 100%,0% 100%)}
+.geo-3::after{content:"";position:absolute;inset:30%;border:1px solid rgba(0,184,147,0.35);transform:rotate(45deg)}
 
-/* Shape 4 — 십자가 / 플러스 (Process) */
-.geo-4{width:clamp(220px,28vw,400px);height:clamp(220px,28vw,400px);left:8%;top:20%;transform:rotate(0deg) scale(0.9)}
+/* Shape 4 — 이중 원 + 선 (How We Work / 다크 스테이지) */
+.geo-4{width:clamp(340px,44vw,640px);aspect-ratio:1;right:-10%;top:12%;transform:rotate(0deg) scale(0.88)}
 .geo-4.on{transform:rotate(var(--rot,0deg)) scale(1)}
-.geo-4::before,.geo-4::after{content:"";position:absolute;background:rgba(15,39,68,0.06)}
-.geo-4::before{left:48%;right:48%;top:0;bottom:0}
-.geo-4::after{top:48%;bottom:48%;left:0;right:0}
+.geo-4::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,0.18)}
+.geo-4::after{content:"";position:absolute;inset:22%;border-radius:50%;border:1px solid rgba(0,184,147,0.45);background:radial-gradient(circle,rgba(0,184,147,0.12),transparent 60%)}
 
-/* Shape 5 — 이중 원 (FAQ) */
-.geo-5{width:clamp(280px,36vw,520px);aspect-ratio:1;right:6%;bottom:6%;transform:rotate(0deg) scale(0.85)}
+/* Shape 5 — 플러스 그리드 (Process) */
+.geo-5{width:clamp(260px,32vw,480px);height:clamp(260px,32vw,480px);left:6%;top:18%;transform:rotate(0deg) scale(0.9)}
 .geo-5.on{transform:rotate(var(--rot,0deg)) scale(1)}
-.geo-5::before{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(15,39,68,0.08)}
-.geo-5::after{content:"";position:absolute;inset:18%;border-radius:50%;border:1px solid rgba(0,184,147,0.25);background:radial-gradient(circle at 30% 30%,rgba(76,110,245,0.08),transparent 60%)}
+.geo-5::before,.geo-5::after{content:"";position:absolute;background:rgba(15,39,68,0.08)}
+.geo-5::before{left:49.5%;right:49.5%;top:0;bottom:0}
+.geo-5::after{top:49.5%;bottom:49.5%;left:0;right:0}
 
-/* 다크 스테이지에서 도형 색 반전 */
-body[data-stage="3"] .geo-1,body[data-stage="3"] .geo-2,body[data-stage="3"] .geo-4,body[data-stage="3"] .geo-5,
-body[data-stage="6"] .geo-1,body[data-stage="6"] .geo-2,body[data-stage="6"] .geo-4,body[data-stage="6"] .geo-5{
-  border-color:rgba(255,255,255,0.12)
-}
+/* Shape 6 — 거대 원 + 점선 (FAQ) */
+.geo-6{width:clamp(320px,40vw,580px);aspect-ratio:1;right:4%;bottom:8%;transform:rotate(0deg) scale(0.88)}
+.geo-6.on{transform:rotate(var(--rot,0deg)) scale(1)}
+.geo-6::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(15,39,68,0.15)}
+.geo-6::after{content:"";position:absolute;inset:18%;border-radius:50%;border:1px dashed rgba(0,184,147,0.3);background:radial-gradient(circle at 70% 70%,rgba(76,110,245,0.1),transparent 60%)}
 
-/* 모바일에선 도형 더 작게 + 일부 숨김 */
+/* 다크 스테이지 (Services — stage 4)에서 도형 색 반전 */
+body[data-stage="4"] .geo{border-color:rgba(255,255,255,0.22)}
+body[data-stage="4"] .geo::before{border-color:rgba(255,255,255,0.22)}
+body[data-stage="4"] .geo-5::before,body[data-stage="4"] .geo-5::after{background:rgba(255,255,255,0.14)}
+body[data-stage="4"] .geo-2::after{background:rgba(0,184,147,0.5)}
+
 @media(max-width:900px){
-  .geo-1,.geo-3{transform:scale(0.5);opacity:0.5}
-  .geo-2{left:-30%}
-  .geo-4{display:none}
+  .geo-1,.geo-3,.geo-4{opacity:0;transform:scale(0.4)}
+  .geo-2{left:-35%;right:auto}
+  .geo-5{display:none}
+  .geo-6{right:-20%}
 }
 
 /* 콘텐츠는 도형 위로 */
 .nav,.hero-inner,.section,.chips-section,footer,.scroll-progress,.scroll-dots{position:relative;z-index:1}
-.chatbot-widget,.hrbot-fab{z-index:999}
 
 /* ──────────────────────────────────────────────
    SCROLL STAGE — 배경·텍스트 색상이 스크롤에 따라 전환
    newgenre.studio 참조
    ────────────────────────────────────────────── */
-body{transition:background-color 0.8s cubic-bezier(0.4,0,0.2,1),color 0.8s cubic-bezier(0.4,0,0.2,1)}
-body[data-stage="1"]{background:#FFFFFF;color:#0F2744}
-body[data-stage="2"]{background:#F0FDF4;color:#0F2744}
-body[data-stage="3"]{background:#0F2744;color:#FFFFFF}
-body[data-stage="4"]{background:#F7F9FC;color:#0F2744}
-body[data-stage="5"]{background:#FAF8F3;color:#0F2744}
-body[data-stage="6"]{background:#0F2744;color:#FFFFFF}
-body[data-stage="7"]{background:#FFFFFF;color:#0F2744}
+body{transition:background-color 1s cubic-bezier(0.4,0,0.2,1),color 1s cubic-bezier(0.4,0,0.2,1)}
+body[data-stage="1"]{background:#FFFFFF;color:#0F2744}                  /* Hero — 흰색 */
+body[data-stage="2"]{background:#FAF8F3;color:#0F2744}                  /* Empathy — 크림 */
+body[data-stage="3"]{background:#F7F9FC;color:#0F2744}                  /* Process — 연회색 */
+body[data-stage="4"]{background:#0F2744;color:#FFFFFF}                  /* Services — 네이비 (강조점) */
+body[data-stage="5"]{background:#ECFDF5;color:#0F2744}                  /* How We Work — 민트 워시 */
+body[data-stage="6"]{background:#FFFFFF;color:#0F2744}                  /* FAQ — 흰색 복귀 */
 
 /* Nav도 스테이지에 맞춰 배경 변환 */
-body[data-stage="3"] .nav,body[data-stage="6"] .nav{background:rgba(15,39,68,0.75);border-bottom-color:rgba(255,255,255,0.08)}
-body[data-stage="3"] .logo-er,body[data-stage="6"] .logo-er{color:#fff}
-body[data-stage="3"] .nav-links a,body[data-stage="6"] .nav-links a{color:rgba(255,255,255,0.85)}
+body[data-stage="4"] .nav{background:rgba(15,39,68,0.75);border-bottom-color:rgba(255,255,255,0.08)}
+body[data-stage="4"] .logo-er{color:#fff}
+body[data-stage="4"] .nav-links a{color:rgba(255,255,255,0.85)}
 
 /* Section 배경 지우기 (body가 스테이지로 색칠) */
 .section-alt,.section-cream,.section-mist{background:transparent}
@@ -201,8 +206,8 @@ body[data-stage="3"] .nav-links a,body[data-stage="6"] .nav-links a{color:rgba(2
 .morph .word.active{position:relative;opacity:1;transform:translateY(0);filter:blur(0);pointer-events:auto}
 
 /* 네비 점 색상도 스테이지에 따라 */
-body[data-stage="3"] .scroll-dots a,body[data-stage="6"] .scroll-dots a{background:rgba(255,255,255,0.25)}
-body[data-stage="3"] .scroll-dots a.active,body[data-stage="6"] .scroll-dots a.active{background:var(--mint)}
+body[data-stage="4"] .scroll-dots a{background:rgba(255,255,255,0.25)}
+body[data-stage="4"] .scroll-dots a.active{background:var(--mint)}
 
 /* REVEAL — 히어로 h1 line 애니메이션 */
 .reveal .line{transform:translateY(0)}
@@ -336,9 +341,14 @@ body[data-stage="3"] .scroll-dots a.active,body[data-stage="6"] .scroll-dots a.a
 .process-line{position:absolute;top:60px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,rgba(15,39,68,0.2) 10%,rgba(15,39,68,0.2) 90%,transparent);z-index:0}
 .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;z-index:1}
 .process-card{padding:20px 28px 32px;text-align:center;position:relative}
-.process-card .step-num{font-size:clamp(56px,5.5vw,96px);font-weight:900;color:var(--dark);letter-spacing:-4px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums;display:inline-block;padding:0 12px;background:var(--white);position:relative;z-index:1}
-body[data-stage="4"] .process-card .step-num{background:#F7F9FC}
-body[data-stage="1"] .process-card .step-num,body[data-stage="7"] .process-card .step-num{background:#fff}
+.process-card .step-num{font-size:clamp(56px,5.5vw,96px);font-weight:900;color:currentColor;letter-spacing:-4px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums;display:inline-block;padding:0 12px;background:transparent;position:relative;z-index:1}
+.process-card .step-num::before{content:"";position:absolute;inset:0;background:inherit;z-index:-1}
+/* Stage별 Process 숫자 배경 (라인 위로 숨김) */
+body[data-stage="3"] .process-card .step-num{background:#F7F9FC}
+body[data-stage="2"] .process-card .step-num{background:#FAF8F3}
+body[data-stage="4"] .process-card .step-num{background:#0F2744}
+body[data-stage="5"] .process-card .step-num{background:#ECFDF5}
+body[data-stage="1"] .process-card .step-num,body[data-stage="6"] .process-card .step-num{background:#fff}
 .process-card .step-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--mint);margin:14px 0 20px;position:relative;z-index:1}
 .process-card h3{font-size:22px;font-weight:800;margin-bottom:14px;letter-spacing:-0.7px;color:var(--dark)}
 .process-card p{font-size:14.5px;color:var(--gray);line-height:1.75;font-weight:500;max-width:280px;margin:0 auto}
@@ -362,13 +372,16 @@ body[data-stage="1"] .process-card .step-num,body[data-stage="7"] .process-card 
 .bento-icon{display:none}
 .bento-link{display:none}
 
-/* 다크 스테이지 대응 */
-body[data-stage="3"] .bento-grid,body[data-stage="6"] .bento-grid{border-top-color:rgba(255,255,255,0.15)}
-body[data-stage="3"] .bento-card,body[data-stage="6"] .bento-card{border-bottom-color:rgba(255,255,255,0.12)}
-body[data-stage="3"] .bento-card .bento-num,body[data-stage="6"] .bento-card .bento-num,
-body[data-stage="3"] .bento-card h3,body[data-stage="6"] .bento-card h3{color:#fff}
-body[data-stage="3"] .bento-card p,body[data-stage="6"] .bento-card p{color:rgba(255,255,255,0.7)}
-body[data-stage="3"] .bento-card .bento-arrow,body[data-stage="6"] .bento-card .bento-arrow{border-color:rgba(255,255,255,0.3);color:#fff}
+/* 다크 스테이지 (Services — stage 4) 대응 */
+body[data-stage="4"] .bento-grid{border-top-color:rgba(255,255,255,0.18)}
+body[data-stage="4"] .bento-card{border-bottom-color:rgba(255,255,255,0.14)}
+body[data-stage="4"] .bento-card .bento-num,body[data-stage="4"] .bento-card h3{color:#fff}
+body[data-stage="4"] .bento-card p{color:rgba(255,255,255,0.72)}
+body[data-stage="4"] .bento-card p em{color:#fff;-webkit-text-fill-color:#fff}
+body[data-stage="4"] .bento-card .bento-arrow{border-color:rgba(255,255,255,0.35);color:#fff}
+body[data-stage="4"] .bento-card:hover{background:rgba(255,255,255,0.06)}
+body[data-stage="4"] .bento-card:hover .bento-num{color:var(--mint)}
+body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color:#fff;color:var(--navy)}
 
 @media(max-width:900px){
   .bento-card{grid-template-columns:60px 1fr 40px;gap:16px;padding:24px 0}
@@ -578,17 +591,19 @@ body.modal-open{overflow:hidden}
 
 <div class="geo-stage" aria-hidden="true" id="geo-stage">
   <div class="geo geo-1" data-anchor="hero"></div>
-  <div class="geo geo-2" data-anchor="services"></div>
-  <div class="geo geo-3" data-anchor="how"></div>
-  <div class="geo geo-4" data-anchor="process"></div>
-  <div class="geo geo-5" data-anchor="faq"></div>
+  <div class="geo geo-2" data-anchor="empathy"></div>
+  <div class="geo geo-3" data-anchor="services"></div>
+  <div class="geo geo-4" data-anchor="how"></div>
+  <div class="geo geo-5" data-anchor="process"></div>
+  <div class="geo geo-6" data-anchor="faq"></div>
 </div>
 
 <nav class="scroll-dots" aria-hidden="true" id="scroll-dots">
   <a href="#hero" data-label="Intro"></a>
+  <a href="#empathy" data-label="Pain Point"></a>
+  <a href="#process" data-label="Process"></a>
   <a href="#services" data-label="Services"></a>
   <a href="#how" data-label="How We Work"></a>
-  <a href="#process" data-label="Process"></a>
   <a href="#faq" data-label="FAQ"></a>
 </nav>
 
@@ -1422,10 +1437,11 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
   // 4) 스크롤 스테이지 전환 + 기하 도형 앵커
   const stageMap = [
     {sel:'#hero',     stage:'1', anchor:'hero'},
-    {sel:'#services', stage:'2', anchor:'services'},
-    {sel:'#how',      stage:'3', anchor:'how'},
-    {sel:'#process',  stage:'4', anchor:'process'},
-    {sel:'#faq',      stage:'5', anchor:'faq'},
+    {sel:'#empathy',  stage:'2', anchor:'empathy'},
+    {sel:'#process',  stage:'3', anchor:'process'},
+    {sel:'#services', stage:'4', anchor:'services'},
+    {sel:'#how',      stage:'5', anchor:'how'},
+    {sel:'#faq',      stage:'6', anchor:'faq'},
   ];
   const stageEls = stageMap.map(m => ({el: document.querySelector(m.sel), stage: m.stage, anchor: m.anchor})).filter(x => x.el);
   const geoEls = document.querySelectorAll('.geo');
