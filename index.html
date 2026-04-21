@@ -42,28 +42,46 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .mobile-menu a{color:var(--dark);font-size:15px;font-weight:500;padding:6px 0}
 .mobile-menu.active{display:flex}
 
-/* HERO — 비대칭·조각난 타이포·마우스 추적 */
-.hero{padding:140px 0 100px;background:var(--white);overflow:hidden;position:relative}
-.hero::before{content:"";position:absolute;top:30%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(0,184,147,0.06) 0%,transparent 70%);pointer-events:none;transform:translate(var(--mx,0),var(--my,0));transition:transform 0.3s ease}
-.hero::after{content:"";position:absolute;bottom:-5%;left:-10%;width:400px;height:400px;background:radial-gradient(circle,rgba(76,110,245,0.05) 0%,transparent 70%);pointer-events:none;transform:translate(calc(var(--mx,0) * -1),calc(var(--my,0) * -1));transition:transform 0.4s ease}
-.hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px}
-.hero-tag{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:100px;background:#fff;border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--gray);margin-bottom:40px;letter-spacing:-0.2px}
-.hero-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(0,184,147,0.2);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,184,147,0.4)}50%{box-shadow:0 0 0 6px rgba(0,184,147,0)}}
-.hero h1{font-size:clamp(42px,7vw,104px);font-weight:900;line-height:1.02;letter-spacing:-4px;color:var(--dark);margin-bottom:32px;max-width:1100px}
+/* HERO — 형이상학·미니멀·여백·그리드 */
+.hero{min-height:92vh;display:flex;align-items:center;background:var(--white);overflow:hidden;position:relative;padding:120px 0 80px}
+.hero::before{
+  /* 12-컬럼 그리드 오버레이 — 건축 도면 느낌 */
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1200px,calc(100% - 64px));height:100%;
+  background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(8.333% - 1px),rgba(15,39,68,0.025) calc(8.333% - 1px),rgba(15,39,68,0.025) 8.333%);
+  pointer-events:none;z-index:0
+}
+.hero::after{
+  /* 지평선 — 하단 얇은 선 */
+  content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(15,39,68,0.12) 20%,rgba(15,39,68,0.12) 80%,transparent);
+  pointer-events:none
+}
+.hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 32px;width:100%}
+.hero-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:clamp(48px,7vw,80px)}
+.hero-tag{display:inline-flex;align-items:center;gap:12px;font-size:11.5px;font-weight:600;color:var(--gray);letter-spacing:2px;text-transform:uppercase}
+.hero-tag::before{content:"";width:28px;height:1px;background:var(--dark);opacity:0.4}
+.hero-index{font-size:11.5px;font-weight:500;color:var(--gray2);letter-spacing:1.5px;font-variant-numeric:tabular-nums}
+.hero-index b{color:var(--dark);font-weight:700}
+
+.hero h1{font-size:clamp(40px,7.2vw,116px);font-weight:800;line-height:1.02;letter-spacing:-5px;color:var(--dark);margin:0}
 .hero h1 .line{display:block;overflow:hidden}
-.hero h1 .line > span{display:inline-block}
-.hero h1 .slash{color:var(--mint);font-weight:900;display:inline-block;transform:skew(-8deg);margin:0 4px}
-.hero h1 .strike{text-decoration:line-through;text-decoration-thickness:4px;text-decoration-color:rgba(0,0,0,0.3);color:var(--gray2)}
-.hero h1 em{background:linear-gradient(180deg,transparent 60%,rgba(0,184,147,0.25) 60%);-webkit-background-clip:border-box;background-clip:border-box;-webkit-text-fill-color:var(--dark);color:var(--dark);font-weight:inherit;padding:0 6px}
-.hero-meta{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
-.hero-meta-left{max-width:520px}
-.hero-meta p{font-size:17px;color:var(--gray);line-height:1.7;font-weight:500;margin-bottom:0}
-.hero-meta-right{text-align:right}
-.hero-meta-num{font-size:48px;font-weight:900;color:var(--dark);letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
-.hero-meta-num .plus{color:var(--mint);font-size:32px;vertical-align:super;margin-left:-4px}
-.hero-meta-label{font-size:12px;color:var(--gray2);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-top:6px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:48px}
+.hero h1 .line > span{display:inline-block;position:relative}
+.hero h1 em{font-style:normal;color:var(--dark);font-weight:inherit;position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:-2px;right:-2px;bottom:8%;height:14%;background:var(--mint);opacity:0.25;z-index:-1;border-radius:2px}
+.hero h1 .faint{color:var(--gray2);font-weight:400;letter-spacing:-3.5px}
+.hero h1 .accent{color:var(--mint)}
+.hero h1 .dot{display:inline-block;width:clamp(10px,1.4vw,18px);height:clamp(10px,1.4vw,18px);background:var(--mint);border-radius:50%;margin:0 0 0 8px;transform:translateY(-0.08em);vertical-align:baseline}
+
+.hero-foot{display:grid;grid-template-columns:minmax(0,1.1fr) auto;gap:64px;align-items:end;margin-top:clamp(56px,9vw,120px);padding-top:32px;border-top:1px solid rgba(15,39,68,0.1);position:relative}
+.hero-foot::before{content:"01 / 06";position:absolute;top:-28px;left:0;font-size:10.5px;color:var(--gray2);font-weight:500;letter-spacing:1.5px;font-variant-numeric:tabular-nums}
+.hero-foot-left{max-width:520px}
+.hero-foot p{font-size:clamp(14.5px,1.1vw,16.5px);color:var(--gray);line-height:1.75;font-weight:500;margin-bottom:28px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:0}
+
+.hero-num{text-align:right;line-height:1}
+.hero-num-big{font-size:clamp(56px,6.5vw,96px);font-weight:800;color:var(--dark);letter-spacing:-4.5px;line-height:0.9;font-variant-numeric:tabular-nums;display:inline-flex;align-items:flex-start}
+.hero-num-big .plus{font-size:0.45em;color:var(--mint);margin-left:4px;margin-top:0.05em;font-weight:600}
+.hero-num-label{font-size:11px;color:var(--gray2);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-top:14px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.hero-num-label::before{content:"";width:20px;height:1px;background:var(--gray2)}
 .btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);padding:16px 32px;border-radius:9999px;font-weight:700;font-size:16px;letter-spacing:-0.2px;transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease}
 .btn-dark:hover{background:#1A3A5C;transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,39,68,0.25)}
 .btn-dark::after{content:"→";display:inline-block;font-size:16px;transition:transform 0.2s ease}
@@ -85,6 +103,28 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
 /* SCROLL PROGRESS BAR — 최상단 2px */
 .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--mint),var(--blue));z-index:9999;width:0;transition:width 0.08s linear;pointer-events:none}
+
+/* 섹션 인덱스 인디케이터 — 우측 세로 점 */
+.scroll-dots{position:fixed;top:50%;right:24px;transform:translateY(-50%);z-index:500;display:flex;flex-direction:column;gap:14px;pointer-events:auto}
+.scroll-dots a{width:8px;height:8px;border-radius:50%;background:rgba(15,39,68,0.18);transition:all 0.25s ease;display:block;position:relative}
+.scroll-dots a::after{content:attr(data-label);position:absolute;right:18px;top:50%;transform:translateY(-50%);background:var(--dark);color:#fff;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:0.3px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.scroll-dots a:hover{background:var(--dark);transform:scale(1.3)}
+.scroll-dots a:hover::after{opacity:1}
+.scroll-dots a.active{background:var(--mint);transform:scale(1.4)}
+@media(max-width:900px){.scroll-dots{display:none}}
+
+/* 미니멀 커서 (데스크탑 전용) */
+.cursor-dot{position:fixed;top:0;left:0;width:8px;height:8px;border-radius:50%;background:var(--dark);pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width 0.2s ease,height 0.2s ease,background 0.2s ease,opacity 0.2s ease;mix-blend-mode:difference;opacity:0}
+.cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border-radius:50%;border:1px solid rgba(15,39,68,0.3);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s cubic-bezier(0.2,0.8,0.2,1),height 0.3s cubic-bezier(0.2,0.8,0.2,1),border-color 0.2s ease,opacity 0.2s ease;opacity:0}
+body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{opacity:1}
+body.cursor-hover .cursor-dot{width:0;height:0}
+body.cursor-hover .cursor-ring{width:56px;height:56px;border-color:var(--mint);background:rgba(0,184,147,0.08)}
+@media(max-width:900px){.cursor-dot,.cursor-ring{display:none}}
+@media(hover:none){.cursor-dot,.cursor-ring{display:none}}
+
+/* 스크롤 스냅 — 섹션마다 '걸리는 맛' */
+html{scroll-behavior:smooth}
+.snap{scroll-snap-align:start;scroll-snap-stop:normal}
 
 /* REVEAL — 히어로 h1 line 애니메이션 */
 .reveal .line{transform:translateY(0)}
@@ -400,6 +440,17 @@ body.modal-open{overflow:hidden}
 
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+<nav class="scroll-dots" aria-hidden="true" id="scroll-dots">
+  <a href="#hero" data-label="Intro"></a>
+  <a href="#services" data-label="Services"></a>
+  <a href="#how" data-label="How We Work"></a>
+  <a href="#process" data-label="Process"></a>
+  <a href="#faq" data-label="FAQ"></a>
+</nav>
+
 <nav class="nav">
 <div class="nav-inner">
   <a href="/" class="logo"><span class="logo-hr">HR</span><span class="logo-er">er</span></a>
@@ -427,27 +478,30 @@ body.modal-open{overflow:hidden}
 </div>
 </nav>
 
-<!-- HERO — 비대칭·조각난 타이포 -->
+<!-- HERO — 형이상학·미니멀 -->
 <section class="hero" id="hero">
 <div class="hero-inner">
-  <div class="hero-tag">// 소규모 사업장을 위한 새로운 인사·노무</div>
+  <div class="hero-top">
+    <div class="hero-tag">HRer Labor Consulting</div>
+    <div class="hero-index"><b>KR</b> · 2026 / 소규모 사업장</div>
+  </div>
+
   <h1 class="reveal">
-    <span class="line"><span>월 자문료?</span></span>
-    <span class="line"><span><span class="strike">계약부터</span> <span class="slash">/</span> 끊어냈습니다.</span></span>
-    <span class="line"><span><em>건별로</em>, <em>서면으로</em>,</span></span>
-    <span class="line"><span>이메일 한 통으로.</span></span>
+    <span class="line"><span>노무 자문의</span></span>
+    <span class="line"><span><span class="faint">새로운</span> <em>형식</em><span class="dot"></span></span></span>
   </h1>
-  <div class="hero-meta">
-    <div class="hero-meta-left">
-      <p>노무 자문부터 인사평가, 취업규칙, 괴롭힘 조사, 부당해고 대응까지. 공인노무사가 판례·행정해석 근거로 서면 답변드립니다.</p>
+
+  <div class="hero-foot">
+    <div class="hero-foot-left">
+      <p>월 자문료 계약 대신 건별 결제. 전화 상담 대신 서면 답변. 공인노무사가 판례·행정해석 근거로 작성한 의견서를, 이메일 한 통으로 받아보세요.</p>
       <div class="hero-btns">
         <a href="/order" class="btn-dark">자문 의뢰하기</a>
-        <a href="#how" class="btn-ghost">일하는 방식 보기</a>
+        <a href="#how" class="btn-ghost">일하는 방식</a>
       </div>
     </div>
-    <div class="hero-meta-right">
-      <div class="hero-meta-num" data-count="243000"><span class="hero-num-val">0</span><span class="plus">+</span></div>
-      <div class="hero-meta-label">검증된 근거 데이터</div>
+    <div class="hero-num">
+      <div class="hero-num-big" data-count="243000"><span class="hero-num-val">0</span><span class="plus">+</span></div>
+      <div class="hero-num-label">검증된 근거 데이터</div>
     </div>
   </div>
 </div>
@@ -487,7 +541,7 @@ body.modal-open{overflow:hidden}
 </section>
 
 <!-- PROCESS -->
-<section class="section">
+<section class="section" id="process">
 <div class="container">
   <div class="section-label">How It Works</div>
   <h2 class="section-title"><em>미팅</em>도, <em>전화</em>도, <em>계약서</em>도 필요 없습니다</h2>
@@ -1193,18 +1247,48 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeSample(); })
     requestAnimationFrame(tick);
   }
 
-  // 4) 마우스 추적 — 히어로 배경 원 (desktop only)
+  // 4) 미니멀 커서 — dot + ring (desktop only)
   if (window.matchMedia('(min-width: 900px) and (hover:hover)').matches){
-    const hero = document.getElementById('hero');
-    if (hero){
-      hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const cx = (e.clientX - rect.left - rect.width/2) / rect.width;
-        const cy = (e.clientY - rect.top - rect.height/2) / rect.height;
-        hero.style.setProperty('--mx', (cx * 30).toFixed(1) + 'px');
-        hero.style.setProperty('--my', (cy * 30).toFixed(1) + 'px');
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (dot && ring){
+      let mx = 0, my = 0, rx = 0, ry = 0;
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        if (!document.body.classList.contains('cursor-ready')){
+          document.body.classList.add('cursor-ready');
+        }
+      });
+      // Ring은 부드럽게 추적 (lerp)
+      function loop(){
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(loop);
+      }
+      loop();
+      // hover 확장
+      const hoverSel = 'a, button, .chip, .pillar, .bento-card, [role="button"]';
+      document.querySelectorAll(hoverSel).forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
       });
     }
+  }
+
+  // 5) 섹션 네비 점 — active 상태 전환
+  const dots = document.querySelectorAll('.scroll-dots a');
+  if (dots.length){
+    const sections = Array.from(dots).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    function updateDots(){
+      const y = window.scrollY + window.innerHeight * 0.4;
+      let activeIdx = 0;
+      sections.forEach((s, i) => { if (s.offsetTop <= y) activeIdx = i; });
+      dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+    }
+    window.addEventListener('scroll', updateDots, {passive:true});
+    updateDots();
   }
 
 })();
