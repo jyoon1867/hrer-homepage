@@ -95,16 +95,16 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .btn-ghost:hover::after{transform:translate(4px,-4px)}
 
 /* 서비스 칩 — 카드형 + 호버 강화 */
-.chips-section{padding:0 0 80px;background:var(--white)}
-.chip-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:1200px;margin:0 auto;background:#fff}
-.chip{padding:28px 16px;text-align:left;border-right:1px solid var(--border);transition:background 0.18s,transform 0.18s;color:inherit;position:relative}
+.chips-section{padding:40px 0 80px;background:transparent}
+.chip-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(15,39,68,0.15);border-bottom:1px solid rgba(15,39,68,0.15);border-radius:0;max-width:1200px;margin:0 auto;background:transparent;overflow:visible}
+.chip{padding:28px 20px;text-align:left;border-right:1px solid rgba(15,39,68,0.08);transition:padding-left 0.3s cubic-bezier(0.2,0.8,0.2,1);color:inherit;position:relative}
 .chip:last-child{border-right:none}
-.chip::after{content:"↗";position:absolute;top:20px;right:16px;color:var(--gray2);font-size:14px;font-weight:700;opacity:0;transform:translate(-4px,4px);transition:all 0.2s ease}
-.chip:hover{background:#FAFFFE}
-.chip:hover::after{opacity:1;transform:translate(0,0);color:var(--mint)}
+.chip::after{content:"↗";position:absolute;top:26px;right:16px;color:rgba(15,39,68,0.35);font-size:14px;font-weight:400;opacity:0.5;transition:all 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.chip:hover{padding-left:28px}
+.chip:hover::after{opacity:1;color:var(--mint);transform:translate(3px,-3px)}
 .chip:hover .chip-main{color:var(--mint)}
-.chip-sub{font-size:11.5px;color:var(--gray2);font-weight:600;letter-spacing:0.3px;text-transform:uppercase}
-.chip-main{font-size:17px;font-weight:800;margin-top:6px;color:var(--dark);letter-spacing:-0.5px;transition:color 0.18s}
+.chip-sub{font-size:11px;color:var(--gray2);font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.chip-main{font-size:17px;font-weight:800;margin-top:8px;color:var(--dark);letter-spacing:-0.5px;transition:color 0.25s ease}
 
 /* SCROLL PROGRESS BAR — 최상단 2px */
 .scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--mint),var(--blue));z-index:9999;width:0;transition:width 0.08s linear;pointer-events:none}
@@ -380,8 +380,8 @@ body[data-stage="1"] .process-card .step-num,body[data-stage="6"] .process-card 
 .bento-card:hover h3{color:var(--dark)}
 .bento-card p{font-size:14.5px;color:var(--gray);line-height:1.7;font-weight:500;margin:0}
 .bento-card p em{font-style:normal;color:var(--dark);font-weight:700;-webkit-text-fill-color:var(--dark);background:none}
-.bento-card .bento-arrow{width:48px;height:48px;border-radius:50%;border:1px solid rgba(15,39,68,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--dark);transition:background 0.25s ease,border-color 0.25s ease,transform 0.25s ease,color 0.25s ease;justify-self:end}
-.bento-card:hover .bento-arrow{background:var(--dark);border-color:var(--dark);color:#fff;transform:rotate(-45deg)}
+.bento-card .bento-arrow{width:auto;height:auto;border-radius:0;border:none;background:none;display:inline-flex;align-items:center;font-size:18px;color:rgba(15,39,68,0.35);font-weight:400;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease;justify-self:end;align-self:center}
+.bento-card:hover .bento-arrow{color:var(--mint);transform:translate(6px,-6px)}
 .bento-card:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
 .bento-tags{display:none}
 .bento-icon{display:none}
@@ -393,17 +393,17 @@ body[data-stage="4"] .bento-card{border-bottom-color:rgba(255,255,255,0.14)}
 body[data-stage="4"] .bento-card .bento-num,body[data-stage="4"] .bento-card h3{color:#fff}
 body[data-stage="4"] .bento-card p{color:rgba(255,255,255,0.72)}
 body[data-stage="4"] .bento-card p em{color:#fff;-webkit-text-fill-color:#fff}
-body[data-stage="4"] .bento-card .bento-arrow{border-color:rgba(255,255,255,0.35);color:#fff}
-body[data-stage="4"] .bento-card:hover{background:rgba(255,255,255,0.06)}
+body[data-stage="4"] .bento-card .bento-arrow{color:rgba(255,255,255,0.5)}
+body[data-stage="4"] .bento-card:hover{background:rgba(255,255,255,0.04)}
 body[data-stage="4"] .bento-card:hover .bento-num{color:var(--mint)}
-body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color:#fff;color:var(--navy)}
+body[data-stage="4"] .bento-card:hover .bento-arrow{color:var(--mint)}
 
 @media(max-width:900px){
   .bento-card{grid-template-columns:60px 1fr 40px;gap:16px;padding:24px 0}
   .bento-card .bento-num{font-size:24px}
   .bento-card h3{font-size:19px}
   .bento-card p{grid-column:1/-1;padding-left:76px;margin-top:-6px}
-  .bento-card .bento-arrow{width:36px;height:36px;font-size:13px}
+  .bento-card .bento-arrow{font-size:15px}
   .bento-card:hover{padding-left:12px;padding-right:12px}
 }
 
@@ -478,16 +478,16 @@ body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color
 .delv-sub-grid strong{color:var(--dark);font-weight:800;font-size:14px;display:block;margin-bottom:4px;letter-spacing:-0.3px}
 .delv-meta{display:flex;flex-direction:column;gap:6px;padding-top:2px}
 .delv-tag{display:inline-block;width:fit-content;font-size:11px;font-weight:600;color:var(--gray);letter-spacing:0.3px;padding:4px 10px;border:1px solid rgba(15,39,68,0.15)}
-.delv-arrow{width:44px;height:44px;border-radius:50%;border:1px solid rgba(15,39,68,0.15);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--dark);transition:all 0.25s ease;justify-self:end;align-self:flex-start}
-.delv-row:hover .delv-arrow{background:var(--dark);border-color:var(--dark);color:#fff;transform:rotate(-45deg)}
+.delv-arrow{width:auto;height:auto;border-radius:0;border:none;background:none;display:inline-flex;align-items:center;font-size:18px;color:rgba(15,39,68,0.35);font-weight:400;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1),color 0.25s ease;justify-self:end;align-self:center}
+.delv-row:hover .delv-arrow{color:var(--mint);transform:translate(6px,-6px)}
 
 @media(max-width:900px){
-  .delv-row{grid-template-columns:56px 1fr 36px;gap:16px;padding:24px 0}
+  .delv-row{grid-template-columns:80px 1fr 24px;gap:16px;padding:28px 0}
   .delv-row:hover{padding-left:12px;padding-right:12px}
-  .delv-idx{font-size:22px}
-  .delv-meta{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;padding-left:72px}
+  .delv-idx{font-size:56px;letter-spacing:-3px}
+  .delv-meta{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;padding-left:96px;gap:6px}
   .delv-sub-grid{grid-template-columns:1fr;gap:12px}
-  .delv-arrow{width:32px;height:32px;font-size:13px}
+  .delv-arrow{font-size:15px}
 }
 
 /* 기존 sample-card 스타일 호환 유지 (nudge는 closing으로 이전) */
