@@ -82,12 +82,18 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .hero-num-big .plus{font-size:0.45em;color:var(--mint);margin-left:4px;margin-top:0.05em;font-weight:600}
 .hero-num-label{font-size:11px;color:var(--gray2);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-top:14px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .hero-num-label::before{content:"";width:20px;height:1px;background:var(--gray2)}
-.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--white);padding:16px 32px;border-radius:9999px;font-weight:700;font-size:16px;letter-spacing:-0.2px;transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease}
-.btn-dark:hover{background:#1A3A5C;transform:translateY(-2px);box-shadow:0 10px 24px rgba(15,39,68,0.25)}
-.btn-dark::after{content:"→";display:inline-block;font-size:16px;transition:transform 0.2s ease}
-.btn-dark:hover::after{transform:translateX(4px)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--dark);padding:16px 32px;border-radius:9999px;font-weight:600;font-size:16px;letter-spacing:-0.2px;border:1.5px solid var(--border);transition:border-color 0.18s ease,color 0.18s ease,transform 0.18s ease}
-.btn-ghost:hover{border-color:var(--dark);color:var(--dark);transform:translateY(-2px)}
+/* BUTTONS — v3: Geometric / Crop-mark */
+.btn-dark{position:relative;display:inline-flex;align-items:center;background:var(--navy);color:var(--white);padding:17px 28px 17px 30px;border-radius:0;font-weight:700;font-size:15px;letter-spacing:-0.2px;transition:background 0.25s ease;overflow:visible}
+.btn-dark::before{content:"";position:absolute;top:0;left:0;width:16px;height:16px;border-top:2px solid var(--mint);border-left:2px solid var(--mint);transition:all 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-dark::after{content:"→";display:inline-block;margin-left:24px;padding-left:22px;border-left:1px solid rgba(255,255,255,0.28);font-size:17px;font-weight:300;line-height:1;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-dark:hover{background:#1A3A5C}
+.btn-dark:hover::before{width:24px;height:24px;top:-4px;left:-4px}
+.btn-dark:hover::after{transform:translateX(5px)}
+
+.btn-ghost{position:relative;display:inline-flex;align-items:center;background:transparent;color:var(--dark);padding:15.5px 28px 15.5px 30px;border-radius:0;border:1.5px solid rgba(15,39,68,0.3);font-weight:700;font-size:15px;letter-spacing:-0.2px;transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease}
+.btn-ghost::before{content:"";position:absolute;top:-1.5px;left:-1.5px;width:16px;height:16px;border-top:2px solid var(--dark);border-left:2px solid var(--dark);transition:all 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-ghost:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.btn-ghost:hover::before{border-top-color:var(--mint);border-left-color:var(--mint);width:24px;height:24px;top:-5.5px;left:-5.5px}
 
 /* 서비스 칩 — 카드형 + 호버 강화 */
 .chips-section{padding:0 0 80px;background:var(--white)}
@@ -573,28 +579,47 @@ body[data-stage="5"] .faq-item{border-bottom-color:rgba(15,39,68,0.08)}
 .modal-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
 .modal-backdrop.active{display:flex;animation:fadein 0.2s}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
-.modal{background:#fff;border-radius:16px;max-width:720px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:slideup 0.25s}
+.modal{background:#fff;border-radius:4px;max-width:760px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.25);overflow:hidden;animation:slideup 0.25s}
 @keyframes slideup{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-head{padding:26px 32px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.modal-tag{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
-.modal-head h3{font-size:22px;font-weight:800;letter-spacing:-0.5px;line-height:1.35}
-.modal-close{background:none;border:none;cursor:pointer;padding:8px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0;transition:background 0.15s}
-.modal-close:hover{background:#F5F5F5;color:var(--dark)}
-.modal-body{padding:26px 32px;max-height:70vh;overflow-y:auto}
-.modal-qa{margin-bottom:24px;padding:18px 22px;background:#FFFBEB;border-left:3px solid #FFD43B;border-radius:0 10px 10px 0}
-.modal-qa-label{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.modal-head{padding:32px 36px 22px;border-bottom:1px solid rgba(15,39,68,0.1);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.modal-tag{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--mint);margin-bottom:12px}
+.modal-head h3{font-size:23px;font-weight:800;letter-spacing:-0.5px;line-height:1.35;color:var(--dark)}
+.modal-close{background:none;border:none;cursor:pointer;padding:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0;transition:color 0.15s}
+.modal-close:hover{color:var(--dark)}
+.modal-body{padding:28px 36px 32px;max-height:70vh;overflow-y:auto}
+.modal-qa{margin-bottom:28px;padding:2px 0 2px 20px;border-left:2px solid var(--dark);background:transparent;border-radius:0}
+.modal-qa-label{font-size:10.5px;font-weight:700;color:var(--dark);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
 .modal-qa p,.modal-qa ol,.modal-qa ul{font-size:14px;color:#333;line-height:1.8;font-weight:500;margin:6px 0}
 .modal-qa ol{padding-left:20px}
-.modal-body h4{font-size:16px;font-weight:800;margin:22px 0 10px;color:var(--dark);letter-spacing:-0.3px}
+.modal-body h4{font-size:15px;font-weight:800;margin:28px 0 12px;color:var(--dark);letter-spacing:-0.3px;padding-top:4px}
+.modal-body h4::before{content:"";display:inline-block;width:14px;height:1px;background:var(--mint);vertical-align:middle;margin-right:10px;margin-bottom:3px}
 .modal-body p{font-size:14.5px;color:#333;line-height:1.85;margin-bottom:10px;font-weight:500}
-.modal-body ul.bullet{padding-left:20px;margin:8px 0 12px}
-.modal-body ul.bullet li{font-size:14px;color:#444;line-height:1.8;margin:2px 0}
-.modal-law{background:#F0F4FF;border:1px solid #D9E1FF;border-radius:10px;padding:18px 22px;margin:14px 0;font-size:13.5px;line-height:1.85;color:#333}
-.modal-law .law-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
-.modal-law strong{display:block;font-weight:800;color:var(--dark);margin-bottom:6px;font-size:14px}
-.modal-signature{margin-top:26px;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--gray);line-height:1.7}
-.modal-signature .name{color:var(--dark);font-weight:700;font-size:14px}
-.modal-signature .disclaimer{font-size:12px;color:var(--gray2);margin-top:6px}
+.modal-body p em{color:var(--dark);font-weight:700;font-style:normal;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.modal-body ul.bullet{padding-left:20px;margin:8px 0 12px;list-style:none}
+.modal-body ul.bullet li{font-size:14px;color:#444;line-height:1.8;margin:4px 0;position:relative;padding-left:14px}
+.modal-body ul.bullet li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:1px;background:var(--dark)}
+.modal-body ul.bullet li em{color:var(--dark);font-weight:700;font-style:normal}
+.modal-law{background:#FAFAFA;border:none;border-left:2px solid rgba(15,39,68,0.3);border-radius:0;padding:18px 22px;margin:16px 0;font-size:13.5px;line-height:1.85;color:#333}
+.modal-law .law-label{font-size:10.5px;font-weight:700;color:var(--dark);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+.modal-law strong{display:block;font-weight:800;color:var(--dark);margin-bottom:8px;font-size:14px}
+.modal-law em{color:var(--dark);font-weight:700;font-style:normal;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.modal-law.is-pos{border-left-color:var(--mint)}
+.modal-law.is-neg{border-left-color:rgba(15,39,68,0.6)}
+.modal-law.is-pos .law-label{color:var(--mint)}
+.modal-signature{margin-top:32px;padding-top:22px;border-top:1px solid rgba(15,39,68,0.1);font-size:13px;color:var(--gray);line-height:1.7}
+.modal-signature .name{color:var(--dark);font-weight:700;font-size:14px;letter-spacing:-0.2px}
+.modal-signature .disclaimer{font-size:12px;color:var(--gray2);margin-top:8px;line-height:1.65}
+.modal-compare{margin:16px 0;border-top:1px solid rgba(15,39,68,0.15);border-bottom:1px solid rgba(15,39,68,0.15)}
+.mc-head{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(15,39,68,0.1)}
+.mc-col-h{padding:12px 16px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.mc-col-h--old{color:rgba(15,39,68,0.45);border-right:1px solid rgba(15,39,68,0.1)}
+.mc-col-h--new{color:var(--mint)}
+.mc-body{display:grid;grid-template-columns:1fr 1fr}
+.mc-col{padding:18px;font-size:13px;line-height:1.75;color:#333}
+.mc-col strong{display:block;margin-bottom:8px;font-size:13px;font-weight:800;color:var(--dark);letter-spacing:-0.2px}
+.mc-col--old{color:rgba(15,39,68,0.55);border-right:1px solid rgba(15,39,68,0.1)}
+.mc-col--old s{color:rgba(15,39,68,0.4);text-decoration:line-through}
+.mc-col--new em{color:var(--dark);font-weight:700;font-style:normal;border-bottom:1px solid var(--mint);padding-bottom:1px}
 body.modal-open{overflow:hidden}
 
 /* FOOTER */
@@ -1251,14 +1276,14 @@ body.modal-open{overflow:hidden}
   <div class="modal">
     <div class="modal-head">
       <div>
-        <div class="modal-tag">💬 노무자문 답변 샘플</div>
+        <div class="modal-tag">A1 · Written Opinion</div>
         <h3>출퇴근 중 사고의 산재보험 처리와 회사 책임 범위</h3>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
       <div class="modal-qa">
-        <div class="modal-qa-label">📨 고객 질의</div>
+        <div class="modal-qa-label">고객 질의</div>
         <p>당사 직원 한 명이 출근길에 사고를 당한 상황입니다. 아래 사항 자문 부탁드립니다.</p>
         <ol>
           <li>출퇴근 중 발생한 사고의 경우 '업무상 재해'로 인정되어, 산재보험 처리 및 유급휴가 처리가 필요한지</li>
@@ -1277,7 +1302,7 @@ body.modal-open{overflow:hidden}
       <p>는 출퇴근 재해(업무상 재해)로 보아 <em>산재보험</em>으로 처리합니다.</p>
 
       <div class="modal-law">
-        <div class="law-label">📖 법령 근거</div>
+        <div class="law-label">법령 근거</div>
         <strong>산업재해보상보험법 제37조 (업무상의 재해의 인정 기준)</strong>
         ① 근로자가 다음 각 호의 어느 하나에 해당하는 사유로 부상·질병 또는 장해가 발생하거나 사망하면 업무상의 재해로 본다. 다만, 업무와 재해 사이에 상당인과관계가 없는 경우에는 그러하지 아니하다.<br><br>
         &nbsp;&nbsp;3. <strong style="display:inline;margin:0;font-size:13.5px">출퇴근 재해</strong><br>
@@ -1302,30 +1327,30 @@ body.modal-open{overflow:hidden}
   <div class="modal">
     <div class="modal-head">
       <div>
-        <div class="modal-tag" style="color:var(--blue)">⚖️ 부당해고 사건 — 유사 판정례 분석 리포트</div>
+        <div class="modal-tag">A2 · Analysis Report</div>
         <h3>지각·무단결근을 이유로 한 해고, 이길 수 있을까?</h3>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
-      <div class="modal-qa" style="background:#EEF2FF;border-left-color:#4C6EF5">
-        <div class="modal-qa-label" style="color:var(--blue)">📨 사건 개요</div>
+      <div class="modal-qa">
+        <div class="modal-qa-label">사건 개요</div>
         <p>입사 2년 차 근로자가 반복 지각·무단결근을 이유로 해고 통보를 받고 부당해고 구제신청을 제기. 회사 측은 단체협약·취업규칙 위반으로 징계해고가 정당하다고 주장. 근로자 측에서는 징계 양정이 과도하다며 다툼.</p>
       </div>
 
       <h4>1. 유사 판정례 분석 (노동위원회 실제 사건)</h4>
       <p>같은 유형(근태 불량을 이유로 한 징계해고)의 초심 사건을 분석한 결과, 인정률은 <em>약 40%</em>로 나타났습니다. 인정된 사건과 기각된 사건의 <em>갈린 지점</em>을 정리하면 다음과 같습니다.</p>
 
-      <div class="modal-law" style="background:#F0FDF4;border-color:rgba(0,184,147,0.25)">
-        <div class="law-label" style="color:var(--mint)">✓ 인정 사건 (근로자 승)</div>
+      <div class="modal-law is-pos">
+        <div class="law-label">인정 사건 (근로자 승)</div>
         <strong>참조: 2017부해OOO 전부인정</strong>
-        10회에 걸쳐 근로계약을 갱신하였고 정년 도래 후에도 계속 근로한 점 등을 볼 때 실질에 있어 기간의 정함이 없는 근로자에 해당하며, 징계위원회의 결정에 따라 <strong style="display:inline;margin:0;font-size:13.5px">해고의 실질적 사유가 되는 비위 내용을 기재하지 않은 해고 통지</strong>는 서면통지 의무 위반으로 부당하다고 판단.
+        10회에 걸쳐 근로계약을 갱신하였고 정년 도래 후에도 계속 근로한 점 등을 볼 때 실질에 있어 기간의 정함이 없는 근로자에 해당하며, 징계위원회의 결정에 따라 <em>해고의 실질적 사유가 되는 비위 내용을 기재하지 않은 해고 통지</em>는 서면통지 의무 위반으로 부당하다고 판단.
       </div>
 
-      <div class="modal-law" style="background:#FFF1F0;border-color:#FECACA">
-        <div class="law-label" style="color:#DC2626">✗ 기각 사건 (사용자 승)</div>
+      <div class="modal-law is-neg">
+        <div class="law-label">기각 사건 (사용자 승)</div>
         <strong>참조: 2024부해OOO 일부인정</strong>
-        106회 지각으로 인한 복무불량은 징계사유로 인정됨. 다만 ② 괴롭힘 피해자에게 합의금 지급 ③ 근무태도 불량 등 나머지는 입증 부족으로 불인정. <strong style="display:inline;margin:0;font-size:13.5px">일부 징계사유만으로 해고까지 이르기에는 양정이 과도</strong>하다고 판단.
+        106회 지각으로 인한 복무불량은 징계사유로 인정됨. 다만 ② 괴롭힘 피해자에게 합의금 지급 ③ 근무태도 불량 등 나머지는 입증 부족으로 불인정. <em>일부 징계사유만으로 해고까지 이르기에는 양정이 과도</em>하다고 판단.
       </div>
 
       <h4>2. 이 사건 검토 결과 — 쟁점 3가지</h4>
@@ -1351,14 +1376,14 @@ body.modal-open{overflow:hidden}
   <div class="modal">
     <div class="modal-head">
       <div>
-        <div class="modal-tag" style="color:var(--mint)">🔍 괴롭힘 조사보고서 — 구성 샘플</div>
+        <div class="modal-tag">A3 · Investigation Report</div>
         <h3>공정한 조사가 먼저, 전문적 판단은 그 다음</h3>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
-      <div class="modal-qa" style="background:#F0FDF4;border-left-color:#00B893">
-        <div class="modal-qa-label" style="color:var(--mint)">📨 조사 접수 시나리오</div>
+      <div class="modal-qa">
+        <div class="modal-qa-label">조사 접수 시나리오</div>
         <p>사내 직원 A가 직속 상사 B로부터 반복적인 업무 배제·공개적 질책을 당했다며 괴롭힘을 신고. 회사는 외부 공인노무사에게 조사를 의뢰.</p>
       </div>
 
@@ -1375,10 +1400,10 @@ body.modal-open{overflow:hidden}
       <h4>2단계 — 판정례 기반 판단</h4>
       <p>수집된 사실관계를 노동위원회 판정례 <em>2,200여 건</em> 데이터와 비교해 판단합니다. 인정·불인정의 갈린 지점을 근거로 명확히 제시합니다.</p>
 
-      <div class="modal-law" style="background:#F0FDF4;border-color:rgba(0,184,147,0.25)">
-        <div class="law-label" style="color:var(--mint)">✓ 인정 판정례 참조</div>
+      <div class="modal-law is-pos">
+        <div class="law-label">인정 판정례 참조</div>
         <strong>2022부해OOO 전부인정</strong>
-        반복적인 지적·간섭이 인정됐지만, <strong style="display:inline;margin:0;font-size:13.5px">사용자의 조사가 형식적이고 입증이 부족</strong>하다고 판단해 감봉 징계처분이 부당하다고 결론. → 회사 조사의 <em>절차적 정당성</em>이 판정 결과를 좌우함.
+        반복적인 지적·간섭이 인정됐지만, <em>사용자의 조사가 형식적이고 입증이 부족</em>하다고 판단해 감봉 징계처분이 부당하다고 결론. 회사 조사의 <em>절차적 정당성</em>이 판정 결과를 좌우함.
       </div>
 
       <h4>3. 조사보고서에 포함되는 내용</h4>
@@ -1407,43 +1432,37 @@ body.modal-open{overflow:hidden}
   <div class="modal">
     <div class="modal-head">
       <div>
-        <div class="modal-tag" style="color:var(--mint)">📝 취업규칙 신구대조표 — 개정 샘플</div>
+        <div class="modal-tag">A4 · Policy Package</div>
         <h3>2026년 법 개정 반영, 이렇게 정리됩니다</h3>
       </div>
       <button class="modal-close" onclick="closeSample()" aria-label="닫기">×</button>
     </div>
     <div class="modal-body">
-      <div class="modal-qa" style="background:#F0FDF4;border-left-color:#00B893">
-        <div class="modal-qa-label" style="color:var(--mint)">📨 의뢰 시나리오</div>
+      <div class="modal-qa">
+        <div class="modal-qa-label">의뢰 시나리오</div>
         <p>2019년 제정 후 별도 개정 없이 운영해 온 취업규칙. 2025~2026년 개정 법령 반영 + 육아지원 3법·난임치료휴가 등 <em>11개 항목</em>을 일괄 업데이트하려는 30인 규모 기업의 의뢰.</p>
       </div>
 
       <h4>1. 신구대조표 샘플 — 육아기 근로시간 단축</h4>
       <p>개정 법령: <em>남녀고용평등법 제19조의2</em> (2025.10.23 개정, 2025.12.1 시행) — 단축 가능 기간 확대(최대 36개월) + 대상 자녀 연령 확대(만 8세·초2 → 만 12세·초6).</p>
 
-      <div class="modal-law" style="background:#F8F8F8;border-color:#D1D5DB;padding:0;overflow:hidden">
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead>
-            <tr style="background:#E5E7EB">
-              <th style="padding:10px 12px;text-align:left;font-weight:700;width:50%;border-right:1px solid #D1D5DB">현행 (2019년 규정)</th>
-              <th style="padding:10px 12px;text-align:left;font-weight:700;width:50%;background:#D1FAE5">개정안 (2026년 반영)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:14px;vertical-align:top;line-height:1.7;border-right:1px solid #D1D5DB;border-top:1px solid #D1D5DB">
-                <strong style="display:block;margin-bottom:6px;font-size:13px">제47조(육아기 근로시간 단축)</strong>
-                ① 사업주는 만 <s style="color:#DC2626">8세 이하 또는 초등학교 2학년</s> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
-                ② 단축 기간은 <s style="color:#DC2626">1년</s> 이내로 한다.
-              </td>
-              <td style="padding:14px;vertical-align:top;line-height:1.7;background:#F0FDF4;border-top:1px solid #D1D5DB">
-                <strong style="display:block;margin-bottom:6px;font-size:13px">제47조(육아기 근로시간 단축)</strong>
-                ① 사업주는 만 <em>12세 이하 또는 초등학교 6학년</em> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
-                ② 단축 기간은 <em>육아휴직 미사용 기간을 가산하여 최대 36개월</em> 범위에서 사용할 수 있다.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="modal-compare">
+        <div class="mc-head">
+          <div class="mc-col-h mc-col-h--old">현행 (2019년 규정)</div>
+          <div class="mc-col-h mc-col-h--new">개정안 (2026년 반영)</div>
+        </div>
+        <div class="mc-body">
+          <div class="mc-col mc-col--old">
+            <strong>제47조(육아기 근로시간 단축)</strong>
+            ① 사업주는 만 <s>8세 이하 또는 초등학교 2학년</s> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
+            ② 단축 기간은 <s>1년</s> 이내로 한다.
+          </div>
+          <div class="mc-col mc-col--new">
+            <strong>제47조(육아기 근로시간 단축)</strong>
+            ① 사업주는 만 <em>12세 이하 또는 초등학교 6학년</em> 이하의 자녀를 양육하는 근로자가 근로시간 단축을 신청할 때 이를 허용하여야 한다.<br><br>
+            ② 단축 기간은 <em>육아휴직 미사용 기간을 가산하여 최대 36개월</em> 범위에서 사용할 수 있다.
+          </div>
+        </div>
       </div>
 
       <h4>2. 납품 구성</h4>
