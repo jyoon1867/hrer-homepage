@@ -138,7 +138,16 @@ function renderEmail({customerName, serviceName, body}){
     <p style="margin:24px 0 0;font-size:14px;color:#8A9AB0;line-height:1.7;">
       추가 문의사항이 있으시면 본 메일로 회신해 주시거나 <a href="mailto:contact@hrer.kr" style="color:#00B893;">contact@hrer.kr</a>로 연락 주시기 바랍니다.
     </p>
-    <div style="margin-top:28px;padding-top:20px;border-top:1px solid #E2E8F0;">
+    <div style="margin-top:28px;padding:16px;background:#FEFCE8;border:1px solid #FDE68A;border-radius:8px;">
+      <p style="margin:0 0 8px;font-size:12.5px;color:#78350F;font-weight:700;">📌 안내사항</p>
+      <ul style="margin:0;padding-left:18px;font-size:12px;color:#92400E;line-height:1.75;">
+        <li>본 답변은 귀사가 제출한 사실관계·자료를 바탕으로 공인노무사가 검토·작성한 자문 의견서입니다.</li>
+        <li>구체적 법적 판단은 사실관계 변경·추가 자료·판례 변경에 따라 달라질 수 있습니다.</li>
+        <li>답변 내용을 근거로 한 실제 조치(해고·징계·규정 변경 등) 시행 전 담당 공인노무사와 최종 확인 후 진행하시기 바랍니다.</li>
+        <li>본 답변은 귀사 의뢰 건에 한정된 내부 참고 자료이며, 제3자에게 공유·공개하실 경우 사전 협의를 부탁드립니다.</li>
+      </ul>
+    </div>
+    <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E2E8F0;">
       <p style="margin:0;font-size:14px;color:#0F2744;font-weight:600;">HRer 담당 공인노무사 드림</p>
       <p style="margin:4px 0 0;font-size:12px;color:#8A9AB0;">hrer.kr · contact@hrer.kr</p>
     </div>
