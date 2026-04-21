@@ -81,7 +81,7 @@ export default async function handler(req){
         body: JSON.stringify({
           from: 'HRer <reply@hrer.kr>',
           to: [customerEmail],
-          reply_to: 'contact@hrer.kr',
+          reply_to: globalThis.process?.env?.ADMIN_EMAIL || 'contact@hrer.kr',
           subject: `[HRer] ${prettyService(order.service, order.tier)} 답변 드립니다`,
           html: emailHtml,
         }),

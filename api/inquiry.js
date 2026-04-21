@@ -116,7 +116,8 @@ async function sendNotification({service, name, email, phone, company, question,
     headers: {'Authorization': `Bearer ${resendKey}`, 'Content-Type':'application/json'},
     body: JSON.stringify({
       from: 'HRer <noreply@hrer.kr>',
-      to: ['contact@hrer.kr'],
+      to: [globalThis.process?.env?.ADMIN_EMAIL || 'contact@hrer.kr'],
+      reply_to: email || undefined,
       subject: `[HRer] 새 접수(견적 대기) — ${serviceLabel} · ${name}`,
       html: `
         <h2>새 접수 (견적 대기)</h2>

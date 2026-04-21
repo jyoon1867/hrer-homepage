@@ -155,7 +155,8 @@ async function sendNotification(payment, orderData){
     headers: {'Authorization': `Bearer ${resendKey}`, 'Content-Type':'application/json'},
     body: JSON.stringify({
       from: 'HRer <noreply@hrer.kr>',
-      to: ['contact@hrer.kr'],
+      to: [globalThis.process?.env?.ADMIN_EMAIL || 'contact@hrer.kr'],
+      reply_to: email || undefined,
       subject: `[HRer] 새 의뢰 — ${serviceLabel} · ${name || '무명'}`,
       html: `
         <h2>새 의뢰가 접수되었습니다</h2>
