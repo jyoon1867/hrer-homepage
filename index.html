@@ -82,18 +82,17 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .hero-num-big .plus{font-size:0.45em;color:var(--mint);margin-left:4px;margin-top:0.05em;font-weight:600}
 .hero-num-label{font-size:11px;color:var(--gray2);font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-top:14px;display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .hero-num-label::before{content:"";width:20px;height:1px;background:var(--gray2)}
-/* BUTTONS — v3: Geometric / Crop-mark */
-.btn-dark{position:relative;display:inline-flex;align-items:center;background:var(--navy);color:var(--white);padding:17px 28px 17px 30px;border-radius:0;font-weight:700;font-size:15px;letter-spacing:-0.2px;transition:background 0.25s ease;overflow:visible}
-.btn-dark::before{content:"";position:absolute;top:0;left:0;width:16px;height:16px;border-top:2px solid var(--mint);border-left:2px solid var(--mint);transition:all 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.btn-dark::after{content:"→";display:inline-block;margin-left:24px;padding-left:22px;border-left:1px solid rgba(255,255,255,0.28);font-size:17px;font-weight:300;line-height:1;transition:transform 0.25s cubic-bezier(0.2,0.8,0.2,1)}
-.btn-dark:hover{background:#1A3A5C}
-.btn-dark:hover::before{width:24px;height:24px;top:-4px;left:-4px}
-.btn-dark:hover::after{transform:translateX(5px)}
+/* BUTTONS — v4: Editorial Text Link (no container) */
+.btn-dark{position:relative;display:inline-flex;align-items:center;gap:20px;background:transparent;color:var(--dark);padding:4px 0 12px;border-radius:0;font-weight:800;font-size:17px;letter-spacing:-0.3px;border-bottom:1.5px solid var(--dark);transition:color 0.25s ease,border-color 0.25s ease;min-width:180px;justify-content:space-between}
+.btn-dark::after{content:"→";display:inline-block;font-weight:400;font-size:19px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-dark:hover{color:var(--mint);border-bottom-color:var(--mint)}
+.btn-dark:hover::after{transform:translateX(8px)}
 
-.btn-ghost{position:relative;display:inline-flex;align-items:center;background:transparent;color:var(--dark);padding:15.5px 28px 15.5px 30px;border-radius:0;border:1.5px solid rgba(15,39,68,0.3);font-weight:700;font-size:15px;letter-spacing:-0.2px;transition:background 0.25s ease,color 0.25s ease,border-color 0.25s ease}
-.btn-ghost::before{content:"";position:absolute;top:-1.5px;left:-1.5px;width:16px;height:16px;border-top:2px solid var(--dark);border-left:2px solid var(--dark);transition:all 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.btn-ghost:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
-.btn-ghost:hover::before{border-top-color:var(--mint);border-left-color:var(--mint);width:24px;height:24px;top:-5.5px;left:-5.5px}
+.btn-ghost{position:relative;display:inline-flex;align-items:center;gap:14px;background:transparent;color:rgba(15,39,68,0.6);padding:4px 0 12px;border-radius:0;border:none;border-bottom:1px solid transparent;font-weight:700;font-size:16px;letter-spacing:-0.3px;transition:color 0.25s ease,border-color 0.25s ease}
+.btn-ghost::before{display:none;content:""}
+.btn-ghost::after{content:"↗";display:inline-block;font-weight:400;font-size:15px;line-height:1;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.btn-ghost:hover{color:var(--dark);border-bottom-color:var(--dark)}
+.btn-ghost:hover::after{transform:translate(4px,-4px)}
 
 /* 서비스 칩 — 카드형 + 호버 강화 */
 .chips-section{padding:0 0 80px;background:var(--white)}
@@ -532,21 +531,21 @@ body[data-stage="5"] .faq-item{border-bottom-color:rgba(15,39,68,0.08)}
 .cta-v2-link:hover span{transform:translateX(8px)}
 .cta-v2-meta{font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:2px;font-weight:600}
 
-/* STATS — v3: Editorial Typography (no cards) */
-.stats-v2{background:var(--dark);color:#fff;padding:110px 0 90px;position:relative;overflow:hidden}
+/* STATS — v4: Editorial Light (cream neutral) */
+.stats-v2{background:#F7F4EE;color:var(--dark);padding:110px 0 90px;position:relative;overflow:hidden}
 .stats-v2 .container{max-width:1280px}
 .stats-v2-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:48px}
 .stats-v2-label{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--mint);text-transform:uppercase;margin-bottom:14px;display:block}
-.stats-v2-title{font-size:clamp(28px,3.2vw,44px);font-weight:900;letter-spacing:-1.4px;margin:0;line-height:1.15}
-.stats-v2-title em{background:linear-gradient(135deg,var(--mint) 0%,#5EEAD4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-style:normal}
-.stats-v2-note{font-size:13px;color:rgba(255,255,255,0.45);max-width:280px;text-align:right;line-height:1.65;margin:0}
-.stats-v2-rows{border-top:1px solid rgba(255,255,255,0.15)}
-.stat-v2-row{display:grid;grid-template-columns:80px minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center;padding:32px 0;border-bottom:1px solid rgba(255,255,255,0.1);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.stats-v2-title{font-size:clamp(28px,3.2vw,44px);font-weight:900;letter-spacing:-1.4px;margin:0;line-height:1.15;color:var(--dark)}
+.stats-v2-title em{background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-style:normal}
+.stats-v2-note{font-size:13px;color:rgba(15,39,68,0.5);max-width:280px;text-align:right;line-height:1.65;margin:0}
+.stats-v2-rows{border-top:1px solid rgba(15,39,68,0.18)}
+.stat-v2-row{display:grid;grid-template-columns:80px minmax(0,1.6fr) minmax(0,1fr);gap:40px;align-items:center;padding:32px 0;border-bottom:1px solid rgba(15,39,68,0.12);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
 .stat-v2-row:hover{padding-left:12px}
-.stat-v2-idx{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.4);font-variant-numeric:tabular-nums}
-.stat-v2-fig{font-size:clamp(52px,7.5vw,112px);font-weight:900;letter-spacing:-5px;line-height:0.9;color:#fff;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+.stat-v2-idx{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(15,39,68,0.4);font-variant-numeric:tabular-nums}
+.stat-v2-fig{font-size:clamp(52px,7.5vw,112px);font-weight:900;letter-spacing:-5px;line-height:0.9;color:var(--dark);font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:10px;white-space:nowrap}
 .stat-v2-fig .unit{font-size:0.28em;font-weight:700;color:var(--mint);letter-spacing:-0.5px}
-.stat-v2-note{font-size:14px;color:rgba(255,255,255,0.7);font-weight:500;margin:0;line-height:1.65;letter-spacing:-0.2px}
+.stat-v2-note{font-size:14px;color:rgba(15,39,68,0.7);font-weight:500;margin:0;line-height:1.65;letter-spacing:-0.2px}
 
 /* COMPARISON — v3: Split Editorial (no cards) */
 .cmp-v2{padding:var(--section-gap) 0}
