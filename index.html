@@ -426,11 +426,61 @@ body[data-stage="4"] .bento-card:hover .bento-arrow{background:#fff;border-color
 .expert-info p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7}
 
 /* NUDGE */
-.nudge{text-align:center}
-.nudge-checks{display:flex;flex-direction:column;gap:14px;margin:40px auto;max-width:520px;align-items:flex-start}
-.nudge-check{display:flex;align-items:center;gap:12px;font-size:16px;color:var(--gray);text-align:left}
-.check-icon{width:22px;height:22px;border-radius:6px;background:var(--mint);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-.nudge-quote{font-size:24px;line-height:1.6;color:var(--dark);max-width:520px;margin:0 auto 40px;font-weight:700;letter-spacing:-0.5px}
+/* CLOSING — Declarative Grid (v2) */
+.closing-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start;margin-top:32px}
+.closing-lead{min-width:0}
+.closing-lead .section-label{display:inline-flex;margin-bottom:24px}
+.closing-lead .section-label::before,.closing-lead .section-label::after{display:none}
+.closing-h{font-size:clamp(40px,5.5vw,88px);font-weight:900;letter-spacing:-3px;line-height:1.02;color:var(--dark);margin:0}
+.closing-h span{display:block}
+.closing-h span:nth-child(1){color:var(--gray2);font-weight:500;font-size:0.55em;letter-spacing:-1.5px;margin-bottom:10px}
+.closing-h span:nth-child(2){color:var(--dark);margin-bottom:4px}
+.closing-h em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint)}
+.closing-list{list-style:none;padding:0;margin:0;border-top:1px solid rgba(15,39,68,0.12)}
+.closing-list li{display:grid;grid-template-columns:50px 1fr;gap:20px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(15,39,68,0.08);font-size:16.5px;color:var(--dark);font-weight:500;line-height:1.55;letter-spacing:-0.3px}
+.closing-list li .cl-idx{font-size:11.5px;font-weight:700;color:var(--gray2);letter-spacing:1.5px;font-variant-numeric:tabular-nums}
+.closing-foot{margin-top:72px;padding-top:48px;border-top:1px solid rgba(15,39,68,0.12);display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end}
+.closing-quote{font-size:clamp(20px,2vw,28px);line-height:1.5;color:var(--dark);font-weight:700;letter-spacing:-0.5px;margin:0;max-width:640px}
+
+@media(max-width:900px){
+  .closing-grid{grid-template-columns:1fr;gap:40px}
+  .closing-foot{grid-template-columns:1fr;gap:24px;margin-top:40px;padding-top:32px}
+  .closing-list li{padding:18px 0;font-size:15.5px;grid-template-columns:36px 1fr;gap:14px}
+}
+
+/* DELIVERABLES — Index Row (v2) */
+.delv-grid{margin-top:56px;border-top:1px solid rgba(15,39,68,0.12);max-width:1200px;margin-left:auto;margin-right:auto}
+.delv-row{display:grid;grid-template-columns:80px minmax(0,1.4fr) minmax(0,1fr) 52px;gap:36px;align-items:flex-start;width:100%;padding:32px 0;border-bottom:1px solid rgba(15,39,68,0.1);background:transparent;border-left:none;border-right:none;border-top:none;cursor:pointer;text-align:left;font-family:inherit;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1),background 0.3s ease}
+.delv-row:hover{padding-left:20px;padding-right:20px;background:rgba(0,184,147,0.04)}
+.delv-row:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+.delv-idx{font-size:clamp(28px,2.8vw,40px);font-weight:900;letter-spacing:-1.5px;color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;transition:color 0.25s ease}
+.delv-row:hover .delv-idx{color:var(--mint)}
+.delv-body{min-width:0}
+.delv-kind{font-size:11.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.delv-body h3{font-size:clamp(20px,1.9vw,26px);font-weight:800;letter-spacing:-0.7px;line-height:1.3;color:var(--dark);margin:0 0 16px}
+.delv-excerpt{border-left:2px solid var(--mint);padding:4px 0 4px 16px;font-size:14px;color:var(--gray);line-height:1.75;font-weight:500;max-width:560px}
+.delv-lines{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.delv-line{display:flex;gap:12px;align-items:baseline;font-size:14px;color:var(--dark);font-weight:500}
+.delv-line .delv-ln-num{font-size:11px;color:var(--gray2);font-weight:700;letter-spacing:1px;font-variant-numeric:tabular-nums;min-width:20px}
+.delv-sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:4px}
+.delv-sub-grid > div{font-size:13px;color:var(--gray);line-height:1.7;font-weight:500}
+.delv-sub-grid strong{color:var(--dark);font-weight:800;font-size:14px;display:block;margin-bottom:4px;letter-spacing:-0.3px}
+.delv-meta{display:flex;flex-direction:column;gap:6px;padding-top:2px}
+.delv-tag{display:inline-block;width:fit-content;font-size:11px;font-weight:600;color:var(--gray);letter-spacing:0.3px;padding:4px 10px;border:1px solid rgba(15,39,68,0.15)}
+.delv-arrow{width:44px;height:44px;border-radius:50%;border:1px solid rgba(15,39,68,0.15);display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--dark);transition:all 0.25s ease;justify-self:end;align-self:flex-start}
+.delv-row:hover .delv-arrow{background:var(--dark);border-color:var(--dark);color:#fff;transform:rotate(-45deg)}
+
+@media(max-width:900px){
+  .delv-row{grid-template-columns:56px 1fr 36px;gap:16px;padding:24px 0}
+  .delv-row:hover{padding-left:12px;padding-right:12px}
+  .delv-idx{font-size:22px}
+  .delv-meta{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;padding-left:72px}
+  .delv-sub-grid{grid-template-columns:1fr;gap:12px}
+  .delv-arrow{width:32px;height:32px;font-size:13px}
+}
+
+/* 기존 sample-card 스타일 호환 유지 (nudge는 closing으로 이전) */
+.nudge{display:none}
 
 /* FAQ */
 .faq-list{max-width:680px;margin:0 auto}
