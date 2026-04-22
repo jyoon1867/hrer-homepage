@@ -3,12 +3,12 @@
 -- 실행: Supabase SQL Editor에 붙여넣고 Run
 -- v1~v5 적용된 상태에서 이것만 추가
 --
--- 구독 모델:
---  - 규모별 월 정액 (20/30/40/70/100만원)
---  - 첫 달 30% 할인 (자동 적용)
+-- 구독 모델 (2026-04-22 최종):
+--  - 2단 체계: Standard 30만원 / Starter 15만원 (10인 미만 증빙)
+--  - 첫 달 30% 할인 자동 적용 (Standard 21만, Starter 10.5만)
 --  - 약정 없음, 언제든 해지 (해지 시 현 주기 말까지 이용 가능)
 --  - 토스페이먼츠 빌링키 방식 자동 결제
---  - 규모 판별: 사용자 자진 신고 (신뢰 기반, 사후 검증 없음)
+--  - 규모 증빙: Starter 지망자만 건강보험/원천징수 파일 업로드 → 담당자 수동 확인 1회
 -- =================================================================
 
 -- -----------------------------------------------------------------
@@ -24,26 +24,37 @@ create table if not exists subscriptions (
   company_name text not null,
   company_bizno text,                           -- 사업자번호 10자리 (숫자만)
 
-  -- 규모·플랜
-  employee_count int not null,                  -- 자진 신고한 상시 근로자 수
-  tier_key text not null check (tier_key in ('m1','m2','m3','m4','m5')),
-  tier_label text,                              -- 'm1' → '월 구독 · 30인 미만' (snapshot)
-  monthly_price int not null,                   -- 정가 (200000/300000/400000/700000/1000000)
-  first_month_price int not null,               -- 첫 달 할인가 (30% off)
+  -- 플랜 (Standard 30만 / Starter 15만)
+  tier_key text not null check (tier_key in ('standard','starter')),
+  tier_label text,                              -- 'Standard 월 구독' 등 snapshot
+  monthly_price int not null,                   -- 정가 300000 or 150000
+  first_month_price int not null,               -- 첫 달 30% 할인가 210000 or 105000
+
+  -- Starter 증빙 (10인 미만 인증)
+  -- Starter 신청 시에만 사용. Standard는 null.
+  starter_proof_status text
+    check (starter_proof_status in (null, 'pending','verified','rejected','waived')),
+  starter_proof_type text,                      -- 'health_insurance' | 'withholding_tax' | 'other'
+  starter_proof_url text,                       -- Supabase Storage 업로드 URL
+  starter_proof_uploaded_at timestamptz,
+  starter_proof_verified_at timestamptz,
+  starter_proof_verified_by text,               -- 담당자 식별자
+  starter_proof_rejected_reason text,
 
   -- 토스페이먼츠 빌링
   toss_customer_key text unique not null,       -- 'HRer_SUB_' + uuid 단축본
   toss_billing_key text,                        -- 빌링키 (최초 발급 후 저장)
 
   -- 상태 머신
-  --   pending_billing: 가입 폼 제출됐으나 빌링키 아직 미발급
-  --   trialing:        첫 달 할인 기간 (현재 주기 = 첫 주기)
-  --   active:          둘째 달 이후 정가 자동결제 중
-  --   past_due:        결제 실패, 재시도 대기
+  --   pending_proof:    Starter 신청자 중 증빙 검증 대기 (결제 전 단계)
+  --   pending_billing:  빌링키 발급 전 (모든 플랜 공통 초기 상태)
+  --   trialing:         첫 달 할인 기간 (현재 주기 = 첫 주기)
+  --   active:           둘째 달 이후 정가 자동결제 중
+  --   past_due:         결제 실패, 재시도 대기
   --   cancel_scheduled: 해지 예약 (현 주기 말까지는 이용 가능)
-  --   cancelled:       주기 말 지나 종료
+  --   cancelled:        주기 말 지나 종료
   status text not null default 'pending_billing'
-    check (status in ('pending_billing','trialing','active','past_due','cancel_scheduled','cancelled')),
+    check (status in ('pending_proof','pending_billing','trialing','active','past_due','cancel_scheduled','cancelled')),
 
   -- 주기 관리
   started_at timestamptz,                       -- 첫 결제 성공 시각
@@ -74,6 +85,9 @@ create index if not exists idx_sub_email on subscriptions(customer_email);
 create index if not exists idx_sub_status on subscriptions(status);
 create index if not exists idx_sub_next_billing on subscriptions(next_billing_at) where status in ('trialing','active','past_due');
 create index if not exists idx_sub_created on subscriptions(created_at desc);
+-- 담당자 대시보드: 증빙 검증 대기 목록
+create index if not exists idx_sub_proof_pending on subscriptions(starter_proof_uploaded_at)
+  where tier_key = 'starter' and starter_proof_status = 'pending';
 
 -- -----------------------------------------------------------------
 -- 2) subscription_invoices — 월별 결제 내역
@@ -207,18 +221,35 @@ alter table subscription_nudges enable row level security;
 -- 8) 대시보드용 뷰
 -- -----------------------------------------------------------------
 
--- 현재 활성 구독자 현황 (규모별)
+-- 현재 활성 구독자 현황 (플랜별: Standard / Starter)
 create or replace view v_active_subscriptions as
 select
   tier_key,
   tier_label,
   count(*) as active_count,
-  sum(monthly_price) as mrr,             -- Monthly Recurring Revenue
+  sum(monthly_price) as mrr,             -- Monthly Recurring Revenue (정가 기준)
   avg(billing_cycle_count) as avg_cycles
 from subscriptions
 where status in ('trialing','active','past_due','cancel_scheduled')
 group by 1, 2
 order by tier_key;
+
+-- 증빙 검증 대기 목록 (담당자 대시보드용)
+create or replace view v_starter_proofs_pending as
+select
+  id,
+  customer_email,
+  customer_name,
+  company_name,
+  company_bizno,
+  starter_proof_type,
+  starter_proof_url,
+  starter_proof_uploaded_at,
+  created_at
+from subscriptions
+where tier_key = 'starter'
+  and starter_proof_status = 'pending'
+order by starter_proof_uploaded_at asc;
 
 -- 총 MRR (활성 구독만)
 create or replace view v_mrr_snapshot as

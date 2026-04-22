@@ -172,14 +172,23 @@
     document.getElementById('resOrderId').textContent = '접수 완료';
     document.getElementById('resService').textContent = order.serviceLabel || '월 구독 안내 예정';
     const priceEl = document.getElementById('resPrice');
-    if (order.monthlyPrice) {
-      priceEl.textContent = order.monthlyPrice.toLocaleString() + '원 / 월 (자동 결제·언제든 해지)';
+    if (order.firstMonthPrice) {
+      priceEl.innerHTML = '첫 달 ' + order.firstMonthPrice.toLocaleString() + '원 <span style="color:var(--gray);font-size:13px;font-weight:500">(정가 ' + order.monthlyPrice.toLocaleString() + '원 / 월)</span>';
+    } else if (order.monthlyPrice) {
+      priceEl.textContent = order.monthlyPrice.toLocaleString() + '원 / 월';
     } else {
-      priceEl.textContent = '규모 확인 후 안내';
+      priceEl.textContent = '확인 후 안내';
     }
     document.getElementById('resEmail').textContent = order.email || '접수 이메일로 발송됨';
     const descEl = document.querySelector('#successState .desc');
-    if (descEl) descEl.innerHTML = '영업일 기준 24시간 이내에 담당자가 이메일로<br><em>월 구독 가입 링크</em>를 보내드립니다. 약정·최소 이용 기간 없음, 언제든 해지 가능.';
+    const isStarter = order.tier === 'starter';
+    if (descEl) {
+      if (isStarter) {
+        descEl.innerHTML = '영업일 기준 24시간 이내에 담당자가 증빙 서류를 확인하고<br><em>월 구독 가입 링크</em>를 이메일로 보내드립니다.<br>약정 없음 · 매월 자동 결제·자동 연장 · <em>언제든 해지</em> 가능.';
+      } else {
+        descEl.innerHTML = '영업일 기준 24시간 이내에 담당자가 이메일로<br><em>월 구독 가입 링크</em>를 보내드립니다.<br>약정 없음 · 매월 자동 결제·자동 연장 · <em>언제든 해지</em> 가능.';
+      }
+    }
     document.getElementById('successState').style.display = 'block';
     return;
   }
