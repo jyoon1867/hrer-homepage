@@ -370,27 +370,6 @@ body[data-stage="1"] .process-card .step-num,body[data-stage="6"] .process-card 
 .process-card p{font-size:14.5px;color:var(--gray);line-height:1.75;font-weight:500;max-width:280px;margin:0 auto}
 .process-card p em{font-style:normal;color:var(--dark);font-weight:700;background:none;-webkit-text-fill-color:var(--dark)}
 
-/* PROCESS DETAIL TIMELINE — throxy-inspired week-by-week */
-.proc-timeline{max-width:1100px;margin:72px auto 0;padding-top:36px;border-top:1px solid rgba(15,39,68,0.12)}
-.proc-tl-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.proc-tl-label::before{content:"";width:28px;height:1px;background:var(--mint)}
-.proc-tl-head{font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-0.6px;line-height:1.3;color:var(--dark);margin-bottom:36px;max-width:640px}
-.proc-tl-head em{font-style:normal;color:var(--mint);font-weight:900}
-.proc-tl-list{border-top:1px solid rgba(15,39,68,0.15)}
-.proc-tl-row{display:grid;grid-template-columns:160px 140px minmax(0,1fr);gap:40px;align-items:baseline;padding:26px 0;border-bottom:1px solid rgba(15,39,68,0.08);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.proc-tl-row:hover{padding-left:12px}
-.proc-tl-day{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;font-variant-numeric:tabular-nums}
-.proc-tl-when{font-size:clamp(22px,2.2vw,30px);font-weight:900;letter-spacing:-0.8px;color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
-.proc-tl-when .unit{font-size:0.5em;font-weight:700;color:var(--gray2);margin-left:3px;letter-spacing:0.5px}
-.proc-tl-body h4{font-size:16px;font-weight:800;color:var(--dark);margin:0 0 6px;letter-spacing:-0.3px;line-height:1.3}
-.proc-tl-body p{font-size:14.5px;color:var(--gray);line-height:1.75;font-weight:500;margin:0;max-width:560px}
-.proc-tl-body p em{font-style:normal;color:var(--dark);font-weight:700;background:none;-webkit-text-fill-color:var(--dark)}
-@media(max-width:900px){
-  .proc-tl-row{grid-template-columns:100px 100px 1fr;gap:16px;padding:20px 0}
-  .proc-tl-when{font-size:22px}
-  .proc-tl-body{grid-column:1/-1;padding-left:116px;margin-top:-6px}
-}
-
 /* SERVICES — 벤토 그리드 */
 /* SERVICES — Index Row (v2) */
 .bento-grid{display:flex;flex-direction:column;gap:0;margin-top:56px;max-width:1200px;margin-left:auto;margin-right:auto;border-top:1px solid rgba(15,39,68,0.12)}
@@ -890,53 +869,6 @@ body.modal-open{overflow:hidden}
         <span class="step-dot"></span>
         <h3>서면 답변</h3>
         <p><em>판례·행정해석·법령</em> 근거로, <em>영업일 24시간 이내</em>.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="proc-timeline">
-    <div class="proc-tl-label">Detailed Flow</div>
-    <h3 class="proc-tl-head">의뢰 후 실제로 <em>어떻게 진행</em>되는지, 시간 단위로 공개합니다.</h3>
-    <div class="proc-tl-list">
-      <div class="proc-tl-row fade-up">
-        <div class="proc-tl-day">Day 01 · 오전</div>
-        <div class="proc-tl-when">00<span class="unit">h</span></div>
-        <div class="proc-tl-body">
-          <h4>의뢰 접수</h4>
-          <p>이메일 혹은 의뢰 폼으로 질의를 보내주시면 <em>즉시 확인</em> 회신이 나갑니다. 회사 규모·업종·쟁점 요약이 있으면 더 빠릅니다.</p>
-        </div>
-      </div>
-      <div class="proc-tl-row fade-up">
-        <div class="proc-tl-day">Day 01 · 오후</div>
-        <div class="proc-tl-when">02<span class="unit">h</span></div>
-        <div class="proc-tl-body">
-          <h4>쟁점 파악 + 사전 검토</h4>
-          <p>질의를 읽고 <em>핵심 법적 쟁점</em>을 정리합니다. 관련 법령 조문·행정해석·판례를 HRer DB에서 검색해 초안 방향을 잡습니다.</p>
-        </div>
-      </div>
-      <div class="proc-tl-row fade-up">
-        <div class="proc-tl-day">Day 01~02</div>
-        <div class="proc-tl-when">08<span class="unit">h</span></div>
-        <div class="proc-tl-body">
-          <h4>근거 검증 + 서면 작성</h4>
-          <p>인용 예정인 판례·행정해석·조문을 <em>원문 그대로</em> 대조 검증합니다. 공인노무사가 직접 답변서를 작성하고 결재합니다.</p>
-        </div>
-      </div>
-      <div class="proc-tl-row fade-up">
-        <div class="proc-tl-day">Day 02</div>
-        <div class="proc-tl-when">24<span class="unit">h 이내</span></div>
-        <div class="proc-tl-body">
-          <h4>서면 발송</h4>
-          <p>영업일 <em>24시간 이내</em> 이메일로 발송합니다. 정식 의견서(Written Opinion)는 48시간 이내. 사내 보고·대외 제출용으로 바로 활용 가능한 형식입니다.</p>
-        </div>
-      </div>
-      <div class="proc-tl-row fade-up">
-        <div class="proc-tl-day">Day 02~05 · 사후</div>
-        <div class="proc-tl-when">72<span class="unit">h</span></div>
-        <div class="proc-tl-body">
-          <h4>추가 질의 대응</h4>
-          <p>본 답변에 대한 후속 질의 <em>1회 무료</em> (정식 서면은 2회). 3일 이내에 보내주시면 쟁점 범위 내에서 추가 설명을 드립니다.</p>
-        </div>
       </div>
     </div>
   </div>
