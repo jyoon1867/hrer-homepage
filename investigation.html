@@ -69,6 +69,24 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
+/* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
+.case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
+.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
+.case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
+.case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
+.case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
+.case-fit-row:last-child{border-bottom:none}
+.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
+.case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
+@media(max-width:900px){
+  .case-fit-row{grid-template-columns:1fr;gap:8px;padding:18px 0}
+  .case-fit-val{padding-left:0}
+}
+
 /* 2-STAGE */
 /* STAGE — v2 Editorial Magazine (先/後 flow with arrow) */
 .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;max-width:1100px;margin:56px auto 0;position:relative;padding-top:24px;border-top:1px solid rgba(25,25,25,0.15)}
@@ -248,6 +266,38 @@ body.i-open{overflow:hidden}
   <div class="hero-btns">
     <a href="/order_investigation" class="btn-dark">조사 의뢰하기</a>
     <a href="#process" class="btn-ghost">조사 과정 보기</a>
+  </div>
+</div>
+</section>
+
+<!-- CASE FIT -->
+<section class="section">
+<div class="container">
+  <div class="case-fit">
+    <div class="case-fit-label">Case Fit · 이런 회사에 필요합니다</div>
+    <h3 class="case-fit-head">신고가 들어왔는데, <em>직접 조사</em>하기에는 관계자가 서로 아는 사이.</h3>
+    <div class="case-fit-table">
+      <div class="case-fit-row">
+        <div class="case-fit-key">상황</div>
+        <p class="case-fit-val">직장 내 괴롭힘·성희롱 신고 접수. 내부 조사 시 <em>2차 피해·편파성 시비</em> 우려.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">회사 규모</div>
+        <p class="case-fit-val">규모 무관. <em>조사관 중립성 확보</em>가 관건인 모든 사업장.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">의뢰자 역할</div>
+        <p class="case-fit-val">HR 담당자·대표·법무 담당. 신고 접수 후 <em>외부 전문 조사</em>로 이관이 필요한 시점.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">조사 방식</div>
+        <p class="case-fit-val"><em>비대면 원칙</em>으로 진행. 신고인·피신고인·목격자 분리 면담, 증거 자료 수집, 2차 피해 방지 조치 안내까지 일체.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">결과물 용도</div>
+        <p class="case-fit-val"><em>노동위원회·법원에서 검증 가능한 형식</em>의 조사보고서. 판정례 데이터 비교 + 사후 조치 권고 포함.</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>

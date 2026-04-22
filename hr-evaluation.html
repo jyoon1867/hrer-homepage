@@ -69,6 +69,24 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
+/* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
+.case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
+.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
+.case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
+.case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
+.case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
+.case-fit-row:last-child{border-bottom:none}
+.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
+.case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
+@media(max-width:900px){
+  .case-fit-row{grid-template-columns:1fr;gap:8px;padding:18px 0}
+  .case-fit-val{padding-left:0}
+}
+
 /* VALUE PROPS — v4 Editorial Magazine (big number + title + metric anchor) */
 .vp-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .vp-card{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:72px;align-items:flex-start;padding:64px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);cursor:pointer;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1);position:relative}
@@ -263,6 +281,38 @@ body.i-open{overflow:hidden}
   <div class="hero-btns">
     <a href="/order_hr_evaluation" class="btn-dark">견적 문의하기</a>
     <a href="#pricing" class="btn-ghost">요금 보기</a>
+  </div>
+</div>
+</section>
+
+<!-- CASE FIT -->
+<section class="section">
+<div class="container">
+  <div class="case-fit">
+    <div class="case-fit-label">Case Fit · 이런 회사에 필요합니다</div>
+    <h3 class="case-fit-head">엑셀 평가표로 버티기 어렵지만, <em>수천만원 컨설팅은 과한</em> 회사.</h3>
+    <div class="case-fit-table">
+      <div class="case-fit-row">
+        <div class="case-fit-key">회사 규모</div>
+        <p class="case-fit-val"><em>30~300인</em> 사업장. 첫 평가 체계 도입이거나 기존 평가 체계 전면 개편 필요.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">의뢰자 역할</div>
+        <p class="case-fit-val">HR 담당자·경영지원 리더. 평가 결과를 <em>보상·저성과자 관리</em>에 연계해야 하는 입장.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">핵심 고민</div>
+        <p class="case-fit-val">"왜 저 사람은 S인데 저는 B예요?" 같은 질문에 <em>객관적 근거</em>로 답할 수 있어야 합니다.<span class="note">NCS 국가표준 + 심리측정학 T점수 표준화 기반으로 설계.</span></p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">타이밍</div>
+        <p class="case-fit-val">연 1~2회 평가 시즌 직전, 또는 <em>저성과자 PIP</em>를 시작해야 하는 시점.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">결과물 용도</div>
+        <p class="case-fit-val">인사위원회 보고, 보상 산정 근거, <em>대법원 판례 기준 반영된 PIP 문서</em>까지 일괄 납품.</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>

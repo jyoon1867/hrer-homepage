@@ -66,6 +66,24 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
+/* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
+.case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
+.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
+.case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
+.case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
+.case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
+.case-fit-row:last-child{border-bottom:none}
+.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
+.case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
+@media(max-width:900px){
+  .case-fit-row{grid-template-columns:1fr;gap:8px;padding:18px 0}
+  .case-fit-val{padding-left:0}
+}
+
 /* PRICING TIERS — v3 Editorial Rows (T1/T2/T3 hero numbers) */
 .tier-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .tier-card{display:grid;grid-template-columns:160px minmax(180px,1fr) minmax(0,1.5fr) 40px;gap:40px;align-items:flex-start;padding:44px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);position:relative;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
@@ -261,6 +279,38 @@ body.i-open{overflow:hidden}
   <div class="hero-btns">
     <a href="/order" class="btn-dark">자문 의뢰하기</a>
     <a href="#tiers" class="btn-ghost">요금 보기</a>
+  </div>
+</div>
+</section>
+
+<!-- CASE FIT -->
+<section class="section">
+<div class="container">
+  <div class="case-fit">
+    <div class="case-fit-label">Case Fit · 이런 회사에 필요합니다</div>
+    <h3 class="case-fit-head">정기 자문 계약은 부담스럽지만, <em>한두 건 확실한 답</em>이 필요한 상황.</h3>
+    <div class="case-fit-table">
+      <div class="case-fit-row">
+        <div class="case-fit-key">회사 규모</div>
+        <p class="case-fit-val"><em>10~100인</em> 소규모·중견 사업장. 별도 노무법인 고정 계약은 없는 단계.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">의뢰자 역할</div>
+        <p class="case-fit-val">HR 담당자·경영지원·대표. 내부에 공인노무사가 상주하지 않는 경우.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">자주 오는 질문</div>
+        <p class="case-fit-val">"연차가 이월되나요?", "퇴직금 중간정산 가능한가요?", "이 징계가 적정한가요?"<span class="note">단일 쟁점부터 판단이 필요한 복합 사안까지, 3가지 티어로 분류.</span></p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">타이밍</div>
+        <p class="case-fit-val">답변을 <em>영업일 24시간 이내</em>에 받아야 하는데, 정기 자문료를 계약하기는 과한 상황.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">결과물 용도</div>
+        <p class="case-fit-val">사내 보고, 이사회 회람, 거래처 제출, 감독기관 대응까지. <em>판례·행정해석 근거가 명시된 서면</em>으로 받아볼 필요.</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>

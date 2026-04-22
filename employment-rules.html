@@ -60,6 +60,24 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .hero .btn-ghost{color:#fff;border-bottom-color:rgba(255,255,255,0.35)}
 .hero .btn-ghost:hover{color:var(--mint);border-bottom-color:var(--mint)}
 
+/* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
+.case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
+.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
+.case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
+.case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
+.case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
+.case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
+.case-fit-row:last-child{border-bottom:none}
+.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
+.case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
+@media(max-width:900px){
+  .case-fit-row{grid-template-columns:1fr;gap:8px;padding:18px 0}
+  .case-fit-val{padding-left:0}
+}
+
 /* 서비스 칩 — 노션 벤토 느낌 */
 .chip-row{display:flex;gap:0;justify-content:center;margin:48px auto 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:680px}
 .chip{flex:1;min-width:120px;padding:22px 16px;text-align:center;border-right:1px solid var(--border);transition:background 0.15s}
@@ -331,6 +349,38 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   <div class="sub-hero-btns">
     <a href="/order_employment_rules?type=new" style="display:inline-flex;align-items:center;gap:12px;background:var(--dark);color:#fff;padding:14px 24px;border-radius:0;font-weight:700;font-size:14.5px;letter-spacing:-0.2px;transition:background 0.25s ease">신규 제정 의뢰 <span style="font-weight:400">→</span></a>
     <a href="/order_employment_rules?type=modify" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--dark);padding:14px 6px 14px 0;border-radius:0;font-weight:700;font-size:14.5px;border:none;border-bottom:1px solid rgba(25,25,25,0.3);letter-spacing:-0.2px;transition:color 0.25s ease,border-color 0.25s ease">기존 규칙 변경 의뢰 <span style="font-weight:400">↗</span></a>
+  </div>
+</div>
+</section>
+
+<!-- CASE FIT -->
+<section class="section">
+<div class="container">
+  <div class="case-fit">
+    <div class="case-fit-label">Case Fit · 이런 회사에 필요합니다</div>
+    <h3 class="case-fit-head">몇 년째 그대로인 취업규칙, <em>2026 법 개정</em>을 따라잡아야 할 때.</h3>
+    <div class="case-fit-table">
+      <div class="case-fit-row">
+        <div class="case-fit-key">회사 규모</div>
+        <p class="case-fit-val"><em>10인 이상</em> 사업장 (취업규칙 신고 의무). 현재 취업규칙이 <em>3년 이상 미개정</em> 상태인 경우.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">의뢰자 역할</div>
+        <p class="case-fit-val">HR 담당자·대표. 법 개정마다 조항을 뒤지고 있기에는 리소스 부족한 상황.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">최근 개정 이슈</div>
+        <p class="case-fit-val">육아기 근로시간 단축 확대(만12세·36개월), 난임치료휴가, 육아지원 3법 등 <em>2025~2026년 개정 11개 항목</em> 반영 필요.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">타이밍</div>
+        <p class="case-fit-val">법 개정 시행일 이전, 또는 <em>근로자 과반수 동의</em>가 필요한 불이익 변경 앞두고.</p>
+      </div>
+      <div class="case-fit-row">
+        <div class="case-fit-key">결과물 용도</div>
+        <p class="case-fit-val">맞춤 규정안(docx), <em>신구대조표(xlsx)</em>, 의견청취서·동의서 양식, 관할 노동부 신고 안내까지.</p>
+      </div>
+    </div>
   </div>
 </div>
 </section>
