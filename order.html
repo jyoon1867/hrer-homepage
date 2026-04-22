@@ -225,13 +225,13 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 
   <!-- HEADER -->
   <div class="page-header">
-    <div class="page-badge">노무자문 의뢰</div>
-    <h1>이메일 한 통으로<br><em>전문 노무 자문</em>을 받으세요</h1>
-    <p>판례·행정해석 근거 명시 · 영업일 24시간 이내 답변</p>
+    <div class="page-badge" id="page-badge">노무자문 의뢰</div>
+    <h1 id="page-title">이메일 한 통으로<br><em>전문 노무 자문</em>을 받으세요</h1>
+    <p id="page-sub">판례·행정해석 근거 명시 · 영업일 24시간 이내 답변</p>
   </div>
 
-  <!-- PLAN SELECTION -->
-  <div class="section-card">
+  <!-- PLAN SELECTION (단건) -->
+  <div class="section-card" id="plan-single">
     <div class="section-title">서비스 단계 선택</div>
     <div class="section-desc">질문의 성격과 필요한 답변 수준에 맞게 선택하세요.</div>
     <div class="plan-grid">
@@ -260,6 +260,48 @@ em{font-style:normal;color:var(--mint);font-weight:700}
         <div style="font-size:12px;color:var(--gray2);margin-bottom:8px"><em>VAT (10%) 포함 253,000원</em></div>
         <div class="plan-desc">정식 의견서 형태의 서면 답변입니다.</div>
       </label>
+    </div>
+  </div>
+
+  <!-- MONTHLY PLAN VIEW (월 구독 모드 전용, 기본 숨김) -->
+  <div class="section-card" id="plan-monthly" style="display:none">
+    <div class="section-title">월 구독 플랜 안내</div>
+    <div class="section-desc">상시 근로자 수에 따라 월 정액으로 운영됩니다. <em style="font-style:normal;color:var(--mint);font-weight:700;border-bottom:1px solid var(--mint);padding-bottom:1px">첫 달 30% 할인</em> 적용, 둘째 달부터 정가 자동 결제.</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(25,25,25,0.12);border-bottom:1px solid rgba(25,25,25,0.12);margin:6px 0 20px" id="monthly-plan-list">
+      <div data-tier="m1" style="padding:16px 14px;border-right:1px solid rgba(25,25,25,0.06);cursor:pointer">
+        <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase">~30인</div>
+        <div style="font-size:20px;font-weight:900;color:var(--dark);margin-top:4px;letter-spacing:-0.5px">20<span style="font-size:12px;font-weight:700;color:var(--mint);margin-left:2px">만원</span></div>
+        <div style="font-size:10.5px;font-weight:600;color:var(--mint);margin-top:4px;letter-spacing:0.2px">첫 달 14만원</div>
+      </div>
+      <div data-tier="m2" style="padding:16px 14px;border-right:1px solid rgba(25,25,25,0.06);cursor:pointer">
+        <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase">~50인</div>
+        <div style="font-size:20px;font-weight:900;color:var(--dark);margin-top:4px;letter-spacing:-0.5px">30<span style="font-size:12px;font-weight:700;color:var(--mint);margin-left:2px">만원</span></div>
+        <div style="font-size:10.5px;font-weight:600;color:var(--mint);margin-top:4px;letter-spacing:0.2px">첫 달 21만원</div>
+      </div>
+      <div data-tier="m3" style="padding:16px 14px;border-right:1px solid rgba(25,25,25,0.06);cursor:pointer">
+        <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase">~100인</div>
+        <div style="font-size:20px;font-weight:900;color:var(--dark);margin-top:4px;letter-spacing:-0.5px">40<span style="font-size:12px;font-weight:700;color:var(--mint);margin-left:2px">만원</span></div>
+        <div style="font-size:10.5px;font-weight:600;color:var(--mint);margin-top:4px;letter-spacing:0.2px">첫 달 28만원</div>
+      </div>
+      <div data-tier="m4" style="padding:16px 14px;border-right:1px solid rgba(25,25,25,0.06);cursor:pointer">
+        <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase">~300인</div>
+        <div style="font-size:20px;font-weight:900;color:var(--dark);margin-top:4px;letter-spacing:-0.5px">70<span style="font-size:12px;font-weight:700;color:var(--mint);margin-left:2px">만원</span></div>
+        <div style="font-size:10.5px;font-weight:600;color:var(--mint);margin-top:4px;letter-spacing:0.2px">첫 달 49만원</div>
+      </div>
+      <div data-tier="m5" style="padding:16px 14px;cursor:pointer">
+        <div style="font-size:10px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase">300인 이상</div>
+        <div style="font-size:20px;font-weight:900;color:var(--dark);margin-top:4px;letter-spacing:-0.5px">100<span style="font-size:12px;font-weight:700;color:var(--mint);margin-left:2px">만원</span></div>
+        <div style="font-size:10.5px;font-weight:600;color:var(--mint);margin-top:4px;letter-spacing:0.2px">첫 달 70만원</div>
+      </div>
+    </div>
+    <div style="background:#FAFAFA;border-left:2px solid var(--dark);padding:14px 18px;margin-bottom:8px">
+      <div style="font-size:10.5px;font-weight:700;color:var(--dark);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">안내</div>
+      <ul style="margin:0;padding-left:18px;font-size:13.5px;color:#333;line-height:1.8;font-weight:500">
+        <li><em style="color:var(--dark);font-weight:700;font-style:normal">월 구독 방식</em>으로 운영됩니다. 매월 자동 결제·자동 연장, <em style="color:var(--dark);font-weight:700;font-style:normal">언제든 해지</em> 가능(넷플릭스·쿠팡 방식). 해지 시 해당 월까지는 이용하실 수 있습니다.</li>
+        <li>규모 기준은 <em style="color:var(--dark);font-weight:700;font-style:normal">상시 근로자 수</em>이며, 사업자등록증·4대보험 신고자 수 기준으로 확인합니다.</li>
+        <li>합리적 범위 내 <em style="color:var(--dark);font-weight:700;font-style:normal">횟수 제한 없음</em>. 정식 의견서(Written)는 월 자문에 포함되지 않으며, 별도 단건 결제 시 <em style="color:var(--dark);font-weight:700;font-style:normal">10% 할인</em> 적용.</li>
+        <li>문의 접수 후 담당자가 <em style="color:var(--dark);font-weight:700;font-style:normal">이메일로 가입 안내</em>드립니다. 본 페이지에서 결제는 진행되지 않습니다.</li>
+      </ul>
     </div>
   </div>
 
@@ -397,8 +439,16 @@ const PLANS = {
   precise: { label: '심층 자문', price: 198000, tier: 'deep' },
   written: { label: '의견서', price: 253000, tier: 'written' },
 };
+const MONTHLY_TIERS = [
+  {key:'m1', label:'월 구독 · 30인 미만', max:30,  price:200000, firstMonth:140000},
+  {key:'m2', label:'월 구독 · 50인 미만', max:50,  price:300000, firstMonth:210000},
+  {key:'m3', label:'월 구독 · 100인 미만', max:100, price:400000, firstMonth:280000},
+  {key:'m4', label:'월 구독 · 300인 미만', max:300, price:700000, firstMonth:490000},
+  {key:'m5', label:'월 구독 · 300인 이상', max:Infinity, price:1000000, firstMonth:700000},
+];
 let currentPlan = 'precise';
 let paymentWidget = null;
+let isMonthlyMode = false;
 
 // ─── Toss Payments 초기화 ─────────────────────────────
 const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
@@ -429,8 +479,152 @@ async function initPaymentWidget(price) {
     if (utm.utm_medium) sessionStorage.setItem('hrer_utm_medium', utm.utm_medium);
     if (utm.utm_campaign) sessionStorage.setItem('hrer_utm_campaign', utm.utm_campaign);
   } catch(e){}
-  initPaymentWidget(PLANS[currentPlan].price);
+
+  // ?plan=monthly 감지 시 월 자문 문의 모드로 전환
+  if (params.get('plan') === 'monthly') {
+    enterMonthlyMode();
+  } else {
+    initPaymentWidget(PLANS[currentPlan].price);
+  }
 })();
+
+// ─── 월 자문 모드 ───────────────────────────────────────
+function enterMonthlyMode() {
+  isMonthlyMode = true;
+  // 헤더 교체
+  const badge = document.getElementById('page-badge');
+  const title = document.getElementById('page-title');
+  const sub = document.getElementById('page-sub');
+  if (badge) badge.textContent = '월 자문 문의';
+  if (title) title.innerHTML = '자주 쓰실 예정이라면,<br><em>월 자문 플랜</em>이 더 가볍습니다';
+  if (sub) sub.textContent = '규모별 정액제 · 합리적 범위 내 횟수 제한 없음 · 문의 접수 후 이메일 안내';
+
+  // 단건 플랜 숨기고 월 자문 안내 표시
+  const single = document.getElementById('plan-single');
+  const monthly = document.getElementById('plan-monthly');
+  if (single) single.style.display = 'none';
+  if (monthly) monthly.style.display = 'block';
+
+  // 결제 위젯·약관 영역 숨기고 가격 요약을 월 자문용으로 교체
+  const payWrap = document.getElementById('payment-widget-wrap');
+  const agreeWrap = document.getElementById('agreement-wrap');
+  if (payWrap) payWrap.style.display = 'none';
+  if (agreeWrap) agreeWrap.style.display = 'none';
+
+  const summary = document.getElementById('price-summary');
+  if (summary) {
+    summary.querySelector('.price-summary-label').textContent = '예상 월 자문료';
+    document.getElementById('summary-plan').textContent = '상시 근로자 수 입력 시 자동 계산';
+    document.getElementById('summary-price').innerHTML = '—';
+  }
+
+  // 제출 버튼 문구·동작 교체
+  const btn = document.getElementById('btn-submit');
+  if (btn) {
+    btn.textContent = '월 구독 문의 보내기';
+    btn.setAttribute('onclick', 'submitMonthlyInquiry()');
+  }
+  const note = document.querySelector('.submit-note');
+  if (note) {
+    note.innerHTML = '영업일 기준 24시간 이내에 담당자가 이메일로 <em style="color:var(--dark);font-weight:700;font-style:normal">월 구독 가입 링크</em>를 안내드립니다.<br>약정·최소 이용 기간 없음 · 매월 자동 결제·자동 연장 · <em style="color:var(--dark);font-weight:700;font-style:normal">언제든 해지</em> 가능(넷플릭스·쿠팡 방식).';
+  }
+
+  // 상시근로자 수 입력 → 월 자문료 자동 계산
+  const empInput = document.getElementById('employee_count');
+  if (empInput) {
+    empInput.setAttribute('required','');
+    empInput.addEventListener('input', updateMonthlyPrice);
+  }
+  // 자문 내용 섹션의 placeholder도 월 자문 맥락으로
+  const q = document.getElementById('question');
+  if (q) {
+    q.placeholder = '월 자문 플랜을 고려하시게 된 상황이나, 주로 다루실 것으로 예상되는 인사노무 이슈를 자유롭게 적어주세요. (예: 인사 담당자 1명 체제로 월 2~3건 수준의 자문이 필요합니다)';
+  }
+
+  // 월 자문료 안내 박스 클릭 시 상시근로자 수 필드로 스크롤
+  document.querySelectorAll('#monthly-plan-list > div').forEach(row => {
+    row.addEventListener('click', () => {
+      if (empInput) {
+        empInput.focus();
+        empInput.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  });
+}
+
+function resolveMonthlyTier(emp) {
+  const n = Number(emp);
+  if (!n || n < 1) return null;
+  return MONTHLY_TIERS.find(t => n < t.max) || MONTHLY_TIERS[MONTHLY_TIERS.length - 1];
+}
+
+function updateMonthlyPrice() {
+  const emp = document.getElementById('employee_count').value;
+  const tier = resolveMonthlyTier(emp);
+  const planEl = document.getElementById('summary-plan');
+  const priceEl = document.getElementById('summary-price');
+  if (!tier) {
+    planEl.textContent = '상시 근로자 수 입력 시 자동 계산';
+    priceEl.innerHTML = '—';
+    return;
+  }
+  planEl.textContent = tier.label + ' (월 정액)';
+  priceEl.innerHTML = tier.price.toLocaleString() + '<span>원/월</span>';
+
+  // 안내 박스에서 해당 구간 강조
+  document.querySelectorAll('#monthly-plan-list > div').forEach(row => {
+    if (row.dataset.tier === tier.key) {
+      row.style.background = 'rgba(0,184,147,0.08)';
+      row.style.boxShadow = 'inset 0 0 0 1px var(--mint)';
+    } else {
+      row.style.background = '';
+      row.style.boxShadow = '';
+    }
+  });
+}
+
+async function submitMonthlyInquiry() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const company = document.getElementById('company').value.trim();
+  const empCount = document.getElementById('employee_count').value.trim();
+  const question = document.getElementById('question').value.trim();
+
+  if (!name || !email || !phone || !company || !empCount || !question) {
+    alert('필수 항목을 모두 입력해 주세요. (월 자문 문의는 상시 근로자 수도 필수입니다)');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('이메일 형식이 올바르지 않습니다.');
+    return;
+  }
+  const tier = resolveMonthlyTier(empCount);
+  if (!tier) { alert('상시 근로자 수를 정확히 입력해 주세요.'); return; }
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = '문의 접수 중...';
+
+  // 세션에 저장해 /complete 에서 표시
+  try {
+    sessionStorage.setItem('hrer_order', JSON.stringify({
+      name, email, phone, company, question,
+      service: 'consult-monthly',
+      tier: tier.key,
+      serviceLabel: tier.label,
+      employeeCount: Number(empCount),
+      monthlyPrice: tier.price,
+      utmSource: sessionStorage.getItem('hrer_utm_source') || '',
+      utmMedium: sessionStorage.getItem('hrer_utm_medium') || '',
+      utmCampaign: sessionStorage.getItem('hrer_utm_campaign') || '',
+      referrer: document.referrer || '',
+    }));
+  } catch(e){}
+
+  // 별도 결제 없이 complete 페이지로 이동 (문의 접수 완료 안내)
+  location.href = '/complete?inquiry=monthly&tier=' + tier.key + '&emp=' + empCount;
+}
 
 // ─── 플랜 선택 ─────────────────────────────────────────
 function selectPlan(key, price) {
