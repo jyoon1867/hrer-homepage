@@ -124,6 +124,36 @@ em{font-style:normal;color:var(--mint);font-weight:700}
   .tier-features{grid-template-columns:1fr}
 }
 
+/* MONTHLY NUDGE — 단건 티어 아래 얇은 띠 */
+.monthly-nudge{max-width:1100px;margin:36px auto 0;padding:28px 0 0;border-top:1px dashed rgba(25,25,25,0.2)}
+.monthly-nudge-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;margin-bottom:16px;flex-wrap:wrap}
+.monthly-nudge-label{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px}
+.monthly-nudge-label::before{content:"";width:24px;height:1px;background:var(--mint)}
+.monthly-nudge-title{font-size:clamp(18px,1.8vw,22px);font-weight:800;color:var(--dark);letter-spacing:-0.5px;line-height:1.35;margin:0;max-width:720px}
+.monthly-nudge-title em{font-style:normal;color:var(--mint);font-weight:900}
+.monthly-nudge-desc{font-size:14px;color:var(--gray);line-height:1.75;margin:0 0 20px;max-width:720px;font-weight:500}
+.monthly-nudge-desc em{font-style:normal;color:var(--dark);font-weight:700;border-bottom:1px solid var(--mint);padding-bottom:1px}
+.monthly-nudge-plans{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(25,25,25,0.12);border-bottom:1px solid rgba(25,25,25,0.12);margin-bottom:20px}
+.mn-plan{padding:16px 20px;border-right:1px solid rgba(25,25,25,0.08);display:flex;flex-direction:column;gap:4px}
+.mn-plan:last-child{border-right:none}
+.mn-plan-scale{font-size:10.5px;font-weight:700;color:var(--gray);letter-spacing:1.2px;text-transform:uppercase}
+.mn-plan-price{font-size:clamp(18px,1.7vw,22px);font-weight:900;color:var(--dark);letter-spacing:-0.5px;line-height:1;font-variant-numeric:tabular-nums}
+.mn-plan-price .unit{font-size:0.55em;font-weight:700;color:var(--mint);margin-left:2px}
+.monthly-nudge-foot{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.monthly-nudge-note{font-size:12px;color:var(--gray2);line-height:1.7;font-weight:500;max-width:720px}
+.monthly-nudge-note em{font-style:normal;color:var(--gray);font-weight:700}
+.monthly-nudge-cta{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--dark);padding:10px 0;border-bottom:1px solid var(--dark);letter-spacing:-0.2px;transition:color 0.25s ease,border-color 0.25s ease;white-space:nowrap}
+.monthly-nudge-cta::after{content:"→";font-weight:400;font-size:15px;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+.monthly-nudge-cta:hover{color:var(--mint);border-bottom-color:var(--mint)}
+.monthly-nudge-cta:hover::after{transform:translateX(5px)}
+@media(max-width:900px){
+  .monthly-nudge-plans{grid-template-columns:repeat(2,1fr)}
+  .mn-plan{border-bottom:1px solid rgba(25,25,25,0.08)}
+  .mn-plan:nth-last-child(-n+2){border-bottom:none}
+  .mn-plan:nth-child(2n){border-right:none}
+  .mn-plan:last-child{grid-column:1/-1;border-right:none;border-bottom:none;align-items:flex-start}
+}
+
 /* PROCESS — v2 Editorial Rows */
 .process-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .process-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:flex-start;padding:40px 0;border-bottom:1px solid rgba(25,25,25,0.1);border-radius:0;background:transparent;border-top:none;border-left:none;border-right:none}
@@ -390,6 +420,26 @@ body.i-open{overflow:hidden}
       </div>
     </div>
   </div>
+
+  <!-- MONTHLY NUDGE -->
+  <div class="monthly-nudge">
+    <div class="monthly-nudge-head">
+      <span class="monthly-nudge-label">Monthly · 자주 쓰실 것 같으신가요?</span>
+    </div>
+    <h3 class="monthly-nudge-title">단건이 2~3건 쌓이기 시작하면, <em>월 자문 전환</em>이 더 가볍습니다.</h3>
+    <p class="monthly-nudge-desc">규모별 정액제. 기본 서비스 품질은 동일하고, <em>합리적 범위 내</em>에서 횟수 제한 없이 이용하실 수 있습니다. 정식 의견서(Written)는 별도 단건으로 10% 할인 적용.</p>
+    <div class="monthly-nudge-plans">
+      <div class="mn-plan"><span class="mn-plan-scale">~30인</span><span class="mn-plan-price">20<span class="unit">만원</span></span></div>
+      <div class="mn-plan"><span class="mn-plan-scale">~50인</span><span class="mn-plan-price">30<span class="unit">만원</span></span></div>
+      <div class="mn-plan"><span class="mn-plan-scale">~100인</span><span class="mn-plan-price">40<span class="unit">만원</span></span></div>
+      <div class="mn-plan"><span class="mn-plan-scale">~300인</span><span class="mn-plan-price">70<span class="unit">만원</span></span></div>
+      <div class="mn-plan"><span class="mn-plan-scale">300인 이상</span><span class="mn-plan-price">100<span class="unit">만원</span></span></div>
+    </div>
+    <div class="monthly-nudge-foot">
+      <p class="monthly-nudge-note"><em>규모 기준</em>: 상시 근로자 수. 월 단위 결제, 최소 3개월 이용. 신청 시 사업자등록증 기준 규모 확인.</p>
+      <a href="/order?plan=monthly" class="monthly-nudge-cta">월 자문 문의</a>
+    </div>
+  </div>
 </div>
 </section>
 
@@ -484,7 +534,9 @@ body.i-open{overflow:hidden}
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">답변이 예상과 다르면 환불 가능한가요?</div><div class="faq-a"><p>답변 내용에 <em>객관적 하자</em>가 있으면 재검토·재작성으로 대응합니다. 법령 해석상 예상과 다른 결론이 나오는 경우 환불은 어려우나, 이유를 충분히 설명드립니다. 자세한 환불 규정은 <a href="/terms" style="color:var(--mint);font-weight:700">이용약관</a>을 참고해주세요.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">전화·대면 상담은 안 되나요?</div><div class="faq-a"><p>HRer는 <em>서면 자문 전용</em>입니다. 전화·대면 상담은 제공하지 않습니다. 기록 보존, 근거 명시, 재확인 가능성 측면에서 서면이 더 정확하고 유리합니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">어떤 분야를 자문받을 수 있나요?</div><div class="faq-a"><p>근로계약, 퇴직금, 연차·휴가, 임금, 해고·징계, 직장 내 괴롭힘, 취업규칙, 4대보험, 외국인 근로 등 인사노무 전반. 단, 사건 대리가 필요한 노동위원회 사건은 <a href="/unfair-dismissal" style="color:var(--mint);font-weight:700">사건 서비스</a>로 안내드립니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">추가 질의 1회 무료는 뭔가요?</div><div class="faq-a"><p>답변을 받은 뒤 <em>답변 내용에 대한 후속 질의</em> 1회를 무료로 제공합니다. (본래 쟁점에서 벗어난 새 쟁점은 별도 의뢰로 처리.) 답변 수신 후 3일 이내에 요청하시면 됩니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">추가 질의 1회 무료는 어떤 기준인가요?</div><div class="faq-a"><p>답변 수신 후 <em>3일 이내</em>, 받으신 답변의 <em>동일 쟁점 범위 내</em>에서 추가로 확인하고 싶은 내용이 생겼을 때 1회 무료로 회신드립니다. 원 답변의 결론·근거·적용 범위에 대한 명확화 수준이 해당됩니다. 본래 쟁점에서 벗어난 새로운 사안은 별도 의뢰로 접수해주세요.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">단건 말고 월 자문도 되나요?</div><div class="faq-a"><p>네. 단건으로 이용해보시다가 <em>한 달에 2~3건 이상</em> 자주 이용하신다면 월 자문 플랜이 더 가볍습니다. 규모별 정액제로 <em>30인 미만 20만원</em>부터 <em>300인 이상 100만원</em>까지, <em>합리적 범위 내</em>에서 횟수 제한 없이 이용 가능합니다. 의뢰 시 비고란에 '월 자문 문의'라고 남겨주시면 안내드립니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">월 자문의 '합리적 범위'는 어떤 의미인가요?</div><div class="faq-a"><p>일반적인 소규모 사업장에서 발생하는 인사노무 질의량을 기준으로 운영합니다. <em>주 2~3건 수준</em>까지는 자연스럽게 소화되며, 질의량이 통상 범위를 현저히 초과할 경우 상위 플랜 전환이나 별도 안내를 드릴 수 있습니다. 특정 숫자로 제한하지 않는 이유는 <em>월별 편차</em>(평상시 1건, 특정 달에 5건 등)를 허용하기 위함입니다.</p></div></div>
   </div>
 </div>
 </section>
