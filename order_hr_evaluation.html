@@ -422,6 +422,21 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     </div>
   </div>
 
+
+  <div id="legal-agreements" style="margin:18px 0 14px;padding:18px 20px;background:#FAFAFA;border:1px solid var(--border);border-radius:10px;font-size:13.5px;line-height:1.7">
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:8px">
+      <input type="checkbox" id="agree-terms" required style="margin-top:4px;flex-shrink:0;width:16px;height:16px;cursor:pointer">
+      <span><strong style="font-weight:700">[필수]</strong> <a href="/terms" target="_blank" style="color:var(--mint);font-weight:700;border-bottom:1px solid var(--mint)">이용약관</a>에 동의합니다.</span>
+    </label>
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:8px">
+      <input type="checkbox" id="agree-privacy" required style="margin-top:4px;flex-shrink:0;width:16px;height:16px;cursor:pointer">
+      <span><strong style="font-weight:700">[필수]</strong> <a href="/privacy" target="_blank" style="color:var(--mint);font-weight:700;border-bottom:1px solid var(--mint)">개인정보 수집·이용</a>에 동의합니다.</span>
+    </label>
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+      <input type="checkbox" id="agree-payment" required style="margin-top:4px;flex-shrink:0;width:16px;height:16px;cursor:pointer">
+      <span><strong style="font-weight:700">[필수]</strong> 결제대행(토스페이먼츠) 서비스 이용약관에 동의합니다.</span>
+    </label>
+  </div>
   <button class="btn-submit" onclick="submitForm()">인사평가 의뢰하기</button>
   <p class="submit-note">접수 후 <em>영업일 2일 이내</em> 역량 세팅 리포트를 보내드립니다.<br>고객 확인 후 평가를 시행합니다.</p>
 
@@ -435,9 +450,12 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <div class="footer-logo"><span style="color:var(--mint)">HR</span>er</div>
     <div class="footer-info">
       <span class="b">유한회사 제이씨랩</span><br>
-      이메일: contact@hrer.kr<br>
-      <br>
-      <span style="font-size:11px">HRer는 유한회사 제이씨랩이 운영하는 서비스 브랜드이며, 노무 자문·사건·조사의 실제 직무 수행은 공인노무사 사무소가 수행합니다.</span>
+대표자: 윤지민 | 사업자등록번호: 360-86-03994<br>
+주소: 경기도 안양시 동안구 귀인로98번길 12, 108동 7층 701호<br>
+전화: 010-7640-1867 | 이메일: contact@hrer.kr<br>
+통신판매업 신고: 준비 중 | <a href="/business-info" style="color:inherit;text-decoration:underline">사업자정보 자세히</a>
+        <br>
+        <span style="font-size:11px">HRer는 유한회사 제이씨랩이 운영하는 서비스 브랜드이며, 노무 자문·사건·조사의 실제 직무 수행은 공인노무사 사무소가 수행합니다.</span>
     </div>
   </div>
   <div class="footer-col">
@@ -455,6 +473,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <div class="footer-links">
       <a href="/terms">이용약관</a>
       <a href="/privacy">개인정보처리방침</a>
+        <a href="/business-info">사업자정보</a>
       <a href="/#faq">자주 묻는 질문</a>
     </div>
   </div>
@@ -566,6 +585,11 @@ async function submitForm() {
   if (!name || !email || !phone || !company) { alert('담당자 필수 항목을 모두 입력해 주세요.'); return; }
   if (count < 3) { alert('평가 대상 직원 수는 최소 3명 이상이어야 합니다.'); return; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('이메일 형식이 올바르지 않습니다.'); return; }
+  // 약관 동의 검증 (필수 3종)
+  for(const id of ['agree-terms','agree-privacy','agree-payment']){
+    const el = document.getElementById(id);
+    if(el && !el.checked){alert('필수 약관에 모두 동의해주세요.'); el.focus(); return;}
+  }
 
   let handoff = {};
   try { const h = sessionStorage.getItem('hrer_chat_handoff'); if (h) handoff = JSON.parse(h); } catch(e){}
