@@ -45,7 +45,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* HERO */
 .hero{padding:160px 0 80px;background:#F7F4EE;color:var(--dark);text-align:left;border-bottom:1px solid rgba(25,25,25,0.1)}
 .hero .container{max-width:1100px}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;padding:0;background:transparent;border:none;border-radius:0}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;padding:0;background:transparent;border:none;border-radius:0}
 .hero-badge::before{content:"";width:28px;height:1px;background:var(--mint)}
 .hero h1{font-size:clamp(40px,5.5vw,72px);font-weight:900;line-height:1.08;letter-spacing:-2.5px;margin-bottom:28px;max-width:880px}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
@@ -66,20 +66,20 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* SECTION */
 .section{padding:var(--section-gap) 0}
 .section-alt{background:#FAFAFA}
-.section-label{font-size:13px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-align:center}
+.section-label{font-size:15px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-align:center}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25;color:var(--dark)}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
 /* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
 .case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
-.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label{font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
 .case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
 .case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
 .case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
 .case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
 .case-fit-row:last-child{border-bottom:none}
-.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-key{font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
 .case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
 .case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
 .case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
@@ -89,11 +89,11 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 }
 
 /* DATA INSIGHTS */
-.data-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
-.data-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1);cursor:pointer;position:relative}
-.data-card:hover{padding-left:16px;box-shadow:none;transform:none}
-.data-card h3,.data-card h4{font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:12px;letter-spacing:-0.6px;line-height:1.25;color:var(--dark)}
-.data-card p{font-size:14px;color:var(--gray);line-height:1.8;font-weight:500;max-width:560px;margin:0}
+.data-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1200px;margin:0 auto}
+.data-card{display:flex;flex-direction:column;padding:28px 24px;border-radius:10px;background:var(--white);border:1px solid rgba(25,25,25,0.1);transition:transform 0.25s ease,box-shadow 0.25s ease;cursor:pointer;position:relative}
+.data-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.05)}
+.data-card h3,.data-card h4{font-size:clamp(18px,1.6vw,22px);font-weight:800;margin-bottom:10px;letter-spacing:-0.4px;line-height:1.3;color:var(--dark)}
+.data-card p{font-size:13.5px;color:var(--gray);line-height:1.7;font-weight:500;margin:0}
 .data-card p em{color:var(--dark);font-weight:700;font-style:normal}
 /* INSIGHT MODAL */
 .i-backdrop{position:fixed;inset:0;background:rgba(10,15,25,0.55);backdrop-filter:blur(4px);z-index:1100;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 20px}
@@ -102,7 +102,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
 @keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 .i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-tag{font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
 .i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
 .i-head .big{font-size:30px;font-weight:900;color:var(--mint);letter-spacing:-1.2px;margin-top:8px}
 .i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
@@ -116,12 +116,12 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .i-case strong{color:var(--dark);font-weight:700;display:block;margin-bottom:4px;font-size:13px}
 .i-disclaimer{margin-top:20px;padding:14px 16px;background:#FAFAFA;border-radius:8px;font-size:11.5px;color:var(--gray);line-height:1.75}
 body.i-open{overflow:hidden}
-.data-num{font-size:42px;font-weight:900;color:var(--dark);letter-spacing:-1.3px;line-height:1}
-.data-num .pct{font-size:20px;font-weight:800;color:var(--gray);margin-left:2px}
-.data-label{font-size:12px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:1px;margin-top:12px;margin-bottom:8px}
-.data-title{font-size:16px;font-weight:800;margin-bottom:10px;letter-spacing:-0.2px;line-height:1.45}
-.data-desc{font-size:13.5px;color:#555;line-height:1.7;font-weight:500;margin-bottom:14px}
-.data-foot{font-size:11px;color:var(--gray2);padding-top:12px;border-top:1px dashed var(--border)}
+.data-num{font-size:38px;font-weight:900;color:var(--dark);letter-spacing:-1.2px;line-height:1;margin-bottom:10px}
+.data-num .pct{font-size:18px;font-weight:800;color:var(--gray);margin-left:2px}
+.data-label{font-size:13px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.data-title{font-size:16px;font-weight:800;margin-bottom:10px;letter-spacing:-0.2px;line-height:1.4}
+.data-desc{font-size:13.5px;color:#555;line-height:1.65;font-weight:500;margin-bottom:14px;flex-grow:1}
+.data-foot{font-size:11.5px;color:var(--gray2);padding-top:12px;border-top:1px dashed var(--border);margin-top:auto}
 .data-card.strict{background:#FFFBEB;border-color:#FDE68A}
 .data-card.strict .data-label{color:#B45309}
 .data-card.strict .data-num{color:#B45309}
@@ -132,7 +132,7 @@ body.i-open{overflow:hidden}
 .cmp-wrap{max-width:920px;margin:24px auto 0}
 .cmp-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
 .cmp-table th,.cmp-table td{padding:18px 22px;text-align:left;font-size:14.5px;line-height:1.7;border-bottom:1px solid var(--border);vertical-align:top}
-.cmp-table thead th{background:#FAFAFA;font-size:12px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center}
+.cmp-table thead th{background:#FAFAFA;font-size:14px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center}
 .cmp-table thead th.hl{background:#F0FDF4;color:var(--mint)}
 .cmp-table tr:last-child td{border-bottom:none}
 .cmp-q{font-weight:700;color:var(--dark);width:26%}
@@ -143,7 +143,7 @@ body.i-open{overflow:hidden}
 .steps-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .step-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1);position:relative}
 .step-card:hover{padding-left:16px;box-shadow:none;transform:none}
-.step-card .step-n{font-size:12px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.step-card .step-n{font-size:14px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
 .step-card h3,.step-card h4{font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:12px;letter-spacing:-0.6px;line-height:1.25;color:var(--dark)}
 .step-card p{font-size:14px;color:var(--gray);line-height:1.8;font-weight:500;max-width:560px;margin:0}
 .step-card p em{color:var(--dark);font-weight:700;font-style:normal}
@@ -153,7 +153,7 @@ body.i-open{overflow:hidden}
 .process-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .process-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.4fr);gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
 .process-card:hover{padding-left:16px;box-shadow:none;transform:none}
-.process-card .badge{display:inline-block;padding:4px 10px;background:var(--mint);color:var(--white);font-size:11px;font-weight:700;border-radius:20px;letter-spacing:0.5px;margin-bottom:12px}
+.process-card .badge{display:inline-block;padding:4px 10px;background:var(--mint);color:var(--white);font-size:13px;font-weight:700;border-radius:20px;letter-spacing:0.5px;margin-bottom:12px}
 .process-card h3,.process-card h4{font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:12px;letter-spacing:-0.6px;line-height:1.25;color:var(--dark)}
 .process-card p{font-size:14px;color:var(--gray);line-height:1.8;font-weight:500;max-width:560px;margin:0}
 .process-card p em{color:var(--dark);font-weight:700;font-style:normal}
@@ -164,7 +164,7 @@ body.i-open{overflow:hidden}
 .faq-item:hover{background:rgba(0,184,147,0.04)}
 .faq-item.active{background:rgba(0,184,147,0.05)}
 .faq-q{padding:26px 24px 26px 56px;font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;letter-spacing:-0.3px;color:var(--dark);position:relative;line-height:1.4}
-.faq-q::before{content:counter(faq-counter,decimal-leading-zero);counter-increment:faq-counter;position:absolute;left:16px;top:28px;font-size:11px;font-weight:700;color:var(--gray2);letter-spacing:1px;font-variant-numeric:tabular-nums}
+.faq-q::before{content:counter(faq-counter,decimal-leading-zero);counter-increment:faq-counter;position:absolute;left:16px;top:28px;font-size:13px;font-weight:700;color:var(--gray2);letter-spacing:1px;font-variant-numeric:tabular-nums}
 .faq-q::after{content:'';width:12px;height:12px;border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);transform:rotate(45deg);margin-top:-6px;margin-left:12px;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1);flex-shrink:0;border-radius:0;background:none;font-size:0;color:transparent;font-weight:normal}
 .faq-item.active .faq-q::after{transform:rotate(-135deg);margin-top:6px;border-color:var(--mint)}
 .faq-a{padding:0 56px;max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.2,0.8,0.2,1),padding 0.3s ease}
@@ -208,9 +208,23 @@ body.i-open{overflow:hidden}
   .process-grid{grid-template-columns:1fr}
   .cmp-table th,.cmp-table td{padding:14px 12px;font-size:13px}
   .cmp-q,.cmp-ai,.cmp-hrer{width:auto}
+  /* step-card 모바일 stack (How to Use) */
+  .step-card{grid-template-columns:1fr!important;gap:10px!important;padding:24px 16px!important}
+  .step-card .step-n{margin-bottom:4px!important}
+  .step-card h3,.step-card h4{font-size:18px!important;margin-bottom:8px!important}
+  .step-card p{font-size:14px!important;line-height:1.7!important}
+  /* process-card 모바일 stack (Data-Driven Preparation) */
+  .process-card{grid-template-columns:1fr!important;gap:10px!important;padding:24px 16px!important}
+  .process-card .badge{font-size:14px!important}
+  .process-card h3{font-size:18px!important;margin-bottom:8px!important}
+  .process-card p{font-size:14px!important;line-height:1.7!important}
 }
 
 .step-card{cursor:pointer}
+/* 띠용띠용 hover - back easing */
+.bouncy{transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,background 0.25s ease!important;cursor:pointer;border-radius:12px}
+.bouncy:hover{transform:translateY(-4px) scale(1.01)!important;box-shadow:0 14px 32px rgba(0,0,0,0.08)!important;background:#fff!important}
+.bouncy:active{transform:translateY(0) scale(0.99)!important;transition-duration:0.15s!important}
 .process-card{cursor:pointer;position:relative}
 </style>
 <!-- HRer-SEO-START -->
@@ -272,6 +286,11 @@ body.i-open{overflow:hidden}
   <div class="hero-btns">
     <a href="/order_unfair-dismissal" class="btn-dark">사건 의뢰하기</a>
     <a href="#data" class="btn-ghost">판정례 경향 보기</a>
+    <a href="/docs/brochures/HRer_unfair_dismissal.pdf" download class="btn-ghost">서비스 소개서 (PDF) ↓</a>
+  </div>
+  <div style="max-width:760px;margin:48px auto 0;padding:24px 28px;border-radius:14px;background:#F0FDF4;border:1.5px solid var(--mint);text-align:left">
+    <div style="font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">HRer's Focus</div>
+    <p style="font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0">HRer는 <em>서면 작성에 집중</em>합니다. 답변서·이유서·심문회의 전략 보고서를 데이터 기반으로 준비합니다. 심문회의 출석은 본인 직접 진행을 원칙으로 하며, 필요 시 별도 출석 노무사를 위촉하실 수 있습니다.</p>
   </div>
 </div>
 </section>
@@ -316,42 +335,42 @@ body.i-open{overflow:hidden}
   <p class="section-sub">노동위원회 초심사건 공개 데이터에서 확인할 수 있는 경향성입니다. 수치는 참고 자료이며, 개별 사건 결과를 보장하지 않습니다.</p>
 
   <div class="data-grid">
-    <div class="data-card" onclick="openInsight('dismissal')">
+    <div class="data-card bouncy" onclick="openInsight('dismissal')">
       <div class="data-num">32<span class="pct">%</span></div>
       <div class="data-label">부당해고 전체</div>
       <div class="data-title">해고 분쟁, 실제로 어떻게 결론 나는가</div>
       <div class="data-desc">부당해고 구제신청 초심사건 약 64,000건 중 근로자가 승소한 비율은 약 32%. 가장 자주 쟁점이 된 것은 <em>절차</em>(서면통지·소명기회·징계위원회)와 <em>양정</em>(징계의 과·부족)이었습니다.</div>
       <div class="data-foot">총 64,490건 · 초심사건 · 재심 제외</div>
     </div>
-    <div class="data-card" onclick="openInsight('discipline')">
+    <div class="data-card bouncy" onclick="openInsight('discipline')">
       <div class="data-num">40<span class="pct">%</span></div>
       <div class="data-label">징계 (해고 외)</div>
       <div class="data-title">해고보다 낮은 징계, 오히려 다투기 쉽다?</div>
       <div class="data-desc">정직·감봉·견책 등 해고 외 징계 초심사건의 구제 인정률은 약 40%로, 부당해고보다 다소 높게 나타납니다. 양정 적정성과 절차 준수가 주요 쟁점입니다.</div>
       <div class="data-foot">총 6,653건 · 초심사건</div>
     </div>
-    <div class="data-card" onclick="openInsight('transfer')">
+    <div class="data-card bouncy" onclick="openInsight('transfer')">
       <div class="data-num">44<span class="pct">%</span></div>
       <div class="data-label">전보·전직·인사발령</div>
       <div class="data-title">'회사 권한'이라도 무한하지 않습니다</div>
       <div class="data-desc">전보·대기발령 등 인사명령 초심사건의 구제 인정률은 약 44%. 업무상 필요성과 근로자 불이익의 비교·형량, 협의 절차가 반복적으로 다루어집니다.</div>
       <div class="data-foot">총 8,563건 · 초심사건</div>
     </div>
-    <div class="data-card strict" onclick="openInsight('layoff')">
+    <div class="data-card strict bouncy" onclick="openInsight('layoff')">
       <div class="data-num">82<span class="pct">%</span></div>
       <div class="data-label">정리해고 · 엄격 요건</div>
       <div class="data-title">경영상 이유 해고, 까다로운 요건</div>
       <div class="data-desc">정리해고가 쟁점이 된 초심사건의 구제 인정률은 약 82%. 4요건(긴박한 경영상 필요·해고 회피 노력·공정한 선정·근로자 대표 협의)이 엄격히 요구되는 유형입니다.</div>
       <div class="data-foot">총 960건 · 표본 적음, 참고용</div>
     </div>
-    <div class="data-card" onclick="openInsight('probation')">
+    <div class="data-card bouncy" onclick="openInsight('probation')">
       <div class="data-num">45<span class="pct">%</span></div>
       <div class="data-label">수습·시용 해고</div>
       <div class="data-title">'수습은 자유롭게 해고'는 오해</div>
       <div class="data-desc">수습·시용 기간 해고 초심사건의 구제 인정률은 약 45%. 완화된 기준이긴 하나, 객관적·합리적 평가 근거와 일정한 절차적 요건이 요구되는 경향이 있습니다.</div>
       <div class="data-foot">총 1,946건 · 초심사건</div>
     </div>
-    <div class="data-card" onclick="openInsight('renewal')">
+    <div class="data-card bouncy" onclick="openInsight('renewal')">
       <div class="data-num">28<span class="pct">%</span></div>
       <div class="data-label">계약 갱신거절</div>
       <div class="data-title">계약 종료, 언제 부당해고가 될까</div>
@@ -415,29 +434,61 @@ body.i-open{overflow:hidden}
   <p class="section-sub">전 과정을 한꺼번에 맡기지 않아도 됩니다. 사건 상황에 맞춰 필요한 단계만 선택하세요.</p>
 
   <div class="steps-grid">
-    <div class="step-card" onclick="openInsight('step1')">
+    <div class="step-card bouncy" onclick="openInsight('step1')">
       <div class="step-n">Step 01</div>
       <h3>초기 검토</h3>
       <p>사건 개요·증거 리스트·유사 판정례 분석. 승·패 가능성과 쟁점을 먼저 확인합니다.</p>
-      <div class="price">건별 결제</div>
+      <div class="price">300,000원 (VAT 별도)</div>
     </div>
-    <div class="step-card" onclick="openInsight('step2')">
+    <div class="step-card bouncy" onclick="openInsight('step2')">
       <div class="step-n">Step 02</div>
       <h3>구제신청·답변서</h3>
       <p>사실관계 정리, 쟁점별 법리 구성, 판정례 인용. 서면으로 제출까지 지원합니다.</p>
-      <div class="price">건별 결제</div>
+      <div class="price">2,000,000원 (VAT 별도)</div>
     </div>
-    <div class="step-card" onclick="openInsight('step3')">
+    <div class="step-card bouncy" onclick="openInsight('step3')">
       <div class="step-n">Step 03</div>
       <h3>심문회의 전략</h3>
       <p>예상 질문 대응, 주장 요약서, 추가 증거 검토. 심문 당일 준비까지 함께합니다.</p>
-      <div class="price">건별 결제</div>
+      <div class="price">700,000원 (VAT 별도)</div>
     </div>
-    <div class="step-card" onclick="openInsight('step4')">
+    <div class="step-card">
       <div class="step-n">Step 04</div>
-      <h3>출석·대리 (선택)</h3>
-      <p>필요 시 심문회의 동석 또는 대리 출석. 사건 규모·거리에 따라 별도 협의.</p>
-      <div class="price">별도 협의</div>
+      <h3>출석은 별도 진행</h3>
+      <p>HRer는 서면 작성에 집중합니다. 심문회의 출석은 <em>본인 직접 출석</em>을 원칙으로 하며, 답변서와 함께 <em>무료 출석 가이드</em>(예상 질문, 주의사항, 답변 요령)를 제공합니다. 별도 출석 노무사를 위촉하시는 경우 출석 비용은 별도 계약입니다.</p>
+      <div class="price">본인 출석 가이드 무료 제공</div>
+    </div>
+  </div>
+
+  <!-- 가격 포함/미포함 박스 -->
+  <div style="max-width:1100px;margin:48px auto 0;padding:32px 36px;border-radius:14px;background:#F7F4EE;border:1px solid rgba(25,25,25,0.08)">
+    <div style="font-size:11px;font-weight:700;color:var(--gray);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px">What's Included</div>
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:-0.4px">가격에 포함된 것 / 포함되지 않은 것</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">포함</div>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">✓</span>답변서·이유서·준비서면 작성</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">✓</span>유사 판정례 분석 리포트</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">✓</span>답변 수신 후 3일 이내 추가 질의 1회</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">✓</span>본인 출석 가이드</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">포함되지 않은 것</div>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li style="padding:6px 0;font-size:14px;color:var(--gray);line-height:1.6;font-weight:500"><span style="color:var(--gray);font-weight:700;margin-right:6px">✗</span>심문회의·재판 출석</li>
+          <li style="padding:6px 0;font-size:13px;color:var(--gray2);line-height:1.6;font-weight:500;padding-left:22px">(본인 직접 또는 별도 위촉)</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px">추가 청구 없음</div>
+        <ul style="list-style:none;padding:0;margin:0">
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">·</span>성공보수 없음</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">·</span>결과에 따른 추가 청구 없음</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--dark);line-height:1.6;font-weight:500"><span style="color:var(--mint);font-weight:700;margin-right:6px">·</span>자료 추가에 따른 추가 청구 없음</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -479,8 +530,8 @@ body.i-open{overflow:hidden}
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">노동위원회 구제신청 기한이 있나요?</div><div class="faq-a"><p>부당해고 구제신청은 원칙적으로 해고 후 <em>3개월 이내</em>에 제기해야 합니다. 기한을 도과한 경우 민사소송 등 다른 구제 방법을 검토해야 하므로, 사건 상황을 먼저 자문으로 확인하시기 바랍니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">판정례 분석이란 무엇인가요?</div><div class="faq-a"><p>노동위원회가 실제로 처리한 사건 기록을 분석해, 유사한 사안이 어떻게 판정되어 왔는지 참고하는 방식입니다. 법 조문 해석에 머무는 일반 자문과 달리, 실제 결과 데이터를 함께 검토합니다. 단, 참고 자료이며 특정 결과를 보장하지는 않습니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">초기 검토만 받을 수 있나요?</div><div class="faq-a"><p>네, 가능합니다. 구제신청을 진행할지부터 고민이신 경우 초기 검토만 건별로 의뢰하셔도 됩니다. 이후 단계는 필요할 때 추가로 의뢰하세요.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">심문회의에 반드시 노무사가 출석해야 하나요?</div><div class="faq-a"><p>아닙니다. 서면 제출만으로 진행 가능하며, 출석 여부는 사건 특성에 따라 선택하실 수 있습니다. 필요한 경우 출석·대리 단계를 추가로 의뢰하시면 됩니다.</p></div></div>
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">결과를 보장해 주시나요?</div><div class="faq-a"><p>어떤 전문가도 개별 사건의 결과를 보장할 수는 없습니다. HRer는 판정례 데이터를 근거로 <em>인정·불인정 경향</em>과 <em>주요 쟁점</em>을 투명하게 안내드리고, 그에 맞춘 최선의 서면·전략을 준비합니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">심문회의에 반드시 노무사가 출석해야 하나요?</div><div class="faq-a"><p>아닙니다. 심문회의는 서면 내용을 확인·보충하는 자리이며, <em>핵심 쟁점은 서면에서 정리</em>됩니다. 따라서 서면 제출만으로도 충분히 진행 가능합니다.</p><p style="margin-top:14px">HRer는 <em>서면 작성에 집중하는 모델</em>로, 심문회의 출석은 본인 직접 진행을 원칙으로 합니다. 답변서와 함께 <em>무료 출석 가이드</em>(예상 질문, 주의사항, 답변 요령)를 제공해 직접 출석을 충분히 준비하실 수 있도록 돕습니다. 별도 출석 노무사를 위촉하시는 경우 출석 비용은 별도 계약으로 진행됩니다.</p><p style="margin-top:14px">출석을 직접 대리하지 않는 이유는 모든 자원을 서면에 집중해 더 깊은 분석과 더 합리적인 가격을 제공하기 위함입니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">결과를 보장해 주시나요?</div><div class="faq-a"><p>어떤 전문가도 개별 사건의 결과를 보장할 수는 없습니다. 결과는 노동위·법원이 결정합니다.</p><p style="margin-top:14px">HRer는 <em>결과에 따른 추가 청구를 하지 않습니다.</em> 성공보수 없이, 처음 책정된 기본료만으로 사건이 종결됩니다. 결과와 무관하게 가능한 모든 자원을 투입한다는 약속입니다.</p><p style="margin-top:14px">대신 판정례 데이터를 근거로 <em>인정·불인정 경향</em>과 <em>주요 쟁점</em>을 투명하게 안내드리고, 그에 맞춘 최선의 서면·전략을 준비합니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">회사(사용자) 측 대응도 가능한가요?</div><div class="faq-a"><p>가능합니다. 근로자 측·사용자 측 모두 의뢰 가능하며, 접수 시 어떤 입장인지 말씀해 주시면 됩니다. 동일 사건에서 양측을 동시에 대리하지는 않습니다.</p></div></div>
   </div>
 </div>
@@ -726,28 +777,28 @@ const INSIGHTS={
 <p class="i-disclaimer">* 심문회의 참석 여부는 사건 특성에 따라 선택 가능합니다.</p>`
   },
   step4:{
-    tag:'Step 04 · 출석·대리',title:'심문회의 동석 또는 대리 출석',big:'별도 협의',
-    body:`<h4>출석·대리가 필요한 경우</h4>
+    tag:'Step 04 · 출석은 별도 진행',title:'본인 직접 출석을 원칙으로 합니다',big:'본인 출석 가이드 무료 제공',
+    body:`<h4>HRer의 영역</h4>
 <ul>
-  <li>의뢰인이 직접 출석하기 어려운 상황 (업무·건강·지역)</li>
-  <li>쟁점이 복잡해 즉흥적 대응이 어려운 경우</li>
-  <li>상대 측이 노무사·변호사를 선임한 경우 (형평성 확보)</li>
+  <li>답변서·이유서·준비서면 등 <b>서면 작성에 집중</b></li>
+  <li>심문회의 출석은 본인 직접 진행을 원칙으로 함</li>
+  <li>심문회의는 서면 내용을 확인·보충하는 자리이며, <em>핵심 쟁점은 서면에서 정리</em>됨</li>
 </ul>
-<h4>공인노무사의 출석 권한</h4>
+<h4>본인 출석 가이드 (무료 제공)</h4>
 <ul>
-  <li>노동위원회 심문회의 <b>출석 진술</b> 가능 (공인노무사법 제2조)</li>
-  <li>대리인으로서 의뢰인을 대신해 답변·신문·증거 제출</li>
-  <li>필요 시 의뢰인과 동석하여 상담·조언</li>
+  <li>심문회의 진행 흐름과 단계별 발언 시점</li>
+  <li>심판위원이 자주 묻는 예상 질문</li>
+  <li>피해야 할 답변과 권장 답변 방향</li>
+  <li>주장 요약서 활용법 (Step 03에서 함께 제작)</li>
 </ul>
-<h4>비용 구조</h4>
+<h4>출석 노무사를 별도 위촉하시는 경우</h4>
 <ul>
-  <li>사건 규모·심문 예상 소요 시간·지역에 따라 별도 협의</li>
-  <li>동석(의뢰인 중심)과 단독 대리는 비용 차이</li>
-  <li>원거리 지방 심문의 경우 출장비 별도</li>
+  <li>본인 출석이 어려우신 경우 별도 출석 노무사를 위촉하실 수 있습니다.</li>
+  <li>출석 비용은 별도 계약으로 진행되며, HRer는 출석 대리를 수행하지 않습니다.</li>
 </ul>
 <div class="i-case">
-  <strong>권장 시점</strong>
-  Step 02·03를 HRer에서 진행했다면 Step 04는 거의 자동 연결. 답변서·전략을 작성한 사람이 직접 출석하는 것이 일관성·효과 면에서 유리합니다.
+  <strong>왜 출석을 직접 대리하지 않나요</strong>
+  HRer는 모든 자원을 <em>서면 분석과 작성</em>에 집중해 더 깊이 있는 분석과 더 합리적인 가격을 제공합니다. 본인 출석 가이드와 주장 요약서를 충실히 준비하면 직접 출석으로도 충분히 대응이 가능합니다.
 </div>
 <p class="i-disclaimer">* 출석·대리는 선택 사항이며, 서면 제출만으로도 진행 가능합니다.</p>`
   },

@@ -56,13 +56,13 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .track-btn.active .name{color:var(--mint)}
 
 .page-header{text-align:left;margin-bottom:56px;padding-bottom:36px;border-bottom:1px solid rgba(25,25,25,0.12)}
-.page-badge{display:inline-flex;align-items:center;gap:10px;padding:0;border-radius:0;background:transparent;color:var(--mint);font-size:11px;font-weight:700;margin-bottom:20px;border:none;letter-spacing:2.5px;text-transform:uppercase}
+.page-badge{display:inline-flex;align-items:center;gap:10px;padding:0;border-radius:0;background:transparent;color:var(--mint);font-size:13px;font-weight:700;margin-bottom:20px;border:none;letter-spacing:2.5px;text-transform:uppercase}
 .page-badge::before{content:"";width:28px;height:1px;background:var(--mint)}
 .page-header h1{font-size:clamp(32px,4vw,48px);font-weight:900;letter-spacing:-1.8px;line-height:1.15;margin-bottom:14px;color:var(--dark)}
 .page-header p{font-size:15.5px;color:var(--gray);line-height:1.75;max-width:640px;margin:0}
 
 .section-card{background:#fff;border:1px solid rgba(25,25,25,0.12);border-radius:3px;padding:32px 28px;margin-bottom:16px}
-.section-title{font-size:11px;font-weight:700;color:var(--mint);margin-bottom:6px;letter-spacing:2.5px;text-transform:uppercase}
+.section-title{font-size:13px;font-weight:700;color:var(--mint);margin-bottom:6px;letter-spacing:2.5px;text-transform:uppercase}
 .section-desc{font-size:13px;color:var(--gray);margin-bottom:24px;line-height:1.65}
 
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -356,11 +356,11 @@ em{font-style:normal;color:var(--mint);font-weight:700}
       <div class="price-summary-label">예상 비용</div>
       <div class="price-summary-plan" id="summary-plan">신규 제정</div>
     </div>
-    <div class="price-summary-amount">000,000<span>원 ~ (VAT 별도)</span></div>
+    <div class="price-summary-amount" id="summary-amount">800,000<span>원 (VAT 별도)</span></div>
   </div>
 
-  <button class="btn-submit" onclick="submitOrder()">의뢰 접수하기 (무료)</button>
-  <p class="submit-note">접수 후 영업일 24시간 이내 담당 노무사가 연락드립니다.<br>결제는 견적 확정 후 진행되며, 접수 단계에서는 비용이 청구되지 않습니다.</p>
+  <button class="btn-submit" onclick="submitOrder()">의뢰서 작성 후 결제 진행</button>
+  <p class="submit-note">의뢰 접수 후 토스페이먼츠 결제 페이지로 이동합니다.<br>결제 완료 시점부터 영업일 24시간 이내 담당 노무사가 작업을 시작합니다.</p>
 
 </div>
 </div>
@@ -416,6 +416,7 @@ function switchTrack(track){
     document.getElementById('section-new').style.display = 'block';
     document.getElementById('section-modify').style.display = 'none';
     document.getElementById('summary-plan').textContent = '신규 제정';
+    document.getElementById('summary-amount').innerHTML = '800,000<span>원 (VAT 별도)</span>';
     document.getElementById('process-desc').textContent = '① 접수 확인(영업일 24시간 이내) → ② 초안 작성(3~5일) → ③ 초안 송부 + 수정 요청 1회 포함 → ④ 최종본 + 의견청취서 + 근로자 과반수 동의·의견청취 안내서 납품';
   }else{
     document.getElementById('page-badge').textContent = '기존 변경 의뢰';
@@ -424,6 +425,7 @@ function switchTrack(track){
     document.getElementById('section-new').style.display = 'none';
     document.getElementById('section-modify').style.display = 'block';
     document.getElementById('summary-plan').textContent = '기존 변경 (신구대조표 포함)';
+    document.getElementById('summary-amount').innerHTML = '500,000<span>원 (VAT 별도)</span>';
     document.getElementById('process-desc').textContent = '① 접수 확인(영업일 24시간 이내) → ② 자동 분석 + 수정안 작성(5~7일) → ③ 수정안 + 신구대조표 송부 → ④ 수정 요청 1회 포함 → ⑤ 최종본 + 의견청취서 + 근로자 동의 안내서 납품';
   }
 }

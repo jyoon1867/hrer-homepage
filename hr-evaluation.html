@@ -44,7 +44,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* HERO — v2 Editorial Light */
 .hero{padding:160px 0 80px;background:#F7F4EE;color:var(--dark);text-align:left;border-bottom:1px solid rgba(25,25,25,0.1)}
 .hero .container{max-width:1100px}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;padding:0;background:transparent;border:none;border-radius:0}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:28px;padding:0;background:transparent;border:none;border-radius:0}
 .hero-badge::before{content:"";width:28px;height:1px;background:var(--mint)}
 .hero h1{font-size:clamp(40px,5.5vw,72px);font-weight:900;line-height:1.08;letter-spacing:-2.5px;margin-bottom:28px;max-width:880px}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
@@ -65,20 +65,20 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* SECTION */
 .section{padding:var(--section-gap) 0}
 .section-alt{background:#FAFAFA}
-.section-label{font-size:13px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-align:center}
+.section-label{font-size:15px;font-weight:700;color:var(--mint);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;text-align:center}
 .section-title{font-size:40px;font-weight:900;text-align:center;margin-bottom:16px;letter-spacing:-1.2px;line-height:1.25}
 .section-sub{font-size:17px;color:var(--gray);text-align:center;margin-bottom:56px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:500}
 
 /* CASE FIT — 이런 회사에 적합 (throxy ICP callout 차용) */
 .case-fit{max-width:1100px;margin:0 auto;padding:72px 0 0}
-.case-fit-label{font-size:11px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.case-fit-label{font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
 .case-fit-label::before{content:"";width:28px;height:1px;background:var(--mint)}
 .case-fit-head{font-size:clamp(24px,2.6vw,36px);font-weight:900;letter-spacing:-1px;line-height:1.2;color:var(--dark);margin:0 0 36px;max-width:720px}
 .case-fit-head em{font-style:normal;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--mint);font-weight:inherit}
 .case-fit-table{border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)}
 .case-fit-row{display:grid;grid-template-columns:160px minmax(0,1fr);gap:32px;align-items:baseline;padding:22px 0;border-bottom:1px solid rgba(25,25,25,0.08)}
 .case-fit-row:last-child{border-bottom:none}
-.case-fit-key{font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
+.case-fit-key{font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2px;text-transform:uppercase}
 .case-fit-val{font-size:15.5px;color:var(--dark);line-height:1.75;font-weight:500;margin:0}
 .case-fit-val em{font-style:normal;color:var(--dark);font-weight:800;border-bottom:1px solid var(--mint);padding-bottom:1px}
 .case-fit-val .note{display:block;font-size:13px;color:var(--gray);margin-top:4px;font-weight:500}
@@ -92,7 +92,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .vp-card{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:72px;align-items:flex-start;padding:64px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);cursor:pointer;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1);position:relative}
 .vp-card:hover{padding-left:16px;padding-right:16px}
 .vp-card .icon{display:flex;flex-direction:column;gap:14px;font-size:inherit;margin:0;grid-column:1;grid-row:1/span 2}
-.vp-card .icon::before{content:attr(data-tag);font-size:10.5px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase}
+.vp-card .icon::before{content:attr(data-tag);font-size:13px;font-weight:700;color:var(--mint);letter-spacing:2.5px;text-transform:uppercase}
 .vp-card .icon::after{content:attr(data-num);font-size:clamp(72px,9vw,148px);font-weight:900;letter-spacing:-6px;line-height:0.85;color:transparent;-webkit-text-stroke:1.5px var(--dark);font-variant-numeric:tabular-nums;transition:all 0.3s ease}
 .vp-card:hover .icon::after{color:var(--mint);-webkit-text-stroke-color:var(--mint)}
 .vp-card .vp-body{min-width:0;grid-column:2;grid-row:1}
@@ -104,7 +104,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .vp-card .vp-metric .metric-val{font-size:clamp(28px,3vw,42px);font-weight:900;letter-spacing:-1.5px;line-height:1;color:var(--dark);font-variant-numeric:tabular-nums;white-space:nowrap}
 .vp-card .vp-metric .metric-val em{color:var(--mint);font-style:normal;font-weight:900}
 .vp-card .vp-metric .metric-val .unit{font-size:0.45em;font-weight:700;margin-left:4px;color:var(--mint)}
-.vp-card .vp-metric .metric-lbl{font-size:11px;font-weight:700;color:var(--gray2);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
+.vp-card .vp-metric .metric-lbl{font-size:13px;font-weight:700;color:var(--gray2);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px}
 @media(max-width:900px){
   .vp-card{grid-template-columns:1fr;gap:20px;padding:40px 0}
   .vp-card .icon{grid-row:auto}
@@ -115,6 +115,10 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 /* FEATURES — v2 Editorial Rows */
 .feat-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
 .feat-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.2fr);gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);cursor:pointer;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
+/* 띠용띠용 hover - back easing */
+.bouncy{transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s ease,background 0.25s ease!important;cursor:pointer;border-radius:12px}
+.bouncy:hover{transform:translateY(-4px) scale(1.01)!important;box-shadow:0 14px 32px rgba(0,0,0,0.08)!important;background:#fff!important}
+.bouncy:active{transform:translateY(0) scale(0.99)!important;transition-duration:0.15s!important}
 .feat-card:hover{padding-left:16px;box-shadow:none;transform:none;border-color:rgba(25,25,25,0.15)}
 .feat-card .num{display:inline-block;width:auto;height:auto;background:transparent;color:transparent;-webkit-text-stroke:1.5px var(--dark);border-radius:0;text-align:left;line-height:0.85;font-weight:900;font-size:clamp(52px,6vw,88px);letter-spacing:-3px;margin-bottom:0;font-variant-numeric:tabular-nums}
 .feat-card h3{font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:12px;letter-spacing:-0.6px;line-height:1.25;color:var(--dark)}
@@ -131,7 +135,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 .i-modal{background:#fff;border-radius:16px;max-width:680px;width:100%;margin:auto;box-shadow:0 30px 80px rgba(0,0,0,0.2);overflow:hidden;animation:isu 0.25s}
 @keyframes isu{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 .i-head{padding:24px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.i-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
+.i-tag{font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--mint);margin-bottom:8px}
 .i-head h3{font-size:21px;font-weight:800;letter-spacing:-0.4px;line-height:1.35}
 .i-close{background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;font-size:22px;color:var(--gray);line-height:1;flex-shrink:0}
 .i-close:hover{background:#F5F5F5;color:var(--dark)}
@@ -146,12 +150,13 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 body.i-open{overflow:hidden}
 
 /* DELIVERABLES — v2 Editorial Rows */
-.del-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
-.del-card{display:grid;grid-template-columns:140px minmax(0,1fr);gap:40px;align-items:flex-start;padding:36px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1)}
-.del-card h4{font-size:clamp(18px,1.8vw,22px);font-weight:800;margin-bottom:14px;color:var(--dark);letter-spacing:-0.4px}
-.del-card ul{list-style:none;padding:0}
-.del-card ul li{font-size:13.5px;color:var(--dark);padding:5px 0 5px 14px;position:relative;line-height:1.7;font-weight:500}
-.del-card ul li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:1px;background:var(--dark)}
+.del-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1200px;margin:0 auto}
+.del-card{display:flex;flex-direction:column;padding:28px 24px;border-radius:10px;background:var(--white);border:1px solid rgba(25,25,25,0.1);transition:transform 0.25s ease,box-shadow 0.25s ease}
+.del-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,0.05)}
+.del-card h4{font-size:17px;font-weight:800;margin-bottom:14px;color:var(--dark);letter-spacing:-0.3px;padding-bottom:14px;border-bottom:1px solid rgba(25,25,25,0.08)}
+.del-card ul{list-style:none;padding:0;margin:0}
+.del-card ul li{font-size:13.5px;color:var(--dark);padding:4px 0 4px 14px;position:relative;line-height:1.6;font-weight:500}
+.del-card ul li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:1px;background:var(--dark)}
 
 /* PROCESS timeline — v2 Editorial Rows */
 .timeline{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(25,25,25,0.15)}
@@ -159,20 +164,20 @@ body.i-open{overflow:hidden}
 .tl-n{width:auto;height:auto;border-radius:0;background:transparent;color:transparent;-webkit-text-stroke:1.5px var(--dark);display:block;align-items:unset;justify-content:unset;font-weight:900;font-size:clamp(52px,6vw,88px);letter-spacing:-3px;line-height:0.85;font-variant-numeric:tabular-nums}
 .tl-body h3{font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:12px;letter-spacing:-0.6px;line-height:1.25;color:var(--dark)}
 .tl-body p{font-size:14px;color:var(--gray);line-height:1.8;font-weight:500;max-width:640px}
-.tl-body .tag{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:4px 10px;background:transparent;color:var(--mint);font-size:10.5px;font-weight:700;border-radius:0;border:1px solid var(--mint);letter-spacing:1.5px;text-transform:uppercase}
+.tl-body .tag{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:4px 10px;background:transparent;color:var(--mint);font-size:13px;font-weight:700;border-radius:0;border:1px solid var(--mint);letter-spacing:1.5px;text-transform:uppercase}
 
-/* PRICING — v2 Editorial Rows */
-.price-grid{display:flex;flex-direction:column;gap:0;max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15)}
-.price-card{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.5fr);gap:40px;align-items:flex-start;padding:40px 0;border-radius:0;background:transparent;border:none;border-bottom:1px solid rgba(25,25,25,0.1);position:relative;transition:padding 0.3s cubic-bezier(0.2,0.8,0.2,1)}
-.price-card:hover{padding-left:16px;padding-right:16px}
-.price-card.popular{border:none;border-bottom:1px solid rgba(25,25,25,0.1);transform:none}
-.price-badge{position:static;transform:none;background:transparent;color:var(--mint);font-size:10.5px;font-weight:700;padding:0;border-radius:0;letter-spacing:2.5px;display:block;margin-bottom:10px;text-transform:uppercase}
-.price-name{font-size:clamp(26px,3vw,40px);font-weight:900;color:var(--dark);text-transform:none;letter-spacing:-1.5px;line-height:0.95;margin-bottom:0}
-.price-amount{font-size:clamp(26px,3vw,38px);font-weight:900;letter-spacing:-1.2px;line-height:1;color:var(--dark);font-variant-numeric:tabular-nums}
-.price-amount .won{font-size:0.4em;font-weight:700;margin-left:4px;color:var(--mint)}
-.price-desc{font-size:13px;color:var(--gray);margin:14px 0 16px;line-height:1.65}
-.price-features{list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
-.price-features li{font-size:13px;color:var(--dark);padding:4px 0 4px 14px;position:relative;line-height:1.65;font-weight:500}
+/* PRICING — 3-column horizontal layout */
+.price-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto}
+.price-card{display:flex;flex-direction:column;align-items:flex-start;padding:36px 32px;border-radius:10px;background:var(--white);border:1px solid rgba(25,25,25,0.1);position:relative;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1),box-shadow 0.3s ease}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,0.06)}
+.price-card.popular{border:1px solid var(--mint);box-shadow:0 8px 24px rgba(0,184,147,0.1)}
+.price-badge{position:static;transform:none;background:transparent;color:var(--mint);font-size:13px;font-weight:700;padding:0;border-radius:0;letter-spacing:2.5px;display:block;margin-bottom:12px;text-transform:uppercase}
+.price-name{font-size:clamp(24px,2.2vw,32px);font-weight:900;color:var(--dark);text-transform:none;letter-spacing:-1.2px;line-height:1;margin-bottom:16px}
+.price-amount{font-size:clamp(22px,2vw,30px);font-weight:900;letter-spacing:-1px;line-height:1;color:var(--dark);font-variant-numeric:tabular-nums;margin-bottom:12px}
+.price-amount .won{font-size:0.45em;font-weight:700;margin-left:4px;color:var(--mint)}
+.price-desc{font-size:13px;color:var(--gray);margin:0 0 20px;line-height:1.65;padding-bottom:20px;border-bottom:1px solid rgba(25,25,25,0.08);width:100%}
+.price-features{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px;width:100%}
+.price-features li{font-size:13.5px;color:var(--dark);padding:4px 0 4px 14px;position:relative;line-height:1.6;font-weight:500}
 .price-features li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:1px;background:var(--dark)}
 
 /* FAQ — v2 Landing Style */
@@ -181,7 +186,7 @@ body.i-open{overflow:hidden}
 .faq-item:hover{background:rgba(0,184,147,0.04)}
 .faq-item.active{background:rgba(0,184,147,0.05)}
 .faq-q{padding:26px 24px 26px 56px;font-size:16px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;letter-spacing:-0.3px;color:var(--dark);position:relative;line-height:1.4}
-.faq-q::before{content:counter(faq-counter,decimal-leading-zero);counter-increment:faq-counter;position:absolute;left:16px;top:28px;font-size:11px;font-weight:700;color:var(--gray2);letter-spacing:1px;font-variant-numeric:tabular-nums}
+.faq-q::before{content:counter(faq-counter,decimal-leading-zero);counter-increment:faq-counter;position:absolute;left:16px;top:28px;font-size:13px;font-weight:700;color:var(--gray2);letter-spacing:1px;font-variant-numeric:tabular-nums}
 .faq-q::after{content:'';width:12px;height:12px;border-right:2px solid var(--dark);border-bottom:2px solid var(--dark);transform:rotate(45deg);margin-top:-6px;margin-left:12px;transition:transform 0.3s cubic-bezier(0.2,0.8,0.2,1);flex-shrink:0;border-radius:0;background:none;font-size:0;color:transparent;font-weight:normal}
 .faq-item.active .faq-q::after{transform:rotate(-135deg);margin-top:6px;border-color:var(--mint)}
 .faq-a{padding:0 56px;max-height:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.2,0.8,0.2,1),padding 0.3s ease}
@@ -213,6 +218,13 @@ body.i-open{overflow:hidden}
 .footer-copy{text-align:center;margin-top:32px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--gray2);line-height:1.7}
 
 @media(max-width:900px){.vp-grid{grid-template-columns:1fr}.feat-grid{grid-template-columns:1fr}.del-grid{grid-template-columns:1fr}.price-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
+@media(max-width:768px){
+  .feat-card{grid-template-columns:1fr!important;gap:12px!important;padding:28px 16px!important}
+  .feat-card .num{font-size:42px!important;letter-spacing:-1.5px!important;line-height:1!important}
+  .feat-card h3{font-size:18px!important;margin-bottom:8px!important}
+  .feat-card p,.feat-card ul{font-size:14px!important;line-height:1.7!important}
+  .vp-card{padding:36px 16px!important}
+}
 @media(max-width:768px){
   :root{--section-gap:70px}
   .nav-links{display:none}.hamburger{display:flex}
@@ -277,10 +289,11 @@ body.i-open{overflow:hidden}
 <div class="container">
   <div class="hero-badge">NCS 국가표준 · 심리측정학 기반</div>
   <h1>대기업 수준의 평가를<br><em>소기업 맞춤</em>으로</h1>
-  <p>NCS 13,289개 직무 데이터와 심리측정학 방법론으로 설계된 <em>과학적 평가 체계</em>.<br>10~30인 사업장도 공정한 인사평가를 도입할 수 있습니다.</p>
+  <p>NCS 13,289개 직무 데이터와 심리측정학 방법론으로 설계된 <em>과학적 평가 체계</em>.<br><em>10~100인 사업장</em>, 첫 평가 체계 도입부터 PIP 대비까지.</p>
   <div class="hero-btns">
-    <a href="/order_hr_evaluation" class="btn-dark">견적 문의하기</a>
+    <a href="/order_hr_evaluation" class="btn-dark">서비스 의뢰하기</a>
     <a href="#pricing" class="btn-ghost">요금 보기</a>
+    <a href="/docs/brochures/HRer_hr_evaluation.pdf" download class="btn-ghost">서비스 소개서 (PDF) ↓</a>
   </div>
 </div>
 </section>
@@ -294,7 +307,7 @@ body.i-open{overflow:hidden}
     <div class="case-fit-table">
       <div class="case-fit-row">
         <div class="case-fit-key">회사 규모</div>
-        <p class="case-fit-val"><em>30~300인</em> 사업장. 첫 평가 체계 도입이거나 기존 평가 체계 전면 개편 필요.</p>
+        <p class="case-fit-val"><em>10~100인</em> 사업장. 첫 평가 체계 도입이거나 기존 평가 체계 전면 개편 필요.</p>
       </div>
       <div class="case-fit-row">
         <div class="case-fit-key">의뢰자 역할</div>
@@ -325,7 +338,7 @@ body.i-open{overflow:hidden}
   <p class="section-sub">엑셀로 주먹구구식 평가하거나, 수천만원 컨설팅 없이도 대기업 수준의 평가 체계를 구축합니다.</p>
 
   <div class="vp-grid">
-    <div class="vp-card" onclick="openI('ncs')">
+    <div class="vp-card bouncy" onclick="openI('ncs')">
       <div class="icon" data-num="01" data-tag="Standard"></div>
       <div class="vp-body">
         <h3>NCS 국가표준 기반</h3>
@@ -336,7 +349,7 @@ body.i-open{overflow:hidden}
         <div class="metric-lbl">NCS 직무 데이터</div>
       </div>
     </div>
-    <div class="vp-card" onclick="openI('psychometric')">
+    <div class="vp-card bouncy" onclick="openI('psychometric')">
       <div class="icon" data-num="02" data-tag="Methodology"></div>
       <div class="vp-body">
         <h3>심리측정학 방법론</h3>
@@ -347,7 +360,7 @@ body.i-open{overflow:hidden}
         <div class="metric-lbl">신뢰도 기준 (Cronbach's α)</div>
       </div>
     </div>
-    <div class="vp-card" onclick="openI('case_law')">
+    <div class="vp-card bouncy" onclick="openI('case_law')">
       <div class="icon" data-num="03" data-tag="Compliance"></div>
       <div class="vp-body">
         <h3>대법원 판례 반영</h3>
@@ -362,30 +375,77 @@ body.i-open{overflow:hidden}
 </div>
 </section>
 
+<!-- AI ERA - 평가 데이터 누적 -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-label">AI Era</div>
+  <h2 class="section-title">AI 시대, <em>평가 데이터를 미리 쌓아둘</em> 시점입니다</h2>
+  <p class="section-sub">대법원 판례 기준, 저성과자 관리(PIP)의 정당성을 인정받기 위해서는 객관적 평가 데이터의 누적이 필요합니다. 일반적으로 <em>최소 2~3년치</em>의 평가 기록이 권장됩니다.</p>
+
+  <div style="max-width:1100px;margin:0 auto;border-top:1px solid rgba(25,25,25,0.15);border-bottom:1px solid rgba(25,25,25,0.15)">
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid rgba(25,25,25,0.15);background:#FAFAFA">
+      <div style="padding:18px 24px;font-size:13px;font-weight:700;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase">시점</div>
+      <div style="padding:18px 24px;font-size:13px;font-weight:700;color:var(--mint);letter-spacing:1.5px;text-transform:uppercase;border-left:1px solid rgba(25,25,25,0.1)">미리 준비하는 회사</div>
+      <div style="padding:18px 24px;font-size:13px;font-weight:700;color:var(--gray);letter-spacing:1.5px;text-transform:uppercase;border-left:1px solid rgba(25,25,25,0.1)">준비 없이 닥쳐서</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid rgba(25,25,25,0.08)">
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);font-weight:700">2026</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);border-left:1px solid rgba(25,25,25,0.08);background:#F0FDF4;font-weight:600">평가 시스템 도입</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--gray);border-left:1px solid rgba(25,25,25,0.08)">미준비</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid rgba(25,25,25,0.08)">
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);font-weight:700">2027</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);border-left:1px solid rgba(25,25,25,0.08);background:#F0FDF4;font-weight:600">1년차 평가 누적</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--gray);border-left:1px solid rgba(25,25,25,0.08)">미준비</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0;border-bottom:1px solid rgba(25,25,25,0.08)">
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);font-weight:700">2028</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);border-left:1px solid rgba(25,25,25,0.08);background:#F0FDF4;font-weight:600">2년차 평가 누적</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--gray);border-left:1px solid rgba(25,25,25,0.08)">미준비</div>
+    </div>
+    <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:0">
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);font-weight:700">2029<br><span style="font-size:11px;color:var(--gray);font-weight:500;letter-spacing:1px;text-transform:uppercase">관리 필요 시</span></div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--dark);border-left:1px solid rgba(25,25,25,0.08);background:#F0FDF4;font-weight:700">3년치 데이터 → 합법적 PIP 진행 가능</div>
+      <div style="padding:20px 24px;font-size:14.5px;color:var(--gray);border-left:1px solid rgba(25,25,25,0.08)">데이터 부재 → 합법적 진행이 어려움</div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="max-width:1100px;margin:32px auto 0">
+    <h3>평가 시스템 없이 진행한 PIP의 한계</h3>
+    <p>평가 기준의 객관성을 입증하기 어려워 <em style="font-style:normal;color:var(--dark)">부당해고로 인정될 위험</em>이 있고, 회사가 부담하는 합의·복직 임금 등이 누적될 수 있습니다. 사내 인사 시스템 전반의 신뢰에도 영향을 줍니다.</p>
+  </div>
+
+  <p style="text-align:center;font-size:14px;color:var(--gray);margin-top:32px;line-height:1.7;max-width:760px;margin-left:auto;margin-right:auto">
+    구조조정이 임박해서 평가 시스템을 만들면 정당성 입증이 어렵습니다. <em style="font-style:normal;color:var(--dark);font-weight:700">평가 데이터는 미리, 일관되게 누적</em>해 두는 것이 합리적입니다.
+  </p>
+</div>
+</section>
+
 <!-- PRICING -->
-<section class="section section-alt" id="pricing">
+<section class="section" id="pricing">
 <div class="container">
   <div class="section-label">Pricing</div>
   <h2 class="section-title">회사 규모에 맞춘 <em>3가지 플랜</em></h2>
-  <p class="section-sub">직원 수와 원하는 분석 범위에 따라 선택하세요. 견적은 무료입니다.</p>
+  <p class="section-sub">직원 수에 따른 <em>정액제</em>입니다. 추가 비용 없이 한 번에 책정.</p>
 
   <div class="price-grid">
     <div class="price-card">
       <div class="price-name">Basic</div>
-      <div class="price-amount">500,000<span class="won">원부터</span></div>
-      <div class="price-desc">10~20인 · 기본 평가 체계 구축</div>
+      <div class="price-amount">500,000<span class="won">원</span></div>
+      <div class="price-desc">10~20인 · 진단 + 기본 패키지</div>
       <ul class="price-features">
         <li>NCS 기반 직무별 평가지표 설계</li>
         <li>자기평가 + 상사평가</li>
         <li>전사·부서·개인별 리포트</li>
         <li>신뢰도 검증 리포트</li>
+        <li style="color:var(--gray);font-style:italic;padding-top:8px">⚠ 진단·기본 평가지표 설계까지. 풀 셋업·결과 분석은 Standard 이상 권장.</li>
       </ul>
     </div>
 
     <div class="price-card popular">
       <span class="price-badge">MOST POPULAR</span>
       <div class="price-name">Standard</div>
-      <div class="price-amount">1,000,000<span class="won">원부터</span></div>
+      <div class="price-amount">1,000,000<span class="won">원</span></div>
       <div class="price-desc">20~40인 · 표준 패키지</div>
       <ul class="price-features">
         <li>Basic 플랜 전체 포함</li>
@@ -398,7 +458,7 @@ body.i-open{overflow:hidden}
 
     <div class="price-card">
       <div class="price-name">Advanced</div>
-      <div class="price-amount">2,000,000<span class="won">원부터</span></div>
+      <div class="price-amount">2,000,000<span class="won">원</span></div>
       <div class="price-desc">40인 이상 · 연간 관리 포함</div>
       <ul class="price-features">
         <li>Standard 플랜 전체 포함</li>
@@ -410,7 +470,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
   </div>
-  <p style="text-align:center;font-size:13px;color:var(--gray2);margin-top:28px">VAT 별도 · 직원 수·직무 수에 따라 최종 금액은 달라집니다. 견적은 무료로 안내드립니다.</p>
+  <p style="text-align:center;font-size:13px;color:var(--gray2);margin-top:28px">VAT 별도</p>
 </div>
 </section>
 
@@ -422,7 +482,7 @@ body.i-open{overflow:hidden}
   <p class="section-sub">평가 설계부터 결과 분석까지, 한 번에 해결합니다.</p>
 
   <div class="feat-grid">
-    <div class="feat-card" onclick="openI('compsep')">
+    <div class="feat-card bouncy" onclick="openI('compsep')">
       <span class="num">01</span>
       <h3>역량·성과 분리 평가</h3>
       <p>'무엇을 했는가(성과)'와 '어떻게 했는가(역량)'를 분리해 평가합니다.</p>
@@ -433,7 +493,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
 
-    <div class="feat-card" onclick="openI('tscore')">
+    <div class="feat-card bouncy" onclick="openI('tscore')">
       <span class="num">02</span>
       <h3>표준점수 기반 비교</h3>
       <p>부서·직급·평가자별 편차를 T점수로 보정해 공정 비교 가능.</p>
@@ -444,7 +504,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
 
-    <div class="feat-card" onclick="openI('rater')">
+    <div class="feat-card bouncy" onclick="openI('rater')">
       <span class="num">03</span>
       <h3>평가자 성향 보정</h3>
       <p>관대화·엄격화·중심화 경향을 자동 탐지해 경고 + 보정.</p>
@@ -455,7 +515,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
 
-    <div class="feat-card" onclick="openI('predict')">
+    <div class="feat-card bouncy" onclick="openI('predict')">
       <span class="num">04</span>
       <h3>성과 예측도 분석</h3>
       <p>역량과 실제 성과의 상관관계를 분석해 핵심역량 도출.</p>
@@ -478,7 +538,7 @@ body.i-open{overflow:hidden}
 
   <div class="del-grid">
     <div class="del-card">
-      <h4>📈 전사 종합 리포트</h4>
+      <h4>전사 종합 리포트</h4>
       <ul>
         <li>전체 평균·분포</li>
         <li>부서별 비교</li>
@@ -487,7 +547,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
     <div class="del-card">
-      <h4>👤 개인별 결과표</h4>
+      <h4>개인별 결과표</h4>
       <ul>
         <li>역량·성과 개별 점수</li>
         <li>부서·전사 백분위</li>
@@ -496,7 +556,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
     <div class="del-card">
-      <h4>🔍 신뢰도·타당도 검증</h4>
+      <h4>신뢰도·타당도 검증</h4>
       <ul>
         <li>Cronbach's α 리포트</li>
         <li>평가자 성향 분석</li>
@@ -505,7 +565,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
     <div class="del-card">
-      <h4>🎯 성과 예측 분석</h4>
+      <h4>성과 예측 분석</h4>
       <ul>
         <li>핵심역량 도출</li>
         <li>역량·성과 상관표</li>
@@ -514,7 +574,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
     <div class="del-card">
-      <h4>⚠️ 저성과자 관리 가이드</h4>
+      <h4>저성과자 관리 가이드</h4>
       <ul>
         <li>PIP(성과개선계획) 양식</li>
         <li>대법원 판례 기준 반영</li>
@@ -523,7 +583,7 @@ body.i-open{overflow:hidden}
       </ul>
     </div>
     <div class="del-card">
-      <h4>💼 보상 설계 가이드</h4>
+      <h4>보상 설계 가이드</h4>
       <ul>
         <li>등급별 보상 연계 방안</li>
         <li>임금체계 정비 제안</li>
@@ -593,7 +653,7 @@ body.i-open{overflow:hidden}
   <div class="section-label">FAQ</div>
   <h2 class="section-title">자주 묻는 질문</h2>
   <div class="faq-list" style="margin-top:48px">
-    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">직원이 10명 미만이어도 도입할 수 있나요?</div><div class="faq-a"><p>가능하지만 통계적 분석의 신뢰도가 낮아져 <em>표준점수·평가자 보정</em> 같은 핵심 기능의 의미가 줄어듭니다. 소규모 팀은 간단한 목표관리(MBO) 형태를 먼저 권장드리며, 자문 서비스로 상담 후 결정하시는 편이 좋습니다.</p></div></div>
+    <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">직원이 10명 미만이어도 도입할 수 있나요?</div><div class="faq-a"><p>가능은 하지만, <em>권장하지는 않습니다</em>. 직원 수가 적으면 통계적 분석의 신뢰도가 낮아지고, 평가자도 1~2명에 한정되어 객관성 확보가 어렵습니다. 또한 평가 항목을 표준화해도 직무가 겹치는 경우가 많아 <em>차등 평가의 의미가 줄어듭니다.</em></p><p style="margin-top:14px">10명 미만 사업장에는 정식 평가 체계보다 다음 방식을 권장드립니다.</p><ul style="margin-top:10px;padding-left:20px;font-size:14.5px;line-height:1.85;color:var(--gray);font-weight:500"><li>분기별 1:1 면담 + 사실 기록 누적 (날짜·내용·개선 합의 사항)</li><li>자문 서비스(13만원~)로 상담 후, 회사 상황에 맞는 간단한 평가 양식 설계</li></ul><p style="margin-top:14px">평가 데이터를 누적하실 계획이라면, 직원이 10명 이상으로 늘어난 시점에 정식 도입을 검토하시는 편이 효율적입니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">기존에 쓰던 평가 양식이 있는데 그대로 쓸 수 있나요?</div><div class="faq-a"><p>기존 양식을 검토한 뒤 <em>NCS 기반 표준 체계</em>로 전환하는 것을 권장합니다. 기존 양식은 주관적 서술 위주라 통계 분석이 어려운 경우가 많습니다. 다만 회사 고유의 가치·문화 항목은 별도 섹션으로 유지 가능합니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">평가 결과가 해고·감급의 근거가 될 수 있나요?</div><div class="faq-a"><p>단독 근거로는 <em>부족합니다</em>. 대법원 판례는 저성과 해고 시 ①객관적·합리적 평가 ②개선 기회(PIP) 제공 ③반복된 기록 등을 요구합니다. HRer 평가 결과 + 체계적 PIP 기록이 결합될 때 법적 방어력이 생깁니다. 이 흐름을 Advanced 플랜에서 함께 설계합니다.</p></div></div>
     <div class="faq-item"><div class="faq-q" onclick="this.parentElement.classList.toggle('active')">인사담당자 없이도 운영할 수 있나요?</div><div class="faq-a"><p>가능합니다. 평가 설계·발송·분석·리포트 모두 HRer가 수행하며, 대표님 또는 담당자 한 분과만 소통하면 됩니다. 직원별 링크 발송도 자동화되어 있어 추가 관리 부담이 적습니다.</p></div></div>
@@ -607,8 +667,8 @@ body.i-open{overflow:hidden}
 <section class="cta-banner">
 <div class="container">
   <h2>평가 시즌 전에, 체계부터 만드세요</h2>
-  <p>견적 문의는 무료. 회사 상황에 맞는 플랜을 안내해드립니다.</p>
-  <a href="/order_hr_evaluation" class="btn-mint">견적 문의하기</a>
+  <p>회사 규모에 맞는 정액 플랜으로 바로 시작하실 수 있습니다.</p>
+  <a href="/order_hr_evaluation" class="btn-mint">서비스 의뢰하기</a>
 </div>
 </section>
 
