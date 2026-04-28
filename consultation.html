@@ -405,9 +405,9 @@ body.i-open{overflow:hidden}
   .cost-row:last-child{border-bottom:none}
   .cost-row:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 14px 32px rgba(0,0,0,0.08);background:#fff}
   .cost-row:active{transform:translateY(0) scale(0.99);transition-duration:0.15s}
-  .cost-num{display:inline-block;line-height:1;white-space:nowrap;font-size:48px;font-weight:900;color:transparent;-webkit-text-stroke:1.5px var(--dark);letter-spacing:-1.8px;font-variant-numeric:tabular-nums;transition:color 0.25s ease,-webkit-text-stroke-color 0.25s ease}
+  .cost-num{display:inline-block;line-height:1.1;white-space:nowrap;font-size:42px;font-weight:800;color:transparent;-webkit-text-stroke:1px var(--dark);letter-spacing:0.5px;font-variant-numeric:tabular-nums;transition:color 0.25s ease,-webkit-text-stroke-color 0.25s ease}
   .cost-row:hover .cost-num{color:var(--mint);-webkit-text-stroke-color:var(--mint)}
-  .cost-num .unit{font-size:0.5em;letter-spacing:-0.5px;margin-left:2px}
+  .cost-num .unit{font-size:0.55em;letter-spacing:1px;margin-left:6px}
   .cost-en{display:block;font-size:13px;font-weight:700;color:var(--dark);letter-spacing:1.5px;text-transform:uppercase;margin-top:14px;-webkit-text-stroke:0;white-space:normal}
   .cost-body h4{font-size:clamp(17px,1.6vw,20px);font-weight:800;margin:0 0 10px;letter-spacing:-0.4px;line-height:1.35}
   .cost-body p{font-size:14px;color:var(--gray);line-height:1.7;margin:0 0 8px;font-weight:500}
@@ -470,42 +470,42 @@ body.i-open{overflow:hidden}
 <section class="section" id="tiers">
 <div class="container">
   <div class="section-label">Pricing</div>
-  <h2 class="section-title">질의 분량에 맞춰 <em>3가지 티어</em></h2>
-  <p class="section-sub">문의 내용의 분량과 복잡도에 따라 자동 분류됩니다. 어떤 티어인지 확인이 어려우면 일단 간편자문으로 보내주세요. 필요 시 다른 티어로 안내드립니다.</p>
+  <h2 class="section-title">질문 분량에 따라 <em>자동 분류</em></h2>
+  <p class="section-sub">의뢰 폼에 작성하신 <em>질문 글자수</em>를 기준으로 등급이 자동 결정됩니다. 어떤 등급인지 확인이 어려우면 일단 간편자문으로 보내주세요. 검토 후 다른 등급이 적합하면 진행 전 안내드립니다.</p>
 
   <div class="tier-grid">
-    <div class="tier-card" onclick="openI('simple')">
+    <div class="tier-card popular" onclick="openI('simple')">
       <div class="tier-name">
         <span class="tier-idx">T1</span>
         <span class="tier-en">Simple</span>
+        <span class="tier-popular-badge">— Most Popular</span>
       </div>
       <div>
         <div class="tier-price">130,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 143,000원</div>
-        <div class="tier-desc">간단한 질의 · 1건 · 1,000자 이내</div>
+        <div class="tier-desc"><em style="font-style:normal;color:var(--mint);font-weight:700">질문 600자 이하</em> · 답변 약 1,000자 내외 · 24시간 이내</div>
       </div>
       <div>
         <ul class="tier-features">
-          <li>단일 쟁점 질의 응답</li>
-          <li>관련 법령·행정해석 인용</li>
-          <li>실무적 권고 포함</li>
-          <li>영업일 24시간 이내</li>
-          <li>추가 질의 1회 무료</li>
+          <li><em style="font-style:normal;color:var(--mint);font-weight:700">검증된 인용</em> — 24만건 DB에서 실제 확인한 법령·판례·행정해석</li>
+          <li>단일 쟁점에 <em style="font-style:normal;color:var(--dark);font-weight:700">명료한 결론</em> (모호한 일반론 없음)</li>
+          <li>영업일 <em style="font-style:normal;color:var(--dark);font-weight:700">24시간 이내</em> 이메일 답변</li>
+          <li>답변 후 3일 이내 추가 질의 1회 무료</li>
+          <li>공인노무사 직접 작성·서명 (직무 책임 보증)</li>
         </ul>
-        <p class="tier-note">"연차가 이월되나요?", "퇴직금 중간정산 가능한가요?" 등 <em>단일 쟁점</em>에 적합.</p>
+        <p class="tier-note"><em>"연차가 이월되나요?", "퇴직금 중간정산 가능한가요?"</em> 같은 명확한 한 가지 질문이 있다면 여기로. <em style="font-style:normal;color:var(--mint);font-weight:700">가장 많은 분들이 선택하는 시작점</em>입니다.</p>
       </div>
     </div>
 
-    <div class="tier-card popular" onclick="openI('deep')">
+    <div class="tier-card" onclick="openI('deep')">
       <div class="tier-name">
         <span class="tier-idx">T2</span>
         <span class="tier-en">Deep</span>
-        <span class="tier-popular-badge">— Most Popular</span>
       </div>
       <div>
         <div class="tier-price">180,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 198,000원</div>
-        <div class="tier-desc">복합 쟁점 · 1건 · 2,000자 이내</div>
+        <div class="tier-desc"><em style="font-style:normal;color:var(--dark);font-weight:700">질문 600~1,800자</em> · 답변 약 2,000자 내외</div>
       </div>
       <div>
         <ul class="tier-features">
@@ -527,7 +527,7 @@ body.i-open{overflow:hidden}
       <div>
         <div class="tier-price">230,000<span class="won">원</span></div>
         <div class="tier-vat">VAT 포함 253,000원</div>
-        <div class="tier-desc">정식 서면 의견서 · 3,000자 이내</div>
+        <div class="tier-desc"><em style="font-style:normal;color:var(--dark);font-weight:700">질문 1,800자 초과</em> · 정식 의견서 형식</div>
       </div>
       <div>
         <ul class="tier-features">
@@ -540,6 +540,19 @@ body.i-open{overflow:hidden}
         <p class="tier-note">사내 회람·이사회 보고·거래처 제출 등 <em>공식 문서</em>가 필요할 때 적합.</p>
       </div>
     </div>
+  </div>
+
+  <!-- 분류 기준·예외 처리 사전 고지 -->
+  <div style="max-width:1100px;margin:32px auto 0;padding:20px 24px;background:#FAFAFA;border:1px solid rgba(25,25,25,0.08);border-radius:10px;font-size:13.5px;line-height:1.85;color:var(--dark)">
+    <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:10px">분류 기준</div>
+    <p style="margin:0 0 6px;font-weight:500"><strong style="font-weight:700">결제하신 등급은 의뢰 폼에 작성하신 질문 글자수 기준으로 자동 분류</strong>됩니다.</p>
+    <p style="margin:0 0 6px;font-weight:500;color:var(--gray)">첨부 파일 개수·분량은 가격 분류에 반영하지 않습니다 — 자유롭게 첨부해주세요.</p>
+    <p style="margin:8px 0 0;font-weight:500;color:var(--gray)">검토 후 다음의 경우 답변 작성 시작 전 안내드립니다.</p>
+    <ul style="margin:6px 0 0;padding-left:20px;color:var(--gray);font-weight:500">
+      <li>사안 깊이에 비해 등급 상향이 적합한 경우 (자문 트랙 내)</li>
+      <li>사건·조사·평가 등 다른 트랙이 더 적합한 경우</li>
+    </ul>
+    <p style="margin:8px 0 0;font-weight:500;color:var(--gray)">안내 후 동의 시 진행, 미동의 시 결제 등급 범위 내에서 답변합니다.</p>
   </div>
 
   <!-- MONTHLY NUDGE -->

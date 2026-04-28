@@ -235,22 +235,24 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <div class="section-title">서비스 단계 선택</div>
     <div class="section-desc">질문의 성격과 필요한 답변 수준에 맞게 선택하세요.</div>
     <div class="plan-grid">
-      <label class="plan-card" id="plan-simple" onclick="selectPlan('simple', 143000)">
-        <input type="radio" name="plan" value="simple">
+      <label class="plan-card selected" id="plan-simple" onclick="selectPlan('simple', 143000)">
+        <input type="radio" name="plan" value="simple" checked>
+        <div class="plan-badge">추천</div>
         <div class="plan-check"></div>
         <div class="plan-name">간편 자문</div>
         <div class="plan-price">130,000<span>원</span></div>
         <div style="font-size:12px;color:var(--gray2);margin-bottom:8px"><em>VAT (10%) 포함 143,000원</em></div>
-        <div class="plan-desc">단순 법령 해석, 빠른 답변이 필요한 질문에 적합합니다.</div>
+        <div style="font-size:12px;font-weight:700;color:var(--mint);margin-bottom:6px;letter-spacing:0.3px">질문 600자 이하</div>
+        <div class="plan-desc">한 가지 쟁점에 대한 명료한 답변. 24시간 이내 + 검증된 인용. 가장 많은 분들이 시작하는 옵션입니다.</div>
       </label>
-      <label class="plan-card selected" id="plan-precise" onclick="selectPlan('precise', 198000)">
-        <input type="radio" name="plan" value="precise" checked>
-        <div class="plan-badge">추천</div>
+      <label class="plan-card" id="plan-precise" onclick="selectPlan('precise', 198000)">
+        <input type="radio" name="plan" value="precise">
         <div class="plan-check"></div>
         <div class="plan-name">심층 자문</div>
         <div class="plan-price">180,000<span>원</span></div>
         <div style="font-size:12px;color:var(--gray2);margin-bottom:8px"><em>VAT (10%) 포함 198,000원</em></div>
-        <div class="plan-desc">쟁점 분석·판례·행정해석 교차 검토. 대부분의 자문에 적합합니다.</div>
+        <div style="font-size:12px;font-weight:700;color:var(--mint);margin-bottom:6px;letter-spacing:0.3px">질문 600~1,800자</div>
+        <div class="plan-desc">쟁점 분석·판례·행정해석 교차 검토. 복합 사안에 적합합니다.</div>
       </label>
       <label class="plan-card" id="plan-written" onclick="selectPlan('written', 253000)">
         <input type="radio" name="plan" value="written">
@@ -258,8 +260,15 @@ em{font-style:normal;color:var(--mint);font-weight:700}
         <div class="plan-name">의견서</div>
         <div class="plan-price">230,000<span>원</span></div>
         <div style="font-size:12px;color:var(--gray2);margin-bottom:8px"><em>VAT (10%) 포함 253,000원</em></div>
-        <div class="plan-desc">정식 의견서 형태의 서면 답변입니다.</div>
+        <div style="font-size:12px;font-weight:700;color:var(--mint);margin-bottom:6px;letter-spacing:0.3px">질문 1,800자 초과</div>
+        <div class="plan-desc">정식 의견서 형태의 서면 답변. 사내 보고·이사회·거래처 제출용.</div>
       </label>
+    </div>
+
+    <!-- 분류 기준 사전 고지 -->
+    <div style="margin-top:8px;padding:14px 16px;background:#FAFAFA;border:1px solid var(--border);border-radius:8px;font-size:12.5px;line-height:1.75;color:var(--gray)">
+      <strong style="color:var(--dark);font-weight:700">분류 기준</strong> · 등급은 아래 작성하시는 <em style="font-style:normal;color:var(--dark);font-weight:700">질문 글자수</em>에 따라 자동 결정됩니다. 첨부 파일 개수·분량은 가격 분류에 반영하지 않습니다.<br>
+      검토 후 사안 깊이에 비해 등급 상향이 적합하거나, 사건·조사·평가 등 다른 트랙이 더 적합하면 답변 작성 전 안내드립니다. 안내 후 동의 시 진행, 미동의 시 결제 등급 범위 내에서 답변합니다.
     </div>
   </div>
 
@@ -363,7 +372,15 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <div class="form-grid">
       <div class="form-group form-full">
         <label>질문 내용 <span class="required">*</span></label>
-        <textarea id="question" placeholder="예: 입사 후 6개월 된 직원이 퇴직 의사를 밝혔는데, 이 직원의 미사용 연차는 어떻게 정산해야 하나요? 입사일은 2025년 10월 1일이고, 퇴직 예정일은 2026년 4월 30일입니다." required></textarea>
+        <textarea id="question" placeholder="예: 입사 후 6개월 된 직원이 퇴직 의사를 밝혔는데, 이 직원의 미사용 연차는 어떻게 정산해야 하나요? 입사일은 2025년 10월 1일이고, 퇴직 예정일은 2026년 4월 30일입니다." required oninput="updateCharCounter()"></textarea>
+        <!-- 글자수 자동 분류 카운터 -->
+        <div id="char-counter-wrap" style="margin-top:10px;padding:14px 16px;background:#FAFAFA;border:1px solid var(--border);border-radius:8px;font-size:13px;line-height:1.7">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+            <span style="color:var(--gray);font-weight:500">현재 입력: <strong id="cc-count" style="color:var(--dark);font-weight:700;font-variant-numeric:tabular-nums">0</strong>자</span>
+            <span id="cc-grade-line" style="font-size:12px;color:var(--gray2);font-weight:600;letter-spacing:0.3px">질문을 입력하면 등급이 자동 결정됩니다</span>
+          </div>
+          <div id="cc-tip" style="font-size:12px;color:var(--gray2);font-weight:500;display:none"></div>
+        </div>
       </div>
       <div class="form-group form-full">
         <label>관련 자료 첨부 <span style="font-size:12px;font-weight:400;color:var(--gray2)">(선택)</span></label>
@@ -676,9 +693,68 @@ function selectPlan(key, price) {
   currentPlan = key;
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   document.getElementById('plan-' + key).classList.add('selected');
+  // radio input도 동기화
+  const radio = document.querySelector('input[name="plan"][value="' + key + '"]');
+  if (radio) radio.checked = true;
   document.getElementById('summary-plan').textContent = PLANS[key].label;
   document.getElementById('summary-price').innerHTML = price.toLocaleString() + '<span>원</span>';
   if (paymentWidget) paymentWidget.updateAmount(price);
+}
+
+// ─── 글자수 자동 분류 (가격 정책 v1.0) ─────────────────
+// 질문 글자수만으로 등급 결정. 첨부 개수·페이지 수는 영향 없음.
+function classifyByChars(charCount) {
+  if (charCount <= 600)  return { key: 'simple',  price: 143000, label: '간편자문' };
+  if (charCount <= 1800) return { key: 'precise', price: 198000, label: '심층자문' };
+  return { key: 'written', price: 253000, label: '정식서면' };
+}
+
+function countChars(text) {
+  // 양 끝 공백 제거 + 연속 공백·줄바꿈을 하나로 압축
+  const normalized = (text || '').trim().replace(/\s+/g, ' ');
+  return normalized.length;
+}
+
+function updateCharCounter() {
+  const text = document.getElementById('question').value;
+  const count = countChars(text);
+  const cls = classifyByChars(count);
+
+  // 글자수 표시
+  document.getElementById('cc-count').textContent = count.toLocaleString();
+
+  // 등급/가격 라인
+  const gradeLine = document.getElementById('cc-grade-line');
+  if (count === 0) {
+    gradeLine.textContent = '질문을 입력하면 등급이 자동 결정됩니다';
+    gradeLine.style.color = 'var(--gray2)';
+  } else {
+    gradeLine.innerHTML = '현재 등급: <strong style="color:var(--mint);font-weight:700">' + cls.label + '</strong> · ' + cls.price.toLocaleString() + '원 (VAT 포함)';
+    gradeLine.style.color = 'var(--gray)';
+  }
+
+  // 분기점 ±50자 근처 안내
+  const tip = document.getElementById('cc-tip');
+  let tipText = '';
+  if (count > 0 && count <= 600 && count >= 550) {
+    tipText = '⚠ 600자 초과 시 심층자문(VAT 포함 198,000원)으로 자동 전환됩니다.';
+  } else if (count > 600 && count <= 1800 && count >= 1750) {
+    tipText = '⚠ 1,800자 초과 시 정식서면(VAT 포함 253,000원)으로 자동 전환됩니다.';
+  } else if (count > 0 && count < 50) {
+    tipText = '최소 50자 이상 작성해주세요.';
+  }
+  if (tipText) {
+    tip.textContent = tipText;
+    tip.style.display = 'block';
+    tip.style.color = '#B45309';
+  } else {
+    tip.style.display = 'none';
+  }
+
+  // 등급 자동 변경 (사용자가 수동 선택했어도 글자수에 맞게 재조정)
+  if (count >= 50 && cls.key !== currentPlan) {
+    selectPlan(cls.key, cls.price);
+  }
 }
 
 // ─── 파일명 표시 ───────────────────────────────────────
