@@ -458,6 +458,8 @@ const MONTHLY_TIERS = {
 };
 let currentPlan = 'precise';
 let paymentWidget = null;
+let widgetReady = false;          // 위젯 렌더 완료 여부
+let widgetInitPromise = null;     // 진행 중인 초기화 Promise
 let isMonthlyMode = false;
 
 // ─── Toss Payments 초기화 ─────────────────────────────
@@ -465,9 +467,38 @@ const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
 const customerKey = 'HRer_' + Math.random().toString(36).slice(2, 10);
 
 async function initPaymentWidget(price) {
-  paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
-  await paymentWidget.renderPaymentMethods('#payment-widget', { value: price }, { variantKey: 'DEFAULT' });
-  await paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
+  // 결제 버튼 비활성화 (초기화 완료 전 클릭 방지)
+  const btn = document.getElementById('btn-submit');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '결제 모듈 준비 중...';
+  }
+  // #payment-widget에 로딩 안내 표시
+  const widgetEl = document.getElementById('payment-widget');
+  if (widgetEl) {
+    widgetEl.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--gray2);font-size:14px">결제 모듈을 불러오는 중입니다…</div>';
+  }
+  try {
+    paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
+    await paymentWidget.renderPaymentMethods('#payment-widget', { value: price }, { variantKey: 'DEFAULT' });
+    await paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
+    widgetReady = true;
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '결제하고 의뢰하기';
+    }
+  } catch (err) {
+    widgetReady = false;
+    paymentWidget = null;
+    if (widgetEl) {
+      widgetEl.innerHTML = '<div style="padding:32px 20px;text-align:center;color:#B45309;font-size:14px;line-height:1.7;background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px"><strong>결제 모듈을 불러오지 못했습니다.</strong><br><span style="font-size:12.5px;color:var(--gray)">잠시 후 페이지를 새로고침하시거나 contact@hrer.kr 으로 문의해주세요.</span></div>';
+    }
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '결제 모듈 오류';
+    }
+    console.error('payment_widget_init_fail', err);
+  }
 }
 
 // 위젯 초기화 (결제 실패 파라미터 처리만, 성공은 /complete 에서)
@@ -705,6 +736,13 @@ async function requestPayment() {
   } catch(e){}
 
   const btn = document.getElementById('btn-submit');
+
+  // 위젯 준비 상태 검증
+  if (!paymentWidget || !widgetReady) {
+    alert('결제 모듈이 아직 준비 중입니다. 잠시 후 다시 시도해주세요.\n계속 같은 메시지가 보이면 페이지를 새로고침하시거나 contact@hrer.kr 으로 문의해주세요.');
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = '결제창 여는 중...';
 
@@ -719,8 +757,12 @@ async function requestPayment() {
       failUrl: location.origin + '/complete?fail=1&orderId=' + orderId + '&code={CODE}&message={MESSAGE}',
     });
   } catch (e) {
-    if (e.code !== 'USER_CANCEL') {
-      alert('결제 중 오류가 발생했습니다: ' + (e.message || e.code));
+    if (e.code === 'USER_CANCEL') {
+      // 사용자 취소는 알림 생략
+    } else if (e.code === 'NEED_AGREEMENT' || (e.message || '').includes('약관')) {
+      alert('결제 약관에 동의해주세요.');
+    } else {
+      alert('결제 중 오류가 발생했습니다: ' + (e.message || e.code || '알 수 없는 오류'));
     }
     btn.disabled = false;
     btn.textContent = '결제하고 의뢰하기';
