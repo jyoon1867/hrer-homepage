@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://js.tosspayments.com/v1/payment-widget"></script>
+<script src="https://js.tosspayments.com/v2/standard"></script>
 <style>
 html{overflow-y:scroll;scrollbar-gutter:stable}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -474,13 +474,14 @@ const MONTHLY_TIERS = {
   starter:  {key:'starter',  label:'Starter 월 구독 (10인 미만)', price:150000, firstMonth:105000, requiresProof:true},
 };
 let currentPlan = 'precise';
+let tossPayments = null;
 let paymentWidget = null;
 let widgetReady = false;          // 위젯 렌더 완료 여부
 let widgetInitPromise = null;     // 진행 중인 초기화 Promise
 let isMonthlyMode = false;
 
-// ─── Toss Payments 초기화 ─────────────────────────────
-const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
+// ─── Toss Payments 초기화 (SDK v2) ─────────────────────
+const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 const customerKey = 'HRer_' + Math.random().toString(36).slice(2, 10);
 
 async function initPaymentWidget(price) {
@@ -496,9 +497,11 @@ async function initPaymentWidget(price) {
     widgetEl.innerHTML = '<div style="padding:40px 20px;text-align:center;color:var(--gray2);font-size:14px">결제 모듈을 불러오는 중입니다…</div>';
   }
   try {
-    paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
-    await paymentWidget.renderPaymentMethods('#payment-widget', { value: price }, { variantKey: 'DEFAULT' });
-    await paymentWidget.renderAgreement('#agreement', { variantKey: 'AGREEMENT' });
+    tossPayments = TossPayments(clientKey);
+    paymentWidget = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS });
+    await paymentWidget.setAmount({ currency: 'KRW', value: price });
+    await paymentWidget.renderPaymentMethods({ selector: '#payment-widget', variantKey: 'DEFAULT' });
+    await paymentWidget.renderAgreement({ selector: '#agreement', variantKey: 'AGREEMENT' });
     widgetReady = true;
     if (btn) {
       btn.disabled = false;
@@ -698,7 +701,7 @@ function selectPlan(key, price) {
   if (radio) radio.checked = true;
   document.getElementById('summary-plan').textContent = PLANS[key].label;
   document.getElementById('summary-price').innerHTML = price.toLocaleString() + '<span>원</span>';
-  if (paymentWidget) paymentWidget.updateAmount(price);
+  if (paymentWidget) paymentWidget.setAmount({ currency: 'KRW', value: price });
 }
 
 // ─── 글자수 자동 분류 (가격 정책 v1.0) ─────────────────
