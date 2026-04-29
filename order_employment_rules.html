@@ -187,6 +187,11 @@ em{font-style:normal;color:var(--mint);font-weight:700}
 <div class="form-container">
 
   <div class="track-switcher">
+    <button type="button" class="track-btn" id="track-review" onclick="switchTrack('review')">
+      <div class="icon">🔍</div>
+      <div class="name">규정 검토</div>
+      <div class="hint">위법·미흡 진단</div>
+    </button>
     <button type="button" class="track-btn" id="track-new" onclick="switchTrack('new')">
       <div class="icon">🆕</div>
       <div class="name">신규 제정</div>
@@ -195,7 +200,7 @@ em{font-style:normal;color:var(--mint);font-weight:700}
     <button type="button" class="track-btn" id="track-modify" onclick="switchTrack('modify')">
       <div class="icon">🔄</div>
       <div class="name">기존 변경</div>
-      <div class="hint">이미 있는 규칙 개정</div>
+      <div class="hint">검토 + 개정안 + 신구대조표</div>
     </button>
   </div>
 
@@ -428,14 +433,23 @@ function switchTrack(track){
   document.querySelectorAll('.track-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('track-'+track).classList.add('active');
 
-  if(track === 'new'){
+  if(track === 'review'){
+    document.getElementById('page-badge').textContent = '규정 검토 의뢰';
+    document.getElementById('page-title').innerHTML = '취업규칙 <em>검토</em> 의뢰';
+    document.getElementById('page-subtitle').textContent = '현행 규정의 위법·미흡 조항을 진단하고 개정 우선순위를 정리해 드립니다.';
+    document.getElementById('section-new').style.display = 'none';
+    document.getElementById('section-modify').style.display = 'block';
+    document.getElementById('summary-plan').textContent = '규정 검토 (진단 보고서)';
+    document.getElementById('summary-amount').innerHTML = '200,000<span>원 (VAT 별도)</span>';
+    document.getElementById('process-desc').textContent = '① 접수 확인(영업일 24시간 이내) → ② 현행 규정 분석 → ③ 위법·미흡 진단 보고서 작성(영업일 5일 이내) → ④ 보고서 송부 + 질의 1회 포함';
+  }else if(track === 'new'){
     document.getElementById('page-badge').textContent = '신규 제정 의뢰';
     document.getElementById('page-title').innerHTML = '취업규칙 <em>신규 제정</em> 의뢰';
     document.getElementById('page-subtitle').textContent = '2026 법 개정 사항이 전부 반영된 맞춤 취업규칙을 만들어드립니다.';
     document.getElementById('section-new').style.display = 'block';
     document.getElementById('section-modify').style.display = 'none';
     document.getElementById('summary-plan').textContent = '신규 제정';
-    document.getElementById('summary-amount').innerHTML = '800,000<span>원 (VAT 별도)</span>';
+    document.getElementById('summary-amount').innerHTML = '400,000<span>원 (VAT 별도)</span>';
     document.getElementById('process-desc').textContent = '① 접수 확인(영업일 24시간 이내) → ② 초안 작성(3~5일) → ③ 초안 송부 + 수정 요청 1회 포함 → ④ 최종본 + 의견청취서 + 근로자 과반수 동의·의견청취 안내서 납품';
   }else{
     document.getElementById('page-badge').textContent = '기존 변경 의뢰';
@@ -529,7 +543,9 @@ async function submitOrder(){
 (function(){
   const params = new URLSearchParams(location.search);
   const t = params.get('type');
-  switchTrack(t === 'modify' ? 'modify' : 'new');
+  if (t === 'review') switchTrack('review');
+  else if (t === 'modify') switchTrack('modify');
+  else switchTrack('new');
 })();
 </script>
 
